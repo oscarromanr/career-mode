@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Mode '26 — Football Career Simulator</title>
+  <meta name="description" content="From 14-year-old academy prospect to football legend. A dark-mode career simulator.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <section id="screen-setup"></section>
+    <section id="screen-game" class="hidden">
+      <div class="game-grid">
+        <aside id="player-panel"></aside>
+        <main id="stage-panel"></main>
+        <aside id="history-panel"></aside>
+      </div>
+    </section>
+    <section id="screen-summary" class="hidden"></section>
+  </div>
+  <div id="modal-root"></div>
+  <div id="confetti-root"></div>
+
+  <script src="js/badges.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

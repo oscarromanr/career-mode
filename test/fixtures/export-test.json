@@ -1,0 +1,687 @@
+{
+  "version": 2,
+  "player": {
+    "name": "Lío Fernández",
+    "number": 10,
+    "position": "ST",
+    "countryId": "AR",
+    "isGK": false,
+    "stats": {
+      "PAC": 92,
+      "DRI": 82,
+      "SHO": 84,
+      "MEN": 99,
+      "PAS": 77,
+      "PHY": 99
+    },
+    "potential": 95,
+    "age": 26,
+    "ovr": 88,
+    "tier": "diamond",
+    "value": 82310000,
+    "salary": 9054000,
+    "hype": 0,
+    "stamina": 90,
+    "morale": 73,
+    "peakOvr": 88,
+    "peakOvrYear": 2038,
+    "peakValue": 82310000,
+    "peakValueYear": 2038
+  },
+  "season": 2038,
+  "stage": "club",
+  "club": {
+    "cid": "CO:Independiente Medellín",
+    "loan": false
+  },
+  "pendingForm": 0,
+  "pendingNotes": [],
+  "seasonStatLog": {},
+  "history": [
+    {
+      "year": 2037,
+      "age": 25,
+      "cid": "CO:Independiente Medellín",
+      "clubName": "Independiente Medellín",
+      "countryId": "CO",
+      "league": "Liga BetPlay",
+      "loan": false,
+      "apps": 27,
+      "injured": false,
+      "goals": 14,
+      "assists": 4,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "rating": 7.2,
+      "trophies": [],
+      "caps": 0,
+      "ntGoals": 0,
+      "salary": 2578000,
+      "stamina": 90,
+      "morale": 73,
+      "ovrBefore": 75,
+      "ovrAfter": 76,
+      "valueAfter": 26360000,
+      "statLog": {
+        "MEN": 0,
+        "PHY": 3,
+        "PAC": 1,
+        "DRI": 2,
+        "SHO": 1,
+        "PAS": 2
+      },
+      "notes": []
+    },
+    {
+      "year": 2036,
+      "age": 24,
+      "cid": "CO:Independiente Medellín",
+      "clubName": "Independiente Medellín",
+      "countryId": "CO",
+      "league": "Liga BetPlay",
+      "loan": false,
+      "apps": 25,
+      "injured": false,
+      "goals": 15,
+      "assists": 4,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "rating": 7.2,
+      "trophies": [],
+      "caps": 0,
+      "ntGoals": 0,
+      "salary": 2211000,
+      "stamina": 92,
+      "morale": 76,
+      "ovrBefore": 73,
+      "ovrAfter": 75,
+      "valueAfter": 25310000,
+      "statLog": {
+        "MEN": 2,
+        "PHY": 2,
+        "PAC": 2,
+        "DRI": 2,
+        "SHO": 2
+      },
+      "notes": []
+    },
+    {
+      "year": 2035,
+      "age": 23,
+      "cid": "CO:Independiente Medellín",
+      "clubName": "Independiente Medellín",
+      "countryId": "CO",
+      "league": "Liga BetPlay",
+      "loan": false,
+      "apps": 26,
+      "injured": false,
+      "goals": 12,
+      "assists": 4,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "rating": 7.2,
+      "trophies": [],
+      "caps": 0,
+      "ntGoals": 0,
+      "salary": 1973000,
+      "stamina": 93,
+      "morale": 75,
+      "ovrBefore": 72,
+      "ovrAfter": 73,
+      "valueAfter": 20100000,
+      "statLog": {
+        "PHY": 2,
+        "PAS": 3,
+        "PAC": 1,
+        "DRI": 3,
+        "SHO": 1,
+        "MEN": 3
+      },
+      "notes": [
+        "Signed for Independiente Medellín"
+      ]
+    },
+    {
+      "year": 2034,
+      "age": 22,
+      "cid": "VE:Rayo Zuliano",
+      "clubName": "Rayo Zuliano",
+      "countryId": "VE",
+      "league": "Liga FUTVE",
+      "loan": false,
+      "apps": 34,
+      "injured": false,
+      "goals": 11,
+      "assists": 3,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "rating": 6.8,
+      "trophies": [],
+      "caps": 0,
+      "ntGoals": 0,
+      "salary": 1296000,
+      "stamina": 87,
+      "morale": 73,
+      "ovrBefore": 69,
+      "ovrAfter": 71,
+      "valueAfter": 15600000,
+      "statLog": {
+        "PHY": 2,
+        "PAC": 4,
+        "DRI": 2,
+        "SHO": 1,
+        "MEN": 1,
+        "PAS": 3
+      },
+      "notes": []
+    },
+    {
+      "year": 2033,
+      "age": 21,
+      "cid": "VE:Rayo Zuliano",
+      "clubName": "Rayo Zuliano",
+      "countryId": "VE",
+      "league": "Liga FUTVE",
+      "loan": false,
+      "apps": 28,
+      "injured": false,
+      "goals": 11,
+      "assists": 3,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "rating": 7,
+      "trophies": [],
+      "caps": 0,
+      "ntGoals": 0,
+      "salary": 843000,
+      "stamina": 93,
+      "morale": 74,
+      "ovrBefore": 67,
+      "ovrAfter": 69,
+      "valueAfter": 10490000,
+      "statLog": {
+        "MEN": 5,
+        "PHY": 2,
+        "PAC": 2,
+        "DRI": 4,
+        "SHO": 1,
+        "PAS": 1
+      },
+      "notes": []
+    },
+    {
+      "year": 2032,
+      "age": 20,
+      "cid": "VE:Rayo Zuliano",
+      "clubName": "Rayo Zuliano",
+      "countryId": "VE",
+      "league": "Liga FUTVE",
+      "loan": false,
+      "apps": 30,
+      "injured": false,
+      "goals": 11,
+      "assists": 3,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "rating": 6.8,
+      "trophies": [
+        {
+          "type": "Cup",
+          "name": "Copa Venezuela"
+        }
+      ],
+      "caps": 0,
+      "ntGoals": 0,
+      "salary": 557000,
+      "stamina": 96,
+      "morale": 72,
+      "ovrBefore": 65,
+      "ovrAfter": 67,
+      "valueAfter": 7370000,
+      "statLog": {
+        "MEN": 4,
+        "PAC": 6,
+        "DRI": 3,
+        "SHO": 1,
+        "PAS": 1,
+        "PHY": 2
+      },
+      "notes": []
+    },
+    {
+      "year": 2031,
+      "age": 19,
+      "cid": "VE:Rayo Zuliano",
+      "clubName": "Rayo Zuliano",
+      "countryId": "VE",
+      "league": "Liga FUTVE",
+      "loan": false,
+      "apps": 24,
+      "injured": false,
+      "goals": 7,
+      "assists": 3,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "rating": 6.7,
+      "trophies": [],
+      "caps": 0,
+      "ntGoals": 0,
+      "salary": 290000,
+      "stamina": 100,
+      "morale": 72,
+      "ovrBefore": 62,
+      "ovrAfter": 64,
+      "valueAfter": 4120000,
+      "statLog": {
+        "MEN": 1,
+        "PHY": 4,
+        "PAC": 3,
+        "DRI": 3,
+        "SHO": 2,
+        "PAS": 1
+      },
+      "notes": [
+        "Signed for Rayo Zuliano"
+      ]
+    },
+    {
+      "year": 2030,
+      "age": 18,
+      "cid": "AR:Belgrano",
+      "clubName": "Belgrano",
+      "countryId": "AR",
+      "league": "Primera División",
+      "loan": false,
+      "apps": 12,
+      "injured": false,
+      "goals": 4,
+      "assists": 1,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "rating": 6.6,
+      "trophies": [],
+      "caps": 0,
+      "ntGoals": 0,
+      "salary": 238000,
+      "stamina": 100,
+      "morale": 72,
+      "ovrBefore": 60,
+      "ovrAfter": 62,
+      "valueAfter": 3650000,
+      "statLog": {
+        "PHY": 4,
+        "MEN": 5,
+        "PAC": 3,
+        "DRI": 1,
+        "SHO": 1,
+        "PAS": 1
+      },
+      "notes": []
+    },
+    {
+      "year": 2029,
+      "age": 17,
+      "cid": "AR:Belgrano",
+      "clubName": "Belgrano",
+      "countryId": "AR",
+      "league": "Primera División",
+      "loan": false,
+      "apps": 5,
+      "injured": false,
+      "goals": 2,
+      "assists": 0,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "rating": 6.5,
+      "trophies": [
+        {
+          "type": "League",
+          "name": "Primera División"
+        }
+      ],
+      "caps": 0,
+      "ntGoals": 0,
+      "salary": 31000,
+      "stamina": 100,
+      "morale": 73,
+      "ovrBefore": 58,
+      "ovrAfter": 60,
+      "valueAfter": 2160000,
+      "statLog": {
+        "MEN": 6,
+        "PAC": 1,
+        "DRI": 3,
+        "SHO": 2,
+        "PAS": 1,
+        "PHY": 1
+      },
+      "notes": []
+    },
+    {
+      "year": 2028,
+      "age": 16,
+      "cid": "AR:Belgrano",
+      "clubName": "Belgrano",
+      "countryId": "AR",
+      "league": "Primera División",
+      "loan": false,
+      "apps": 3,
+      "injured": false,
+      "goals": 1,
+      "assists": 0,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "rating": 6.6,
+      "trophies": [],
+      "caps": 0,
+      "ntGoals": 0,
+      "salary": 13000,
+      "stamina": 100,
+      "morale": 72,
+      "ovrBefore": 56,
+      "ovrAfter": 57,
+      "valueAfter": 770000,
+      "statLog": {
+        "MEN": 1,
+        "PAS": 5,
+        "PAC": 3,
+        "DRI": 1,
+        "SHO": 1,
+        "PHY": 4
+      },
+      "notes": []
+    },
+    {
+      "year": 2027,
+      "age": 15,
+      "cid": "AR:Belgrano",
+      "clubName": "Belgrano",
+      "countryId": "AR",
+      "league": "Primera División",
+      "loan": false,
+      "apps": 2,
+      "injured": false,
+      "goals": 1,
+      "assists": 0,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "rating": 6.7,
+      "trophies": [
+        {
+          "type": "Cup",
+          "name": "Copa Argentina"
+        }
+      ],
+      "caps": 0,
+      "ntGoals": 0,
+      "salary": 4000,
+      "stamina": 100,
+      "morale": 66,
+      "ovrBefore": 53,
+      "ovrAfter": 55,
+      "valueAfter": 290000,
+      "statLog": {
+        "PHY": 6,
+        "PAC": 1,
+        "DRI": 1,
+        "SHO": 4,
+        "MEN": 4
+      },
+      "notes": []
+    },
+    {
+      "year": 2026,
+      "age": 14,
+      "cid": "AR:Belgrano",
+      "clubName": "Belgrano",
+      "countryId": "AR",
+      "league": "Primera División",
+      "loan": false,
+      "apps": 2,
+      "injured": false,
+      "goals": 0,
+      "assists": 0,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "rating": 6,
+      "trophies": [],
+      "caps": 0,
+      "ntGoals": 0,
+      "salary": 4000,
+      "stamina": 98,
+      "morale": 65,
+      "ovrBefore": 50,
+      "ovrAfter": 53,
+      "valueAfter": 60000,
+      "statLog": {
+        "SHO": 3,
+        "PAC": 3,
+        "DRI": 4,
+        "MEN": 3,
+        "PAS": 3,
+        "PHY": 2
+      },
+      "notes": [
+        "Joined Belgrano academy"
+      ]
+    }
+  ],
+  "usedDecisions": [
+    "viral-nutmeg",
+    "grandpa-vhs",
+    "first-interview",
+    "rain-session",
+    "coach-rift",
+    "dna-test",
+    "pod-trashtalk",
+    "contract-three-way",
+    "sleep-tracker",
+    "nightclub-leak",
+    "baller-coin"
+  ],
+  "boostPity": 0,
+  "totals": {
+    "apps": 218,
+    "goals": 89,
+    "assists": 25,
+    "saves": 0,
+    "conceded": 0,
+    "cleanSheets": 0,
+    "caps": 0,
+    "ntGoals": 0
+  },
+  "clubStints": {
+    "AR:Belgrano": {
+      "cid": "AR:Belgrano",
+      "seasons": 5,
+      "apps": 24,
+      "goals": 8,
+      "assists": 1,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "firstYear": 2026,
+      "lastYear": 2030,
+      "trophies": [
+        {
+          "type": "Cup",
+          "name": "Copa Argentina"
+        },
+        {
+          "type": "League",
+          "name": "Primera División"
+        }
+      ]
+    },
+    "VE:Rayo Zuliano": {
+      "cid": "VE:Rayo Zuliano",
+      "seasons": 4,
+      "apps": 116,
+      "goals": 40,
+      "assists": 12,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "firstYear": 2031,
+      "lastYear": 2034,
+      "trophies": [
+        {
+          "type": "Cup",
+          "name": "Copa Venezuela"
+        }
+      ]
+    },
+    "CO:Independiente Medellín": {
+      "cid": "CO:Independiente Medellín",
+      "seasons": 3,
+      "apps": 78,
+      "goals": 41,
+      "assists": 12,
+      "saves": 0,
+      "conceded": 0,
+      "cleanSheets": 0,
+      "firstYear": 2035,
+      "lastYear": 2037,
+      "trophies": []
+    }
+  },
+  "ntTrophies": [],
+  "earnings": 10038000,
+  "spent": 0,
+  "shopSeason": 0,
+  "injuryMiss": 0,
+  "injuryShield": false,
+  "superAgent": false,
+  "standings": [
+    {
+      "cid": "CO:Junior",
+      "pts": 49
+    },
+    {
+      "cid": "CO:América de Cali",
+      "pts": 42
+    },
+    {
+      "cid": "CO:Once Caldas",
+      "pts": 42
+    },
+    {
+      "cid": "CO:Millonarios",
+      "pts": 41
+    },
+    {
+      "cid": "CO:Santa Fe",
+      "pts": 41
+    },
+    {
+      "cid": "CO:Independiente Medellín",
+      "pts": 41
+    },
+    {
+      "cid": "CO:Atlético Nacional",
+      "pts": 39
+    },
+    {
+      "cid": "CO:Alianza",
+      "pts": 39
+    },
+    {
+      "cid": "CO:La Equidad",
+      "pts": 38
+    },
+    {
+      "cid": "CO:Deportes Tolima",
+      "pts": 36
+    },
+    {
+      "cid": "CO:Deportivo Pereira",
+      "pts": 35
+    },
+    {
+      "cid": "CO:Deportivo Cali",
+      "pts": 33
+    },
+    {
+      "cid": "CO:Deportivo Pasto",
+      "pts": 33
+    },
+    {
+      "cid": "CO:Águilas Doradas",
+      "pts": 32
+    },
+    {
+      "cid": "CO:Bucaramanga",
+      "pts": 30
+    },
+    {
+      "cid": "CO:Envigado",
+      "pts": 29
+    }
+  ],
+  "retired": false,
+  "retireType": null,
+  "currentOffers": [
+    {
+      "type": "stay",
+      "club": {
+        "cid": "CO:Independiente Medellín",
+        "countryId": "CO",
+        "countryName": "Colombia",
+        "confed": "CONMEBOL",
+        "league": "Liga BetPlay",
+        "cup": "Copa Colombia",
+        "n": "Independiente Medellín",
+        "s": 72,
+        "b": "Independiente Medellin"
+      },
+      "role": "Star player",
+      "note": "Loyalty. The fans sing your name."
+    },
+    {
+      "type": "transfer",
+      "club": {
+        "cid": "IT:Napoli",
+        "countryId": "IT",
+        "countryName": "Italy",
+        "confed": "UEFA",
+        "league": "Serie A",
+        "cup": "Coppa Italia",
+        "n": "Napoli",
+        "s": 87,
+        "b": "Napoli"
+      },
+      "fee": 106300000,
+      "role": "Key starter",
+      "note": "A step up. Bigger stage, bigger pressure."
+    },
+    {
+      "type": "transfer",
+      "club": {
+        "cid": "DE:Bayer Leverkusen",
+        "countryId": "DE",
+        "countryName": "Germany",
+        "confed": "UEFA",
+        "league": "Bundesliga",
+        "cup": "DFB-Pokal",
+        "n": "Bayer Leverkusen",
+        "s": 87,
+        "b": "Bayer 04 Leverkusen"
+      },
+      "fee": 78600000,
+      "role": "Key starter",
+      "note": "A step up. Bigger stage, bigger pressure."
+    }
+  ]
+}
