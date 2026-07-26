@@ -65,9 +65,10 @@
       save();
       const after = (res) => UI.showOutcome(d.title, res.out, res.changes, () => enterBooster());
       if (opt.mini) {
-        // Interactive minigame: penalty zones or timing bar
+        // Interactive minigame: penalty zones, gk penalty or timing bar
         const done = (resultKey) => after(Engine.applyMiniResult(state, d, choice, resultKey));
         if (opt.mini.type === 'penalty') UI.showPenaltyMini(opt.mini, done);
+        else if (opt.mini.type === 'gk_penalty') UI.showGkPenaltyMini(opt.mini, done);
         else UI.showTimingMini(opt.mini, done);
         return;
       }
@@ -265,15 +266,25 @@
       const res = Engine.simulateSeason(state);
       save();
       UI.renderGame(state, handlers); // update card + history behind modal
-      UI.showSeasonResult(state, res, () => {
-        if (state.retired) {
-          clearSave();
-          showScreen('summary');
-          UI.renderSummary($('screen-summary'), state, handlers);
-        } else {
-          enterDecision();
-        }
-      });
+
+      const proceedToSummary = () => {
+        UI.showSeasonResult(state, res, () => {
+          if (state.retired) {
+            clearSave();
+            showScreen('summary');
+            UI.renderSummary($('screen-summary'), state, handlers);
+          } else {
+            enterDecision();
+          }
+        });
+      };
+
+      if (state.triggerNtCallUpModal) {
+        state.triggerNtCallUpModal = false;
+        UI.showNtCallUpModal(state, proceedToSummary);
+      } else {
+        proceedToSummary();
+      }
     }, 2300);
   }
 

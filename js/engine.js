@@ -63,14 +63,15 @@
     else if (a <= 32) ageF = 0.7;
     else if (a <= 34) ageF = 0.45;
     else ageF = 0.25;
-    const hype = 1 + (p.hype || 0) * 0.02;
+    const hype = 1 + (p.hype || 0) * 0.004;
     const v = Math.round((base * ageF * hype) / 10000) * 10000;
     return Math.max(v, 25000);
   }
 
-  function annualSalary(p) {
+  function annualSalary(p, state) {
     let s = clamp(p.value * 0.11, 15000, 40000000);
     if (p.age < 18) s *= 0.25;
+    if (state && state.superAgent) s *= 1.35;
     return Math.round(s / 1000) * 1000;
   }
 
@@ -155,13 +156,26 @@
         opts.push({ cid: `${c.id}:${cl.n}`, club: ALL_CLUBS.find((x) => x.cid === `${c.id}:${cl.n}`), role, note, rare: !!rare });
       }
     };
-    pushClub(sorted[0], 'Elite academy', 'Best facilities in the country. Minutes will be hard to earn.');
-    pushClub(sorted[Math.floor(sorted.length / 2)], 'Balanced project', 'Good coaching, realistic path to the first team.');
-    pushClub(sorted[sorted.length - 1], 'Fast track', 'Smaller stage, but you could debut before your license.');
-    // Rare: a top-5 European league academy comes calling (~10%)
+
+    // Randomize choice within top, mid, and lower tier pools
+    const topCut = Math.max(1, Math.floor(sorted.length / 3));
+    const midCut = Math.max(topCut + 1, Math.floor((2 * sorted.length) / 3));
+
+    const topPool = sorted.slice(0, topCut);
+    const topClub = pick(topPool);
+    pushClub(topClub, 'Elite academy', 'Best facilities in the region. High pressure, top coaching.');
+
+    const midPool = sorted.slice(topCut, midCut).filter((cl) => cl.n !== topClub.n);
+    const midClub = pick(midPool.length ? midPool : sorted);
+    pushClub(midClub, 'Balanced project', 'Good coaching, realistic path to first team minutes.');
+
+    const lowPool = sorted.slice(midCut).filter((cl) => !opts.some((o) => o.club.n === cl.n));
+    const lowClub = pick(lowPool.length ? lowPool : sorted.filter((cl) => !opts.some((o) => o.club.n === cl.n)));
+    pushClub(lowClub, 'Fast track', 'Smaller stage, but early first-team debut opportunities.');
+
+    // Rare: European giant academy invitation (~10%)
     if (chance(0.10)) {
-      const big5 = ['EN', 'ES', 'DE', 'IT', 'FR'];
-      const pool = ALL_CLUBS.filter((x) => big5.includes(x.countryId) && x.s >= 86 && !opts.find((o) => o.cid === x.cid));
+      const pool = ALL_CLUBS.filter((x) => x.confed === 'UEFA' && x.s >= 85 && !opts.find((o) => o.cid === x.cid));
       if (pool.length) {
         const x = pick(pool);
         opts[1] = {
@@ -387,7 +401,12 @@
       });
     }
     if (fx.form) state.pendingForm += fx.form;
-    if (fx.hype) p.hype = clamp(p.hype + fx.hype, 0, 20);
+    if (fx.hype) {
+      const before = p.hype || 0;
+      p.hype = clamp((p.hype || 0) + (fx.hype * 5), 0, 100);
+      const real = p.hype - before;
+      if (real !== 0) changes.push({ k: 'HYPE', d: real });
+    }
     if (fx.stam) {
       const before = p.stamina;
       p.stamina = clamp(Math.round(p.stamina + fx.stam), 5, 100);
@@ -399,8 +418,14 @@
       if (p.morale !== before) changes.push({ k: 'MOR', d: p.morale - before });
     }
     if (fx.injury && chance(fx.injury)) triggerInjury(state, changes);
-    if (fx.special === 'injuryShield') state.injuryShield = true;
-    if (fx.special === 'superAgent') state.superAgent = true;
+    if (fx.special === 'injuryShield') {
+      state.injuryShield = true;
+      changes.push({ k: 'SHIELD', d: 1 });
+    }
+    if (fx.special === 'superAgent') {
+      state.superAgent = true;
+      changes.push({ k: 'SUPER', d: 1 });
+    }
     return changes;
   }
 
@@ -429,11 +454,31 @@
     const opt = decision[optKey];
     const mini = opt && opt.mini;
     if (!mini) return { out: '', changes: [] };
-    const res = mini.results[resultKey] || mini.results.bad || mini.results.good;
-    const changes = applyFx(state, res.fx || {});
+
+    let res = mini.results[resultKey] || mini.results.bad || mini.results.good;
+    let out = res.out || '';
+
+    // High-stakes Title-Decider penalty mechanic (25% chance on penalty kicks)
+    const isTitleDecider = mini.type === 'penalty' && chance(0.25);
+    let fxToApply = res.fx || {};
+    if (isTitleDecider) {
+      if (resultKey === 'good') {
+        fxToApply = Object.assign({}, fxToApply, { hype: (fxToApply.hype || 0) + 2, mor: (fxToApply.mor || 0) + 10 });
+        out = `🏆 TITLE-WINNING PENALTY GOAL! You bury the 90+4' penalty in the Cup Final! The stadium erupts as you seal the championship trophy!`;
+        if (state.club) {
+          const club = clubByCid(state.club.cid);
+          state.pendingNotes.push(`Scored 90+4' Title-Winning Penalty in the ${club.cup || 'Cup'} Final!`);
+        }
+      } else {
+        fxToApply = Object.assign({}, fxToApply, { mor: (fxToApply.mor || 0) - 10 });
+        out = `💀 SAVED! 90+4' Title-winning penalty saved in the final seconds! Total heartbreak in the Cup Final.`;
+      }
+    }
+
+    const changes = applyFx(state, fxToApply);
     state.usedDecisions.push(decision.id);
     recompute(state);
-    return { out: res.out || '', changes };
+    return { out, changes };
   }
 
   // ---- Boosters ----
@@ -483,7 +528,15 @@
     return { changes };
   }
 
-  // ---- Consumables shop (one purchase per season) ----
+  // ---- Consumables shop (tiered purchases per season & rerolls) ----
+  function maxShopPurchases(state) {
+    const t = state.player.tier;
+    if (t === 'diamond') return 4;
+    if (t === 'gold') return 3;
+    if (t === 'silver') return 2;
+    return 1;
+  }
+
   function consumableCost(state, item) {
     const mult = 1 + Math.max(0, (state.player.ovr - 50) / 40);
     return Math.round(item.price * mult / 1000) * 1000;
@@ -491,18 +544,48 @@
 
   function shopItems(state) {
     const balance = state.earnings - state.spent;
-    return DATA.CONSUMABLES.map((c) => {
+    if (!state.shopOffers || state.shopOffersSeason !== state.season) {
+      const pool = DATA.CONSUMABLES.slice().sort(() => Math.random() - 0.5);
+      state.shopOffers = pool.slice(0, 6).map((c) => c.id);
+      state.shopOffersSeason = state.season;
+    }
+    const available = DATA.CONSUMABLES.filter((c) => state.shopOffers.includes(c.id));
+    return available.map((c) => {
       const cost = consumableCost(state, c);
       return Object.assign({}, c, { cost, affordable: balance >= cost });
     });
   }
 
+  function rerollShop(state) {
+    const cost = 50000;
+    const balance = state.earnings - state.spent;
+    if (state.shopRerolledSeason === state.season) return { ok: false, reason: 'Already rerolled shop this season' };
+    if (balance < cost) return { ok: false, reason: 'Not enough career earnings to reroll' };
+    state.spent += cost;
+    state.shopRerolledSeason = state.season;
+    const current = state.shopOffers || [];
+    const pool = DATA.CONSUMABLES.filter((c) => !current.includes(c.id)).sort(() => Math.random() - 0.5);
+    state.shopOffers = pool.slice(0, 6).map((c) => c.id);
+    state.shopOffersSeason = state.season;
+    return { ok: true };
+  }
+
   function buyConsumable(state, id) {
-    if (state.shopSeason === state.season) return { ok: false, reason: 'Already shopped this season' };
+    const maxP = maxShopPurchases(state);
+    const countThisSeason = (state.shopPurchasesSeason === state.season) ? (state.shopPurchasesCount || 0) : 0;
+    if (countThisSeason >= maxP) {
+      return { ok: false, reason: `Max shop purchases reached (${maxP} for ${state.player.tier.toUpperCase()} tier)` };
+    }
     const item = shopItems(state).find((i) => i.id === id);
     if (!item) return { ok: false, reason: 'Unknown item' };
     if (!item.affordable) return { ok: false, reason: 'Not enough career earnings' };
     state.spent += item.cost;
+    if (state.shopPurchasesSeason !== state.season) {
+      state.shopPurchasesSeason = state.season;
+      state.shopPurchasesCount = 1;
+    } else {
+      state.shopPurchasesCount += 1;
+    }
     state.shopSeason = state.season;
     const fx = (state.player.isGK && item.fxGk) ? item.fxGk : item.fx;
     const changes = applyFx(state, fx);
@@ -551,9 +634,24 @@
     const teen = p.age <= 19;
     const offers = [];
 
-    const forcedOut = !veteran && !teen && p.age >= 21 && (cur.s - p.ovr > 12);
-    if (!forcedOut) {
-      offers.push({ type: 'stay', club: cur, role: roleText(p.ovr, cur.s), note: veteran ? 'The fans want one more year.' : 'Loyalty. The fans sing your name.' });
+    const loyal = (p.loyalty || 0) >= 60;
+    const forcedOut = !loyal && !veteran && !teen && p.age >= 21 && (cur.s - p.ovr > 12);
+    const parentClub = (state.club && state.club.loan && state.club.parentCid) ? clubByCid(state.club.parentCid) : null;
+
+    if (state.club && state.club.loan && parentClub) {
+      offers.push({
+        type: 'return',
+        club: parentClub,
+        role: roleText(p.ovr, parentClub.s),
+        note: `Return from loan to ${parentClub.n}. Claim your spot in the squad.`
+      });
+    } else if (!forcedOut) {
+      offers.push({
+        type: 'stay',
+        club: cur,
+        role: roleText(p.ovr, cur.s),
+        note: loyal ? 'Club Icon. Senior leader — the fans chant your name.' : (veteran ? 'The fans want one more year.' : 'Loyalty. The fans sing your name.')
+      });
     } else {
       offers.push({ type: 'released', club: cur, note: pick(RELEASED_REASONS) });
     }
@@ -575,9 +673,9 @@
       }
     }
     if (forcedOut) pool = pool.filter((c) => c.s <= p.ovr - 2);
-    if (!pool.length && !underage) {
-      const domestic = ALL_CLUBS.filter((c) => c.countryId === p.countryId && c.cid !== cur.cid).sort((a, b) => a.s - b.s);
-      pool = domestic.slice(0, 3);
+    if (!pool.length) {
+      const domestic = ALL_CLUBS.filter((c) => (underage ? c.countryId === cur.countryId : true) && c.cid !== cur.cid).sort((a, b) => a.s - b.s);
+      pool = domestic.length ? domestic.slice(0, 3) : ALL_CLUBS.filter((c) => c.cid !== cur.cid).slice(0, 3);
     }
 
     // Exclude last season's offered clubs so options always refresh
@@ -620,8 +718,8 @@
       let fee = Math.round((p.value * (0.9 + rnd() * 0.5)) / 100000) * 100000;
       let note;
       if (state.superAgent && !loan) {
-        fee = Math.round(fee * 1.3 / 100000) * 100000;
-        note = 'Your super-agent squeezed every cent out of them. Miraculous work.';
+        fee = Math.round(fee * 1.35 / 100000) * 100000;
+        note = 'Your super-agent negotiated a massive contract wage & fee! Miraculous work.';
       } else if (loan) note = 'Development loan. Guaranteed minutes promised.';
       else if (veteran && ['US', 'SA', 'QA', 'AU'].includes(c.countryId)) note = 'Sunset league payday. Golf courses included.';
       else if (veteran && c.countryId === p.countryId) note = 'Homecoming. The prodigal returns.';
@@ -636,9 +734,16 @@
   }
 
   function applyClubOffer(state, offer) {
-    if (offer.type !== 'stay') {
-      state.club = { cid: offer.club.cid, loan: offer.type === 'loan' };
-      logStatNote(state, offer.type === 'loan' ? `Loan move to ${offer.club.n}` : `Signed for ${offer.club.n}`);
+    if (offer.type === 'return') {
+      state.club = { cid: offer.club.cid, loan: false, parentCid: null };
+      logStatNote(state, `Returned from loan to ${offer.club.n}`);
+    } else if (offer.type === 'loan') {
+      const parentCid = (state.club && state.club.loan && state.club.parentCid) ? state.club.parentCid : state.club.cid;
+      state.club = { cid: offer.club.cid, loan: true, parentCid };
+      logStatNote(state, `Loan move to ${offer.club.n}`);
+    } else if (offer.type === 'transfer') {
+      state.club = { cid: offer.club.cid, loan: false, parentCid: null };
+      logStatNote(state, `Signed for ${offer.club.n}`);
     }
     recompute(state);
     state.stage = 'sim';
@@ -745,7 +850,11 @@
     p.ovr = getOvr(p.stats, p.position);
     p.tier = getTier(p.ovr);
     p.value = marketValue(p);
-    p.salary = annualSalary(p);
+    p.salary = annualSalary(p, state);
+    const seasonsAtClub = (state.club && state.clubStints && state.clubStints[state.club.cid])
+      ? state.clubStints[state.club.cid].seasons
+      : (state.clubSeasons || 1);
+    p.loyalty = clamp(seasonsAtClub * 20, 0, 100);
     if (p.ovr > p.peakOvr) { p.peakOvr = p.ovr; p.peakOvrYear = state.season; }
     if (p.value > p.peakValue) { p.peakValue = p.value; p.peakValueYear = state.season; }
   }

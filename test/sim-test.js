@@ -98,7 +98,11 @@ function playCareer(position, countryId, verbose) {
       const d = Engine.pickDecision(state);
       if (d) {
         const opts = ['a', 'b', 'c'].filter((k) => d[k]);
-        const r = Engine.applyDecision(state, d, opts[ri(0, opts.length - 1)]);
+        const choice = opts[ri(0, opts.length - 1)];
+        const opt = d[choice];
+        const r = opt.mini
+          ? Engine.applyMiniResult(state, d, choice, ['good', 'bad'][ri(0, 1)])
+          : Engine.applyDecision(state, d, choice);
         assert(typeof r.out === 'string' && r.out.length > 3, `decision outcome text (${d.id})`);
       }
     }
@@ -122,9 +126,10 @@ function playCareer(position, countryId, verbose) {
       assert(offers.length >= 1 && offers.length <= 3, `1-3 club offers (${offers.length})`);
       if (age < 18) {
         offers.forEach((o) => {
-          if (o.type === 'stay' || o.type === 'released') return;
+          if (o.type === 'stay' || o.type === 'released' || o.type === 'return') return;
           assert(o.type === 'loan', `U18 only loans (got ${o.type} to ${o.club.n})`);
-          assert(o.club.countryId === state.player.countryId || o.club.countryId === undefined, `U18 stays domestic (${o.club.n} in ${o.club.countryName})`);
+          const curCountry = Engine.clubByCid(state.club.cid).countryId;
+          assert(o.club.countryId === state.player.countryId || o.club.countryId === curCountry || o.club.countryId === undefined, `U18 stays domestic (${o.club.n} in ${o.club.countryName})`);
         });
       }
       const stay = offers.find((o) => o.type === 'stay');

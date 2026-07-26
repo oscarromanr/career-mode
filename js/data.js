@@ -29,7 +29,6 @@
     { id: 'CB',  label: 'Centre Back' },
     { id: 'RB',  label: 'Right Back' },
     { id: 'LB',  label: 'Left Back' },
-    { id: 'CDM', label: 'Defensive Mid' },
     { id: 'CM',  label: 'Central Mid' },
     { id: 'RM',  label: 'Right Mid' },
     { id: 'LM',  label: 'Left Mid' },
@@ -45,7 +44,6 @@
     CB:  { PHY: .30, MEN: .25, PAC: .20, PAS: .15, DRI: .10 },
     RB:  { PAC: .30, PHY: .20, PAS: .20, DRI: .15, MEN: .15 },
     LB:  { PAC: .30, PHY: .20, PAS: .20, DRI: .15, MEN: .15 },
-    CDM: { PAS: .25, MEN: .25, PHY: .20, PAC: .15, DRI: .15 },
     CM:  { PAS: .30, MEN: .20, DRI: .15, PHY: .15, SHO: .10, PAC: .10 },
     RM:  { PAC: .25, PAS: .25, DRI: .20, SHO: .15, MEN: .15 },
     LM:  { PAC: .25, PAS: .25, DRI: .20, SHO: .15, MEN: .15 },
@@ -61,7 +59,6 @@
     CB:  { g: 0.04, a: 0.03 },
     RB:  { g: 0.03, a: 0.07 },
     LB:  { g: 0.03, a: 0.07 },
-    CDM: { g: 0.07, a: 0.08 },
     CM:  { g: 0.13, a: 0.14 },
     RM:  { g: 0.16, a: 0.18 },
     LM:  { g: 0.16, a: 0.18 },
@@ -1066,7 +1063,7 @@
       desc: 'The analyst shows you your pass maps. They look like spiderwebs. 94% completion.',
       a: { label: 'Become the tempo king', sub: 'Pirlo mode', fx: { stats: { PAS: 2 } }, out: 'Games start moving at your speed. Commentators run out of ways to say "dictates play".' },
       b: { label: 'Add Hollywood passes', sub: '60% flair / 40% hospital ball', fx: { risk: { p: .6, good: { stats: { PAS: 2 }, hype: 1 }, bad: { mor: -2 } } }, out: '' } },
-    { id: 'cdm-destroyer', min: 16, max: 28, pos: ['CDM'], title: 'The Tackle Chant',
+    { id: 'cdm-destroyer', min: 16, max: 28, pos: ['CM'], title: 'The Tackle Chant',
       desc: 'The fans have a chant dedicated entirely to your tackles. It involves a lot of stamping.',
       a: { label: 'Lean into the destroyer role', sub: 'The wall', fx: { stats: { PHY: 2, MEN: 1 } }, out: 'Strikers check the teamsheet for your name before sleeping. The chant gets a second verse.' },
       b: { label: 'Silk over steel', sub: 'Deep-lying playmaker arc', fx: { stats: { PAS: 2 } }, out: 'You start every attack from deep. The destroyer becomes a quarterback. The chant adapts.' } },
@@ -1090,11 +1087,11 @@
       desc: 'A pundit calls you a "big-game bottler" on live TV. The derby is Saturday. The clip is everywhere.',
       a: { label: 'Screenshot it', sub: 'Fuel', fx: { stats: { MEN: 2 }, form: .04 }, out: 'You score twice in the derby and shush the camera. The pundit "deletes his account for unrelated reasons".' },
       b: { label: 'Respond in the presser', sub: '"Watch Saturday"', fx: { hype: 1, risk: { p: .6, good: { stats: { MEN: 2 }, form: .03 }, bad: { mor: -4, form: -.03 } } }, out: '' } },
-    { id: 'cm-captain-clash', min: 20, max: 30, pos: ['CM', 'CDM', 'CAM'], title: 'Tactical Shouting Match',
+    { id: 'cm-captain-clash', min: 20, max: 30, pos: ['CM', 'CAM'], title: 'Tactical Shouting Match',
       desc: 'You and the manager have opposing views on your role. He wants safety. You want freedom.',
       a: { label: 'Demand the free role', sub: 'Back yourself', fx: { risk: { p: .55, good: { stats: { PAS: 2 }, form: .03 }, bad: { form: -.02, mor: -3 } } }, out: '' },
       b: { label: 'Play his way', sub: 'System player', fx: { stats: { MEN: 2 }, form: .02 }, out: 'You become the system\'s heartbeat. The manager calls you "a coach on the pitch". Trust: earned.' } },
-    { id: 'def-yellow-record', min: 18, max: 32, pos: ['CB', 'RB', 'LB', 'CDM'], title: 'The Yellow Card Streak',
+    { id: 'def-yellow-record', min: 18, max: 32, pos: ['CB', 'RB', 'LB', 'CM'], title: 'The Yellow Card Streak',
       desc: 'You\'re one yellow from a suspension record. The ref today loves his pocket. The striker you\'re marking loves diving.',
       a: { label: 'Go in hard anyway', sub: 'No fear football', fx: { risk: { p: .55, good: { stats: { MEN: 2, PHY: 1 } }, bad: { stats: { MEN: -1 }, form: -.03 } } }, out: '' },
       b: { label: 'Defend on eggshells', sub: 'Brain over brawn', fx: { stats: { MEN: 2 } }, out: 'You play the smartest game of your life. The diver gets booked instead. Karma, live on TV.' } },
@@ -1170,16 +1167,42 @@
      price in EUR; fx applied immediately. 'special' handled by engine.
      ---------------------------------------------------------- */
   const CONSUMABLES = [
+    // Entry / Early Career ($50K - $250K)
+    { id: 'hydration', name: 'Custom Hydration Protocol', price: 50000, desc: 'Electrolytes mixed by a team nutritionist. Zero mid-game fatigue.', fx: { stam: 15, mor: 5 } },
+    { id: 'boots-pro', name: 'Custom Leather Boots', price: 80000, desc: 'Hand-stitched kangaroo leather. Classic touch, instant comfort.', fx: { stats: { PAS: 1 } }, fxGk: { stats: { COM: 1 } } },
+    { id: 'ice-baths', name: 'Portable Cryo Ice Bath', price: 120000, desc: 'Sub-zero therapy after every training session. Muscles recover twice as fast.', fx: { stam: 20 } },
     { id: 'chef', name: 'Private Chef', price: 150000, desc: 'Macros on point, every plate. Your body notices by week two.', fx: { stats: { PHY: 1 }, stam: 5 }, fxGk: { stats: { REF: 1 }, stam: 5 } },
-    { id: 'hyperbaric', name: 'Hyperbaric Chamber Sessions', price: 400000, desc: 'Pure oxygen, pure recovery. You bounce out of bed like a glitch.', fx: { stats: { PAC: 1 }, stam: 10 }, fxGk: { stats: { REF: 1 }, stam: 10 } },
+    { id: 'massage-therapist', name: 'Dedicated Physio Therapist', price: 200000, desc: 'Deep tissue work twice a week. Tight hamstrings are a thing of the past.', fx: { stam: 15, mor: 5 } },
+    { id: 'physio-shield', name: 'Physio Insurance Package', price: 250000, desc: 'World-class physio on call. The next injury scare gets neutralized.', fx: { special: 'injuryShield' } },
+
+    // Mid Career ($300K - $800K)
     { id: 'mental-coach', name: 'Elite Mental Coach', price: 300000, desc: 'She coached three Ballon d\'Or winners. You are her easiest project.', fx: { stats: { MEN: 2 } }, fxGk: { stats: { COM: 2 } } },
     { id: 'analyst', name: 'Personal Video Analyst', price: 350000, desc: 'Every touch clipped, tagged and reviewed. Your weak spots get evicted.', fx: { stats: { PAS: 1, MEN: 1 } }, fxGk: { stats: { VIS: 2 } } },
-    { id: 'trainer', name: 'Personal Trainer', price: 500000, desc: 'Ex-footballer, current sadist. Your core becomes a fortress.', fx: { stats: { PHY: 2 } }, fxGk: { stats: { REF: 2 } } },
-    { id: 'pr-team', name: 'PR & Brand Team', price: 600000, desc: 'Billboards, features, a documentary teaser. Your name starts trending.', fx: { hype: 3 } },
-    { id: 'physio-shield', name: 'Physio Insurance Package', price: 250000, desc: 'World-class physio on call. The next injury scare gets neutralized.', fx: { special: 'injuryShield' } },
-    { id: 'super-boots', name: 'Custom Lab Boots', price: 800000, desc: '3D-scanned, wind-tunnel tested, 40 grams lighter. Weapons-grade footwear.', fx: { stats: { SHO: 2 } }, fxGk: { stats: { LEA: 2 } } },
-    { id: 'retreat', name: 'Mindfulness Retreat', price: 450000, desc: 'One week. No phone. Just breath, silence and a suspiciously wise monk.', fx: { mor: 15, stam: 5 } },
-    { id: 'agent-push', name: 'Super-Agent Package', price: 1200000, desc: 'Your agent becomes a super-agent for a season. Better offers, bigger fees.', fx: { special: 'superAgent', hype: 2 } },
+    { id: 'hyperbaric', name: 'Hyperbaric Chamber Suite', price: 400000, desc: 'Pure oxygen, pure recovery. You bounce out of bed like a glitch.', fx: { stats: { PAC: 1 }, stam: 15 }, fxGk: { stats: { REF: 1 }, stam: 15 } },
+    { id: 'retreat', name: 'Mindfulness Retreat', price: 450000, desc: 'One week. No phone. Just breath, silence and a suspiciously wise monk.', fx: { mor: 20, stam: 5 } },
+    { id: 'trainer', name: 'Personal Fitness Trainer', price: 500000, desc: 'Ex-footballer, current sadist. Your core becomes a fortress.', fx: { stats: { PHY: 2 } }, fxGk: { stats: { REF: 2 } } },
+    { id: 'sleep-pod', name: 'Circadian Sleep Pod System', price: 550000, desc: 'NASA-grade sleep tracking & light therapy. Deep REM every single night.', fx: { stam: 25, mor: 10 } },
+    { id: 'pr-team', name: 'PR & Brand Agency', price: 600000, desc: 'Billboards, features, a documentary teaser. Your name starts trending.', fx: { hype: 3 } },
+    { id: 'pilates-expert', name: 'Biomechanics & Flexibility Specialist', price: 700000, desc: 'Sprint mechanics re-engineered. You gain an extra yard of acceleration.', fx: { stats: { PAC: 2 } }, fxGk: { stats: { REF: 2 } } },
+    { id: 'super-boots', name: 'Custom Lab 3D Boots', price: 800000, desc: '3D-scanned, wind-tunnel tested, 40 grams lighter. Weapons-grade footwear.', fx: { stats: { SHO: 2 } }, fxGk: { stats: { LEA: 2 } } },
+
+    // High Level ($1.0M - $3.5M)
+    { id: 'jet-concierge', name: 'Private Jet Travel Pass', price: 1000000, desc: 'Bypass commercial airports during international breaks. Zero jetlag.', fx: { stam: 20, hype: 2 } },
+    { id: 'agent-push', name: 'Super-Agent Package', price: 1200000, desc: 'Your agent becomes a super-agent for a season. Better offers, +35% contract wage.', fx: { special: 'superAgent', hype: 2 } },
+    { id: 'speed-lab', name: 'Sprint & Agility Lab', price: 1500000, desc: 'High-speed camera tracking & stride mechanics. Pure explosiveness.', fx: { stats: { PAC: 2, DRI: 1 } }, fxGk: { stats: { REF: 2, VIS: 1 } } },
+    { id: 'strike-coach', name: 'Legendary Striker Coaching Session', price: 2000000, desc: 'Three weeks with a retired legend. Finishing becomes second nature.', fx: { stats: { SHO: 3 } }, fxGk: { stats: { COM: 3 } } },
+    { id: 'midfield-maestro', name: 'Playmaker Masterclass', price: 2200000, desc: 'Vision and passing angles unlocked by one of the game\'s mid-court gods.', fx: { stats: { PAS: 3 } }, fxGk: { stats: { VIS: 3 } } },
+    { id: 'mentor-session', name: 'Ballon d\'Or Winner Mentorship', price: 2500000, desc: 'One-on-one sessions with a footballing icon. Tactical mind elevated.', fx: { stats: { MEN: 3, PAS: 1 } }, fxGk: { stats: { LEA: 3, COM: 1 } } },
+    { id: 'fashion-brand-drop', name: 'Global Apparel & Sneaker Drop', price: 3000000, desc: 'Your signature sneaker sells out worldwide in 12 minutes.', fx: { hype: 4, mor: 10 } },
+    { id: 'sports-villa', name: 'Private Mountain Recovery Villa', price: 3500000, desc: 'Altitude training, private turf, full medical staff in the Swiss Alps.', fx: { stats: { PHY: 2 }, stam: 30, mor: 15 } },
+
+    // Elite / Wealth Tier ($5.0M - $15.0M)
+    { id: 'biomed-institute', name: 'Private Sports Science Lab', price: 5000000, desc: 'Genome-tailored nutrition and recovery. Peak athletic perfection.', fx: { stats: { PAC: 1, PHY: 2, MEN: 1 }, stam: 25 }, fxGk: { stats: { REF: 2, COM: 2 }, stam: 25 } },
+    { id: 'supercar-garage', name: 'Hypercar Collection Reveal', price: 6500000, desc: 'A neon hypercar and a YouTube studio. You are the main character.', fx: { hype: 5, mor: 20 } },
+    { id: 'luxury-yacht', name: 'Mediterranean Megayacht Break', price: 8000000, desc: 'Two weeks in Ibiza & Monaco with your inner circle. Morale at absolute 100.', fx: { mor: 40, stam: 20, hype: 3 } },
+    { id: 'esports-empire', name: 'Esports & Media Empire Ownership', price: 10000000, desc: 'You buy 30% of a global gaming franchise. Millions of new fans overnight.', fx: { hype: 6, mor: 15 } },
+    { id: 'academy-foundation', name: 'Grassroots Youth Academy Foundation', price: 12000000, desc: 'You build a state-of-the-art academy in your hometown. Pure legacy.', fx: { stats: { MEN: 3, LEA: 2 }, hype: 4 }, fxGk: { stats: { LEA: 4, COM: 2 }, hype: 4 } },
+    { id: 'super-agent-vip', name: 'Super-Agent VIP Lifetime Retainer', price: 15000000, desc: 'The biggest agent in world football takes you as their flagship client.', fx: { special: 'superAgent', hype: 5, mor: 25 } },
   ];
 
   const SIM_LINES = [
