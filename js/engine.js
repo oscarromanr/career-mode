@@ -576,6 +576,10 @@
     if (countThisSeason >= maxP) {
       return { ok: false, reason: `Max shop purchases reached (${maxP} for ${state.player.tier.toUpperCase()} tier)` };
     }
+    const purchasedIds = (state.shopPurchasesSeason === state.season) ? (state.shopPurchasedIds || []) : [];
+    if (purchasedIds.includes(id)) {
+      return { ok: false, reason: 'Already purchased this item this season' };
+    }
     const item = shopItems(state).find((i) => i.id === id);
     if (!item) return { ok: false, reason: 'Unknown item' };
     if (!item.affordable) return { ok: false, reason: 'Not enough career earnings' };
@@ -583,8 +587,10 @@
     if (state.shopPurchasesSeason !== state.season) {
       state.shopPurchasesSeason = state.season;
       state.shopPurchasesCount = 1;
+      state.shopPurchasedIds = [id];
     } else {
       state.shopPurchasesCount += 1;
+      state.shopPurchasedIds.push(id);
     }
     state.shopSeason = state.season;
     const fx = (state.player.isGK && item.fxGk) ? item.fxGk : item.fx;
@@ -944,6 +950,12 @@
     let thr = nationalThreshold(nat.rank);
     if (age <= 19 && p.potential >= 85) thr -= 3;
     if (p.ovr >= thr && age >= 16) {
+      if (!state.ntCalledUp) {
+        state.ntCalledUp = true;
+        state.triggerNtCallUpModal = true;
+        state.ntFirstYear = year;
+      }
+      state.ntFirstYear = state.ntFirstYear || year;
       const rate = DATA.ATTACK_RATES[p.position];
       res.caps = clamp(5 + ri(0, 5) + (p.ovr >= 85 ? 2 : 0), 0, 12);
       if (!p.isGK) res.ntGoals = Math.max(0, Math.round(res.caps * rate.g * Math.pow(p.ovr / 82, 2) * 0.8 * (0.6 + rnd() * 0.8)));
@@ -1087,7 +1099,7 @@
     setRng(fn) { RNG = fn; },
     newCareer, migrate, academyOptions, setAcademy,
     pickDecision, applyDecision, applyMiniResult, rollBoosters, applyBooster, boosterFx,
-    shopItems, buyConsumable, consumableCost,
+    shopItems, buyConsumable, consumableCost, maxShopPurchases, rerollShop,
     clubOffers, applyClubOffer, simLeague, simulateSeason, retire, retireType, careerSummary,
     computeSeasonAwards,
     getOvr, getTier, marketValue, annualSalary, fmtValue, recompute,

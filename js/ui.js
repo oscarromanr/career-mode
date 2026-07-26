@@ -556,17 +556,23 @@
         ? `<span><b>${stint.apps}</b> Apps</span><span><b>${stint.saves}</b> Saves</span><span><b>${stint.conceded}</b> GC</span><span><b>${stint.cleanSheets}</b> CS</span>`
         : `<span><b>${stint.apps}</b> Apps</span><span><b>${stint.goals}</b> Goals</span><span><b>${stint.assists}</b> Assists</span>`;
 
-      card.innerHTML = `
-        <div class="stint-head">
-          ${badgeEl(club, 32).outerHTML}
-          <div class="stint-info">
-            <b class="stint-club-name">${esc(club.n)}</b>
-            <span class="stint-years">${yearRange} · ${esc(club.league)}</span>
-          </div>
-          <span class="stint-rating">★ ${avgRating}</span>
-        </div>
-        <div class="stint-stats">${statLine}</div>
-        ${trophyChips.length ? `<div class="stint-trophies">${trophyChips.map(t => `<span class="tr-chip tr-big">🏆 ${esc(t)}</span>`).join('')}</div>` : ''}`;
+      const stintHead = h('div', 'stint-head');
+      stintHead.appendChild(badgeEl(club, 32));
+
+      const stintInfo = h('div', 'stint-info');
+      stintInfo.innerHTML = `<b class="stint-club-name">${esc(club.n)}</b>
+        <span class="stint-years">${yearRange} · ${esc(club.league)}</span>`;
+      stintHead.appendChild(stintInfo);
+      stintHead.appendChild(h('span', 'stint-rating', `★ ${avgRating}`));
+      card.appendChild(stintHead);
+
+      const statsDiv = h('div', 'stint-stats', statLine);
+      card.appendChild(statsDiv);
+
+      if (trophyChips.length) {
+        const trDiv = h('div', 'stint-trophies', trophyChips.map(t => `<span class="tr-chip tr-big">🏆 ${esc(t)}</span>`).join(''));
+        card.appendChild(trDiv);
+      }
 
       box.appendChild(card);
     });
@@ -585,16 +591,23 @@
         ? `<span><b>${t.caps}</b> Caps</span><span><b>${t.cleanSheets}</b> Clean Sheets</span>`
         : `<span><b>${t.caps}</b> Caps</span><span><b>${t.ntGoals}</b> Goals</span>`;
 
-      ntCard.innerHTML = `
-        <div class="stint-head">
-          <span class="flag-icon-big">${nat.flag}</span>
-          <div class="stint-info">
-            <b class="stint-club-name">${esc(nat.name)} National Team</b>
-            <span class="stint-years">FIFA Rank #${nat.rank}</span>
-          </div>
-        </div>
-        <div class="stint-stats">${ntStatLine}</div>
-        ${ntChips.length ? `<div class="stint-trophies">${ntChips.map(t => `<span class="tr-chip tr-big tr-country">🏆 ${esc(t)}</span>`).join('')}</div>` : ''}`;
+      const stintHead = h('div', 'stint-head');
+      stintHead.appendChild(flagEl(nat.code, 40));
+
+      const stintInfo = h('div', 'stint-info');
+      const debutText = state.ntFirstYear ? `Debut: ${state.ntFirstYear}` : 'National Duty';
+      stintInfo.innerHTML = `<b class="stint-club-name">${esc(nat.name)} National Team</b>
+        <span class="stint-years">${debutText} · FIFA Rank #${nat.rank}</span>`;
+      stintHead.appendChild(stintInfo);
+      ntCard.appendChild(stintHead);
+
+      const statsDiv = h('div', 'stint-stats', ntStatLine);
+      ntCard.appendChild(statsDiv);
+
+      if (ntChips.length) {
+        const trDiv = h('div', 'stint-trophies', ntChips.map(t => `<span class="tr-chip tr-big tr-country">🏆 ${esc(t)}</span>`).join(''));
+        ntCard.appendChild(trDiv);
+      }
 
       box.appendChild(ntCard);
     }
@@ -1039,15 +1052,17 @@
 
   /* ================= SHOP & RETIRE ================= */
   function showShop(state, handlers) {
+    let m = null;
     const balance = state.earnings - state.spent;
     const items = E().shopItems(state);
     const maxP = E().maxShopPurchases(state);
     const countThisSeason = (state.shopPurchasesSeason === state.season) ? (state.shopPurchasesCount || 0) : 0;
     const canBuy = countThisSeason < maxP;
     const canReroll = state.shopRerolledSeason !== state.season && balance >= 50000;
+    const tierName = (state.player.tier || E().getTier(state.player.ovr) || 'bronze').toUpperCase();
 
     const c = h('div', 'shop');
-    c.innerHTML = `<div class="outcome-kicker">CLUB SHOP · ${state.player.tier.toUpperCase()} TIER (${countThisSeason}/${maxP} PURCHASES USED)</div>
+    c.innerHTML = `<div class="outcome-kicker">CLUB SHOP · ${tierName} TIER (${countThisSeason}/${maxP} PURCHASES USED)</div>
       <h3>Consumables</h3>
       <div class="shop-balance">Career earnings banked: <b>${E().fmtValue(balance)}</b> · ${maxP - countThisSeason} purchase${(maxP - countThisSeason) === 1 ? '' : 's'} remaining</div>`;
 
@@ -1057,7 +1072,7 @@
       rerollBtn.onclick = () => {
         const res = E().rerollShop(state);
         if (res.ok) {
-          m.close();
+          if (m) m.close();
           showShop(state, handlers);
         }
       };
@@ -1076,20 +1091,22 @@
       if (fx.special === 'injuryShield') chips.push(`<span class="chip chip-shield">🛡 injury shield</span>`);
       if (fx.special === 'superAgent') chips.push(`<span class="chip chip-hype">🤝 super-agent</span>`);
 
-      const cardDisabled = !canBuy || !it.affordable;
+      const isAlreadyBought = state.shopPurchasedIds && state.shopPurchasesSeason === state.season && state.shopPurchasedIds.includes(it.id);
+      const cardDisabled = !canBuy || !it.affordable || isAlreadyBought;
+      const btnText = isAlreadyBought ? 'PURCHASED' : E().fmtValue(it.cost);
       const card = h('div', 'shop-item' + (cardDisabled ? ' disabled' : ''));
       card.innerHTML = `<b>${esc(it.name)}</b><i>${esc(it.desc)}</i>
         <div class="stat-chips">${chips.join('')}</div>
-        <button class="shop-buy" ${cardDisabled ? 'disabled' : ''}>${E().fmtValue(it.cost)}</button>`;
-      if (canBuy && it.affordable) {
-        card.querySelector('.shop-buy').onclick = () => { m.close(); handlers.onShopBuy(it.id); };
+        <button class="shop-buy" ${cardDisabled ? 'disabled' : ''}>${btnText}</button>`;
+      if (canBuy && it.affordable && !isAlreadyBought) {
+        card.querySelector('.shop-buy').onclick = () => { if (m) m.close(); handlers.onShopBuy(it.id); };
       }
       grid.appendChild(card);
     });
     c.appendChild(grid);
     const close = h('button', 'primary-btn ghost', 'Close');
     c.appendChild(close);
-    const m = modal(c, { wide: true });
+    m = modal(c, { wide: true });
     close.onclick = () => m.close();
   }
 
