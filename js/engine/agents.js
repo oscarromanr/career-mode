@@ -28,8 +28,7 @@
   function rollAgentMarket(state) {
     const fn = root.EngineRng || Math.random;
     const ri = (min, max) => Math.floor(fn() * (max - min + 1)) + min;
-    const val = state.player.value || 1000000;
-    const isPro = val >= 10000000;
+    const pSal = (state.player && state.player.salary) ? state.player.salary : 30000;
 
     const candidates = [DAD_AGENT];
 
@@ -37,7 +36,8 @@
     const stdPat = ri(40, 75);
     const stdGrd = ri(45, 75);
     const stdNeg = ri(50, 80);
-    const stdSalary = Math.round((val * 0.02 * (0.8 + fn() * 0.4)) / 10000) * 10000;
+    const stdCalc = Math.round((pSal * 0.15 * (0.8 + fn() * 0.4)) / 5000) * 5000;
+    const stdSalary = Math.max(10000, Math.min(stdCalc, pSal * 0.4));
     candidates.push({
       id: 'agent_std_' + state.season,
       name: generateAgentName(),
@@ -46,14 +46,15 @@
       greed: stdGrd,
       negotiation: stdNeg,
       buyoutFee: Math.round(stdSalary * 1.5),
-      annualSalary: Math.max(20000, stdSalary),
+      annualSalary: stdSalary,
     });
 
     // Elite / Greedy Agent
     const elePat = ri(30, 60);
     const eleGrd = ri(70, 95);
     const eleNeg = ri(75, 98);
-    const eleSalary = Math.round((val * 0.04 * (0.9 + fn() * 0.3)) / 10000) * 10000;
+    const eleCalc = Math.round((pSal * 0.35 * (0.9 + fn() * 0.3)) / 5000) * 5000;
+    const eleSalary = Math.max(25000, Math.min(eleCalc, Math.round(pSal * 0.7)));
     candidates.push({
       id: 'agent_elite_' + state.season,
       name: generateAgentName() + ' (Elite)',
@@ -62,14 +63,15 @@
       greed: eleGrd,
       negotiation: eleNeg,
       buyoutFee: Math.round(eleSalary * 2.0),
-      annualSalary: Math.max(50000, eleSalary),
+      annualSalary: eleSalary,
     });
 
     // Veteran Agent
     const vetPat = ri(70, 95);
     const vetGrd = ri(30, 60);
     const vetNeg = ri(65, 85);
-    const vetSalary = Math.round((val * 0.025 * (0.8 + fn() * 0.4)) / 10000) * 10000;
+    const vetCalc = Math.round((pSal * 0.20 * (0.8 + fn() * 0.4)) / 5000) * 5000;
+    const vetSalary = Math.max(15000, Math.min(vetCalc, Math.round(pSal * 0.5)));
     candidates.push({
       id: 'agent_vet_' + state.season,
       name: generateAgentName() + ' (Veteran)',
@@ -78,7 +80,7 @@
       greed: vetGrd,
       negotiation: vetNeg,
       buyoutFee: Math.round(vetSalary * 1.2),
-      annualSalary: Math.max(30000, vetSalary),
+      annualSalary: vetSalary,
     });
 
     return candidates;

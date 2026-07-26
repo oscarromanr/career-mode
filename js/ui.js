@@ -292,16 +292,19 @@
   }
 
   /* ================= BANK & AGENT CARD ================= */
-  function financeBar(salary, expenses) {
+  function financeBar(salary, expenses, shopSpent) {
     const wrap = h('div', 'finance-bar-wrap');
     const salVal = Math.max(0, salary || 0);
-    const expVal = Math.max(0, expenses || 0);
-    const total = Math.max(1, salVal + expVal);
-    const salPct = Math.round((salVal / total) * 100);
-    const expPct = Math.round((expVal / total) * 100);
+    const agentExp = Math.max(0, expenses || 0);
+    const shopExp = Math.max(0, shopSpent || 0);
+    const expVal = agentExp + shopExp;
 
     const perYearStr = T('card.perYear') || '/yr';
-    const feeStr = expVal > 0 ? `${T('agent.fee') || 'Agent Fee'}: -${E().fmtValue(expVal)}${perYearStr}` : (T('agent.noFee') || 'No Agent Fee');
+    const feeStr = expVal > 0 ? `${T('agent.fee') || 'Annual Expenses'}: -${E().fmtValue(expVal)}${perYearStr}` : (T('agent.noFee') || 'No Expenses');
+
+    const baseVal = Math.max(1, salVal, expVal);
+    const expPct = Math.min(100, Math.round((expVal / baseVal) * 100));
+    const netSalPct = Math.max(0, 100 - expPct);
 
     wrap.innerHTML = `
       <div class="finance-bar-labels">
@@ -309,7 +312,7 @@
         <span class="exp">${feeStr}</span>
       </div>
       <div class="fin-bar-track">
-        <i class="fin-bar-sal" style="width:${salPct}%"></i>
+        <i class="fin-bar-sal" style="width:${netSalPct}%"></i>
         ${expVal > 0 ? `<i class="fin-bar-exp" style="width:${expPct}%"></i>` : ''}
       </div>`;
     return wrap;
@@ -341,6 +344,13 @@
     const title = h('div', 'agent-card-title', `💼 ${T('agent.title')}`);
     card.appendChild(title);
 
+    const isLoan = !!(state.club && state.club.loan && state.club.parentCid);
+    const parentClub = isLoan ? E().clubByCid(state.club.parentCid) : null;
+    if (parentClub) {
+      const propText = T('agent.propertyOf', { club: parentClub.n });
+      card.appendChild(h('div', 'agent-property-tag', `📋 ${esc(propText)}`));
+    }
+
     const targetClub = state.targetClubCid ? E().clubByCid(state.targetClubCid) : null;
     const commPct = state.transferCommissionPct !== undefined ? state.transferCommissionPct : 5;
 
@@ -370,7 +380,8 @@
       </div>`;
     card.appendChild(grid);
 
-    card.appendChild(financeBar(p.salary, agent.annualSalary || 0));
+    const seasonShopSpent = (state.shopSpentSeason === state.season) ? (state.shopSpentThisSeason || 0) : 0;
+    card.appendChild(financeBar(p.salary, agent.annualSalary || 0, seasonShopSpent));
 
     const btn = h('button', 'agent-talk-btn primary-btn', T('agent.talkBtn'));
     btn.type = 'button';
@@ -1082,6 +1093,8 @@
         if (c.k === 'INJ') return `<span class="chip chip-inj">${T('chip.injured')}</span>`;
         if (c.k === 'SHIELD') return `<span class="chip chip-shield">${T('chip.shield')}</span>`;
         if (c.k === 'SUPER') return `<span class="chip chip-hype">${T('chip.superAgent')}</span>`;
+        if (c.k === 'AGENT_NEG') return `<span class="chip chip-up">+${c.d} ${T('agent.negotiation') || 'Negotiation'}</span>`;
+        if (c.k === 'AGENT_PAT') return `<span class="chip chip-up">+${c.d} ${T('agent.patience') || 'Patience'}</span>`;
         return '';
       }).join('');
       if (chipsHtml) {
@@ -1164,7 +1177,8 @@
       c.appendChild(h('div', 'sr-caps', capText));
     }
 
-    c.appendChild(financeBar(res.salary, state.agent ? state.agent.annualSalary : 0));
+    const seasonShopSpent = (state.shopSpentSeason === state.season) ? (state.shopSpentThisSeason || 0) : 0;
+    c.appendChild(financeBar(res.salary, state.agent ? state.agent.annualSalary : 0, seasonShopSpent));
 
     // Player Card Stat Bars with +/- offsets & Condition bars
     const statsBox = h('div', 'sr-player-stats');

@@ -115,7 +115,22 @@
       save();
       UI.renderGame(state, handlers);
       if (res.ok) {
-        UI.showOutcome(I18n.TData('consumable', res.item, 'name') || res.item.name, shopOutcomeText(res.item), res.changes, () => UI.renderGame(state, handlers), state);
+        const countThisSeason = (state.shopPurchasesSeason === state.season) ? (state.shopPurchasesCount || 0) : 0;
+        const maxP = Engine.maxShopPurchases(state);
+        const canBuyMore = countThisSeason < maxP;
+
+        UI.showOutcome(
+          I18n.TData('consumable', res.item, 'name') || res.item.name,
+          shopOutcomeText(res.item),
+          res.changes,
+          () => {
+            UI.renderGame(state, handlers);
+            if (canBuyMore && !state.retired) {
+              UI.showShopModal(state, handlers);
+            }
+          },
+          state
+        );
       } else {
         UI.showOutcome(T('shop.title'), res.reason, [], () => UI.renderGame(state, handlers), state);
       }

@@ -34,6 +34,7 @@
     'card.morale': 'Morale',
     'card.loyalty': 'Loyalty',
     'card.hype': 'Hype',
+    'card.reputation': 'Reputation',
     'card.superAgent': '🤝 Super-Agent Active',
     'card.perYear': '/yr',
     'card.banked': 'banked',
@@ -66,6 +67,7 @@
 
     // Offer notes
     'offerNote.return': 'Return from loan to {club}. Claim your spot in the squad.',
+    'offerNote.newContract': 'Contract Renewal Offer. Your parent club offers a new contract extension.',
     'offerNote.loyal': 'Club Icon. Senior leader — the fans chant your name.',
     'offerNote.veteran': 'The fans want one more year.',
     'offerNote.stay': 'Loyalty. The fans sing your name.',
@@ -197,8 +199,8 @@
     'agent.freeAgent': 'Free Agent',
     'agent.season1': 'Season left',
     'agent.seasonsN': 'Seasons left',
-    'agent.fee': 'Agent Fee',
-    'agent.noFee': 'No Agent Fee',
+    'agent.fee': 'Annual Expenses',
+    'agent.noFee': 'No Expenses',
     'agent.marketDesc': 'Hire a new representative or switch back to your Dad. Firing a paid agent requires paying their release buyout clause.',
     'agent.activeChip': 'Active',
     'agent.free': 'FREE',
@@ -224,6 +226,8 @@
     'agent.hired': 'Successfully hired {name} as your new agent!',
     'agent.hiredWithBuyout': 'Fired previous agent and paid {buyout} release clause. Hired {name}!',
     'agent.cantAffordBuyout': 'Cannot afford the {amount} release buyout clause of your current agent.',
+    'agent.cantAffordSalary': 'Your annual salary ({salary}) cannot cover this agent\'s annual fee ({fee}).',
+    'agent.propertyOf': 'Property of {club}',
     'agent.searchPlaceholder': 'Search club name...',
     'agent.targetSet': 'Publicly declared interest in joining {club}!',
     'agent.commSet': 'Negotiated {pct}% transfer fee commission with your agent!',
@@ -232,6 +236,10 @@
     'agent.raiseDenied': 'The club management refused a wage raise at this time.',
     'note.transferCut': 'Earned {amount} transfer commission ({pct}%)',
     'note.demandedRaise': 'Agent secured contract raise to {salary}/yr',
+    'note.paidAgentFee': 'Paid {amount} annual expenses to {name}',
+    'note.ntAccepted': 'Received international call-up for {country}!',
+    'note.ntDeclined': 'Declined international call-up for {country}',
+    'note.ntSwitched': 'Switched national team allegiance to {country}!',
 
     // Season result
     'sr.kicker': 'SEASON {year} COMPLETE',
@@ -494,6 +502,7 @@
 
     // Offer notes
     'offerNote.return': 'Volvés del préstamo a {club}. A pelear un lugar en el plantel.',
+    'offerNote.newContract': 'Oferta de Renovación. Tu club dueño te ofrece renovar el contrato.',
     'offerNote.loyal': 'Ídolo del club. Referente del plantel — los hinchas cantan tu nombre.',
     'offerNote.veteran': 'Los hinchas piden un año más.',
     'offerNote.stay': 'Lealtad. La tribuna canta tu nombre.',
@@ -627,8 +636,8 @@
     'agent.freeAgent': 'Agente Libre',
     'agent.season1': 'Temporada restante',
     'agent.seasonsN': 'Temporadas restantes',
-    'agent.fee': 'Comisión de Agente',
-    'agent.noFee': 'Sin Fee de Agente',
+    'agent.fee': 'Gastos Anuales',
+    'agent.noFee': 'Sin Gastos',
     'agent.marketDesc': 'Contratá un nuevo representante o volvé con tu Padre. Despedir a un agente pago requiere abonar su cláusula de rescisión.',
     'agent.activeChip': 'Activo',
     'agent.free': 'GRATIS',
@@ -654,6 +663,8 @@
     'agent.hired': '¡Contrataste con éxito a {name} como tu nuevo agente!',
     'agent.hiredWithBuyout': 'Despediste a tu agente anterior y pagaste la cláusula de {buyout}. ¡Contrataste a {name}!',
     'agent.cantAffordBuyout': 'No tenés suficiente dinero en el banco para pagar la cláusula de rescisión de {amount}.',
+    'agent.cantAffordSalary': 'Tu sueldo anual ({salary}) no alcanza para cubrir la tarifa anual de este agente ({fee}).',
+    'agent.propertyOf': 'Propiedad de {club}',
     'agent.searchPlaceholder': 'Buscar club...',
     'agent.targetSet': '¡Declaraste públicamente tu deseo de jugar en {club}!',
     'agent.commSet': '¡Conseguiste un {pct}% de comisión en tu próxima transferencia!',
@@ -662,6 +673,10 @@
     'agent.raiseDenied': 'La directiva del club rechazó un aumento de sueldo por el momento.',
     'note.transferCut': 'Cobró {amount} por comisión de transferencia ({pct}%)',
     'note.demandedRaise': 'El agente logró un aumento salarial a {salary}/año',
+    'note.paidAgentFee': 'Se abonaron {amount} de gastos anuales a {name}',
+    'note.ntAccepted': '¡Convocatoria internacional con la selección de {country}!',
+    'note.ntDeclined': 'Rechazó la convocatoria a la selección de {country}',
+    'note.ntSwitched': '¡Nacionalizado e integrado a la selección de {country}!',
 
     // Season result
     'sr.kicker': 'TEMPORADA {year} COMPLETADA',

@@ -1136,7 +1136,7 @@ input { font-family: inherit; }
 }
 .fin-bar-sal {
   height: 100%;
-  background: linear-gradient(90deg, #30d158, #64d2ff);
+  background: #30d158;
   transition: width 0.5s ease;
 }
 .fin-bar-exp {

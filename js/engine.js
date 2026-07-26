@@ -213,6 +213,12 @@
     const current = state.agent || DAD_AGENT;
     if (current.id === candidate.id) return { ok: false, reason: 'Already your active agent' };
 
+    const pSalary = state.player ? (state.player.salary || 0) : 0;
+    if (candidate.annualSalary > 0 && candidate.annualSalary > pSalary) {
+      const T = (k, p) => root.I18n ? root.I18n.T(k, p) : k;
+      return { ok: false, reason: T('agent.cantAffordSalary', { salary: fmtValue(pSalary), fee: fmtValue(candidate.annualSalary) }) };
+    }
+
     const buyout = (current.type !== 'dad' && current.buyoutFee) ? current.buyoutFee : 0;
     const netBanked = state.earnings - state.spent;
     if (buyout > 0 && netBanked < buyout) {
@@ -666,15 +672,20 @@
 
   function applyDecision(state, decision, choice) {
     const opt = decision[choice];
-    let out = opt.out || '';
+    let fallback = opt.out || '';
+    let out = fallback;
+    if (root.I18n && root.I18n.TD) {
+      const translated = root.I18n.TD('decision', decision, choice + '.out');
+      if (translated) out = translated;
+    }
     let changes = [];
     if (opt.fx && opt.fx.risk) {
       const r = opt.fx.risk;
       const good = chance(r.p);
       changes = applyFx(state, good ? r.good : r.bad);
       const outs = RISK_OUTCOMES[decision.id];
-      const fallback = outs ? (good ? outs.good : outs.bad) : out;
-      out = outcomeText(decision.id, good ? 'good' : 'bad', fallback);
+      const fallbackRisk = outs ? (good ? outs.good : outs.bad) : fallback;
+      out = outcomeText(decision.id, good ? 'good' : 'bad', fallbackRisk);
       state.usedDecisions.push(decision.id);
       recompute(state);
       return { out, changes, risk: true, good };
@@ -830,6 +841,13 @@
     if (!item) return { ok: false, reason: 'Unknown item' };
     if (!item.affordable) return { ok: false, reason: 'Not enough career earnings' };
     state.spent += item.cost;
+    // Track season shop spending for annual expenses display
+    if (state.shopSpentSeason !== state.season) {
+      state.shopSpentSeason = state.season;
+      state.shopSpentThisSeason = item.cost;
+    } else {
+      state.shopSpentThisSeason = (state.shopSpentThisSeason || 0) + item.cost;
+    }
     if (state.shopPurchasesSeason !== state.season) {
       state.shopPurchasesSeason = state.season;
       state.shopPurchasesCount = 1;
@@ -841,18 +859,25 @@
     state.shopSeason = state.season;
     const fx = (state.player.isGK && item.fxGk) ? item.fxGk : item.fx;
     const changes = applyFx(state, fx);
+    if (id === 'super_agent') {
+      changes.push({ k: 'AGENT_NEG', d: 25 }, { k: 'AGENT_PAT', d: 20 });
+    }
     recompute(state);
     return { ok: true, changes, item };
   }
 
   // ---- Club offers ----
   // ---- Club offers ----
-  function roleText(ovr, clubS) {
+  function roleText(ovr, clubS, state) {
     const diff = ovr - clubS;
     const T = (k) => root.I18n ? root.I18n.T(k) : k;
-    if (diff >= 4) return T('role.star');
-    if (diff >= -3) return T('role.key');
-    if (diff >= -8) return T('role.rotation');
+    const p = state ? state.player : null;
+    const loyalty = (p && p.loyalty) ? p.loyalty : 0;
+    if (ovr >= 85) return T('role.star');
+    if (ovr >= 80) return (diff >= -6 || loyalty >= 40) ? T('role.star') : T('role.key');
+    if (diff >= 4 || loyalty >= 70) return T('role.star');
+    if (diff >= -3 || loyalty >= 40) return T('role.key');
+    if (diff >= -8 || loyalty >= 20) return T('role.rotation');
     return T('role.prospect');
   }
 
@@ -956,7 +981,7 @@
           type: 'transfer',
           club: loanClub,
           fee,
-          role: roleText(p.ovr, loanClub.s),
+          role: roleText(p.ovr, loanClub.s, state),
           noteKey: nk,
           note: T(nk),
           isLoanBuyout: true,
@@ -970,23 +995,52 @@
           type: 'loan',
           club: loanClub,
           fee: null,
-          role: roleText(p.ovr, loanClub.s),
+          role: roleText(p.ovr, loanClub.s, state),
           noteKey: nk,
           note: T(nk)
         });
       }
 
-      // Option 3: Return to parent club (always available)
-      offers.push({
-        type: 'return',
-        club: parentClub,
-        role: roleText(p.ovr, parentClub.s),
-        noteKey: 'offerNote.return',
-        noteParams: { club: parentClub.n },
-        note: T('offerNote.return', { club: parentClub.n })
+      // Option 3: Return to parent club OR Contract Renewal if contract is expiring
+      const parentExpiring = state.isFreeAgent || (state.contract && state.contract.yearsLeft <= 1);
+      if (parentExpiring) {
+        offers.push({
+          type: 'stay',
+          club: parentClub,
+          role: roleText(p.ovr, parentClub.s, state),
+          noteKey: 'offerNote.newContract',
+          note: T('offerNote.newContract'),
+          isRenewal: true,
+        });
+      } else {
+        offers.push({
+          type: 'return',
+          club: parentClub,
+          role: roleText(p.ovr, parentClub.s, state),
+          noteKey: 'offerNote.return',
+          noteParams: { club: parentClub.n },
+          note: T('offerNote.return', { club: parentClub.n })
+        });
+      }
+
+      // Option 4 & 5: Alternative transfer/loan offers from other clubs
+      const candidates = ALL_CLUBS.filter((c) => c.cid !== loanClub.cid && c.cid !== parentClub.cid && Math.abs(c.s - p.ovr) <= 10 && (!underage || c.countryId === p.countryId));
+      const pickedOthers = shuffle(candidates).slice(0, 2);
+      pickedOthers.forEach((c) => {
+        let maxCap = clubTransferCap(c);
+        let rawFee = Math.round((p.value * (0.8 + rnd() * 0.4)) / 100000) * 100000;
+        let fee = (parentExpiring || underage) ? 0 : Math.min(rawFee, maxCap);
+        const isLoanOffer = underage || (teen && c.s > p.ovr + 2);
+        offers.push({
+          type: isLoanOffer ? 'loan' : 'transfer',
+          club: c,
+          fee: isLoanOffer ? null : fee,
+          role: roleText(p.ovr, c.s, state),
+          noteKey: isLoanOffer ? 'offerNote.devLoan' : 'offerNote.fresh',
+          note: T(isLoanOffer ? 'offerNote.devLoan' : 'offerNote.fresh')
+        });
       });
 
-      // Trim to 3 max (transfer, loan, return)
       return offers.slice(0, 3);
     }
 
@@ -996,7 +1050,7 @@
       offers.push({
         type: 'stay',
         club: cur,
-        role: roleText(p.ovr, cur.s),
+        role: roleText(p.ovr, cur.s, state),
         noteKey: nk,
         note: T(nk)
       });
@@ -1081,7 +1135,7 @@
       else if (c.s >= 88) nk = 'offerNote.royalty';
       else if (c.s > cur.s + 4) nk = 'offerNote.stepUp';
       else nk = 'offerNote.fresh';
-      offers.push({ type: loan ? 'loan' : 'transfer', club: c, fee: loan ? null : fee, role: roleText(p.ovr, c.s), noteKey: nk, note: T(nk) });
+      offers.push({ type: loan ? 'loan' : 'transfer', club: c, fee: loan ? null : fee, role: roleText(p.ovr, c.s, state), noteKey: nk, note: T(nk) });
     });
 
     state.recentOffers = picked.map((c) => c.cid);
@@ -1117,10 +1171,21 @@
   function applyClubOffer(state, offer) {
     const T = (k, p) => root.I18n ? root.I18n.T(k, p) : k;
     const p = state.player;
+    state.clubLoyalty = state.clubLoyalty || {};
+    const oldCid = state.club ? state.club.cid : null;
+
     if (offer.type === 'return') {
       state.loanSeasons = 0;
       state.requestedLoanPermanentMove = false;
       state.club = { cid: offer.club.cid, loan: false, parentCid: null };
+      if (state.isFreeAgent || !state.contract || state.contract.yearsLeft === 0) {
+        state.isFreeAgent = false;
+        const len = offer.contractYears || calcContractLength(p.age);
+        state.contract = { yearsLeft: len, totalYears: len, annualSalary: p.salary, isLoan: false };
+      }
+      if (offer.club.cid && state.clubLoyalty[offer.club.cid]) {
+        state.clubLoyalty[offer.club.cid] = Math.max(10, state.clubLoyalty[offer.club.cid] - 5);
+      }
       logStatNote(state, T('note.returned', { club: offer.club.n }));
     } else if (offer.type === 'loan') {
       const parentCid = (state.club && state.club.loan && state.club.parentCid) ? state.club.parentCid : state.club.cid;
@@ -1129,6 +1194,9 @@
       } else {
         state.loanSeasons = 1;
       }
+      if (parentCid && state.clubLoyalty[parentCid]) {
+        state.clubLoyalty[parentCid] = Math.max(10, state.clubLoyalty[parentCid] - 5);
+      }
       state.club = { cid: offer.club.cid, loan: true, parentCid };
       state.contract = { yearsLeft: 1, totalYears: 1, annualSalary: p.salary, isLoan: true };
       logStatNote(state, T('note.loanMove', { club: offer.club.n }));
@@ -1136,8 +1204,17 @@
       state.loanSeasons = 0;
       state.requestedLoanPermanentMove = false;
       state.isFreeAgent = false;
-      state.club = { cid: offer.club.cid, loan: false, parentCid: null };
 
+      if (offer.type === 'transfer' && oldCid && oldCid !== offer.club.cid) {
+        if (state.clubLoyalty[oldCid]) {
+          state.clubLoyalty[oldCid] = Math.max(10, state.clubLoyalty[oldCid] - 20);
+        }
+        if (state.clubLoyalty[offer.club.cid] === undefined) {
+          state.clubLoyalty[offer.club.cid] = 20;
+        }
+      }
+
+      state.club = { cid: offer.club.cid, loan: false, parentCid: null };
       const len = offer.contractYears || calcContractLength(p.age);
       state.contract = { yearsLeft: len, totalYears: len, annualSalary: p.salary, isLoan: false };
       logStatNote(state, T('note.signedFor', { club: offer.club.n }));
@@ -1257,10 +1334,18 @@
     p.tier = getTier(p.ovr);
     p.value = marketValue(p);
     p.salary = annualSalary(p, state);
-    const seasonsAtClub = (state.club && state.clubStints && state.clubStints[state.club.cid])
-      ? state.clubStints[state.club.cid].seasons
-      : (state.clubSeasons || 1);
-    p.loyalty = clamp(seasonsAtClub * 20, 0, 100);
+
+    state.clubLoyalty = state.clubLoyalty || {};
+    if (state.club && state.club.cid) {
+      if (state.clubLoyalty[state.club.cid] === undefined) {
+        const seasonsAtClub = (state.clubStints && state.clubStints[state.club.cid]) ? state.clubStints[state.club.cid].seasons : 1;
+        state.clubLoyalty[state.club.cid] = clamp(seasonsAtClub * 20, 20, 100);
+      }
+      p.loyalty = clamp(state.clubLoyalty[state.club.cid], 0, 100);
+    } else {
+      p.loyalty = 20;
+    }
+
     if (p.ovr > p.peakOvr) { p.peakOvr = p.ovr; p.peakOvrYear = state.season; }
     if (p.value > p.peakValue) { p.peakValue = p.value; p.peakValueYear = state.season; }
   }
@@ -1427,6 +1512,8 @@
       firstYear: year, lastYear: year, trophies: [], salaries: [],
     });
     stint.seasons += 1; stint.lastYear = year;
+    state.clubLoyalty = state.clubLoyalty || {};
+    state.clubLoyalty[club.cid] = clamp((state.clubLoyalty[club.cid] || 20) + 15, 0, 100);
     stint.salaries = stint.salaries || []; stint.salaries.push(p.salary);
     stint.apps += res.apps; stint.goals += res.goals; stint.assists += res.assists;
     stint.saves += res.saves; stint.conceded += res.conceded; stint.cleanSheets += res.cleanSheets;
@@ -1436,7 +1523,7 @@
     state.earnings += p.salary;
     if (state.agent && state.agent.annualSalary > 0) {
       state.spent += state.agent.annualSalary;
-      logStatNote(state, `Paid ${fmtValue(state.agent.annualSalary)} annual agent fee to ${state.agent.name}`);
+      logStatNote(state, T('note.paidAgentFee', { amount: fmtValue(state.agent.annualSalary), name: state.agent.name }));
     }
     state.injuryMiss = 0;
     state.superAgent = false;
@@ -1569,7 +1656,8 @@
     state.ntCalledUp = true;
     state.triggerNtCallUpModal = false;
     const nat = countryById(state.player.countryId);
-    logStatNote(state, `Accepted national team call-up for ${countryName(nat)}!`);
+    const T = (k, p) => root.I18n ? root.I18n.T(k, p) : k;
+    logStatNote(state, T('note.ntAccepted', { country: countryName(nat) }));
   }
 
   function declineNtCallUp(state) {
@@ -1577,7 +1665,8 @@
     state.triggerNtCallUpModal = false;
     state.ntDeclinedThisYear = true;
     const nat = countryById(state.player.countryId);
-    logStatNote(state, `Declined national team call-up for ${countryName(nat)}. Remaining eligible for future options.`);
+    const T = (k, p) => root.I18n ? root.I18n.T(k, p) : k;
+    logStatNote(state, T('note.ntDeclined', { country: countryName(nat) }));
   }
 
   function naturalizeAndSwitchNt(state, hostCountryId) {
@@ -1586,7 +1675,8 @@
     state.player.countryId = hostCountryId;
     state.ntCalledUp = true;
     state.triggerNtCallUpModal = false;
-    logStatNote(state, `Obtained citizenship in ${countryName(newNat)} after 5+ seasons and accepted their National Team call-up!`);
+    const T = (k, p) => root.I18n ? root.I18n.T(k, p) : k;
+    logStatNote(state, T('note.ntSwitched', { country: countryName(newNat) }));
   }
 
   const Engine = {
