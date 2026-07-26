@@ -1034,15 +1034,22 @@
     const p = state.player;
     const nat = E().countryById(p.countryId);
     const c = h('div', 'nt-callup-modal outcome');
-    c.innerHTML = `
+
+    const flagHeader = h('div', 'nt-flag-header');
+    flagHeader.appendChild(flagEl(nat.code, 64));
+    c.appendChild(flagHeader);
+
+    const content = h('div', 'nt-content');
+    content.innerHTML = `
       <div class="outcome-kicker">🌍 INTERNATIONAL SELECTION</div>
-      <div class="nt-flag-header"><span class="flag-icon-huge">${nat.flag}</span></div>
       <h3>Called up for ${esc(nat.name)}!</h3>
       <p>Your stellar form has earned you a call-up to represent your country on the international stage! (FIFA Rank #${nat.rank})</p>
       <div class="nt-badge-chips">
         <span class="chip tr-country">🌍 National Team Debut</span>
         <span class="chip chip-hype">🔥 International Exposure</span>
       </div>`;
+    c.appendChild(content);
+
     const btn = h('button', 'primary-btn', 'Represent Your Nation');
     c.appendChild(btn);
     const m = modal(c, { onClose: onDone });

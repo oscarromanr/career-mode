@@ -121,6 +121,8 @@
       retireType: null,
       recentOffers: [],
       awards: [],
+      ntCalledUp: false,
+      ntFirstYear: null,
     };
     recompute(state);
     p.peakOvr = p.ovr; p.peakValue = p.value;
@@ -142,6 +144,14 @@
     if (state.retireType === undefined) state.retireType = null;
     if (state.recentOffers === undefined) state.recentOffers = [];
     if (state.awards === undefined) state.awards = [];
+    const hasCaps = (state.totals && state.totals.caps > 0) || (state.history && state.history.some(r => r.caps > 0));
+    if (hasCaps) {
+      state.ntCalledUp = true;
+      if (!state.ntFirstYear && state.history) {
+        const firstCapSeason = state.history.find(r => r.caps > 0);
+        if (firstCapSeason) state.ntFirstYear = firstCapSeason.year;
+      }
+    }
     recompute(state);
     return state;
   }
