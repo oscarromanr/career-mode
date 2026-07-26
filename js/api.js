@@ -11,7 +11,11 @@
   const FLAG_BASE = 'https://flagcdn.com';
 
   function flagUrl(code, w) {
-    return `${FLAG_BASE}/w${w || 80}/${code}.png`;
+    if (!code) return '';
+    const validWidths = [20, 40, 80, 160, 320, 640];
+    const target = w || 80;
+    const closest = validWidths.find((v) => v >= target) || 640;
+    return `${FLAG_BASE}/w${closest}/${code.toLowerCase()}.png`;
   }
 
   // Returns a Promise<string|null> for the badge URL of a club.

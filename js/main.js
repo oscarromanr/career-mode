@@ -114,9 +114,9 @@
       save();
       UI.renderGame(state, handlers);
       if (res.ok) {
-        UI.showOutcome(res.item.name, shopOutcomeText(res.item), res.changes, () => {});
+        UI.showOutcome(res.item.name, shopOutcomeText(res.item), res.changes, () => UI.renderGame(state, handlers));
       } else {
-        UI.showOutcome('Shop', res.reason, [], () => {});
+        UI.showOutcome('Shop', res.reason, [], () => UI.renderGame(state, handlers));
       }
     },
     onRetireConfirm() {

@@ -107,7 +107,7 @@
       history: [],
       usedDecisions: [],
       boostPity: 0,
-      totals: { apps: 0, goals: 0, assists: 0, saves: 0, conceded: 0, cleanSheets: 0, caps: 0, ntGoals: 0 },
+      totals: { apps: 0, goals: 0, assists: 0, saves: 0, conceded: 0, cleanSheets: 0, caps: 0, ntGoals: 0, ntCleanSheets: 0 },
       clubStints: {},
       ntTrophies: [],
       earnings: 0,
@@ -144,6 +144,20 @@
     if (state.retireType === undefined) state.retireType = null;
     if (state.recentOffers === undefined) state.recentOffers = [];
     if (state.awards === undefined) state.awards = [];
+    if (state.totals && state.totals.ntCleanSheets === undefined) {
+      // Retroactively estimate ntCleanSheets for GK saves from history
+      if (p.isGK && state.totals.caps > 0 && state.history) {
+        let estCS = 0;
+        state.history.forEach(r => {
+          if (r.caps > 0) {
+            estCS += Math.min(r.caps, Math.max(0, Math.round(r.caps * 0.4)));
+          }
+        });
+        state.totals.ntCleanSheets = Math.min(state.totals.caps, estCS);
+      } else {
+        state.totals.ntCleanSheets = 0;
+      }
+    }
     const hasCaps = (state.totals && state.totals.caps > 0) || (state.history && state.history.some(r => r.caps > 0));
     if (hasCaps) {
       state.ntCalledUp = true;
@@ -968,7 +982,13 @@
       state.ntFirstYear = state.ntFirstYear || year;
       const rate = DATA.ATTACK_RATES[p.position];
       res.caps = clamp(5 + ri(0, 5) + (p.ovr >= 85 ? 2 : 0), 0, 12);
-      if (!p.isGK) res.ntGoals = Math.max(0, Math.round(res.caps * rate.g * Math.pow(p.ovr / 82, 2) * 0.8 * (0.6 + rnd() * 0.8)));
+      if (!p.isGK) {
+        res.ntGoals = Math.max(0, Math.round(res.caps * rate.g * Math.pow(p.ovr / 82, 2) * 0.8 * (0.6 + rnd() * 0.8)));
+        res.ntCleanSheets = 0;
+      } else {
+        res.ntGoals = 0;
+        res.ntCleanSheets = Math.min(res.caps, Math.max(0, Math.round(res.caps * (0.35 + (p.ovr / 100) * 0.25))));
+      }
       const confT = TOURNAMENTS[nat.confed];
       if (TOURNAMENTS.WC.years.includes(year)) {
         if (chance(ntWinProb(nat.rank, p.ovr, true))) res.trophies.push({ type: 'Country', name: 'FIFA World Cup' });
@@ -1009,7 +1029,7 @@
     const t = state.totals;
     t.apps += res.apps; t.goals += res.goals; t.assists += res.assists;
     t.saves += res.saves; t.conceded += res.conceded; t.cleanSheets += res.cleanSheets;
-    t.caps += res.caps; t.ntGoals += res.ntGoals;
+    t.caps += res.caps; t.ntGoals += (res.ntGoals || 0); t.ntCleanSheets = (t.ntCleanSheets || 0) + (res.ntCleanSheets || 0);
 
     const stint = state.clubStints[club.cid] || (state.clubStints[club.cid] = {
       cid: club.cid, seasons: 0, apps: 0, goals: 0, assists: 0, saves: 0, conceded: 0, cleanSheets: 0,

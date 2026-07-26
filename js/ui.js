@@ -587,8 +587,9 @@
       });
       const ntChips = Object.entries(ntTrophyCounts).map(([name, count]) => `${count}x ${name}`);
 
+      const ntCleanSheets = Math.min(t.caps, t.ntCleanSheets || 0);
       const ntStatLine = state.player.isGK
-        ? `<span><b>${t.caps}</b> Caps</span><span><b>${t.cleanSheets}</b> Clean Sheets</span>`
+        ? `<span><b>${t.caps}</b> Caps</span><span><b>${ntCleanSheets}</b> Clean Sheets</span>`
         : `<span><b>${t.caps}</b> Caps</span><span><b>${t.ntGoals}</b> Goals</span>`;
 
       const stintHead = h('div', 'stint-head');
@@ -1036,7 +1037,7 @@
     const c = h('div', 'nt-callup-modal outcome');
 
     const flagHeader = h('div', 'nt-flag-header');
-    flagHeader.appendChild(flagEl(nat.code, 64));
+    flagHeader.appendChild(flagEl(nat.code, 80));
     c.appendChild(flagHeader);
 
     const content = h('div', 'nt-content');
