@@ -8,6 +8,7 @@
   let state = null;
 
   const $ = (id) => document.getElementById(id);
+  const T = (key, params) => I18n ? I18n.T(key, params) : key;
 
   function showScreen(name) {
     ['screen-setup', 'screen-game', 'screen-summary'].forEach((s) => {
@@ -63,7 +64,7 @@
       delete state.currentDecision;
       state.stage = 'booster';
       save();
-      const after = (res) => UI.showOutcome(d.title, res.out, res.changes, () => enterBooster());
+      const after = (res) => UI.showOutcome(I18n.TData('decision', d, 'title') || d.title, res.out, res.changes, () => enterBooster(), state);
       if (opt.mini) {
         // Interactive minigame: penalty zones, gk penalty or timing bar
         const done = (resultKey) => after(Engine.applyMiniResult(state, d, choice, resultKey));
@@ -92,10 +93,10 @@
       // Season 1: skip club stage (you just joined the academy)
       state.stage = state.history.length === 0 ? 'sim' : 'club';
       save();
-      UI.showOutcome(b.title, boosterOutcomeText(b), res.changes, () => {
+      UI.showOutcome(I18n.TData('booster', b, 'title') || b.title, boosterOutcomeText(b), res.changes, () => {
         if (state.stage === 'sim') runSim();
         else enterClub();
-      });
+      }, state);
     },
     onClub(idx) {
       const offer = state.currentOffers[idx];
@@ -114,9 +115,63 @@
       save();
       UI.renderGame(state, handlers);
       if (res.ok) {
-        UI.showOutcome(res.item.name, shopOutcomeText(res.item), res.changes, () => UI.renderGame(state, handlers));
+        UI.showOutcome(I18n.TData('consumable', res.item, 'name') || res.item.name, shopOutcomeText(res.item), res.changes, () => UI.renderGame(state, handlers), state);
       } else {
-        UI.showOutcome('Shop', res.reason, [], () => UI.renderGame(state, handlers));
+        UI.showOutcome(T('shop.title'), res.reason, [], () => UI.renderGame(state, handlers), state);
+      }
+    },
+    onHireAgent(agentId) {
+      const res = Engine.hireAgent(state, agentId);
+      save();
+      UI.renderGame(state, handlers);
+      if (res.ok) {
+        const msg = res.buyoutPaid > 0
+          ? T('agent.hiredWithBuyout', { name: res.agent.name, buyout: Engine.fmtValue(res.buyoutPaid) })
+          : T('agent.hired', { name: res.agent.name });
+        UI.showOutcome(T('agent.title'), msg, [], () => UI.renderGame(state, handlers), state);
+      } else {
+        UI.showOutcome(T('agent.title'), res.reason, [], () => UI.renderGame(state, handlers), state);
+      }
+    },
+    onSetTargetClub(cid) {
+      state.targetClubCid = cid;
+      save();
+      const club = Engine.clubByCid(cid);
+      UI.renderGame(state, handlers);
+      UI.showOutcome(T('agent.targetClub'), T('agent.targetSet', { club: club.n }), [], () => UI.renderGame(state, handlers), state);
+    },
+    onNegotiateCommission(pct) {
+      const res = Engine.negotiateCommission(state, pct);
+      save();
+      UI.renderGame(state, handlers);
+      if (!res.ok) {
+        UI.showOutcome(T('agent.commission'), res.reason, [], () => UI.renderGame(state, handlers), state);
+      } else if (res.accepted) {
+        UI.showOutcome(T('agent.commission'), T('agent.commSet', { pct: res.pct }), [], () => UI.renderGame(state, handlers), state);
+      } else {
+        UI.showOutcome(T('agent.commission'), res.reason, [], () => UI.renderGame(state, handlers), state);
+      }
+    },
+    onRequestTransfer() {
+      const res = Engine.requestTransfer(state);
+      save();
+      UI.renderGame(state, handlers);
+      if (res.ok) {
+        UI.showOutcome(T('agent.requestMove'), T('agent.transferRequested'), res.changes, () => UI.renderGame(state, handlers), state);
+      } else {
+        UI.showOutcome(T('agent.requestMove'), res.reason, [], () => UI.renderGame(state, handlers), state);
+      }
+    },
+    onDemandRaise() {
+      const res = Engine.demandSalaryRaise(state);
+      save();
+      UI.renderGame(state, handlers);
+      if (!res.ok) {
+        UI.showOutcome(T('agent.demandRaise'), res.reason, [], () => UI.renderGame(state, handlers), state);
+      } else if (res.success) {
+        UI.showOutcome(T('agent.demandRaise'), T('agent.raiseSecured', { salary: Engine.fmtValue(res.newSalary) }), res.changes, () => UI.renderGame(state, handlers), state);
+      } else {
+        UI.showOutcome(T('agent.demandRaise'), T('agent.raiseDenied'), res.changes, () => UI.renderGame(state, handlers), state);
       }
     },
     onRetireConfirm() {
@@ -142,7 +197,7 @@
           showScreen('game');
           UI.renderGame(state, handlers);
         } catch (e) {
-          UI.showOutcome('Import failed', 'That file doesn\'t look like a Career Mode \'26 save. No harm done.', [], () => {});
+          UI.showOutcome(T('import.failTitle'), T('import.failText'), [], () => {});
         }
       };
       reader.readAsText(file);
@@ -159,19 +214,9 @@
   }
 
   function shopOutcomeText(item) {
-    const map = {
-      'Private Chef': 'Macros on point. The nutritionist cries tears of joy.',
-      'Hyperbaric Chamber Sessions': 'You emerge from the tube feeling 18 again. Whatever your age.',
-      'Elite Mental Coach': 'Three sessions in, you start visualizing success in 4K.',
-      'Personal Video Analyst': 'Every touch reviewed. The weak spots never stood a chance.',
-      'Personal Trainer': 'He makes you carry a tire up a hill. The tire now fears YOU.',
-      'PR & Brand Team': 'Your name is suddenly everywhere. Even your barber has opinions now.',
-      'Physio Insurance Package': 'A world-class physio team now shadows you. Injuries: officially on notice.',
-      'Custom Lab Boots': 'They weigh nothing. They touch the ball like it\'s magnetized. Weapons-grade.',
-      'Mindfulness Retreat': 'One week of silence. You return unable to hear criticism. Literal peace.',
-      'Super-Agent Package': 'Your agent now has a bigger suit and three phones. Offers incoming.',
-    };
-    return map[item.name] || 'Money well spent. Probably.';
+    return T('shopOut.' + item.name) !== ('shopOut.' + item.name)
+      ? T('shopOut.' + item.name)
+      : T('shopOut.default');
   }
 
   function exportSave() {
@@ -195,6 +240,14 @@
       return;
     }
     const action = btn.dataset.action;
+    if (action === 'lang') {
+      const newLang = I18n.getLang() === 'en' ? 'es' : 'en';
+      I18n.setLang(newLang);
+      if (state) {
+        UI.renderGame(state, handlers);
+      }
+      return;
+    }
     if (!state) return;
     if (action === 'menu') { if (menu) menu.classList.toggle('hidden'); return; }
     if (menu) menu.classList.add('hidden');
@@ -203,23 +256,18 @@
     else if (action === 'retire') UI.showRetireConfirm(state, handlers);
     else if (action === 'restart') {
       UI.showConfirm({
-        kicker: 'START OVER?',
-        title: 'Delete this career?',
-        text: `${state.player.name}, age ${state.player.age}, season ${state.season} — everything goes back to the academy gates.`,
-        warn: 'This wipes the saved career permanently. There is no undo.',
-        yesLabel: 'Delete & restart', noLabel: 'Keep playing', danger: true,
+        kicker: T('restart.kicker'),
+        title: T('restart.title'),
+        text: T('restart.text', { name: state.player.name, age: state.player.age, n: state.season }),
+        warn: T('restart.warn'),
+        yesLabel: T('restart.yes'), noLabel: T('retire.no'), danger: true,
         onYes: handlers.onRestart,
       });
     }
   });
 
   function boosterOutcomeText(b) {
-    const map = {
-      bronze: 'Hard work banked. Nobody claps for training camps — until they watch you play.',
-      silver: 'Serious work, serious gains. The coaches noticed something shift in you this summer.',
-      gold: 'A career-altering camp. You came back a different player. The squad noticed on day one.',
-    };
-    return map[b.rarity] || map.bronze;
+    return T('boosterOut.' + b.rarity);
   }
 
   function enterBooster() {
@@ -249,7 +297,7 @@
     // animated fake progress
     const line = $('sim-line');
     const fill = $('sim-fill');
-    const lines = GAME_DATA.SIM_LINES;
+    const lines = I18n.simLines();
     let i = 0;
     const lineTimer = setInterval(() => {
       line.textContent = lines[i % lines.length];

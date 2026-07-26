@@ -976,6 +976,37 @@
       a: { label: 'Love the chaos', sub: 'Storm keeper activated', fx: { stats: { COM: 2 } }, out: 'You catch everything in the hurricane. The other keeper concedes a wind-assisted howler. Elements: mastered.' },
       b: { label: 'Survival mode', sub: 'Just get through it', fx: { stats: { REF: 1 } }, out: 'You punch everything instead of catching. Zero risks, zero goals conceded. Boring brilliance.' } },
 
+    // ================= LEGEND ICON DECISIONS =================
+    { id: 'legend-mentor-session', min: 16, max: 36, title: 'The Mentor\'s Visit',
+      desc: 'A legendary icon of your nation visits training. After practice, he walks over to give you personalized guidance.',
+      a: { label: 'Absorb the advice', sub: 'Study his movements', fx: { stats: { MEN: 2, VIS: 1 }, mor: 5 }, out: 'He spends 30 minutes correcting your body shape before receiving. Your vision unlocks.' },
+      b: { label: 'Gift your match jersey', sub: 'Show deep respect', fx: { mor: 8, hype: 2 }, out: 'The legend smiles, puts his arm around you, and posts a picture with your shirt. Social media explodes.' } },
+    { id: 'national-legend-call', min: 18, max: 35, title: 'Call from a Legend',
+      desc: 'A legendary icon of your national team calls you personally on the phone before the international break.',
+      a: { label: 'Accept his mentorship', sub: 'Listen intently', fx: { stats: { LEA: 2, MEN: 1 }, mor: 6 }, out: 'He shares his secrets on handling pressure in high-stakes games. Your confidence skyrockets.' },
+      b: { label: 'Keep it brief', sub: 'Stay focused', fx: { mor: 4 }, out: 'You thank him politely. He wishes you luck and promises to watch your next match.' } },
+    { id: 'legend-masterclass', min: 17, max: 34, title: 'Private Masterclass',
+      desc: 'An iconic club legend conducts an exclusive 1-on-1 masterclass on positioning just for you.',
+      a: { label: 'Study film with him', sub: 'Deep tactical breakdown', fx: { stats: { VIS: 2, COM: 1 }, mor: 4 }, out: 'He breaks down 10 clips of your recent matches. You spot three subtle adjustments that change your game.' },
+      b: { label: 'Crossbar challenge', sub: 'Fun bonding session', fx: { mor: 8, hype: 1 }, out: 'You hit the bar three times in a row. The legend laughs and buys you coffee after.' } },
+    { id: 'legend-boot-gift', min: 16, max: 30, title: 'Gift from Greatness',
+      desc: 'An unmarked package arrives at your locker: custom boots sent personally by a legendary icon with a note of encouragement.',
+      a: { label: 'Lace them up', sub: 'Wear them in the derby', fx: { stats: { PAC: 1, DRI: 1 }, mor: 5, hype: 2 }, out: 'You glide across the pitch. The commentators mention the boots three times during the broadcast.' },
+      b: { label: 'Frame the boots', sub: 'Keep as a trophy', fx: { mor: 7 }, out: 'The boots take pride of place in your living room. A constant reminder of where you\'re heading.' } },
+    { id: 'legend-derby-pep-talk', min: 17, max: 36, title: 'The Locker Room Visit',
+      desc: 'Before the derby, a legendary icon enters the dressing room, locks eyes with you, and delivers a fiery speech.',
+      a: { label: 'Lead the team out', sub: 'Embrace the fire', fx: { stats: { LEA: 2, MEN: 1 }, mor: 6 }, out: 'You roar out of the tunnel. The squad follows your lead into battle. Pure derby energy.' },
+      b: { label: 'Channel it calmly', sub: 'Ice in your veins', fx: { stats: { COM: 2 }, mor: 4 }, out: 'You nod silently, put your headphones on, and deliver a clinical 9/10 performance.' } },
+    { id: 'legend-media-praise', min: 18, max: 32, title: 'Praise on TV',
+      desc: 'A legendary icon is asked about you on a major football show: "That kid has world-class potential."',
+      a: { label: 'Thank him publicly', sub: 'Repost the clip', fx: { hype: 3, mor: 5 }, out: 'Your response trends #1. The world now knows the legend believes in you.' },
+      b: { label: 'Stay humble in media', sub: 'Let your boots talk', fx: { stats: { COM: 1, LEA: 1 }, mor: 3 }, out: 'You answer: "I have accomplished nothing yet." The pundits applaud your elite mindset.' } },
+
+    { id: 'naturalization-switch', min: 19, max: 34, title: 'Naturalization Offer',
+      desc: 'After 5+ seasons in your host country, the national team coach and federation officially offer you citizenship and a spot in their national team squad.',
+      a: { label: 'Accept & Switch National Team', sub: 'Represent your adopted home', fx: { mor: 10, hype: 3 }, out: 'You officially receive citizenship and wear the new national team crest. A historic career milestone.' },
+      b: { label: 'Remain Loyal to Birth Nation', sub: 'Hold out for your homeland', fx: { mor: 5, stats: { LEA: 2 } }, out: 'You decline the switch. The fans of your homeland applaud your unwavering loyalty.' } },
+
     // ================= FINAL BATCH =================
     { id: 'ball-boy-debut', min: 14, max: 16, title: 'Ball Boy Duty',
       desc: 'The first team needs ball boys for the cup game. Front row seats, technically.',
@@ -1229,9 +1260,208 @@
     'They\'ll tell stories about this one.',
   ];
 
+  const CLUB_LEGENDS = {
+    'Real Madrid': [
+      { name: 'Iker Casillas', pos: 'gk', title: 'San Iker' },
+      { name: 'Sergio Ramos', pos: 'def', title: 'El Capitán del 93\'' },
+      { name: 'Luka Modrić', pos: 'mid', title: 'El Maestro del Exterior' },
+      { name: 'Raúl González', pos: 'st', title: 'El Ángel del Madrid' }
+    ],
+    'Barcelona': [
+      { name: 'Víctor Valdés', pos: 'gk', title: 'El Arquero del Pep Team' },
+      { name: 'Carles Puyol', pos: 'def', title: 'El Tarzán de La Masia' },
+      { name: 'Xavi Hernández', pos: 'mid', title: 'El Arquitecto' },
+      { name: 'Lionel Messi', pos: 'st', title: 'El Rey de LaLiga' }
+    ],
+    'River Plate': [
+      { name: 'Ubaldo Fillol', pos: 'gk', title: 'El Pato' },
+      { name: 'Daniel Passarella', pos: 'def', title: 'El Gran Capitán' },
+      { name: 'Ariel Ortega', pos: 'mid', title: 'El Burrito' },
+      { name: 'Enzo Francescoli', pos: 'st', title: 'El Príncipe' }
+    ],
+    'Boca Juniors': [
+      { name: 'Roberto Abbondanzieri', pos: 'gk', title: 'El Pato' },
+      { name: 'Jorge Bermúdez', pos: 'def', title: 'El Patrón' },
+      { name: 'Juan Román Riquelme', pos: 'mid', title: 'El Último Diez' },
+      { name: 'Martín Palermo', pos: 'st', title: 'El Titán' }
+    ],
+    'Manchester United': [
+      { name: 'Peter Schmeichel', pos: 'gk', title: 'The Great Dane' },
+      { name: 'Rio Ferdinand', pos: 'def', title: 'The Rolls-Royce Defender' },
+      { name: 'Paul Scholes', pos: 'mid', title: 'The Midfield General' },
+      { name: 'Wayne Rooney', pos: 'st', title: 'Wazza' }
+    ],
+    'Liverpool': [
+      { name: 'Alisson Becker', pos: 'gk', title: 'The Wall' },
+      { name: 'Jamie Carragher', pos: 'def', title: 'Carra' },
+      { name: 'Steven Gerrard', pos: 'mid', title: 'Captain Fantastic' },
+      { name: 'Robbie Fowler', pos: 'st', title: 'God' }
+    ],
+    'Arsenal': [
+      { name: 'David Seaman', pos: 'gk', title: 'Safe Hands' },
+      { name: 'Tony Adams', pos: 'def', title: 'Mr. Arsenal' },
+      { name: 'Patrick Vieira', pos: 'mid', title: 'The Invincible Captain' },
+      { name: 'Thierry Henry', pos: 'st', title: 'King Henry' }
+    ],
+    'Bayern Munich': [
+      { name: 'Manuel Neuer', pos: 'gk', title: 'The Sweeper Keeper' },
+      { name: 'Philipp Lahm', pos: 'def', title: 'The Magic Dwarf' },
+      { name: 'Bastian Schweinsteiger', pos: 'mid', title: 'Der Fußballgott' },
+      { name: 'Thomas Müller', pos: 'st', title: 'Der Raumdeuter' }
+    ],
+    'Juventus': [
+      { name: 'Gianluigi Buffon', pos: 'gk', title: 'Gigi' },
+      { name: 'Giorgio Chiellini', pos: 'def', title: 'King Kong' },
+      { name: 'Andrea Pirlo', pos: 'mid', title: 'Il Maestro' },
+      { name: 'Alessandro Del Piero', pos: 'st', title: 'Pinturicchio' }
+    ],
+    'AC Milan': [
+      { name: 'Dida', pos: 'gk', title: 'El Muro Rossonero' },
+      { name: 'Paolo Maldini', pos: 'def', title: 'Il Capitano' },
+      { name: 'Kaká', pos: 'mid', title: 'O Iluminado' },
+      { name: 'Andriy Shevchenko', pos: 'st', title: 'The Ukrainian Express' }
+    ]
+  };
+
+  const NAT_LEGENDS = {
+    MX: [
+      { name: 'Jorge Campos', pos: 'gk', title: 'El Inmortal' },
+      { name: 'Rafa Márquez', pos: 'def', title: 'El Káiser de Michoacán' },
+      { name: 'Andrés Guardado', pos: 'mid', title: 'El Principito' },
+      { name: 'Hugo Sánchez', pos: 'st', title: 'Pentapichi' },
+      { name: 'Guillermo Ochoa', pos: 'gk', title: 'San Memo' }
+    ],
+    AR: [
+      { name: 'Lionel Messi', pos: 'st', title: 'La Pulga' },
+      { name: 'Javier Zanetti', pos: 'def', title: 'El Tractor' },
+      { name: 'Juan Román Riquelme', pos: 'mid', title: 'El Último Diez' },
+      { name: 'Gabriel Batistuta', pos: 'st', title: 'Batigol' },
+      { name: 'Ubaldo Fillol', pos: 'gk', title: 'El Pato' }
+    ],
+    BR: [
+      { name: 'Ronaldo Nazário', pos: 'st', title: 'O Fenômeno' },
+      { name: 'Ronaldinho Gaúcho', pos: 'mid', title: 'O Bruxo' },
+      { name: 'Cafu', pos: 'def', title: 'O Capitão' },
+      { name: 'Roberto Carlos', pos: 'def', title: 'El Hombre Bala' },
+      { name: 'Cláudio Taffarel', pos: 'gk', title: 'O Parapenaltis' }
+    ],
+    ES: [
+      { name: 'Iker Casillas', pos: 'gk', title: 'San Iker' },
+      { name: 'Sergio Ramos', pos: 'def', title: 'El Capitán' },
+      { name: 'Xavi Hernández', pos: 'mid', title: 'El Maestro' },
+      { name: 'Andrés Iniesta', pos: 'mid', title: 'Don Andrés' },
+      { name: 'Raúl González', pos: 'st', title: 'El Ángel del Gol' }
+    ],
+    DE: [
+      { name: 'Manuel Neuer', pos: 'gk', title: 'The Sweeper-Keeper' },
+      { name: 'Philipp Lahm', pos: 'def', title: 'The Magic Dwarf' },
+      { name: 'Lothar Matthäus', pos: 'mid', title: 'Der Imperator' },
+      { name: 'Thomas Müller', pos: 'st', title: 'Der Raumdeuter' },
+      { name: 'Toni Kroos', pos: 'mid', title: 'Der Metronom' }
+    ],
+    EN: [
+      { name: 'Wayne Rooney', pos: 'st', title: 'Wazza' },
+      { name: 'David Beckham', pos: 'mid', title: 'Golden Balls' },
+      { name: 'Alan Shearer', pos: 'st', title: 'Premier League King' },
+      { name: 'Steven Gerrard', pos: 'mid', title: 'Captain Fantastic' },
+      { name: 'David Seaman', pos: 'gk', title: 'Safe Hands' }
+    ],
+    FR: [
+      { name: 'Zinedine Zidane', pos: 'mid', title: 'Zizou' },
+      { name: 'Thierry Henry', pos: 'st', title: 'Titi' },
+      { name: 'Lilian Thuram', pos: 'def', title: 'The Rock' },
+      { name: 'Hugo Lloris', pos: 'gk', title: 'Le Capitaine' },
+      { name: 'Antoine Griezmann', pos: 'st', title: 'Grizou' }
+    ],
+    IT: [
+      { name: 'Gianluigi Buffon', pos: 'gk', title: 'Gigi' },
+      { name: 'Paolo Maldini', pos: 'def', title: 'Il Capitano' },
+      { name: 'Andrea Pirlo', pos: 'mid', title: 'Il Maestro' },
+      { name: 'Francesco Totti', pos: 'st', title: 'Il Gladiatore' },
+      { name: 'Alessandro Del Piero', pos: 'st', title: 'Pinturicchio' }
+    ],
+    PT: [
+      { name: 'Cristiano Ronaldo', pos: 'st', title: 'CR7' },
+      { name: 'Luís Figo', pos: 'mid', title: 'O Rei' },
+      { name: 'Pepe', pos: 'def', title: 'O Xerife' },
+      { name: 'Rui Costa', pos: 'mid', title: 'O Maestro' },
+      { name: 'Vítor Baía', pos: 'gk', title: 'O Guardião' }
+    ],
+    NL: [
+      { name: 'Edwin van der Sar', pos: 'gk', title: 'The Flying Dutchman' },
+      { name: 'Virgil van Dijk', pos: 'def', title: 'VVD' },
+      { name: 'Wesley Sneijder', pos: 'mid', title: 'The Playmaker' },
+      { name: 'Robin van Persie', pos: 'st', title: 'The Flying Dutchman' },
+      { name: 'Ruud van Nistelrooy', pos: 'st', title: 'Ruud' }
+    ],
+    CO: [
+      { name: 'David Ospina', pos: 'gk', title: 'El Guardián Tricolor' },
+      { name: 'Mario Yepes', pos: 'def', title: 'El Mariscal' },
+      { name: 'Carlos Valderrama', pos: 'mid', title: 'El Pibe' },
+      { name: 'James Rodríguez', pos: 'mid', title: 'Bota de Oro 2014' },
+      { name: 'Radamel Falcao', pos: 'st', title: 'El Tigre' }
+    ],
+    UY: [
+      { name: 'Fernando Muslera', pos: 'gk', title: 'Nené' },
+      { name: 'Diego Godín', pos: 'def', title: 'El Faraón' },
+      { name: 'Federico Valverde', pos: 'mid', title: 'El Halcón' },
+      { name: 'Luis Suárez', pos: 'st', title: 'El Pistolero' },
+      { name: 'Edinson Cavani', pos: 'st', title: 'El Matador' }
+    ],
+    CL: [
+      { name: 'Claudio Bravo', pos: 'gk', title: 'El Capitán América' },
+      { name: 'Gary Medel', pos: 'def', title: 'El Pitbull' },
+      { name: 'Arturo Vidal', pos: 'mid', title: 'El King' },
+      { name: 'Alexis Sánchez', pos: 'st', title: 'El Niño Maravilla' },
+      { name: 'Humberto Suazo', pos: 'st', title: 'Chupete' }
+    ],
+    US: [
+      { name: 'Tim Howard', pos: 'gk', title: 'The Secretary of Defense' },
+      { name: 'Carlos Bocanegra', pos: 'def', title: 'Captain Bocanegra' },
+      { name: 'Clint Dempsey', pos: 'mid', title: 'Deuce' },
+      { name: 'Landon Donovan', pos: 'st', title: 'US Soccer Icon' },
+      { name: 'Christian Pulisic', pos: 'st', title: 'Captain America' }
+    ],
+    BE: [
+      { name: 'Thibaut Courtois', pos: 'gk', title: 'El Muro Belga' },
+      { name: 'Vincent Kompany', pos: 'def', title: 'Vince the Prince' },
+      { name: 'Kevin De Bruyne', pos: 'mid', title: 'KDB' },
+      { name: 'Eden Hazard', pos: 'st', title: 'The Duke of Hazard' },
+      { name: 'Romelu Lukaku', pos: 'st', title: 'Big Rom' }
+    ],
+    HR: [
+      { name: 'Dominik Livaković', pos: 'gk', title: 'Penalty Hero' },
+      { name: 'Vedran Ćorluka', pos: 'def', title: 'The Wall of Zagreb' },
+      { name: 'Luka Modrić', pos: 'mid', title: 'The Golden Ball' },
+      { name: 'Ivan Rakitić', pos: 'mid', title: 'The Engine' },
+      { name: 'Mario Mandžukić', pos: 'st', title: 'Super Mario' }
+    ],
+    JP: [
+      { name: 'Eiji Kawashima', pos: 'gk', title: 'Samurai Defender' },
+      { name: 'Maya Yoshida', pos: 'def', title: 'The Leader' },
+      { name: 'Hidetoshi Nakata', pos: 'mid', title: 'The Pioneer' },
+      { name: 'Keisuke Honda', pos: 'mid', title: 'Emperor Honda' },
+      { name: 'Shinji Kagawa', pos: 'st', title: 'The Dortmund Maestro' }
+    ],
+    SN: [
+      { name: 'Édouard Mendy', pos: 'gk', title: 'The Champion Keeper' },
+      { name: 'Kalidou Koulibaly', pos: 'def', title: 'K2' },
+      { name: 'Idrissa Gueye', pos: 'mid', title: 'The Engine' },
+      { name: 'Sadio Mané', pos: 'st', title: 'The Lion of Teranga' },
+      { name: 'El Hadji Diouf', pos: 'st', title: 'The Legend' }
+    ],
+    EG: [
+      { name: 'Essam El-Hadary', pos: 'gk', title: 'The High Dam' },
+      { name: 'Wael Gomaa', pos: 'def', title: 'The Rock' },
+      { name: 'Mohamed Elneny', pos: 'mid', title: 'The Dynamo' },
+      { name: 'Mohamed Salah', pos: 'st', title: 'The Egyptian King' },
+      { name: 'Mido', pos: 'st', title: 'The Pharaoh' }
+    ]
+  };
+
   const DATA = {
     FIELD_STATS, GK_STATS, POSITIONS, OVR_WEIGHTS, ATTACK_RATES,
-    COUNTRIES, DECISIONS, BOOSTERS, RARITY_ROLL, CONSUMABLES, SIM_LINES, HEADLINES, RETIREMENT_QUOTES,
+    COUNTRIES, DECISIONS, BOOSTERS, RARITY_ROLL, CONSUMABLES, SIM_LINES, HEADLINES, RETIREMENT_QUOTES, NAT_LEGENDS, CLUB_LEGENDS,
   };
 
   root.GAME_DATA = DATA;

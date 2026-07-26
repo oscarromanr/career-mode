@@ -123,10 +123,196 @@
       awards: [],
       ntCalledUp: false,
       ntFirstYear: null,
+      agent: DAD_AGENT,
+      agentMarket: null,
+      agentMarketSeason: 0,
+      agentActionsThisSeason: { transferReq: false, raiseReq: false, commReq: false },
+      transferCommissionPct: 5,
     };
+    p.reputation = 0;
+    state.agentMarket = rollAgentMarket(state);
+    state.agentMarketSeason = state.season;
     recompute(state);
     p.peakOvr = p.ovr; p.peakValue = p.value;
     return state;
+  }
+
+  function addReputation(state, d) {
+    if (!state.player) return;
+    const before = state.player.reputation || 0;
+    state.player.reputation = clamp(before + d, 0, 100);
+  }
+
+  function countryName(c) {
+    if (!c) return '';
+    const name = c.name || c;
+    if (root.I18n && root.I18n.TCountry) return root.I18n.TCountry(name);
+    return name;
+  }
+
+  function outcomeText(decisionId, key, fallback) {
+    if (root.I18n && root.I18n.TD) {
+      const translated = root.I18n.TD('decisionOutcomes', decisionId, key);
+      if (translated) return translated;
+    }
+    return fallback;
+  }
+
+  // ---- Agent System & Name Generator ----
+  const FIRST_NAMES = ['Carlos', 'Jorge', 'Marco', 'Matteo', 'Pierre', 'Hugo', 'Lucas', 'Julian', 'Diego', 'Gabriel', 'Sven', 'Lars', 'Felix', 'Arthur', 'Bruno'];
+  const LAST_NAMES = ['Mendes', 'Raiola', 'Zahavi', 'Barnett', 'Ramadani', 'Struth', 'Bertolucci', 'Riso', 'Pastorello', 'Gallardo', 'Schneider', 'Vargas', 'Silva'];
+
+  function generateAgentName() {
+    return `${pick(FIRST_NAMES)} ${pick(LAST_NAMES)}`;
+  }
+
+  const DAD_AGENT = {
+    id: 'dad',
+    name: 'Family Agent (Dad)',
+    type: 'dad',
+    patience: 90,
+    greed: 25,
+    negotiation: 45,
+    annualSalary: 0,
+    buyoutFee: 0,
+  };
+
+  function rollAgentMarket(state) {
+    const p = state.player;
+    const baseSal = Math.round(p.salary * 0.04 / 25000) * 25000;
+    const agents = [DAD_AGENT];
+    for (let i = 1; i <= 3; i++) {
+      const pat = ri(35, 88);
+      const greed = ri(35, 90);
+      const neg = ri(45, 95);
+      const sal = Math.max(50000, Math.round((baseSal * (0.6 + neg * 0.01)) / 25000) * 25000);
+      const buyout = sal * ri(2, 4);
+      agents.push({
+        id: `agent_${state.season}_${i}`,
+        name: generateAgentName(),
+        type: neg >= 85 ? 'super' : (greed >= 75 ? 'greedy' : 'pro'),
+        patience: pat,
+        greed,
+        negotiation: neg,
+        annualSalary: sal,
+        buyoutFee: buyout,
+      });
+    }
+    return agents;
+  }
+
+  function allClubs() {
+    return ALL_CLUBS;
+  }
+
+  function hireAgent(state, agentId) {
+    const market = state.agentMarket || rollAgentMarket(state);
+    const candidate = market.find((a) => a.id === agentId);
+    if (!candidate) return { ok: false, reason: 'Agent not found' };
+
+    const current = state.agent || DAD_AGENT;
+    if (current.id === candidate.id) return { ok: false, reason: 'Already your active agent' };
+
+    const buyout = (current.type !== 'dad' && current.buyoutFee) ? current.buyoutFee : 0;
+    const netBanked = state.earnings - state.spent;
+    if (buyout > 0 && netBanked < buyout) {
+      const T = (k, p) => root.I18n ? root.I18n.T(k, p) : k;
+      return { ok: false, reason: T('agent.cantAffordBuyout', { amount: fmtValue(buyout) }) };
+    }
+
+    if (buyout > 0) {
+      state.spent += buyout;
+      logStatNote(state, `Paid ${fmtValue(buyout)} release buyout clause to fire ${current.name}`);
+    }
+
+    state.agent = candidate;
+    logStatNote(state, `Hired ${candidate.name} as active agent`);
+    return { ok: true, agent: candidate, buyoutPaid: buyout };
+  }
+
+  function requestTransfer(state) {
+    if (!state.agentActionsThisSeason) state.agentActionsThisSeason = {};
+    if (state.agentActionsThisSeason.transferReq) {
+      return { ok: false, reason: 'Already requested a transfer this season' };
+    }
+
+    state.agentActionsThisSeason.transferReq = true;
+    state.player.hype = Math.min(100, (state.player.hype || 0) + 15);
+    state.player.morale = Math.max(5, state.player.morale - 10);
+
+    const isLoan = !!(state.club && state.club.loan);
+    const changes = [{ k: 'HYPE', d: 15 }, { k: 'MOR', d: -10 }];
+    if (!isLoan) {
+      state.player.loyalty = Math.max(5, (state.player.loyalty || 20) - 20);
+      changes.push({ k: 'LOYALTY', d: -20 });
+    } else {
+      state.requestedLoanPermanentMove = true;
+    }
+    state.transferRequestBenched = true;
+
+    return { ok: true, changes };
+  }
+
+  function demandSalaryRaise(state) {
+    if (!state.agentActionsThisSeason) state.agentActionsThisSeason = {};
+    if (state.agentActionsThisSeason.raiseReq) {
+      return { ok: false, reason: 'Already demanded a wage raise this season' };
+    }
+
+    state.agentActionsThisSeason.raiseReq = true;
+    const agent = state.agent || DAD_AGENT;
+    const cur = clubByCid(state.club.cid);
+    const p = state.player;
+
+    const baseSuccess = p.ovr >= cur.s - 3 ? 0.65 : (p.ovr >= cur.s - 6 ? 0.40 : 0.20);
+    const negBonus = (agent.negotiation - 50) * 0.006;
+    const prob = clamp(baseSuccess + negBonus, 0.10, 0.90);
+
+    if (chance(prob)) {
+      const greedMultiplier = 1 + (agent.greed / 300);
+      const newSalary = Math.round(p.salary * greedMultiplier / 50000) * 50000;
+      p.salary = Math.max(p.salary + 50000, newSalary);
+      logStatNote(state, `Agent ${agent.name} secured wage increase to ${fmtValue(p.salary)}/yr`);
+      return { ok: true, success: true, newSalary, changes: [] };
+    } else {
+      p.morale = Math.max(5, p.morale - 8);
+      p.loyalty = Math.max(5, (p.loyalty || 20) - 5);
+      return { ok: true, success: false, changes: [{ k: 'MOR', d: -8 }, { k: 'LOYALTY', d: -5 }] };
+    }
+  }
+
+  function negotiateCommission(state, requestedPct) {
+    if (!state.agentActionsThisSeason) state.agentActionsThisSeason = {};
+    if (state.agentActionsThisSeason.commReq) {
+      return { ok: false, reason: 'Already negotiated transfer cut this season' };
+    }
+
+    state.agentActionsThisSeason.commReq = true;
+    const agent = state.agent || DAD_AGENT;
+
+    if (requestedPct <= 5) {
+      state.transferCommissionPct = 5;
+      return { ok: true, pct: 5, accepted: true };
+    }
+
+    if (requestedPct === 8) {
+      if (agent.greed >= 40 || agent.negotiation >= 55) {
+        state.transferCommissionPct = 8;
+        return { ok: true, pct: 8, accepted: true };
+      }
+    } else if (requestedPct >= 12) {
+      if (agent.greed >= 70 && agent.negotiation >= 70) {
+        state.transferCommissionPct = 12;
+        return { ok: true, pct: 12, accepted: true };
+      }
+    }
+
+    return {
+      ok: true,
+      pct: state.transferCommissionPct || 5,
+      accepted: false,
+      reason: `Agent ${agent.name} deemed a ${requestedPct}% cut unrealistic.`
+    };
   }
 
   // Old saves: fill in fields introduced in v2
@@ -144,6 +330,15 @@
     if (state.retireType === undefined) state.retireType = null;
     if (state.recentOffers === undefined) state.recentOffers = [];
     if (state.awards === undefined) state.awards = [];
+    if (!state.agent) state.agent = DAD_AGENT;
+    if (!state.agentMarket || state.agentMarketSeason !== state.season) {
+      state.agentMarket = rollAgentMarket(state);
+      state.agentMarketSeason = state.season;
+    }
+    if (!state.agentActionsThisSeason) {
+      state.agentActionsThisSeason = { transferReq: false, raiseReq: false, commReq: false };
+    }
+    if (state.transferCommissionPct === undefined) state.transferCommissionPct = 5;
     if (state.totals && state.totals.ntCleanSheets === undefined) {
       // Retroactively estimate ntCleanSheets for GK saves from history
       if (p.isGK && state.totals.caps > 0 && state.history) {
@@ -175,9 +370,17 @@
     const c = countryById(state.player.countryId);
     const sorted = c.clubs.slice().sort((a, b) => b.s - a.s);
     const opts = [];
-    const pushClub = (cl, role, note, rare) => {
+    const pushClub = (cl, defaultRole, defaultNote, roleKey, noteKey) => {
       if (cl && !opts.find((o) => o.cid === `${c.id}:${cl.n}`)) {
-        opts.push({ cid: `${c.id}:${cl.n}`, club: ALL_CLUBS.find((x) => x.cid === `${c.id}:${cl.n}`), role, note, rare: !!rare });
+        opts.push({
+          cid: `${c.id}:${cl.n}`,
+          club: ALL_CLUBS.find((x) => x.cid === `${c.id}:${cl.n}`),
+          role: defaultRole,
+          note: defaultNote,
+          roleKey,
+          noteKey,
+          rare: false
+        });
       }
     };
 
@@ -187,15 +390,15 @@
 
     const topPool = sorted.slice(0, topCut);
     const topClub = pick(topPool);
-    pushClub(topClub, 'Elite academy', 'Best facilities in the region. High pressure, top coaching.');
+    pushClub(topClub, 'Elite academy', 'Best facilities in the region. High pressure, top coaching.', 'academy.role.elite', 'academy.note.elite');
 
     const midPool = sorted.slice(topCut, midCut).filter((cl) => cl.n !== topClub.n);
     const midClub = pick(midPool.length ? midPool : sorted);
-    pushClub(midClub, 'Balanced project', 'Good coaching, realistic path to first team minutes.');
+    pushClub(midClub, 'Balanced project', 'Good coaching, realistic path to first team minutes.', 'academy.role.balanced', 'academy.note.balanced');
 
     const lowPool = sorted.slice(midCut).filter((cl) => !opts.some((o) => o.club.n === cl.n));
     const lowClub = pick(lowPool.length ? lowPool : sorted.filter((cl) => !opts.some((o) => o.club.n === cl.n)));
-    pushClub(lowClub, 'Fast track', 'Smaller stage, but early first-team debut opportunities.');
+    pushClub(lowClub, 'Fast track', 'Smaller stage, but early first-team debut opportunities.', 'academy.role.fastTrack', 'academy.note.fastTrack');
 
     // Rare: European giant academy invitation (~10%)
     if (chance(0.10)) {
@@ -203,8 +406,10 @@
       if (pool.length) {
         const x = pick(pool);
         opts[1] = {
-          cid: x.cid, club: x, role: 'European dream',
-          note: 'A once-in-a-lifetime academy offer from a European giant. Extremely rare. Extremely tempting.', rare: true,
+          cid: x.cid, club: x,
+          role: 'European dream', roleKey: 'academy.role.euro',
+          note: 'A once-in-a-lifetime academy offer from a European giant. Extremely rare. Extremely tempting.', noteKey: 'academy.note.euro',
+          rare: true,
         };
       }
     }
@@ -215,7 +420,8 @@
     state.club = { cid, loan: false };
     state.stage = 'booster';
     recompute(state);
-    logStatNote(state, `Joined ${clubByCid(cid).n} academy`);
+    const T = (k, params) => root.I18n ? root.I18n.T(k, params) : k;
+    logStatNote(state, T('note.joinedAcademy', { club: clubByCid(cid).n }));
   }
 
   // ---- Decision cards ----
@@ -230,6 +436,11 @@
     if (d.id === 'last-dance' && p.ovr < 76) return false;
     if (d.id === 'semi-pen' && p.ovr < 74) return false;
     if (d.id === 'shootout-hero' && p.ovr < 68) return false;
+
+    // Gating for National Team decisions — only eligible once called up to National Team!
+    const isNtDecision = d.requiresNt || ['national-legend-call', 'legend-mentor-session', 'international-fumes', 'gk-number-one-race'].includes(d.id);
+    if (isNtDecision && !state.ntCalledUp && (!state.totals || !state.totals.caps)) return false;
+
     return true;
   }
 
@@ -462,12 +673,21 @@
       const good = chance(r.p);
       changes = applyFx(state, good ? r.good : r.bad);
       const outs = RISK_OUTCOMES[decision.id];
-      out = outs ? (good ? outs.good : outs.bad) : out;
+      const fallback = outs ? (good ? outs.good : outs.bad) : out;
+      out = outcomeText(decision.id, good ? 'good' : 'bad', fallback);
       state.usedDecisions.push(decision.id);
       recompute(state);
       return { out, changes, risk: true, good };
     }
     changes = applyFx(state, opt.fx);
+    if (decision.id === 'naturalization-switch') {
+      if (choice === 'a' && state.naturalizationEligibleHost) {
+        naturalizeAndSwitchNt(state, state.naturalizationEligibleHost);
+      } else {
+        const birthNat = countryById(state.player.countryId);
+        logStatNote(state, `Declined naturalization offer. Remaining loyal to ${countryName(birthNat)}.`);
+      }
+    }
     state.usedDecisions.push(decision.id);
     recompute(state);
     return { out, changes, risk: false };
@@ -480,13 +700,15 @@
     if (!mini) return { out: '', changes: [] };
 
     let res = mini.results[resultKey] || mini.results.bad || mini.results.good;
-    let out = res.out || '';
+    let fallback = res.out || '';
+    let out = outcomeText(decision.id, resultKey, fallback);
 
     // High-stakes Title-Decider penalty mechanic (25% chance on penalty kicks)
     const isTitleDecider = mini.type === 'penalty' && chance(0.25);
     let fxToApply = res.fx || {};
     if (isTitleDecider) {
       if (resultKey === 'good') {
+        addReputation(state, 8);
         fxToApply = Object.assign({}, fxToApply, { hype: (fxToApply.hype || 0) + 2, mor: (fxToApply.mor || 0) + 10 });
         out = `🏆 TITLE-WINNING PENALTY GOAL! You bury the 90+4' penalty in the Cup Final! The stadium erupts as you seal the championship trophy!`;
         if (state.club) {
@@ -624,12 +846,14 @@
   }
 
   // ---- Club offers ----
+  // ---- Club offers ----
   function roleText(ovr, clubS) {
     const diff = ovr - clubS;
-    if (diff >= 4) return 'Star player';
-    if (diff >= -3) return 'Key starter';
-    if (diff >= -8) return 'Rotation player';
-    return 'Prospect';
+    const T = (k) => root.I18n ? root.I18n.T(k) : k;
+    if (diff >= 4) return T('role.star');
+    if (diff >= -3) return T('role.key');
+    if (diff >= -8) return T('role.rotation');
+    return T('role.prospect');
   }
 
   const RELEASED_REASONS = [
@@ -656,6 +880,46 @@
     return out;
   }
 
+  // ---- Realistic Financial Budget & Transfer Caps ----
+  function clubTransferCap(club) {
+    const s = club.s;
+    const country = club.countryId;
+    const confed = club.confed;
+
+    // South America (CONMEBOL - AR, BR, etc.): River Plate, Boca, Flamengo, Palmeiras, etc.
+    if (confed === 'CONMEBOL') {
+      if (s >= 82) return 25000000; // max €25M for River, Boca, Flamengo, Palmeiras
+      if (s >= 76) return 15000000; // max €15M
+      if (s >= 70) return 8000000;  // max €8M
+      return 4000000;              // max €4M
+    }
+
+    // Saudi Arabia, Qatar, MLS, Australia, etc.
+    if (country === 'SA') return Math.min(150000000, Math.round(s * 1500000));
+    if (country === 'US') return Math.min(30000000, Math.round(s * 400000));
+    if (country === 'QA' || country === 'AU') return 15000000;
+
+    // UEFA (Top 5 leagues: EN, ES, IT, DE, FR)
+    const isTop5 = ['EN', 'ES', 'IT', 'DE', 'FR'].includes(country);
+    if (isTop5) {
+      if (s >= 88) return 220000000; // Real Madrid, Man City, PSG, Bayern
+      if (s >= 84) return 90000000;  // Arsenal, Atletico, Inter, Dortmund
+      if (s >= 78) return 45000000;  // Mid-upper Top 5
+      if (s >= 72) return 20000000;  // Lower Top 5
+      return 10000000;
+    }
+
+    // Non-Top 5 Europe (PT, NL, TR, BE, SCO, etc.)
+    if (confed === 'UEFA') {
+      if (s >= 82) return 40000000; // Benfica, Ajax, Porto, Sporting
+      if (s >= 75) return 20000000;
+      return 10000000;
+    }
+
+    // Default for rest of world
+    return Math.min(15000000, Math.round(s * 250000));
+  }
+
   function clubOffers(state) {
     const p = state.player;
     const cur = clubByCid(state.club.cid);
@@ -663,38 +927,91 @@
     const underage = p.age < 18;
     const teen = p.age <= 19;
     const offers = [];
+    const T = (k, params) => root.I18n ? root.I18n.T(k, params) : k;
 
     const loyal = (p.loyalty || 0) >= 60;
     const forcedOut = !loyal && !veteran && !teen && p.age >= 21 && (cur.s - p.ovr > 12);
     const parentClub = (state.club && state.club.loan && state.club.parentCid) ? clubByCid(state.club.parentCid) : null;
 
+    // ---- ON LOAN: special logic ----
     if (state.club && state.club.loan && parentClub) {
+      const loanClub = cur;
+      const lastSeason = state.history.length ? state.history[state.history.length - 1] : null;
+      const avgRating = lastSeason ? lastSeason.avgRating : 6.5;
+      const goodSeason = avgRating >= 6.8;
+      const greatSeason = avgRating >= 7.2;
+      const fitsClub = p.ovr >= loanClub.s - 6;
+      const youngDev = p.age <= 23;
+      const loanSeasons = state.loanSeasons || 1;
+      const requestedPermMove = !!state.requestedLoanPermanentMove;
+
+      // Option 1: Transfer to loan club (permanent) — if performed well, requested move, or max loan reached (age >= 18 only)
+      if (!underage && ((goodSeason && fitsClub) || greatSeason || (requestedPermMove && fitsClub) || loanSeasons >= 2)) {
+        let maxCap = clubTransferCap(loanClub);
+        let rawFee = Math.round((p.value * (0.8 + rnd() * 0.4)) / 100000) * 100000;
+        let fee = Math.min(rawFee, maxCap);
+        if (state.superAgent) fee = Math.round(Math.min(fee * 1.35, maxCap * 1.1) / 100000) * 100000;
+      const nk = 'offerNote.loanBuyout';
+        offers.push({
+          type: 'transfer',
+          club: loanClub,
+          fee,
+          role: roleText(p.ovr, loanClub.s),
+          noteKey: nk,
+          note: T(nk),
+          isLoanBuyout: true,
+        });
+      }
+
+      // Option 2: Extend loan — ONLY if loanSeasons < 2 and developing
+      if (loanSeasons < 2 && (youngDev || (goodSeason && !greatSeason))) {
+        const nk = youngDev ? 'offerNote.loanExtendYoung' : 'offerNote.loanExtendUnfinished';
+        offers.push({
+          type: 'loan',
+          club: loanClub,
+          fee: null,
+          role: roleText(p.ovr, loanClub.s),
+          noteKey: nk,
+          note: T(nk)
+        });
+      }
+
+      // Option 3: Return to parent club (always available)
       offers.push({
         type: 'return',
         club: parentClub,
         role: roleText(p.ovr, parentClub.s),
-        note: `Return from loan to ${parentClub.n}. Claim your spot in the squad.`
+        noteKey: 'offerNote.return',
+        noteParams: { club: parentClub.n },
+        note: T('offerNote.return', { club: parentClub.n })
       });
-    } else if (!forcedOut) {
+
+      // Trim to 3 max (transfer, loan, return)
+      return offers.slice(0, 3);
+    }
+
+    // ---- NOT ON LOAN: standard logic ----
+    if (!forcedOut) {
+      const nk = loyal ? 'offerNote.loyal' : (veteran ? 'offerNote.veteran' : 'offerNote.stay');
       offers.push({
         type: 'stay',
         club: cur,
         role: roleText(p.ovr, cur.s),
-        note: loyal ? 'Club Icon. Senior leader — the fans chant your name.' : (veteran ? 'The fans want one more year.' : 'Loyalty. The fans sing your name.')
+        noteKey: nk,
+        note: T(nk)
       });
     } else {
-      offers.push({ type: 'released', club: cur, note: pick(RELEASED_REASONS) });
+      const reasons = root.I18n ? (root.I18n.releasedReasons() || RELEASED_REASONS) : RELEASED_REASONS;
+      offers.push({ type: 'released', club: cur, note: pick(reasons) });
     }
 
     let pool;
     if (veteran) {
       pool = ALL_CLUBS.filter((c) => c.cid !== cur.cid && c.s <= p.ovr + 1 && c.s >= p.ovr - 22);
     } else if (underage) {
-      // U18: domestic development loans only — if no domestic club fits, you stay put
       pool = ALL_CLUBS.filter((c) => c.cid !== cur.cid && c.countryId === cur.countryId
         && c.s <= p.ovr + 8 && c.s >= p.ovr - 18);
     } else if (teen) {
-      // 18-19: moves abroad allowed; permanent only to clubs at/below your level
       pool = ALL_CLUBS.filter((c) => c.cid !== cur.cid && c.s <= p.ovr + 8 && c.s >= p.ovr - 18);
     } else {
       pool = ALL_CLUBS.filter((c) => c.cid !== cur.cid && c.s <= p.ovr + 6 && c.s >= p.ovr - 14);
@@ -713,10 +1030,16 @@
     const fresh = pool.filter((c) => !recent.includes(c.cid));
     if (fresh.length >= 4) pool = fresh;
 
-    // Weighted-random sampling: closeness + context, with heavy jitter
-    const eliteHype = {}; // per-club varying "are they in for you this year"
+    // Weighted-random sampling: closeness + context, with heavy jitter + Target Club boost
+    const eliteHype = {};
     const weightFn = (c) => {
       let w = Math.max(8, 100 - Math.abs(c.s - p.ovr) * 7);
+
+      // +400% weight boost for declared Target Club!
+      if (state.targetClubCid && c.cid === state.targetClubCid) {
+        w *= 5.0;
+      }
+
       if (underage || teen) {
         if (c.countryId === cur.countryId) w *= 4;
         else if (c.confed === cur.confed) w *= 1.4;
@@ -724,11 +1047,11 @@
       } else if (veteran) {
         if (c.countryId === p.countryId) w *= 2.2;
         if (['US', 'SA', 'QA', 'AU'].includes(c.countryId)) w *= 1.9;
-        if (c.s >= 85) w *= 0.5; // top clubs move on from aging stars
+        if (c.s >= 85) w *= 0.5;
       } else {
         if (c.s >= 87) {
           if (eliteHype[c.cid] === undefined) eliteHype[c.cid] = chance(0.5);
-          w *= eliteHype[c.cid] ? 2.4 : 0.55; // elite interest varies season to season
+          w *= eliteHype[c.cid] ? 2.4 : 0.55;
         }
         if (c.countryId === cur.countryId) w *= 1.5;
         else if (c.confed === cur.confed) w *= 1.15;
@@ -737,43 +1060,96 @@
     };
 
     let picked = weightedSample(pool, weightFn, 2);
-    // avoid two offers from the same league when alternatives exist
     if (picked.length === 2 && picked[0].league === picked[1].league) {
       const alt = pool.filter((c) => c.cid !== picked[0].cid && c.cid !== picked[1].cid && c.league !== picked[0].league);
       if (alt.length) picked[1] = weightedSample(alt, weightFn, 1)[0] || picked[1];
     }
 
     picked.forEach((c) => {
-      const loan = underage || (teen && c.s > p.ovr + 2);
-      let fee = Math.round((p.value * (0.9 + rnd() * 0.5)) / 100000) * 100000;
-      let note;
+      const cap = clubTransferCap(c);
+      const canAfford = cap >= p.value * 0.45;
+      const loan = underage || (teen && c.s > p.ovr + 2) || (!canAfford && p.value >= 12000000);
+      let rawFee = Math.round((p.value * (0.9 + rnd() * 0.5)) / 100000) * 100000;
+      let fee = Math.min(rawFee, cap);
+      let nk;
       if (state.superAgent && !loan) {
-        fee = Math.round(fee * 1.35 / 100000) * 100000;
-        note = 'Your super-agent negotiated a massive contract wage & fee! Miraculous work.';
-      } else if (loan) note = 'Development loan. Guaranteed minutes promised.';
-      else if (veteran && ['US', 'SA', 'QA', 'AU'].includes(c.countryId)) note = 'Sunset league payday. Golf courses included.';
-      else if (veteran && c.countryId === p.countryId) note = 'Homecoming. The prodigal returns.';
-      else if (c.s >= 88) note = 'European royalty comes calling. This is the dream.';
-      else if (c.s > cur.s + 4) note = 'A step up. Bigger stage, bigger pressure.';
-      else note = 'A fresh challenge awaits.';
-      offers.push({ type: loan ? 'loan' : 'transfer', club: c, fee: loan ? null : fee, role: roleText(p.ovr, c.s), note });
+        fee = Math.round(Math.min(fee * 1.35, cap * 1.1) / 100000) * 100000;
+        nk = 'offerNote.superAgent';
+      } else if (loan) nk = 'offerNote.devLoan';
+      else if (veteran && ['US', 'SA', 'QA', 'AU'].includes(c.countryId)) nk = 'offerNote.sunset';
+      else if (veteran && c.countryId === p.countryId) nk = 'offerNote.homecoming';
+      else if (c.s >= 88) nk = 'offerNote.royalty';
+      else if (c.s > cur.s + 4) nk = 'offerNote.stepUp';
+      else nk = 'offerNote.fresh';
+      offers.push({ type: loan ? 'loan' : 'transfer', club: c, fee: loan ? null : fee, role: roleText(p.ovr, c.s), noteKey: nk, note: T(nk) });
     });
 
     state.recentOffers = picked.map((c) => c.cid);
     return offers.slice(0, 3);
   }
 
+  function calcContractLength(age) {
+    if (age <= 21) return ri(4, 5);
+    if (age <= 27) return ri(3, 5);
+    if (age <= 32) return ri(2, 3);
+    return ri(1, 2);
+  }
+
+  function setAcademy(state, clubCid) {
+    let club = clubCid ? clubByCid(clubCid) : null;
+    if (!club) {
+      const opts = academyOptions(state);
+      club = opts[0] ? opts[0].club : ALL_CLUBS[0];
+    }
+    state.club = { cid: club.cid, loan: false, parentCid: null };
+    const len = calcContractLength(state.player.age);
+    state.contract = { yearsLeft: len, totalYears: len, annualSalary: state.player.salary, isLoan: false };
+    const stint = state.clubStints[club.cid] || (state.clubStints[club.cid] = {
+      cid: club.cid, seasons: 0, apps: 0, goals: 0, assists: 0, saves: 0, conceded: 0, cleanSheets: 0,
+      firstYear: state.season, lastYear: state.season, trophies: [], salaries: [],
+    });
+    stint.salaries = stint.salaries || [];
+    stint.salaries.push(state.player.salary);
+    state.stage = 'sim';
+    recompute(state);
+  }
+
   function applyClubOffer(state, offer) {
+    const T = (k, p) => root.I18n ? root.I18n.T(k, p) : k;
+    const p = state.player;
     if (offer.type === 'return') {
+      state.loanSeasons = 0;
+      state.requestedLoanPermanentMove = false;
       state.club = { cid: offer.club.cid, loan: false, parentCid: null };
-      logStatNote(state, `Returned from loan to ${offer.club.n}`);
+      logStatNote(state, T('note.returned', { club: offer.club.n }));
     } else if (offer.type === 'loan') {
       const parentCid = (state.club && state.club.loan && state.club.parentCid) ? state.club.parentCid : state.club.cid;
+      if (state.club && state.club.cid === offer.club.cid) {
+        state.loanSeasons = (state.loanSeasons || 0) + 1;
+      } else {
+        state.loanSeasons = 1;
+      }
       state.club = { cid: offer.club.cid, loan: true, parentCid };
-      logStatNote(state, `Loan move to ${offer.club.n}`);
-    } else if (offer.type === 'transfer') {
+      state.contract = { yearsLeft: 1, totalYears: 1, annualSalary: p.salary, isLoan: true };
+      logStatNote(state, T('note.loanMove', { club: offer.club.n }));
+    } else if (offer.type === 'transfer' || offer.type === 'stay') {
+      state.loanSeasons = 0;
+      state.requestedLoanPermanentMove = false;
+      state.isFreeAgent = false;
       state.club = { cid: offer.club.cid, loan: false, parentCid: null };
-      logStatNote(state, `Signed for ${offer.club.n}`);
+
+      const len = offer.contractYears || calcContractLength(p.age);
+      state.contract = { yearsLeft: len, totalYears: len, annualSalary: p.salary, isLoan: false };
+      logStatNote(state, T('note.signedFor', { club: offer.club.n }));
+
+      if (offer.type === 'transfer' && offer.fee) {
+        const commPct = (state.transferCommissionPct !== undefined ? state.transferCommissionPct : 5) / 100;
+        const bonus = Math.round(offer.fee * commPct);
+        if (bonus > 0) {
+          state.earnings += bonus;
+          logStatNote(state, T('note.transferCut', { amount: fmtValue(bonus), pct: Math.round(commPct * 100) }));
+        }
+      }
     }
     recompute(state);
     state.stage = 'sim';
@@ -929,6 +1305,9 @@
 
     // Appearances & output (stamina and injuries reduce minutes)
     let apps = computeApps(p.ovr, club, age, form);
+    if (state.transferRequestBenched) {
+      apps = Math.round(apps * 0.75); // -25% minutes penalty for demanding transfer
+    }
     apps = clamp(Math.round(apps * (0.75 + p.stamina / 400)), 0, 38);
     const injured = !!state.injuryMiss;
     if (injured) apps = clamp(Math.round(apps * (1 - state.injuryMiss)), 0, 38);
@@ -970,30 +1349,42 @@
       if (chance(cont.p + sb)) res.trophies.push({ type: 'Continental', name: cont.name });
     }
 
+    // Track seasons per country for naturalization (5+ seasons rule)
+    state.countrySeasons = state.countrySeasons || {};
+    state.countrySeasons[club.countryId] = (state.countrySeasons[club.countryId] || 0) + 1;
+
+    // Check naturalization switch option if not yet committed to a national team
+    if (!state.ntCalledUp && (!state.totals || !state.totals.caps)) {
+      const hostCountryId = Object.keys(state.countrySeasons).find((c) => c !== p.countryId && state.countrySeasons[c] >= 5);
+      if (hostCountryId) {
+        state.naturalizationEligibleHost = hostCountryId;
+      }
+    }
+
     // National team
     let thr = nationalThreshold(nat.rank);
     if (age <= 19 && p.potential >= 85) thr -= 3;
     if (p.ovr >= thr && age >= 16) {
-      if (!state.ntCalledUp) {
-        state.ntCalledUp = true;
+      if (!state.ntCalledUp && !state.ntDeclinedThisYear) {
         state.triggerNtCallUpModal = true;
-        state.ntFirstYear = year;
       }
-      state.ntFirstYear = state.ntFirstYear || year;
-      const rate = DATA.ATTACK_RATES[p.position];
-      res.caps = clamp(5 + ri(0, 5) + (p.ovr >= 85 ? 2 : 0), 0, 12);
-      if (!p.isGK) {
-        res.ntGoals = Math.max(0, Math.round(res.caps * rate.g * Math.pow(p.ovr / 82, 2) * 0.8 * (0.6 + rnd() * 0.8)));
-        res.ntCleanSheets = 0;
-      } else {
-        res.ntGoals = 0;
-        res.ntCleanSheets = Math.min(res.caps, Math.max(0, Math.round(res.caps * (0.35 + (p.ovr / 100) * 0.25))));
-      }
-      const confT = TOURNAMENTS[nat.confed];
-      if (TOURNAMENTS.WC.years.includes(year)) {
-        if (chance(ntWinProb(nat.rank, p.ovr, true))) res.trophies.push({ type: 'Country', name: 'FIFA World Cup' });
-      } else if (confT && confT.years.includes(year)) {
-        if (chance(ntWinProb(nat.rank, p.ovr, false))) res.trophies.push({ type: 'Country', name: confT.name });
+      if (state.ntCalledUp) {
+        state.ntFirstYear = state.ntFirstYear || year;
+        const rate = DATA.ATTACK_RATES[p.position];
+        res.caps = clamp(5 + ri(0, 5) + (p.ovr >= 85 ? 2 : 0), 0, 12);
+        if (!p.isGK) {
+          res.ntGoals = Math.max(0, Math.round(res.caps * rate.g * Math.pow(p.ovr / 82, 2) * 0.8 * (0.6 + rnd() * 0.8)));
+          res.ntCleanSheets = 0;
+        } else {
+          res.ntGoals = 0;
+          res.ntCleanSheets = Math.min(res.caps, Math.max(0, Math.round(res.caps * (0.35 + (p.ovr / 100) * 0.25))));
+        }
+        const confT = TOURNAMENTS[nat.confed];
+        if (TOURNAMENTS.WC.years.includes(year)) {
+          if (chance(ntWinProb(nat.rank, p.ovr, true))) res.trophies.push({ type: 'Country', name: 'FIFA World Cup' });
+        } else if (confT && confT.years.includes(year)) {
+          if (chance(ntWinProb(nat.rank, p.ovr, false))) res.trophies.push({ type: 'Country', name: confT.name });
+        }
       }
     }
 
@@ -1033,22 +1424,47 @@
 
     const stint = state.clubStints[club.cid] || (state.clubStints[club.cid] = {
       cid: club.cid, seasons: 0, apps: 0, goals: 0, assists: 0, saves: 0, conceded: 0, cleanSheets: 0,
-      firstYear: year, lastYear: year, trophies: [],
+      firstYear: year, lastYear: year, trophies: [], salaries: [],
     });
     stint.seasons += 1; stint.lastYear = year;
+    stint.salaries = stint.salaries || []; stint.salaries.push(p.salary);
     stint.apps += res.apps; stint.goals += res.goals; stint.assists += res.assists;
     stint.saves += res.saves; stint.conceded += res.conceded; stint.cleanSheets += res.cleanSheets;
     res.trophies.forEach((tr) => { if (tr.type !== 'Country') stint.trophies.push(tr); else state.ntTrophies.push({ name: tr.name, year }); });
 
     // Money & league table
     state.earnings += p.salary;
+    if (state.agent && state.agent.annualSalary > 0) {
+      state.spent += state.agent.annualSalary;
+      logStatNote(state, `Paid ${fmtValue(state.agent.annualSalary)} annual agent fee to ${state.agent.name}`);
+    }
     state.injuryMiss = 0;
     state.superAgent = false;
     state.standings = simLeague(state, club, res.trophies.some((tr) => tr.type === 'League'));
 
+    // Contract decrement & Free Agency
+    if (state.contract && !state.club.loan) {
+      state.contract.yearsLeft = Math.max(0, state.contract.yearsLeft - 1);
+      if (state.contract.yearsLeft === 0) {
+        state.isFreeAgent = true;
+        logStatNote(state, `Contract with ${club.n} expired! Entering Free Agency.`);
+      }
+    }
+
+    // Seasonal resets for agent actions & benched flags
+    state.agentActionsThisSeason = { transferReq: false, raiseReq: false, commReq: false };
+    state.transferRequestBenched = false;
+    state.agentMarket = rollAgentMarket(state);
+    state.agentMarketSeason = state.season;
+
     // Individual awards
     res.awards = computeSeasonAwards(state, res);
     res.awards.forEach((a) => state.awards.push({ id: a.id, name: a.name, icon: a.icon, year }));
+
+    // Reputation updates
+    if (res.rating >= 7.6) addReputation(state, 5);
+    res.trophies.forEach((tr) => addReputation(state, tr.type === 'Country' ? 15 : 10));
+    res.awards.forEach((a) => addReputation(state, a.id === 'ballon-dor' ? 25 : 15));
 
     // Finalize player state
     p.hype = Math.max(0, p.hype - 1);
@@ -1125,6 +1541,54 @@
     };
   }
 
+  function getLegendForPlayer(state) {
+    const p = state.player;
+    const natCode = p.countryId;
+    const natList = DATA.NAT_LEGENDS[natCode];
+    const isGK = p.isGK;
+    const isDef = ['CB', 'LB', 'RB'].includes(p.position);
+    const isMid = ['CM', 'CAM', 'CDM', 'LM', 'RM'].includes(p.position);
+    const targetPos = isGK ? 'gk' : (isDef ? 'def' : (isMid ? 'mid' : 'st'));
+
+    if (natList && natList.length) {
+      const match = natList.find((l) => l.pos === targetPos);
+      if (match) return match;
+      return pick(natList);
+    }
+
+    const generic = {
+      gk: { name: 'Oliver Kahn', pos: 'gk', title: 'Der Titan' },
+      def: { name: 'Franco Baresi', pos: 'def', title: 'Il Capitano' },
+      mid: { name: 'Andrea Pirlo', pos: 'mid', title: 'Il Maestro' },
+      st: { name: 'Marco van Basten', pos: 'st', title: 'The Swan of Utrecht' }
+    };
+    return generic[targetPos] || generic.st;
+  }
+
+  function acceptNtCallUp(state) {
+    state.ntCalledUp = true;
+    state.triggerNtCallUpModal = false;
+    const nat = countryById(state.player.countryId);
+    logStatNote(state, `Accepted national team call-up for ${countryName(nat)}!`);
+  }
+
+  function declineNtCallUp(state) {
+    state.ntCalledUp = false;
+    state.triggerNtCallUpModal = false;
+    state.ntDeclinedThisYear = true;
+    const nat = countryById(state.player.countryId);
+    logStatNote(state, `Declined national team call-up for ${countryName(nat)}. Remaining eligible for future options.`);
+  }
+
+  function naturalizeAndSwitchNt(state, hostCountryId) {
+    if (!hostCountryId) return;
+    const newNat = countryById(hostCountryId);
+    state.player.countryId = hostCountryId;
+    state.ntCalledUp = true;
+    state.triggerNtCallUpModal = false;
+    logStatNote(state, `Obtained citizenship in ${countryName(newNat)} after 5+ seasons and accepted their National Team call-up!`);
+  }
+
   const Engine = {
     setRng(fn) { RNG = fn; },
     newCareer, migrate, academyOptions, setAcademy,
@@ -1133,7 +1597,9 @@
     clubOffers, applyClubOffer, simLeague, simulateSeason, retire, retireType, careerSummary,
     computeSeasonAwards,
     getOvr, getTier, marketValue, annualSalary, fmtValue, recompute,
-    clubByCid, countryById, ALL_CLUBS, statKeys,
+    clubByCid, countryById, countryName, ALL_CLUBS, allClubs, statKeys,
+    hireAgent, rollAgentMarket, requestTransfer, demandSalaryRaise, negotiateCommission, DAD_AGENT, addReputation,
+    getLegendForPlayer, calcContractLength, acceptNtCallUp, declineNtCallUp, naturalizeAndSwitchNt,
   };
 
   root.Engine = Engine;

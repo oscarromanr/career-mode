@@ -1,11 +1,14 @@
 /* ============================================================
    CAREER MODE '26 — UI rendering (Apple-style dark theme)
+   Fully i18n'd via I18n.T() / I18n.TData()
    ============================================================ */
 (function (root) {
   'use strict';
 
   const D = () => root.GAME_DATA;
   const E = () => root.Engine;
+  const T = (key, params) => root.I18n ? root.I18n.T(key, params) : key;
+  const TD = (type, item, field) => root.I18n && root.I18n.TD ? root.I18n.TD(type, item, field) : (field && typeof field === 'string' && field.includes('.') ? field.split('.').reduce((o,k) => o&&o[k], item) : (item && field ? item[field] : ''));
 
   function h(tag, cls, html) {
     const el = document.createElement(tag);
@@ -14,6 +17,8 @@
     return el;
   }
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  function tierLabel(tier) { return T('tier.' + tier); }
 
   // ---- badge with monogram fallback ----
   function badgeEl(club, size) {
@@ -43,9 +48,9 @@
   function statChips(changes) {
     if (!changes || !changes.length) return '';
     const html = changes.map((c) => {
-      if (c.k === 'INJ') return `<span class="chip chip-inj">🤕 Injured</span>`;
-      if (c.k === 'SHIELD') return `<span class="chip chip-shield">🛡 Physio shield active</span>`;
-      if (c.k === 'SUPER') return `<span class="chip chip-hype">🤝 Super-Agent hired</span>`;
+      if (c.k === 'INJ') return `<span class="chip chip-inj">${T('chip.injured')}</span>`;
+      if (c.k === 'SHIELD') return `<span class="chip chip-shield">${T('chip.shield')}</span>`;
+      if (c.k === 'SUPER') return `<span class="chip chip-hype">${T('chip.superAgent')}</span>`;
       if (c.k === 'HYPE') return `<span class="chip chip-hype">${c.d > 0 ? '+' : ''}${c.d} HYPE</span>`;
       if (c.k === 'STA') return `<span class="chip ${c.d > 0 ? 'chip-sta' : 'chip-down'}">${c.d > 0 ? '+' : ''}${c.d} STA</span>`;
       if (c.k === 'MOR') return `<span class="chip ${c.d > 0 ? 'chip-mor' : 'chip-down'}">${c.d > 0 ? '+' : ''}${c.d} MOR</span>`;
@@ -54,7 +59,16 @@
     return `<div class="stat-chips">${html}</div>`;
   }
 
-  const TIER_LABEL = { bronze: 'BRONZE', silver: 'SILVER', gold: 'GOLD', diamond: 'ICON' };
+  // ---- Language toggle button factory ----
+  function langToggle(rerender) {
+    const btn = h('button', 'lang-toggle', I18n.getLang() === 'en' ? '🌐 ES' : '🌐 EN');
+    btn.type = 'button';
+    btn.onclick = () => {
+      I18n.setLang(I18n.getLang() === 'en' ? 'es' : 'en');
+      rerender();
+    };
+    return btn;
+  }
 
   /* ================= SETUP SCREEN ================= */
   function renderSetup(rootEl, opts) {
@@ -64,9 +78,10 @@
 
     const hero = h('div', 'setup-hero');
     hero.innerHTML = `
-      <h1 class="hero-title">CAREER MODE <span>'26</span></h1>
-      <p class="hero-sub">Age 14 to 40. From academy nobody to football immortality.
-      Every season: one dilemma, one training camp, one career-defining club call.</p>`;
+      <h1 class="hero-title">${T('setup.heroTitle')}</h1>
+      <p class="hero-sub">${T('setup.heroSub')}</p>`;
+    // Language toggle in hero
+    hero.appendChild(langToggle(() => renderSetup(rootEl, opts)));
     wrap.appendChild(hero);
 
     const grid = h('div', 'setup-grid');
@@ -75,10 +90,10 @@
     const leftCol = h('div', 'setup-col glass');
     const row1 = h('div', 'setup-row');
     row1.innerHTML = `
-      <label class="field grow"><span>Player name</span>
-        <input id="inp-name" type="text" maxlength="24" placeholder="e.g. Lío Fernández" autocomplete="off">
+      <label class="field grow"><span>${T('setup.playerName')}</span>
+        <input id="inp-name" type="text" maxlength="24" placeholder="${T('setup.namePlaceholder')}" autocomplete="off">
       </label>
-      <label class="field num"><span>Shirt №</span>
+      <label class="field num"><span>${T('setup.shirtNo')}</span>
         <input id="inp-number" type="number" min="1" max="99" value="10">
       </label>`;
     leftCol.appendChild(row1);
@@ -89,7 +104,7 @@
       CAM: [50, 37], LW: [17, 23], RW: [83, 23], ST: [50, 13],
     };
     const posWrap = h('div', 'field');
-    posWrap.innerHTML = `<span>Position <em class="field-note">tap a spot on the pitch</em></span>`;
+    posWrap.innerHTML = `<span>${T('setup.position')} <em class="field-note">${T('setup.posTap')}</em></span>`;
     const pitch = h('div', 'pitch');
     pitch.innerHTML = `
       <div class="pitch-line halfway"></div>
@@ -103,12 +118,12 @@
       const b = h('button', 'pitch-pos' + (p.gk ? ' gk' : ''), `<b>${p.id}</b>`);
       b.type = 'button';
       b.dataset.pos = p.id;
-      b.title = p.label;
+      b.title = T('pos.' + p.id);
       b.style.left = x + '%';
       b.style.top = y + '%';
       pitch.appendChild(b);
     });
-    const posLabel = h('div', 'pitch-label', 'Select your position');
+    const posLabel = h('div', 'pitch-label', T('setup.posSelect'));
     posWrap.appendChild(pitch);
     posWrap.appendChild(posLabel);
     leftCol.appendChild(posWrap);
@@ -117,9 +132,9 @@
     // RIGHT PANEL: Nationality search & grid, Action buttons
     const rightCol = h('div', 'setup-col glass');
     const cWrap = h('div', 'field country-field');
-    cWrap.innerHTML = `<span>Nationality</span>`;
+    cWrap.innerHTML = `<span>${T('setup.nationality')}</span>`;
     const search = h('input', 'country-search');
-    search.type = 'text'; search.placeholder = 'Search country…';
+    search.type = 'text'; search.placeholder = T('setup.searchCountry');
     const cGrid = h('div', 'country-grid');
     data.COUNTRIES.forEach((c) => {
       const b = h('button', 'country-btn');
@@ -137,18 +152,18 @@
     rightCol.appendChild(cWrap);
 
     const actions = h('div', 'setup-actions');
-    const start = h('button', 'start-btn', 'Start Career');
+    const start = h('button', 'start-btn', T('setup.startCareer'));
     start.disabled = true;
     actions.appendChild(start);
 
     if (opts.hasSave) {
-      const cont = h('button', 'continue-btn', '▶ Continue saved career');
+      const cont = h('button', 'continue-btn', T('setup.continue'));
       cont.type = 'button';
       cont.onclick = () => opts.onContinue();
       actions.appendChild(cont);
     }
 
-    const importLabel = h('label', 'continue-btn import-btn', '📂 Import save file (.json)');
+    const importLabel = h('label', 'continue-btn import-btn', T('setup.import'));
     const importInput = h('input', 'hidden-input');
     importInput.type = 'file';
     importInput.accept = '.json,application/json';
@@ -175,7 +190,7 @@
       b.classList.add('sel');
       sel.pos = b.dataset.pos;
       const def = data.POSITIONS.find((x) => x.id === sel.pos);
-      posLabel.textContent = `${def.id} — ${def.label}${def.gk ? ' · keeper stats: REF / LEA / VIS / COM' : ''}`;
+      posLabel.textContent = `${def.id} — ${T('pos.' + def.id)}${def.gk ? T('setup.gkNote') : ''}`;
       posLabel.classList.add('sel');
       validate();
     });
@@ -209,11 +224,11 @@
     top.innerHTML = `<div class="pcard-ovr"><span class="ovr-num">${p.ovr}</span><span class="ovr-pos">${p.position}</span></div>`;
     const flagBox = h('div', 'pcard-flag');
     flagBox.appendChild(flagEl(nat.code, 80));
-    flagBox.appendChild(h('em', '', esc(nat.name)));
+    flagBox.appendChild(h('em', '', esc(E().countryName(nat))));
     top.appendChild(flagBox);
     card.appendChild(top);
 
-    card.appendChild(h('div', 'pcard-tier-label', TIER_LABEL[p.tier]));
+    card.appendChild(h('div', 'pcard-tier-label', tierLabel(p.tier)));
 
     const av = h('div', 'pcard-avatar');
     av.innerHTML = `
@@ -231,30 +246,31 @@
       clubRow.appendChild(badgeEl(club, 22));
       clubRow.appendChild(h('span', 'pcard-club-name', `${esc(club.n)} <em>${esc(club.league)}</em>`));
     } else {
-      clubRow.appendChild(h('span', 'pcard-club-name', `<em>Unattached · choosing academy</em>`));
+      clubRow.appendChild(h('span', 'pcard-club-name', `<em>${T('card.unattached')}</em>`));
     }
     card.appendChild(clubRow);
 
-    card.appendChild(h('div', 'pcard-value', `<b>${E().fmtValue(p.value)}</b><span>market value</span>`));
+    card.appendChild(h('div', 'pcard-value', `<b>${E().fmtValue(p.value)}</b><span>${T('card.marketValue')}</span>`));
 
     const sg = h('div', 'pcard-stats');
     stats.forEach((s) => {
       const v = p.stats[s.k];
       const row = h('div', 'pstat');
-      row.innerHTML = `<span class="pstat-name">${s.name}</span>
+      row.innerHTML = `<span class="pstat-name">${T('stat.' + s.k)}</span>
         <span class="pstat-bar"><i style="width:${v}%"></i></span>
         <span class="pstat-val">${v}</span>`;
       sg.appendChild(row);
     });
     card.appendChild(sg);
 
-    // Condition bars: stamina, morale, loyalty & hype
+    // Condition bars: stamina, morale, loyalty, hype & reputation
     const cond = h('div', 'pcard-cond');
     [
-      ['Stamina', p.stamina, 'sta', 100],
-      ['Morale', p.morale, 'mor', 100],
-      ['Loyalty', p.loyalty || 20, 'loyalty', 100],
-      ['Hype', p.hype || 0, 'hype', 100]
+      [T('card.stamina'), p.stamina, 'sta', 100],
+      [T('card.morale'), p.morale, 'mor', 100],
+      [T('card.loyalty'), p.loyalty || 20, 'loyalty', 100],
+      [T('card.hype'), p.hype || 0, 'hype', 100],
+      [T('card.reputation') || 'Reputation', p.reputation || 0, 'rep', 100]
     ].forEach(([label, v, cls, maxVal]) => {
       const pct = Math.min(100, Math.round((v / maxVal) * 100));
       const row = h('div', 'cond-row');
@@ -264,21 +280,270 @@
       cond.appendChild(row);
     });
     if (state.superAgent) {
-      cond.appendChild(h('div', 'pcard-sa-badge', '🤝 Super-Agent Active'));
+      cond.appendChild(h('div', 'pcard-sa-badge', T('card.superAgent')));
     }
     card.appendChild(cond);
 
-    // Money block
-    const money = h('div', 'pcard-money');
-    money.innerHTML = `<span class="money-item">💰 <b>${E().fmtValue(p.salary)}</b>/yr</span>
-      <span class="money-item">🏦 <b>${E().fmtValue(state.earnings - state.spent)}</b> banked</span>`;
-    card.appendChild(money);
-
     const caps = state.totals.caps;
     card.appendChild(h('div', 'pcard-meta',
-      `<span>Age <b>${p.age}</b></span><span>Season <b>${state.season}</b></span>` +
-      (caps ? `<span>Caps <b>${caps}</b></span>` : '')));
+      `<span>${T('card.age')} <b>${p.age}</b></span><span>${T('card.season')} <b>${state.season}</b></span>` +
+      (caps ? `<span>${T('card.caps')} <b>${caps}</b></span>` : '')));
     return card;
+  }
+
+  /* ================= BANK & AGENT CARD ================= */
+  function financeBar(salary, expenses) {
+    const wrap = h('div', 'finance-bar-wrap');
+    const salVal = Math.max(0, salary || 0);
+    const expVal = Math.max(0, expenses || 0);
+    const total = Math.max(1, salVal + expVal);
+    const salPct = Math.round((salVal / total) * 100);
+    const expPct = Math.round((expVal / total) * 100);
+
+    const perYearStr = T('card.perYear') || '/yr';
+    const feeStr = expVal > 0 ? `${T('agent.fee') || 'Agent Fee'}: -${E().fmtValue(expVal)}${perYearStr}` : (T('agent.noFee') || 'No Agent Fee');
+
+    wrap.innerHTML = `
+      <div class="finance-bar-labels">
+        <span class="sal">${T('agent.salary')}: ${E().fmtValue(salVal)}${perYearStr}</span>
+        <span class="exp">${feeStr}</span>
+      </div>
+      <div class="fin-bar-track">
+        <i class="fin-bar-sal" style="width:${salPct}%"></i>
+        ${expVal > 0 ? `<i class="fin-bar-exp" style="width:${expPct}%"></i>` : ''}
+      </div>`;
+    return wrap;
+  }
+
+  function agentStatsBars(agent) {
+    const wrap = h('div', 'agent-stats-bars');
+    const stats = [
+      { key: 'patience', label: T('agent.patience') || 'Patience', val: agent.patience || 50, cls: 'patience' },
+      { key: 'greed', label: T('agent.greed') || 'Greed', val: agent.greed || 50, cls: 'greed' },
+      { key: 'negotiation', label: T('agent.negotiation') || 'Negotiation', val: agent.negotiation || 50, cls: 'negotiation' },
+    ];
+
+    wrap.innerHTML = stats.map((s) => `
+      <div class="agent-stat-bar-row">
+        <span class="agent-stat-bar-label">${esc(s.label)}</span>
+        <div class="agent-stat-bar-track">
+          <i class="agent-stat-bar-fill ${s.cls}" style="width:${s.val}%"></i>
+        </div>
+        <span class="agent-stat-bar-val">${s.val}</span>
+      </div>`).join('');
+    return wrap;
+  }
+
+  function agentCard(state, handlers) {
+    const p = state.player;
+    const agent = state.agent || E().DAD_AGENT;
+    const card = h('div', 'agent-card glass');
+    const title = h('div', 'agent-card-title', `💼 ${T('agent.title')}`);
+    card.appendChild(title);
+
+    const targetClub = state.targetClubCid ? E().clubByCid(state.targetClubCid) : null;
+    const commPct = state.transferCommissionPct !== undefined ? state.transferCommissionPct : 5;
+
+    const agentNameStr = (agent.id === 'dad' || agent.type === 'dad') ? T('agent.dadName') : agent.name;
+    const contractYears = state.contract ? state.contract.yearsLeft : 3;
+    const freeAgentLabel = T('agent.freeAgent');
+    const seasonLabel = contractYears === 1 ? T('agent.season1') : T('agent.seasonsN');
+    const contractStr = state.isFreeAgent || contractYears === 0 ? `📜 ${freeAgentLabel}` : `📜 ${contractYears} ${seasonLabel}`;
+
+    const grid = h('div', 'agent-grid');
+    grid.innerHTML = `
+      <div class="agent-item">
+        <span>${T('agent.name')}</span>
+        <b>👤 ${esc(agentNameStr)}</b>
+      </div>
+      <div class="agent-item">
+        <span>${T('agent.banked')}</span>
+        <b>🏦 ${E().fmtValue(state.earnings - state.spent)}</b>
+      </div>
+      <div class="agent-item">
+        <span>${T('agent.targetClub')}</span>
+        <b>🎯 ${targetClub ? esc(targetClub.n) : T('agent.none')}</b>
+      </div>
+      <div class="agent-item">
+        <span>${T('agent.contract')}</span>
+        <b>${contractStr}</b>
+      </div>`;
+    card.appendChild(grid);
+
+    card.appendChild(financeBar(p.salary, agent.annualSalary || 0));
+
+    const btn = h('button', 'agent-talk-btn primary-btn', T('agent.talkBtn'));
+    btn.type = 'button';
+    btn.onclick = () => showAgentModal(state, handlers);
+    card.appendChild(btn);
+
+    return card;
+  }
+
+  function showAgentModal(state, handlers) {
+    const p = state.player;
+    const agent = state.agent || E().DAD_AGENT;
+    const c = h('div', 'agent-modal-content');
+    const cooldowns = state.agentActionsThisSeason || {};
+    const agentNameStr = (agent.id === 'dad' || agent.type === 'dad') ? T('agent.dadName') : agent.name;
+    const agentTypeStr = (agent.id === 'dad' || agent.type === 'dad') ? T('agent.dadType') : T('agent.proType');
+
+    c.innerHTML = `
+      <h3>👤 ${esc(agentNameStr)}</h3>
+      <p style="font-size:12px;color:var(--text-2);margin-bottom:12px;">${esc(agentTypeStr)}</p>`;
+
+    c.appendChild(agentStatsBars(agent));
+
+    const optsList = h('div', 'agent-menu');
+
+    const btnTarget = h('button', 'agent-opt-btn', `<span>${T('agent.setTarget')}</span><i>➔</i>`);
+    btnTarget.onclick = () => { m.close(); showTargetClubSearch(state, handlers); };
+    optsList.appendChild(btnTarget);
+
+    const commPct = state.transferCommissionPct !== undefined ? state.transferCommissionPct : 5;
+    const commDisabled = cooldowns.commReq;
+    const btnComm = h('button', `agent-opt-btn ${commDisabled ? 'disabled' : ''}`, `<span>${T('agent.negotiateComm')} (${commPct}%)${commDisabled ? ' (Used)' : ''}</span><i>➔</i>`);
+    btnComm.onclick = () => {
+      if (commDisabled) return;
+      m.close();
+      showCommissionSelector(state, handlers);
+    };
+    optsList.appendChild(btnComm);
+
+    const reqDisabled = cooldowns.transferReq;
+    const btnReq = h('button', `agent-opt-btn ${reqDisabled ? 'disabled' : ''}`, `<span>${T('agent.requestMove')}${reqDisabled ? ' (Used)' : ''}</span><i>➔</i>`);
+    btnReq.onclick = () => {
+      if (reqDisabled) return;
+      m.close();
+      handlers.onRequestTransfer();
+    };
+    optsList.appendChild(btnReq);
+
+    const raiseDisabled = cooldowns.raiseReq;
+    const btnRaise = h('button', `agent-opt-btn ${raiseDisabled ? 'disabled' : ''}`, `<span>${T('agent.demandRaise')}${raiseDisabled ? ' (Used)' : ''}</span><i>➔</i>`);
+    btnRaise.onclick = () => {
+      if (raiseDisabled) return;
+      m.close();
+      handlers.onDemandRaise();
+    };
+    optsList.appendChild(btnRaise);
+
+    const btnMarket = h('button', 'agent-opt-btn primary-btn', `<span>${T('agent.openMarket')}</span><i>➔</i>`);
+    btnMarket.onclick = () => {
+      m.close();
+      showAgentMarketModal(state, handlers);
+    };
+    optsList.appendChild(btnMarket);
+
+    c.appendChild(optsList);
+    const m = modal(c);
+  }
+
+  function showAgentMarketModal(state, handlers) {
+    const c = h('div', 'agent-market-content');
+    c.innerHTML = `<h3>🛒 ${T('agent.marketTitle')}</h3><p style="font-size:13px;color:var(--text-2);margin-bottom:12px;">${T('agent.marketDesc')}</p>`;
+
+    const marketList = h('div', 'agent-market-list');
+    const market = state.agentMarket || E().rollAgentMarket(state);
+    const currentAgent = state.agent || E().DAD_AGENT;
+    const currentAgentName = (currentAgent.id === 'dad' || currentAgent.type === 'dad') ? T('agent.dadName') : currentAgent.name;
+
+    market.forEach((candidate) => {
+      const isActive = currentAgent.id === candidate.id;
+      const card = h('div', `agent-candidate-card ${isActive ? 'active-agent' : ''}`);
+
+      const candidateName = (candidate.id === 'dad' || candidate.type === 'dad') ? T('agent.dadName') : candidate.name;
+      const buyoutReq = (currentAgent.type !== 'dad' && currentAgent.buyoutFee && !isActive) ? currentAgent.buyoutFee : 0;
+      const perYearStr = T('card.perYear') || '/yr';
+      const feeText = candidate.type === 'dad' ? T('agent.free') : `${E().fmtValue(candidate.annualSalary)}${perYearStr}`;
+
+      card.innerHTML = `
+        <div class="agent-candidate-head">
+          <span class="agent-candidate-name">👤 ${esc(candidateName)}</span>
+          <span class="chip ${isActive ? 'chip-sta' : ''}">${isActive ? T('agent.activeChip') : feeText}</span>
+        </div>`;
+
+      card.appendChild(agentStatsBars(candidate));
+
+      const feesDiv = h('div', 'agent-candidate-fees', `
+        <span>${T('agent.annualFee')}: <b>${candidate.annualSalary ? E().fmtValue(candidate.annualSalary) : '€0'}</b></span>
+        <span>${T('agent.buyoutFee')}: <b>${candidate.buyoutFee ? E().fmtValue(candidate.buyoutFee) : '€0'}</b></span>`);
+      card.appendChild(feesDiv);
+
+      if (!isActive) {
+        const btnLabel = buyoutReq > 0
+          ? T('agent.fireAndHireBtn', { name: esc(currentAgentName), buyout: E().fmtValue(buyoutReq) })
+          : T('agent.hireBtn');
+        const hireBtn = h('button', 'primary-btn', btnLabel);
+        hireBtn.onclick = () => {
+          m.close();
+          handlers.onHireAgent(candidate.id);
+        };
+        card.appendChild(hireBtn);
+      }
+      marketList.appendChild(card);
+    });
+
+    c.appendChild(marketList);
+    const m = modal(c);
+  }
+
+  function showTargetClubSearch(state, handlers, opts) {
+    const titleKey = (opts && opts.titleKey) ? opts.titleKey : 'agent.setTarget';
+    const c = h('div', 'club-search-box');
+    c.innerHTML = `<h3>${T(titleKey)}</h3>
+      <input type="text" class="club-search-input" id="club-search-inp" placeholder="${T('agent.searchPlaceholder')}" autofocus>
+      <div class="club-search-results" id="club-search-res"></div>`;
+
+    const m = modal(c);
+    const inp = c.querySelector('#club-search-inp');
+    const resDiv = c.querySelector('#club-search-res');
+
+    const renderResults = (query) => {
+      resDiv.innerHTML = '';
+      const q = (query || '').trim().toLowerCase();
+      if (!q) {
+        resDiv.innerHTML = `<div style="padding:10px;color:var(--text-3);font-size:12px;">Type to search 700+ clubs...</div>`;
+        return;
+      }
+      const matches = E().allClubs().filter((cl) => cl.n.toLowerCase().includes(q) || cl.league.toLowerCase().includes(q)).slice(0, 15);
+      if (!matches.length) {
+        resDiv.innerHTML = `<div style="padding:10px;color:var(--text-3);font-size:12px;">No clubs found matching "${esc(query)}"</div>`;
+        return;
+      }
+      matches.forEach((cl) => {
+        const item = h('div', 'club-search-item');
+        item.appendChild(badgeEl(cl, 28));
+        item.appendChild(h('div', '', `<b>${esc(cl.n)}</b> <small style="color:var(--text-3);">${esc(cl.league)} (${cl.s})</small>`));
+        item.onclick = () => {
+          m.close();
+          handlers.onSetTargetClub(cl.cid);
+        };
+        resDiv.appendChild(item);
+      });
+    };
+
+    inp.addEventListener('input', () => renderResults(inp.value));
+    renderResults('');
+  }
+
+  function showCommissionSelector(state, handlers) {
+    const c = h('div', 'comm-selector');
+    c.innerHTML = `<h3>${T('agent.negotiateComm')}</h3>
+      <p style="font-size:13px;color:var(--text-2);margin-bottom:12px;">Select the transfer cut percentage your agent will secure for you upon any future transfer sale:</p>
+      <div style="display:flex;gap:10px;margin-bottom:14px;">
+        <button class="primary-btn" data-pct="5">5% (Standard)</button>
+        <button class="primary-btn" data-pct="8">8% (Star Cut)</button>
+        <button class="primary-btn" data-pct="12">12% (Super-Agent Cut)</button>
+      </div>`;
+    const m = modal(c);
+    c.querySelectorAll('button').forEach((b) => {
+      b.onclick = () => {
+        const pct = parseInt(b.dataset.pct, 10);
+        m.close();
+        handlers.onNegotiateCommission(pct);
+      };
+    });
   }
 
   /* ================= STAGE AREA ================= */
@@ -286,31 +551,35 @@
     const club = state.club ? E().clubByCid(state.club.cid) : null;
     const head = h('div', 'stage-head');
     const left = h('div', 'stage-title');
-    left.innerHTML = `<div class="stage-season">Season ${state.season}</div>
-      <div class="stage-sub">Age ${state.player.age}${club ? ' · ' + esc(club.n) : ''}</div>`;
+    left.innerHTML = `<div class="stage-season">${T('stage.season', { n: state.season })}</div>
+      <div class="stage-sub">${T('stage.age', { n: state.player.age })}${club ? ' · ' + esc(club.n) : ''}</div>`;
     head.appendChild(left);
     const right = h('div', 'stage-right');
     const steps = h('div', 'stage-steps');
     ['decision', 'booster', 'club'].forEach((s) => {
-      const labels = { decision: 'Decision', booster: 'Training', club: 'Club' };
       const cls = 'step' + (s === active ? ' active' : '') +
         (['decision', 'booster', 'club'].indexOf(s) < ['decision', 'booster', 'club'].indexOf(active) ? ' done' : '');
-      steps.appendChild(h('span', cls, labels[s]));
+      steps.appendChild(h('span', cls, T('step.' + s)));
     });
     right.appendChild(steps);
-    if (state.club) {
-      const actions = h('div', 'stage-actions');
-      const shopped = state.shopSeason === state.season;
-      actions.innerHTML = `
-        <button class="icon-btn" data-action="shop" title="Club shop (1 per season)">🛒${shopped ? '' : '<i class="dot"></i>'}</button>
-        <button class="icon-btn" data-action="menu" title="Game menu">⚙</button>
-        <div class="menu-pop hidden" id="game-menu">
-          <button data-action="export">💾 Export save</button>
-          <button data-action="retire">👟 Retire now</button>
-          <button data-action="restart" class="menu-danger">↺ New game</button>
-        </div>`;
-      right.appendChild(actions);
-    }
+
+    const actions = h('div', 'stage-actions');
+    const shopped = state.shopSeason === state.season;
+    const currentLang = I18n.getLang();
+    const langBtnText = currentLang === 'en' ? '🌐 ES' : '🌐 EN';
+    const langBtnTitle = currentLang === 'en' ? 'Cambiar a Español' : 'Switch to English';
+
+    actions.innerHTML = `
+      <button class="icon-btn lang-header-btn" data-action="lang" title="${langBtnTitle}">${langBtnText}</button>
+      ${state.club ? `<button class="icon-btn" data-action="shop" title="${T('stage.shopTitle')}">${shopped ? '🛒' : '🛒<i class="dot"></i>'}</button>` : ''}
+      <button class="icon-btn" data-action="menu" title="${T('stage.menuTitle')}">⚙</button>
+      <div class="menu-pop hidden" id="game-menu">
+        <button data-action="export">${T('menu.export')}</button>
+        <button data-action="retire">${T('menu.retire')}</button>
+        <button data-action="restart" class="menu-danger">${T('menu.restart')}</button>
+      </div>`;
+    right.appendChild(actions);
+
     head.appendChild(right);
     return head;
   }
@@ -320,17 +589,29 @@
     card.type = 'button';
     const topRow = h('div', 'club-pick-top');
     topRow.appendChild(badgeEl(club, 44));
+    const countryStr = E().countryName(club.countryName || club.countryId || '');
     const nm = h('div', 'club-pick-name');
-    nm.innerHTML = `<b>${esc(club.n)}</b><i>${esc(club.league)} · ${esc(club.countryName || '')}</i>`;
+    nm.innerHTML = `<b>${esc(club.n)}</b><i>${esc(club.league)} · ${esc(countryStr)}</i>`;
     topRow.appendChild(nm);
-    if (opts.chip) topRow.appendChild(h('span', `type-chip ${opts.chipCls || ''}`, opts.chip));
+
+    let chipText = opts.chip;
+    let chipCls = opts.chipCls || '';
+    if (opts.isLoanBuyout) {
+      chipText = T('offer.loanBuyout') || 'BUYOUT';
+      chipCls = 'chip-academy';
+    }
+    if (chipText) topRow.appendChild(h('span', `type-chip ${chipCls}`, chipText));
     card.appendChild(topRow);
     const meter = h('div', 'strength');
-    meter.innerHTML = `<span>Club level</span><div class="strength-bar"><i style="width:${club.s}%"></i></div><b>${club.s}</b>`;
+    meter.innerHTML = `<span>${T('club.level')}</span><div class="strength-bar"><i style="width:${club.s}%"></i></div><b>${club.s}</b>`;
     card.appendChild(meter);
-    if (opts.role) card.appendChild(h('div', 'pick-role', esc(opts.role)));
-    if (opts.note) card.appendChild(h('div', 'pick-note', esc(opts.note)));
-    if (opts.fee) card.appendChild(h('div', 'pick-fee', `Fee: <b>${E().fmtValue(opts.fee)}</b>`));
+
+    const roleText = opts.roleKey ? T(opts.roleKey) : (opts.role ? T(opts.role) : '');
+    const noteText = opts.isLoanBuyout ? (T('offerNote.loanBuyout') || 'PERMANENT BUYOUT OFFER — Sign permanently!') : (opts.noteKey ? T(opts.noteKey, opts.noteParams) : (opts.note ? T(opts.note, opts.noteParams) : ''));
+
+    if (roleText) card.appendChild(h('div', 'pick-role', esc(roleText)));
+    if (noteText) card.appendChild(h('div', 'pick-note', esc(noteText)));
+    if (opts.fee) card.appendChild(h('div', 'pick-fee', `${T('club.fee')} <b>${E().fmtValue(opts.fee)}</b>`));
     return card;
   }
 
@@ -342,11 +623,28 @@
       rootEl.appendChild(stageHeader(state, 'decision'));
       const box = h('div', 'stage-body');
       box.appendChild(h('div', 'stage-intro',
-        `<h2>Choose your academy</h2><p>You're 14. Scouts from three ${esc(E().countryById(state.player.countryId).league)} clubs
-        are at your door. This choice shapes your development — elite facilities or early minutes.</p>`));
+        `<h2>${T('academy.title')}</h2><p>${T('academy.desc', { league: esc(E().countryById(state.player.countryId).league) })}</p>`));
+
+      const customBtn = h('button', 'primary-btn custom-academy-btn', T('academy.searchCustom'));
+      customBtn.style.margin = '0 auto 16px';
+      customBtn.style.display = 'block';
+      customBtn.onclick = () => {
+        showTargetClubSearch(state, {
+          onSetTargetClub: (cid) => handlers.onAcademy(cid)
+        }, { titleKey: 'academy.searchTitle' });
+      };
+      box.appendChild(customBtn);
+
       const grid = h('div', 'pick-grid');
       state.currentAcademies.forEach((a) => {
-        const card = clubCard(a.club, { role: a.role, note: a.note, chip: 'ACADEMY', chipCls: 'chip-academy' });
+        const card = clubCard(a.club, {
+          role: a.role,
+          roleKey: a.roleKey,
+          note: a.note,
+          noteKey: a.noteKey,
+          chip: T('academy.chip'),
+          chipCls: 'chip-academy'
+        });
         card.onclick = () => handlers.onAcademy(a.cid);
         grid.appendChild(card);
       });
@@ -360,15 +658,22 @@
       const box = h('div', 'stage-body');
       const d = state.currentDecision;
       if (!d) {
-        box.appendChild(h('div', 'stage-intro', `<h2>Quiet week</h2><p>No drama this season. The media is busy with someone else's scandal.</p>`));
-        const btn = h('button', 'primary-btn', 'Continue');
+        box.appendChild(h('div', 'stage-intro', `<h2>${T('decision.quietTitle')}</h2><p>${T('decision.quietDesc')}</p>`));
+        const btn = h('button', 'primary-btn', T('btn.continue'));
         btn.onclick = handlers.onDecisionSkip;
         box.appendChild(btn);
       } else {
+        const kicker = d.kicker ? (TD('decision', d, 'kicker') || T(d.kicker)) : T('decision.kicker');
+        const legend = (d.id.startsWith('legend-') || d.id === 'national-legend-call') && E().getLegendForPlayer ? E().getLegendForPlayer(state) : null;
+        let legBadge = '';
+        if (legend) {
+          legBadge = `<div class="legend-icon-badge" style="margin-bottom:8px;font-size:12px;font-weight:800;color:#ffd60a;display:flex;align-items:center;gap:6px;">⭐ <span>${esc(legend.name)}</span> <i style="font-weight:400;opacity:0.85;">(${esc(legend.title || legend.pos.toUpperCase())})</i></div>`;
+        }
         box.appendChild(h('div', 'situation glass', `
-          <div class="sit-kicker">${esc(d.kicker || 'DRESSING ROOM TALK')}</div>
-          <h2>${esc(d.title)}</h2>
-          <p>${esc(d.desc)}</p>`));
+          <div class="sit-kicker">${esc(kicker)}</div>
+          ${legBadge}
+          <h2>${esc(TD('decision', d, 'title') || T(d.title))}</h2>
+          <p>${esc(TD('decision', d, 'desc') || T(d.desc))}</p>`));
         const optKeys = ['a', 'b', 'c'].filter((k) => d[k]);
         const grid = h('div', `pick-grid ${optKeys.length === 2 ? 'two' : ''}`);
         optKeys.forEach((k) => {
@@ -377,13 +682,15 @@
           card.type = 'button';
           let odds = '';
           if (o.fx && o.fx.risk) {
-            odds = `<span class="odds-chip risk-5050">🎲 50/50 COIN ROLL · ${Math.round(o.fx.risk.p * 100)}% UPSIDE</span>`;
+            odds = `<span class="odds-chip risk-5050">${T('decision.coinRoll', { pct: Math.round(o.fx.risk.p * 100) })}</span>`;
           } else if (o.mini) {
-            const mType = o.mini.type === 'penalty' ? '⚽ PENALTY KICK' : o.mini.type === 'gk_penalty' ? '🧤 PENALTY SAVE' : '⚡ TIMING MINIGAME';
+            const mType = o.mini.type === 'penalty' ? T('decision.penaltyKick') : o.mini.type === 'gk_penalty' ? T('decision.penaltySave') : T('decision.timingGame');
             odds = `<span class="odds-chip mini-badge">${mType}</span>`;
           }
+          const labelText = TD('decision', d, k + '.label') || T(o.label);
+          const subText = TD('decision', d, k + '.sub') || (o.sub ? T(o.sub) : '');
           card.innerHTML = `<div class="option-letter">${k.toUpperCase()}</div>
-            <b>${esc(o.label)}</b><i>${esc(o.sub || '')}</i>${odds}`;
+            <b>${esc(labelText)}</b><i>${esc(subText)}</i>${odds}`;
           card.onclick = () => handlers.onDecision(k);
           grid.appendChild(card);
         });
@@ -397,15 +704,15 @@
       rootEl.appendChild(stageHeader(state, 'booster'));
       const box = h('div', 'stage-body');
       box.appendChild(h('div', 'stage-intro',
-        `<h2>Off-season training</h2><p>Pick one program. Rarer camps give bigger boosts — gold can transform multiple stats.</p>`));
+        `<h2>${T('booster.title')}</h2><p>${T('booster.desc')}</p>`));
       const grid = h('div', 'pick-grid');
       state.currentBoosters.forEach((b) => {
         const fx = E().boosterFx(state, b);
-        const chips = Object.entries(fx).map(([k, v]) => `<span class="chip chip-up">+${v} ${k}</span>`).join('');
+        const chips = Object.entries(fx).map(([k, v]) => `<span class="chip chip-up">+${v} ${T('stat.' + k)}</span>`).join('');
         const card = h('button', `pick-card rarity-${b.rarity}`);
         card.type = 'button';
-        card.innerHTML = `<div class="rarity-tag">${b.rarity.toUpperCase()}</div>
-          <b>${esc(b.title)}</b><i>${esc(b.desc)}</i><div class="stat-chips">${chips}</div>`;
+        card.innerHTML = `<div class="rarity-tag">${tierLabel(b.rarity)}</div>
+          <b>${esc(TD('booster', b, 'title') || T(b.title))}</b><i>${esc(TD('booster', b, 'desc') || T(b.desc))}</i><div class="stat-chips">${chips}</div>`;
         card.onclick = () => handlers.onBooster(b.id);
         grid.appendChild(card);
       });
@@ -418,13 +725,14 @@
       rootEl.appendChild(stageHeader(state, 'club'));
       const box = h('div', 'stage-body');
       box.appendChild(h('div', 'stage-intro',
-        `<h2>The club decision</h2><p>Your agent lays the offers on the table. Where does season ${state.season} happen?</p>`));
+        `<h2>${T('club.title')}</h2><p>${T('club.desc', { n: state.season })}</p>`));
       const grid = h('div', 'pick-grid');
       state.currentOffers.forEach((o, idx) => {
-        const chipMap = { stay: 'STAY', transfer: 'TRANSFER', loan: 'LOAN', released: 'RELEASED', return: 'RETURN' };
+        const chipKey = 'offer.' + o.type;
         const card = clubCard(o.club, {
-          role: o.role, note: o.note, fee: o.type === 'transfer' ? o.fee : null,
-          chip: chipMap[o.type] || o.type.toUpperCase(), chipCls: `chip-${o.type === 'return' ? 'stay' : o.type}`,
+          role: o.role, noteKey: o.noteKey, noteParams: o.noteParams, note: o.note, fee: o.type === 'transfer' ? o.fee : null,
+          chip: T(chipKey), chipCls: `chip-${o.type === 'return' ? 'stay' : o.type}`,
+          isLoanBuyout: o.isLoanBuyout || o.noteKey === 'offerNote.loanBuyout',
         });
         card.onclick = () => handlers.onClub(idx);
         grid.appendChild(card);
@@ -438,8 +746,8 @@
       rootEl.appendChild(stageHeader(state, 'club'));
       const box = h('div', 'stage-body sim-body');
       box.innerHTML = `
-        <h2>Simulating season ${state.season}…</h2>
-        <div class="sim-line" id="sim-line">Warming up…</div>
+        <h2>${T('sim.title', { n: state.season })}</h2>
+        <div class="sim-line" id="sim-line">${T('sim.warmup')}</div>
         <div class="sim-bar"><i id="sim-fill"></i></div>`;
       rootEl.appendChild(box);
       return;
@@ -452,10 +760,10 @@
     const club = E().clubByCid(r.cid);
     const head = h('div', 'hrow-head');
     head.appendChild(h('span', 'hrow-year', String(r.year)));
-    head.appendChild(h('span', 'hrow-age', `${r.age} y/o`));
+    head.appendChild(h('span', 'hrow-age', `${r.age} ${T('hist.yo')}`));
     head.appendChild(badgeEl(club, 24));
     const nameBox = h('div', 'hrow-club');
-    nameBox.innerHTML = `<b>${esc(r.clubName)}</b><i>${esc(r.league)}${r.loan ? ' · loan' : ''}</i>`;
+    nameBox.innerHTML = `<b>${esc(r.clubName)}</b><i>${esc(r.league)}${r.loan ? ' · ' + T('hist.loan') : ''}</i>`;
     head.appendChild(nameBox);
     head.appendChild(h('span', `hrow-ovr ${r.ovrAfter > r.ovrBefore ? 'up' : r.ovrAfter < r.ovrBefore ? 'down' : ''}`,
       `${r.ovrAfter} ${r.ovrAfter > r.ovrBefore ? '▲' : r.ovrAfter < r.ovrBefore ? '▼' : ''}`));
@@ -488,12 +796,12 @@
   function renderStandings(rootEl, state) {
     const club = state.club ? E().clubByCid(state.club.cid) : null;
     if (!club) {
-      rootEl.appendChild(h('div', 'history-empty', 'Join a club to see the league.'));
+      rootEl.appendChild(h('div', 'history-empty', T('hist.joinClub')));
       return;
     }
     const country = E().countryById(club.countryId);
     const head2 = h('div', 'league-head');
-    head2.innerHTML = `<b>${esc(country.league)}</b><i>${state.standings ? 'Final table ' + (state.season - 1) : 'Pre-season — by squad strength'}</i>`;
+    head2.innerHTML = `<b>${esc(country.league)}</b><i>${state.standings ? T('hist.finalTable', { year: state.season - 1 }) : T('hist.preseason')}</i>`;
     rootEl.appendChild(head2);
 
     const table = h('div', 'league-table');
@@ -526,7 +834,7 @@
 
   function renderSummaryTab(rootEl, state) {
     if (!state.history.length) {
-      rootEl.appendChild(h('div', 'history-empty', 'No seasons played yet.<br>The story starts now.'));
+      rootEl.appendChild(h('div', 'history-empty', T('hist.empty')));
       return;
     }
 
@@ -542,6 +850,11 @@
         ? (clubSeasons.reduce((acc, r) => acc + r.rating, 0) / clubSeasons.length).toFixed(1)
         : '—';
 
+      const stintSalaries = (stint.salaries && stint.salaries.length) ? stint.salaries : clubSeasons.map((r) => r.salary).filter(Boolean);
+      const minSal = stintSalaries.length ? Math.min(...stintSalaries) : 0;
+      const maxSal = stintSalaries.length ? Math.max(...stintSalaries) : 0;
+      const salText = minSal > 0 ? (minSal === maxSal ? `${E().fmtValue(minSal)}/yr` : `${E().fmtValue(minSal)} – ${E().fmtValue(maxSal)}/yr`) : '';
+
       const trophyCounts = {};
       (stint.trophies || []).forEach((t) => {
         trophyCounts[t.name] = (trophyCounts[t.name] || 0) + 1;
@@ -549,19 +862,19 @@
       const trophyChips = Object.entries(trophyCounts).map(([name, count]) => `${count}x ${name}`);
 
       const yearRange = stint.firstYear === stint.lastYear
-        ? `${stint.firstYear} (${stint.seasons} ${stint.seasons === 1 ? 'season' : 'seasons'})`
-        : `${stint.firstYear} – ${stint.lastYear} (${stint.seasons} seasons)`;
+        ? `${stint.firstYear} (${stint.seasons === 1 ? T('sum.season1') : T('sum.seasons', { n: stint.seasons })})`
+        : `${stint.firstYear} – ${stint.lastYear} (${T('sum.seasons', { n: stint.seasons })})`;
 
       const statLine = state.player.isGK
-        ? `<span><b>${stint.apps}</b> Apps</span><span><b>${stint.saves}</b> Saves</span><span><b>${stint.conceded}</b> GC</span><span><b>${stint.cleanSheets}</b> CS</span>`
-        : `<span><b>${stint.apps}</b> Apps</span><span><b>${stint.goals}</b> Goals</span><span><b>${stint.assists}</b> Assists</span>`;
+        ? `<span><b>${stint.apps}</b> ${T('sum.apps')}</span><span><b>${stint.saves}</b> ${T('sum.saves')}</span><span><b>${stint.conceded}</b> ${T('sum.gc')}</span><span><b>${stint.cleanSheets}</b> ${T('sum.cs')}</span>`
+        : `<span><b>${stint.apps}</b> ${T('sum.apps')}</span><span><b>${stint.goals}</b> ${T('sum.goals')}</span><span><b>${stint.assists}</b> ${T('sum.assists')}</span>`;
 
       const stintHead = h('div', 'stint-head');
       stintHead.appendChild(badgeEl(club, 32));
 
       const stintInfo = h('div', 'stint-info');
       stintInfo.innerHTML = `<b class="stint-club-name">${esc(club.n)}</b>
-        <span class="stint-years">${yearRange} · ${esc(club.league)}</span>`;
+        <span class="stint-years">${yearRange} · ${esc(club.league)}${salText ? ' · 💰 ' + salText : ''}</span>`;
       stintHead.appendChild(stintInfo);
       stintHead.appendChild(h('span', 'stint-rating', `★ ${avgRating}`));
       card.appendChild(stintHead);
@@ -589,16 +902,16 @@
 
       const ntCleanSheets = Math.min(t.caps, t.ntCleanSheets || 0);
       const ntStatLine = state.player.isGK
-        ? `<span><b>${t.caps}</b> Caps</span><span><b>${ntCleanSheets}</b> Clean Sheets</span>`
-        : `<span><b>${t.caps}</b> Caps</span><span><b>${t.ntGoals}</b> Goals</span>`;
+        ? `<span><b>${t.caps}</b> ${T('sum.caps')}</span><span><b>${ntCleanSheets}</b> ${T('sum.cleanSheets')}</span>`
+        : `<span><b>${t.caps}</b> ${T('sum.caps')}</span><span><b>${t.ntGoals}</b> ${T('sum.goals')}</span>`;
 
       const stintHead = h('div', 'stint-head');
       stintHead.appendChild(flagEl(nat.code, 40));
 
       const stintInfo = h('div', 'stint-info');
-      const debutText = state.ntFirstYear ? `Debut: ${state.ntFirstYear}` : 'National Duty';
-      stintInfo.innerHTML = `<b class="stint-club-name">${esc(nat.name)} National Team</b>
-        <span class="stint-years">${debutText} · FIFA Rank #${nat.rank}</span>`;
+      const debutText = state.ntFirstYear ? T('sum.debut', { year: state.ntFirstYear }) : T('sum.ntDuty');
+      stintInfo.innerHTML = `<b class="stint-club-name">${T('sum.ntTeam', { country: esc(nat.name) })}</b>
+        <span class="stint-years">${debutText} · ${T('sum.fifaRank', { rank: nat.rank })}</span>`;
       stintHead.appendChild(stintInfo);
       ntCard.appendChild(stintHead);
 
@@ -619,7 +932,7 @@
   function renderHistory(rootEl, state) {
     rootEl.innerHTML = '';
     const tabs = h('div', 'hist-tabs');
-    [['summary', 'Summary'], ['career', 'Career History'], ['league', 'League Table']].forEach(([id, label]) => {
+    [['summary', T('hist.summary')], ['career', T('hist.career')], ['league', T('hist.league')]].forEach(([id, label]) => {
       const t = h('button', 'hist-tab' + (histTab === id ? ' active' : ''), label);
       t.type = 'button';
       t.onclick = () => { histTab = id; renderHistory(rootEl, state); };
@@ -636,7 +949,7 @@
       return;
     }
     if (!state.history.length) {
-      rootEl.appendChild(h('div', 'history-empty', 'No seasons played yet.<br>The story starts now.'));
+      rootEl.appendChild(h('div', 'history-empty', T('hist.empty')));
       return;
     }
     const list = h('div', 'history-list');
@@ -654,7 +967,7 @@
     // Top-right close 'X' button
     const xBtn = h('button', 'modal-x', '✕');
     xBtn.type = 'button';
-    xBtn.title = 'Close';
+    xBtn.title = T('btn.close');
     box.appendChild(xBtn);
 
     box.appendChild(contentEl);
@@ -684,7 +997,102 @@
     };
   }
 
-  function showOutcome(title, text, changes, onDone) {
+  function renderOutcomeChanges(changes, state) {
+    const wrap = h('div', 'outcome-changes-wrap');
+    if (!changes || !changes.length) return wrap;
+
+    const p = state ? state.player : null;
+    const statChanges = [];
+    const specialChanges = [];
+
+    changes.forEach((c) => {
+      if (['INJ', 'SHIELD', 'SUPER'].includes(c.k)) {
+        specialChanges.push(c);
+      } else {
+        statChanges.push(c);
+      }
+    });
+
+    if (statChanges.length > 0) {
+      const statsBox = h('div', 'sr-player-stats outcome-stat-bars');
+      statsBox.innerHTML = `<div class="sr-stats-title">${T('sr.statsTitle')}</div>`;
+      const rows = h('div', 'sr-stat-rows');
+
+      statChanges.forEach((c) => {
+        let currentVal = 50;
+        let statName = c.k;
+        let barClass = '';
+
+        if (p && p.stats && c.k in p.stats) {
+          currentVal = p.stats[c.k];
+          statName = T('stat.' + c.k);
+        } else if (c.k === 'STA') {
+          currentVal = p ? p.stamina : 80;
+          statName = T('card.stamina');
+          barClass = 'sr-bar-sta';
+        } else if (c.k === 'MOR') {
+          currentVal = p ? p.morale : 80;
+          statName = T('card.morale');
+          barClass = 'sr-bar-mor';
+        } else if (c.k === 'HYPE') {
+          currentVal = p ? (p.hype || 0) : 0;
+          statName = T('card.hype');
+          barClass = 'sr-bar-hype';
+        } else if (c.k === 'LOYALTY') {
+          currentVal = p ? (p.loyalty || 20) : 20;
+          statName = T('card.loyalty');
+          barClass = 'sr-bar-loyalty';
+        } else {
+          statName = T('stat.' + c.k) || c.k;
+        }
+
+        const delta = c.d;
+        const maxVal = ['STA', 'MOR', 'HYPE', 'LOYALTY'].includes(c.k) ? 100 : 99;
+        const minVal = ['STA', 'MOR', 'HYPE', 'LOYALTY'].includes(c.k) ? 0 : 35;
+        const baseVal = Math.min(maxVal, Math.max(minVal, currentVal - delta));
+        const absDelta = Math.abs(delta);
+
+        let barHtml = '';
+        if (delta > 0) {
+          barHtml = `<i class="sr-bar-base ${barClass}" style="width:${baseVal}%"></i><i class="sr-bar-delta up" style="width:${absDelta}%"></i>`;
+        } else if (delta < 0) {
+          barHtml = `<i class="sr-bar-base ${barClass}" style="width:${currentVal}%"></i><i class="sr-bar-delta down" style="width:${absDelta}%"></i>`;
+        } else {
+          barHtml = `<i class="sr-bar-base ${barClass}" style="width:${currentVal}%"></i>`;
+        }
+
+        let valHtml = `${currentVal}`;
+        if (delta > 0) valHtml += `<span class="stat-offset up">+${delta}</span>`;
+        else if (delta < 0) valHtml += `<span class="stat-offset down">${delta}</span>`;
+
+        const row = h('div', 'sr-pstat-row');
+        row.innerHTML = `
+          <span class="sr-pstat-name">${esc(statName)}</span>
+          <div class="sr-pstat-bar-track">${barHtml}</div>
+          <span class="sr-pstat-val">${valHtml}</span>`;
+        rows.appendChild(row);
+      });
+
+      statsBox.appendChild(rows);
+      wrap.appendChild(statsBox);
+    }
+
+    if (specialChanges.length > 0) {
+      const chipsHtml = specialChanges.map((c) => {
+        if (c.k === 'INJ') return `<span class="chip chip-inj">${T('chip.injured')}</span>`;
+        if (c.k === 'SHIELD') return `<span class="chip chip-shield">${T('chip.shield')}</span>`;
+        if (c.k === 'SUPER') return `<span class="chip chip-hype">${T('chip.superAgent')}</span>`;
+        return '';
+      }).join('');
+      if (chipsHtml) {
+        wrap.appendChild(h('div', 'stat-chips', chipsHtml));
+      }
+    }
+
+    return wrap;
+  }
+
+  function showOutcome(title, text, changes, onDone, state) {
     let doneCalled = false;
     const finish = () => {
       if (!doneCalled) {
@@ -693,16 +1101,16 @@
       }
     };
     const c = h('div', 'outcome');
-    c.innerHTML = `<div class="outcome-kicker">THE OUTCOME</div><h3>${esc(title)}</h3><p>${esc(text)}</p>`;
-    c.innerHTML += statChips(changes);
-    const btn = h('button', 'primary-btn', 'Continue');
+    c.innerHTML = `<div class="outcome-kicker">${T('outcome.kicker')}</div><h3>${esc(title)}</h3><p>${esc(text)}</p>`;
+    c.appendChild(renderOutcomeChanges(changes, state));
+    const btn = h('button', 'primary-btn', T('btn.continue'));
     c.appendChild(btn);
     const m = modal(c, { onClose: finish });
     btn.onclick = () => { m.close(); };
   }
 
   function headlineFor(res) {
-    const H = D().HEADLINES;
+    const H = I18n.headlines();
     const perf = res.rating;
     if (perf >= 9.0) return H.legend;
     if (perf >= 8.2) return H.great;
@@ -725,18 +1133,18 @@
     const gk = res.saves || res.conceded || res.cleanSheets;
 
     c.innerHTML = `
-      <div class="sr-kicker">SEASON ${res.year} COMPLETE</div>
+      <div class="sr-kicker">${T('sr.kicker', { year: res.year })}</div>
       <h3 class="sr-headline">${esc(headline)}</h3>
-      <div class="sr-clubline">${esc(res.clubName)} · Age ${res.age}</div>
+      <div class="sr-clubline">${esc(res.clubName)} · ${T('stage.age', { n: res.age })}</div>
       <div class="sr-grid">
-        <div class="sr-stat"><b>${res.apps}</b><span>Apps</span></div>
+        <div class="sr-stat"><b>${res.apps}</b><span>${T('sr.apps')}</span></div>
         ${gk
-          ? `<div class="sr-stat"><b>${res.saves}</b><span>Saves</span></div>
-             <div class="sr-stat"><b>${res.conceded}</b><span>Conceded</span></div>
-             <div class="sr-stat"><b>${res.cleanSheets}</b><span>Clean sheets</span></div>`
-          : `<div class="sr-stat"><b>${res.goals}</b><span>Goals</span></div>
-             <div class="sr-stat"><b>${res.assists}</b><span>Assists</span></div>
-             <div class="sr-stat"><b>★ ${res.rating.toFixed(1)}</b><span>Avg rating</span></div>`}
+          ? `<div class="sr-stat"><b>${res.saves}</b><span>${T('sr.saves')}</span></div>
+             <div class="sr-stat"><b>${res.conceded}</b><span>${T('sr.conceded')}</span></div>
+             <div class="sr-stat"><b>${res.cleanSheets}</b><span>${T('sr.cleanSheets')}</span></div>`
+          : `<div class="sr-stat"><b>${res.goals}</b><span>${T('sr.goals')}</span></div>
+             <div class="sr-stat"><b>${res.assists}</b><span>${T('sr.assists')}</span></div>
+             <div class="sr-stat"><b>★ ${res.rating.toFixed(1)}</b><span>${T('sr.avgRating')}</span></div>`}
       </div>`;
 
     if (res.trophies.length) {
@@ -750,12 +1158,17 @@
       c.appendChild(aw);
     }
     if (res.caps) {
-      c.appendChild(h('div', 'sr-caps', `🌍 ${res.caps} international caps${res.ntGoals ? ` · ${res.ntGoals} goals for ${esc(E().countryById(p.countryId).name)}` : ''}`));
+      const capText = res.ntGoals
+        ? T('sr.intCapsGoals', { n: res.caps, g: res.ntGoals, country: esc(E().countryById(p.countryId).name) })
+        : T('sr.intCaps', { n: res.caps });
+      c.appendChild(h('div', 'sr-caps', capText));
     }
+
+    c.appendChild(financeBar(res.salary, state.agent ? state.agent.annualSalary : 0));
 
     // Player Card Stat Bars with +/- offsets & Condition bars
     const statsBox = h('div', 'sr-player-stats');
-    statsBox.innerHTML = `<div class="sr-stats-title">PLAYER STATS & SEASON EVOLUTION</div>`;
+    statsBox.innerHTML = `<div class="sr-stats-title">${T('sr.statsTitle')}</div>`;
     const rows = h('div', 'sr-stat-rows');
     const statDefs = p.isGK ? D().GK_STATS : D().FIELD_STATS;
 
@@ -780,7 +1193,7 @@
       else if (delta < 0) valHtml += `<span class="stat-offset down">${delta}</span>`;
 
       row.innerHTML = `
-        <span class="sr-pstat-name">${esc(s.name)}</span>
+        <span class="sr-pstat-name">${T('stat.' + s.k)}</span>
         <div class="sr-pstat-bar-track">${barHtml}</div>
         <span class="sr-pstat-val">${valHtml}</span>`;
       rows.appendChild(row);
@@ -791,21 +1204,21 @@
 
     const staRow = h('div', 'sr-pstat-row');
     staRow.innerHTML = `
-      <span class="sr-pstat-name">Stamina</span>
+      <span class="sr-pstat-name">${T('card.stamina')}</span>
       <div class="sr-pstat-bar-track"><i class="sr-bar-base sr-bar-sta" style="width:${p.stamina}%"></i></div>
       <span class="sr-pstat-val">${p.stamina}</span>`;
     rows.appendChild(staRow);
 
     const morRow = h('div', 'sr-pstat-row');
     morRow.innerHTML = `
-      <span class="sr-pstat-name">Morale</span>
+      <span class="sr-pstat-name">${T('card.morale')}</span>
       <div class="sr-pstat-bar-track"><i class="sr-bar-base sr-bar-mor" style="width:${p.morale}%"></i></div>
       <span class="sr-pstat-val">${p.morale}</span>`;
     rows.appendChild(morRow);
 
     const loyRow = h('div', 'sr-pstat-row');
     loyRow.innerHTML = `
-      <span class="sr-pstat-name">Loyalty</span>
+      <span class="sr-pstat-name">${T('card.loyalty')}</span>
       <div class="sr-pstat-bar-track"><i class="sr-bar-base sr-bar-loyalty" style="width:${p.loyalty || 20}%"></i></div>
       <span class="sr-pstat-val">${p.loyalty || 20}</span>`;
     rows.appendChild(loyRow);
@@ -819,10 +1232,10 @@
 
     const ovrDelta = res.ovrAfter - res.ovrBefore;
     c.appendChild(h('div', 'sr-ovr',
-      `<span>OVR <b>${res.ovrBefore}</b> → <b class="${ovrDelta > 0 ? 'up' : ovrDelta < 0 ? 'down' : ''}">${res.ovrAfter}</b></span>
-       <span>Value <b>${E().fmtValue(res.valueAfter)}</b></span>`));
+      `<span>${T('sr.ovr')} <b>${res.ovrBefore}</b> → <b class="${ovrDelta > 0 ? 'up' : ovrDelta < 0 ? 'down' : ''}">${res.ovrAfter}</b></span>
+       <span>${T('sr.value')} <b>${E().fmtValue(res.valueAfter)}</b></span>`));
 
-    const btn = h('button', 'primary-btn', state.retired ? 'See your legacy' : `Start season ${state.season}`);
+    const btn = h('button', 'primary-btn', state.retired ? T('sr.legacy') : T('sr.startSeason', { n: state.season }));
     c.appendChild(btn);
     const m = modal(c, { wide: true, onClose: finish });
     if (res.trophies.length) confetti();
@@ -848,10 +1261,10 @@
     const c = h('div', 'risk-reveal');
     c.innerHTML = `
       <div class="risk-panels">
-        <div class="risk-panel good" id="rp-good">✨<span>GOOD</span></div>
-        <div class="risk-panel bad" id="rp-bad">💀<span>BAD</span></div>
+        <div class="risk-panel good" id="rp-good">✨<span>${T('risk.good')}</span></div>
+        <div class="risk-panel bad" id="rp-bad">💀<span>${T('risk.bad')}</span></div>
       </div>
-      <div class="risk-hint">Fate is deciding…</div>`;
+      <div class="risk-hint">${T('risk.deciding')}</div>`;
     const m = modal(c);
     const g = c.querySelector('#rp-good');
     const b = c.querySelector('#rp-bad');
@@ -870,7 +1283,7 @@
         const lose = good ? b : g;
         win.classList.add('win');
         lose.classList.add('lose');
-        c.querySelector('.risk-hint').textContent = good ? 'Fortune smiles.' : 'Ouch.';
+        c.querySelector('.risk-hint').textContent = good ? T('risk.goodResult') : T('risk.badResult');
         setTimeout(() => { m.close(); onDone(); }, 900);
       }
     };
@@ -889,9 +1302,9 @@
     const goodZones = new Set(shuffled.slice(0, mini.goodZones || 2).map((z) => z.id));
 
     const c = h('div', 'mini penalty-mini');
-    c.innerHTML = `<div class="outcome-kicker">THE PENALTY</div>
-      <h3>Pick your spot</h3>
-      <p class="mini-sub">${mini.goodZones || 2} of ${zonesN} zones beat the keeper</p>`;
+    c.innerHTML = `<div class="outcome-kicker">${T('pen.kicker')}</div>
+      <h3>${T('pen.title')}</h3>
+      <p class="mini-sub">${T('pen.sub', { good: mini.goodZones || 2, total: zonesN })}</p>`;
     const goal = h('div', 'goal');
     const ball = h('div', 'mini-ball', '⚽');
     goal.appendChild(ball);
@@ -920,7 +1333,7 @@
       ball.classList.add('fly');
       setTimeout(() => {
         btn.classList.add(scored ? 'goal-flash' : 'saved-flash');
-        verdict.textContent = scored ? 'GOOOAL!' : 'SAVED!';
+        verdict.textContent = scored ? T('pen.goal') : T('pen.saved');
         verdict.className = 'mini-verdict show ' + (scored ? 'v-good' : 'v-bad');
         if (scored) confetti();
         setTimeout(() => { m.close(); onResult(scored ? 'good' : 'bad'); }, 1200);
@@ -931,9 +1344,9 @@
   // Timing: stop the pointer in the sweet spot
   function showTimingMini(mini, onResult) {
     const c = h('div', 'mini timing-mini');
-    c.innerHTML = `<div class="outcome-kicker">TIMING IS EVERYTHING</div>
-      <h3>Stop the pointer in the green</h3>
-      <p class="mini-sub">Click the bar (or press STRIKE) at the perfect moment</p>`;
+    c.innerHTML = `<div class="outcome-kicker">${T('timing.kicker')}</div>
+      <h3>${T('timing.title')}</h3>
+      <p class="mini-sub">${T('timing.sub')}</p>`;
     const bar = h('div', 'timing-bar');
     const sweet = h('div', 'timing-sweet');
     const sweetLeft = 18 + Math.random() * 52; // 18-70%
@@ -944,7 +1357,7 @@
     bar.appendChild(sweet);
     bar.appendChild(pointer);
     const verdict = h('div', 'mini-verdict', '');
-    const strike = h('button', 'primary-btn', 'STRIKE');
+    const strike = h('button', 'primary-btn', T('timing.strike'));
     c.appendChild(bar);
     c.appendChild(verdict);
     c.appendChild(strike);
@@ -971,9 +1384,9 @@
       const center = sweetLeft + sweetW / 2;
       const dist = Math.abs(pos - center);
       let key, label, cls;
-      if (dist <= sweetW / 2) { key = 'good'; label = 'PERFECT!'; cls = 'v-good'; }
-      else if (dist <= sweetW * 1.4 && mini.results.mid) { key = 'mid'; label = 'Close...'; cls = 'v-mid'; }
-      else { key = mini.results.mid ? 'bad' : (dist <= sweetW * 1.4 ? 'good' : 'bad'); label = dist <= sweetW * 1.4 ? 'Just about!' : 'Miles off.'; cls = dist <= sweetW * 1.4 ? 'v-mid' : 'v-bad'; }
+      if (dist <= sweetW / 2) { key = 'good'; label = T('timing.perfect'); cls = 'v-good'; }
+      else if (dist <= sweetW * 1.4 && mini.results.mid) { key = 'mid'; label = T('timing.close'); cls = 'v-mid'; }
+      else { key = mini.results.mid ? 'bad' : (dist <= sweetW * 1.4 ? 'good' : 'bad'); label = dist <= sweetW * 1.4 ? T('timing.justAbout') : T('timing.milesOff'); cls = dist <= sweetW * 1.4 ? 'v-mid' : 'v-bad'; }
       sweet.classList.add(key === 'good' ? 'hit' : 'miss');
       verdict.textContent = label;
       verdict.className = 'mini-verdict show ' + cls;
@@ -987,9 +1400,9 @@
   // Goalkeeper Penalty Save Minigame
   function showGkPenaltyMini(mini, onResult) {
     const c = h('div', 'mini gk-penalty-mini');
-    c.innerHTML = `<div class="outcome-kicker">PENALTY SAVE</div>
-      <h3>Choose your dive direction</h3>
-      <p class="mini-sub">Predict where the striker is placing the ball!</p>`;
+    c.innerHTML = `<div class="outcome-kicker">${T('gk.kicker')}</div>
+      <h3>${T('gk.title')}</h3>
+      <p class="mini-sub">${T('gk.sub')}</p>`;
 
     const goal = h('div', 'gk-goal');
     const striker = h('div', 'mini-striker', '⚽ 🏃');
@@ -999,9 +1412,9 @@
 
     const btnRow = h('div', 'gk-dive-btns');
     const directions = [
-      { id: 'left', label: '⬅️ DIVE LEFT' },
-      { id: 'center', label: '🧍 STAND CENTER' },
-      { id: 'right', label: '➡️ DIVE RIGHT' }
+      { id: 'left', label: T('gk.left') },
+      { id: 'center', label: T('gk.center') },
+      { id: 'right', label: T('gk.right') }
     ];
 
     directions.forEach((d) => {
@@ -1024,7 +1437,7 @@
       const strikerChoice = ['left', 'center', 'right'][Math.floor(Math.random() * 3)];
       const saved = playerChoice === strikerChoice;
 
-      verdict.textContent = saved ? '🧤 GREAT SAVE!' : '⚽ GOAL! Wrong direction.';
+      verdict.textContent = saved ? T('gk.saved') : T('gk.goal');
       verdict.className = 'mini-verdict show ' + (saved ? 'v-good' : 'v-bad');
       if (saved) confetti();
       setTimeout(() => { m.close(); onResult(saved ? 'good' : 'bad'); }, 1200);
@@ -1034,6 +1447,7 @@
   function showNtCallUpModal(state, onDone) {
     const p = state.player;
     const nat = E().countryById(p.countryId);
+    const countryStr = E().countryName(nat);
     const c = h('div', 'nt-callup-modal outcome');
 
     const flagHeader = h('div', 'nt-flag-header');
@@ -1042,19 +1456,37 @@
 
     const content = h('div', 'nt-content');
     content.innerHTML = `
-      <div class="outcome-kicker">🌍 INTERNATIONAL SELECTION</div>
-      <h3>Called up for ${esc(nat.name)}!</h3>
-      <p>Your stellar form has earned you a call-up to represent your country on the international stage! (FIFA Rank #${nat.rank})</p>
+      <div class="outcome-kicker">${T('nt.kicker')}</div>
+      <h3>${T('nt.title', { country: esc(countryStr) })}</h3>
+      <p>${T('nt.desc', { rank: nat.rank })}</p>
       <div class="nt-badge-chips">
-        <span class="chip tr-country">🌍 National Team Debut</span>
-        <span class="chip chip-hype">🔥 International Exposure</span>
+        <span class="chip tr-country">${T('nt.debut')}</span>
+        <span class="chip chip-hype">${T('nt.exposure')}</span>
       </div>`;
     c.appendChild(content);
 
-    const btn = h('button', 'primary-btn', 'Represent Your Nation');
-    c.appendChild(btn);
+    const btnRow = h('div', 'nt-btn-row');
+    btnRow.style.display = 'flex';
+    btnRow.style.gap = '10px';
+    btnRow.style.marginTop = '16px';
+
+    const btnAccept = h('button', 'primary-btn', T('nt.btn'));
+    btnAccept.onclick = () => {
+      if (E().acceptNtCallUp) E().acceptNtCallUp(state);
+      m.close();
+    };
+
+    const btnDecline = h('button', 'secondary-btn ghost', T('nt.declineBtn') || 'Decline Call-Up');
+    btnDecline.onclick = () => {
+      if (E().declineNtCallUp) E().declineNtCallUp(state);
+      m.close();
+    };
+
+    btnRow.appendChild(btnAccept);
+    btnRow.appendChild(btnDecline);
+    c.appendChild(btnRow);
+
     const m = modal(c, { onClose: onDone });
-    btn.onclick = () => { m.close(); };
     confetti();
   }
 
@@ -1067,16 +1499,16 @@
     const countThisSeason = (state.shopPurchasesSeason === state.season) ? (state.shopPurchasesCount || 0) : 0;
     const canBuy = countThisSeason < maxP;
     const canReroll = state.shopRerolledSeason !== state.season && balance >= 50000;
-    const tierName = (state.player.tier || E().getTier(state.player.ovr) || 'bronze').toUpperCase();
+    const tierName = tierLabel(state.player.tier || E().getTier(state.player.ovr) || 'bronze');
 
     const c = h('div', 'shop');
-    c.innerHTML = `<div class="outcome-kicker">CLUB SHOP · ${tierName} TIER (${countThisSeason}/${maxP} PURCHASES USED)</div>
-      <h3>Consumables</h3>
-      <div class="shop-balance">Career earnings banked: <b>${E().fmtValue(balance)}</b> · ${maxP - countThisSeason} purchase${(maxP - countThisSeason) === 1 ? '' : 's'} remaining</div>`;
+    c.innerHTML = `<div class="outcome-kicker">${T('shop.kicker', { tier: tierName, used: countThisSeason, max: maxP })}</div>
+      <h3>${T('shop.title')}</h3>
+      <div class="shop-balance">${T('shop.balance', { amount: E().fmtValue(balance), n: maxP - countThisSeason, s: (maxP - countThisSeason) === 1 ? '' : 's' })}</div>`;
 
     if (canReroll) {
       const rerollRow = h('div', 'shop-reroll-row');
-      const rerollBtn = h('button', 'primary-btn ghost reroll-btn', '🎲 Reroll Shop Options (€50K)');
+      const rerollBtn = h('button', 'primary-btn ghost reroll-btn', T('shop.reroll'));
       rerollBtn.onclick = () => {
         const res = E().rerollShop(state);
         if (res.ok) {
@@ -1096,14 +1528,14 @@
       if (fx.stam) chips.push(`<span class="chip chip-sta">+${fx.stam} STA</span>`);
       if (fx.mor) chips.push(`<span class="chip chip-mor">+${fx.mor} MOR</span>`);
       if (fx.hype) chips.push(`<span class="chip chip-hype">+${fx.hype * 5} HYPE</span>`);
-      if (fx.special === 'injuryShield') chips.push(`<span class="chip chip-shield">🛡 injury shield</span>`);
-      if (fx.special === 'superAgent') chips.push(`<span class="chip chip-hype">🤝 super-agent</span>`);
+      if (fx.special === 'injuryShield') chips.push(`<span class="chip chip-shield">${T('chip.injuryShield')}</span>`);
+      if (fx.special === 'superAgent') chips.push(`<span class="chip chip-hype">${T('chip.superAgentShop')}</span>`);
 
       const isAlreadyBought = state.shopPurchasedIds && state.shopPurchasesSeason === state.season && state.shopPurchasedIds.includes(it.id);
       const cardDisabled = !canBuy || !it.affordable || isAlreadyBought;
-      const btnText = isAlreadyBought ? 'PURCHASED' : E().fmtValue(it.cost);
+      const btnText = isAlreadyBought ? T('shop.purchased') : E().fmtValue(it.cost);
       const card = h('div', 'shop-item' + (cardDisabled ? ' disabled' : ''));
-      card.innerHTML = `<b>${esc(it.name)}</b><i>${esc(it.desc)}</i>
+      card.innerHTML = `<b>${esc(TD('consumable', it, 'name'))}</b><i>${esc(TD('consumable', it, 'desc'))}</i>
         <div class="stat-chips">${chips.join('')}</div>
         <button class="shop-buy" ${cardDisabled ? 'disabled' : ''}>${btnText}</button>`;
       if (canBuy && it.affordable && !isAlreadyBought) {
@@ -1112,21 +1544,11 @@
       grid.appendChild(card);
     });
     c.appendChild(grid);
-    const close = h('button', 'primary-btn ghost', 'Close');
+    const close = h('button', 'primary-btn ghost', T('shop.close'));
     c.appendChild(close);
     m = modal(c, { wide: true });
     close.onclick = () => m.close();
   }
-
-  const RETIRE_BLURBS = {
-    full: 'A complete career. Age 40, nothing left in the tank. Immortal.',
-    legend: 'A legend walking away at the summit. Statues incoming.',
-    star: 'A star who lit up every stadium they touched.',
-    pro: 'A respected professional. Graft, sweat, honor — in that order.',
-    journeyman: 'The ultimate journeyman. A shirt in every color, a story in every city.',
-    wonderkid: 'The great what-if. Gone before the world saw the full show.',
-    quiet: 'A quiet career — but every kid who watched believed a little more.',
-  };
 
   function showConfirm(opts) {
     const c = h('div', 'outcome');
@@ -1134,8 +1556,8 @@
       <h3>${esc(opts.title)}</h3><p>${esc(opts.text)}</p>` +
       (opts.warn ? `<p class="retire-warn">${esc(opts.warn)}</p>` : '');
     const row = h('div', 'btn-row');
-    const yes = h('button', 'primary-btn' + (opts.danger ? ' danger' : ''), opts.yesLabel || 'Confirm');
-    const no = h('button', 'primary-btn ghost', opts.noLabel || 'Cancel');
+    const yes = h('button', 'primary-btn' + (opts.danger ? ' danger' : ''), opts.yesLabel || T('btn.confirm'));
+    const no = h('button', 'primary-btn ghost', opts.noLabel || T('btn.cancel'));
     row.appendChild(yes);
     row.appendChild(no);
     c.appendChild(row);
@@ -1147,11 +1569,11 @@
   function showRetireConfirm(state, handlers) {
     const type = E().retireType(state);
     showConfirm({
-      kicker: 'HANG UP THE BOOTS?',
-      title: `Retire at ${state.player.age}?`,
-      text: RETIRE_BLURBS[type] || RETIRE_BLURBS.quiet,
-      warn: 'This ends the career immediately. There is no undo.',
-      yesLabel: 'Retire for good', noLabel: 'Keep playing', danger: true,
+      kicker: T('retire.kicker'),
+      title: T('retire.title', { age: state.player.age }),
+      text: T('blurb.' + type),
+      warn: T('retire.warn'),
+      yesLabel: T('retire.yes'), noLabel: T('retire.no'), danger: true,
       onYes: handlers.onRetireConfirm,
     });
   }
@@ -1165,48 +1587,50 @@
 
     const tier = E().getTier(sum.peakOvr);
     const hero = h('div', `summary-hero glass tier-${tier}`);
-    const blurb = RETIRE_BLURBS[sum.retireType] || RETIRE_BLURBS.full;
+    const blurb = T('blurb.' + sum.retireType);
     hero.innerHTML = `
-      <div class="sr-kicker">CAREER COMPLETE · ${sum.seasons} SEASON${sum.seasons === 1 ? '' : 'S'}</div>
+      <div class="sr-kicker">${T('summary.kicker', { n: sum.seasons, s: sum.seasons === 1 ? '' : 'S' })}</div>
       <h1>${esc(sum.name)} <span class="sum-num">#${sum.number}</span></h1>
       <div class="sum-blurb">${esc(blurb)}</div>
-      <div class="sum-quote">“${esc(sum.quote)}”</div>`;
+      <div class="sum-quote">"${esc(sum.quote)}"</div>`;
     const heroFlag = h('div', 'sum-hero-flag');
     heroFlag.appendChild(flagEl(nat.code, 160));
     hero.appendChild(heroFlag);
+    // Language toggle in summary hero
+    hero.appendChild(langToggle(() => renderSummary(rootEl, state, handlers)));
     wrap.appendChild(hero);
 
     const grid = h('div', 'sum-grid');
     const statBox = (label, val, sub) =>
       `<div class="sum-box glass"><span>${label}</span><b>${val}</b><i>${sub || ''}</i></div>`;
     grid.innerHTML =
-      statBox('Peak overall', sum.peakOvr, `reached in ${sum.peakOvrYear}`) +
-      statBox('Peak market value', E().fmtValue(sum.peakValue), `in ${sum.peakValueYear}`) +
+      statBox(T('summary.peakOvr'), sum.peakOvr, T('summary.reachedIn', { year: sum.peakOvrYear })) +
+      statBox(T('summary.peakValue'), E().fmtValue(sum.peakValue), T('summary.inYear', { year: sum.peakValueYear })) +
       (sum.isGK
-        ? statBox('Saves', sum.totals.saves, `${sum.totals.cleanSheets} clean sheets`) +
-          statBox('Goals conceded', sum.totals.conceded, `${sum.totals.apps} apps`)
-          : statBox('Goals', sum.totals.goals, `${sum.totals.apps} apps`) +
-          statBox('Assists', sum.totals.assists, 'all competitions')) +
-      statBox('Career earnings', E().fmtValue(sum.earnings), sum.spent ? `${E().fmtValue(sum.spent)} on consumables` : 'every cent saved') +
-      statBox('Legacy score', sum.legacy, 'hall of fame metric');
+        ? statBox(T('summary.savesLabel'), sum.totals.saves, T('summary.cleanSheetsN', { n: sum.totals.cleanSheets })) +
+          statBox(T('summary.goalsConceded'), sum.totals.conceded, T('summary.appsN', { n: sum.totals.apps }))
+          : statBox(T('summary.goalsLabel'), sum.totals.goals, T('summary.appsN', { n: sum.totals.apps })) +
+          statBox(T('summary.assistsLabel'), sum.totals.assists, T('summary.allComps'))) +
+      statBox(T('summary.earnings'), E().fmtValue(sum.earnings), sum.spent ? T('summary.onConsumables', { amount: E().fmtValue(sum.spent) }) : T('summary.everyCent')) +
+      statBox(T('summary.legacyScore'), sum.legacy, T('summary.legacyMetric'));
     wrap.appendChild(grid);
 
     // Trophy shelf
     const totalTr = Object.values(sum.counts).reduce((a, b) => a + b, 0);
     const shelf = h('div', 'sum-shelf glass');
-    shelf.innerHTML = `<h2>Trophy Cabinet <em>${totalTr} trophies</em></h2>`;
+    shelf.innerHTML = `<h2>${T('summary.trophyCabinet')} <em>${T('summary.trophiesN', { n: totalTr })}</em></h2>`;
     const chipsRow = h('div', 'shelf-chips');
-    [['League', '🏆'], ['Cup', '🥈'], ['Continental', '🌟'], ['Country', '🌍']].forEach(([k, emo]) => {
-      if (sum.counts[k]) chipsRow.appendChild(h('span', 'tr-chip tr-big', `${emo} ${k} × ${sum.counts[k]}`));
+    [['League', '🏆', T('summary.trLeague')], ['Cup', '🥈', T('summary.trCup')], ['Continental', '🌟', T('summary.trContinental')], ['Country', '🌍', T('summary.trCountry')]].forEach(([k, emo, label]) => {
+      if (sum.counts[k]) chipsRow.appendChild(h('span', 'tr-chip tr-big', `${emo} ${label} × ${sum.counts[k]}`));
     });
-    if (!totalTr) chipsRow.appendChild(h('span', 'shelf-empty', 'Bare shelves. The memories were the real trophies. (The fans disagree.)'));
+    if (!totalTr) chipsRow.appendChild(h('span', 'shelf-empty', T('summary.bareShelves')));
     shelf.appendChild(chipsRow);
     wrap.appendChild(shelf);
 
     // Individual awards
     if (sum.awards && sum.awards.length) {
       const awBox = h('div', 'sum-shelf glass');
-      awBox.innerHTML = `<h2>Individual Awards</h2>`;
+      awBox.innerHTML = `<h2>${T('summary.awards')}</h2>`;
       const awRow = h('div', 'shelf-chips');
       const order = { 'ballon-dor': 0, 'the-best': 1, 'golden-boy': 2, 'puskas': 3, 'tots': 4 };
       sum.awards.sort((a, b) => (order[a.id] ?? 9) - (order[b.id] ?? 9)).forEach((a) => {
@@ -1220,18 +1644,18 @@
 
     // Country card
     const cc = h('div', 'sum-country glass');
-    cc.innerHTML = `<h2>International career</h2>`;
+    cc.innerHTML = `<h2>${T('summary.intCareer')}</h2>`;
     const ccRow = h('div', 'sum-country-row');
     ccRow.appendChild(flagEl(nat.code, 160));
     const ccInfo = h('div', 'sum-country-info');
     ccInfo.innerHTML = `<b>${esc(nat.name)}</b>
-      <span>${sum.totals.caps} caps${sum.isGK ? '' : ` · ${sum.totals.ntGoals} goals`}</span>`;
+      <span>${sum.isGK ? T('summary.capsOnly', { caps: sum.totals.caps }) : T('summary.capsGoals', { caps: sum.totals.caps, goals: sum.totals.ntGoals })}</span>`;
     if (sum.ntTrophies.length) {
       const tt = h('div', 'hrow-trophies');
       sum.ntTrophies.forEach((t) => tt.appendChild(h('span', 'tr-chip tr-country', `🏆 ${esc(t.name)} ${t.year}`)));
       ccInfo.appendChild(tt);
     } else {
-      ccInfo.innerHTML += `<i>No international trophies — the quarterfinal curse was real.</i>`;
+      ccInfo.innerHTML += `<i>${T('summary.noIntTrophies')}</i>`;
     }
     ccRow.appendChild(ccInfo);
     cc.appendChild(ccRow);
@@ -1239,14 +1663,15 @@
 
     // Clubs
     const clubsBox = h('div', 'sum-clubs');
-    clubsBox.appendChild(h('h2', '', 'Club career'));
+    clubsBox.appendChild(h('h2', '', T('summary.clubCareer')));
     sum.stints.forEach((s) => {
       const club = E().clubByCid(s.cid);
       const card = h('div', 'sum-club glass');
       const head2 = h('div', 'sum-club-head');
       head2.appendChild(badgeEl(club, 40));
       const ttl = h('div', 'sum-club-title');
-      ttl.innerHTML = `<b>${esc(s.clubName)}</b><i>${s.firstYear} — ${s.lastYear} · ${s.seasons} season${s.seasons > 1 ? 's' : ''} · ${esc(s.league)}</i>`;
+      const seasonText = s.seasons > 1 ? T('sum.seasons', { n: s.seasons }) : T('sum.season1');
+      ttl.innerHTML = `<b>${esc(s.clubName)}</b><i>${s.firstYear} — ${s.lastYear} · ${seasonText} · ${esc(s.league)}</i>`;
       head2.appendChild(ttl);
       card.appendChild(head2);
       const line = sum.isGK
@@ -1264,7 +1689,7 @@
     });
     wrap.appendChild(clubsBox);
 
-    const again = h('button', 'start-btn', 'Start New Career');
+    const again = h('button', 'start-btn', T('summary.newCareer'));
     again.onclick = handlers.onRestart;
     wrap.appendChild(again);
 
@@ -1279,6 +1704,7 @@
     const right = document.getElementById('history-panel');
     left.innerHTML = '';
     left.appendChild(playerCard(state));
+    left.appendChild(agentCard(state, handlers));
     renderStage(center, state, handlers);
     renderHistory(right, state);
   }

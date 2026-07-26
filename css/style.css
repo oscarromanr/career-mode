@@ -90,7 +90,27 @@ input { font-family: inherit; }
   animation: fadeUp 0.5s ease both;
 }
 
-.setup-hero { text-align: center; margin-bottom: 20px; }
+.setup-hero { text-align: center; margin-bottom: 20px; position: relative; }
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--stroke-strong);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 12px;
+}
+.lang-toggle:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--text);
+  transform: translateY(-1px);
+}
 .hero-kicker {
   font-size: 11px;
   letter-spacing: 3px;
@@ -859,7 +879,7 @@ input { font-family: inherit; }
   background: rgba(255, 255, 255, 0.08);
   margin: 6px 0 4px;
 }
-.sr-bar-sta { background: linear-gradient(90deg, #0a84ff, #64d2ff); }
+.sr-bar-sta, .cond-bar i.sta { background: linear-gradient(90deg, #7b4bff, #af52de); }
 .sr-bar-mor { background: linear-gradient(90deg, #bf5af2, #ff9ff3); }
 .sr-bar-loyalty, .cond-bar i.loyalty { background: linear-gradient(90deg, #ff3b30, #ff6b60); }
 .sr-notes {
@@ -970,6 +990,261 @@ input { font-family: inherit; }
   transition: background 0.15s, border-color 0.15s, transform 0.12s;
 }
 .icon-btn:hover { background: var(--glass-strong); border-color: var(--stroke-strong); transform: translateY(-2px); }
+.lang-header-btn {
+  width: auto;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-2);
+}
+.lang-header-btn:hover {
+  color: var(--text);
+}
+
+/* Agent & Finances Card */
+.agent-card {
+  margin-top: 14px;
+  background: var(--glass-card);
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  padding: 14px 16px;
+  backdrop-filter: blur(12px);
+}
+.agent-card-title {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 12px;
+}
+.agent-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.agent-item {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  padding: 8px 10px;
+}
+.agent-item span {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-3);
+  margin-bottom: 3px;
+}
+.agent-item b {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+.agent-talk-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 12px;
+}
+
+/* Agent Action Modal & Club Search */
+.agent-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+.agent-opt-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.agent-opt-btn:hover {
+  background: var(--glass-strong);
+  border-color: var(--accent);
+}
+.club-search-box {
+  margin-top: 10px;
+}
+.club-search-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--stroke);
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 13px;
+  margin: 10px 0 8px;
+}
+.club-search-results {
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.club-search-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.club-search-item:hover {
+  background: var(--glass-strong);
+  border-color: var(--accent);
+}
+
+/* Financial Bar: Salary vs Agent Expenses */
+.finance-bar-wrap {
+  margin: 10px 0 12px;
+}
+.finance-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.finance-bar-labels .sal { color: var(--green); }
+.finance-bar-labels .exp { color: var(--red); }
+.fin-bar-track {
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  display: flex;
+  position: relative;
+}
+.fin-bar-sal {
+  height: 100%;
+  background: linear-gradient(90deg, #30d158, #64d2ff);
+  transition: width 0.5s ease;
+}
+.fin-bar-exp {
+  height: 100%;
+  background: linear-gradient(90deg, #ff453a, #ff6b60);
+  transition: width 0.5s ease;
+  box-shadow: 0 0 8px rgba(255, 69, 58, 0.6);
+}
+
+/* Agent Stat Progress Bars */
+.agent-stat-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+.agent-stat-bar-label {
+  width: 75px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.agent-stat-bar-track {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  position: relative;
+}
+.agent-stat-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #0a84ff, #64d2ff) !important;
+  transition: width 0.4s ease;
+}
+.agent-stat-bar-val {
+  width: 22px;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: right;
+  color: var(--text);
+}
+.cond-bar i.rep, .sr-bar-rep { background: linear-gradient(90deg, #ff9f0a, #ffd60a); }
+
+/* Agent Market Candidates */
+.agent-market-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+}
+.agent-candidate-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--stroke);
+  border-radius: 14px;
+  padding: 14px;
+  text-align: left;
+}
+.agent-candidate-card.active-agent {
+  border-color: var(--accent);
+  background: rgba(123, 75, 255, 0.12);
+}
+.agent-candidate-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.agent-candidate-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text);
+}
+.agent-candidate-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 10px 0;
+  font-size: 11px;
+}
+.agent-candidate-stat-item {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  padding: 6px 8px;
+  text-align: center;
+}
+.agent-candidate-stat-item span {
+  display: block;
+  font-size: 9px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 2px;
+}
+.agent-candidate-stat-item b {
+  font-size: 12px;
+  color: var(--text);
+}
+.agent-candidate-fees {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-2);
+  margin-bottom: 10px;
+}
 .icon-btn .dot {
   position: absolute;
   top: 7px;
