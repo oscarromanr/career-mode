@@ -254,6 +254,24 @@ console.log('  peak ovr:', c4.sum.peakOvr, '| stints:', c4.sum.stints.length);
   console.log('Minigame engine OK');
 }
 
+// Naturalization & dual nationality call-up test
+{
+  const s = Engine.newCareer({ name: 'Dual Nat', number: 10, position: 'ST', countryId: 'ES' });
+  Engine.setAcademy(s, Engine.academyOptions(s)[0].cid);
+  const zaClub = Engine.ALL_CLUBS.find((c) => c.countryId === 'ZA');
+  if (zaClub) {
+    s.club = { cid: zaClub.cid, yearsLeft: 5 };
+    s.countrySeasons = { ZA: 4 };
+    s.player.age = 18;
+    s.player.ovr = 75;
+    Engine.simulateSeason(s);
+    assert(s.player.earnedNationalities && s.player.earnedNationalities.includes('ZA'), 'earned ZA nationality');
+    assert(s.triggerNaturalizationModal === 'ZA', 'triggered naturalization modal');
+    assert(s.triggerNtCallUpModal === 'ZA', 'triggered secondary NT call-up for ZA');
+  }
+  console.log('Naturalization & Dual Nationality Call-Up test OK');
+}
+
 // peak distribution
 console.log('\nDistribution over 40 random careers:');
 const peaks = [], values = [], trophyCounts = [], earningsArr = [];

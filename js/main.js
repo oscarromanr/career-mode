@@ -126,7 +126,7 @@
           () => {
             UI.renderGame(state, handlers);
             if (canBuyMore && !state.retired) {
-              UI.showShopModal(state, handlers);
+              UI.showShop(state, handlers);
             }
           },
           state
@@ -342,11 +342,22 @@
         });
       };
 
-      if (state.triggerNtCallUpModal) {
-        state.triggerNtCallUpModal = false;
-        UI.showNtCallUpModal(state, proceedToSummary);
+      const handleNtCheck = () => {
+        if (state.triggerNtCallUpModal) {
+          const cCode = state.triggerNtCallUpModal;
+          state.triggerNtCallUpModal = false;
+          UI.showNtCallUpModal(state, cCode, proceedToSummary);
+        } else {
+          proceedToSummary();
+        }
+      };
+
+      if (state.triggerNaturalizationModal) {
+        const natCid = state.triggerNaturalizationModal;
+        state.triggerNaturalizationModal = false;
+        UI.showNaturalizationModal(state, natCid, handleNtCheck);
       } else {
-        proceedToSummary();
+        handleNtCheck();
       }
     }, 2300);
   }

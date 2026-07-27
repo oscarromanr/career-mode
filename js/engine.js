@@ -866,19 +866,21 @@
     return { ok: true, changes, item };
   }
 
-  // ---- Club offers ----
-  // ---- Club offers ----
-  function roleText(ovr, clubS, state) {
+  function roleKey(ovr, clubS, state) {
     const diff = ovr - clubS;
-    const T = (k) => root.I18n ? root.I18n.T(k) : k;
     const p = state ? state.player : null;
     const loyalty = (p && p.loyalty) ? p.loyalty : 0;
-    if (ovr >= 85) return T('role.star');
-    if (ovr >= 80) return (diff >= -6 || loyalty >= 40) ? T('role.star') : T('role.key');
-    if (diff >= 4 || loyalty >= 70) return T('role.star');
-    if (diff >= -3 || loyalty >= 40) return T('role.key');
-    if (diff >= -8 || loyalty >= 20) return T('role.rotation');
-    return T('role.prospect');
+    if (ovr >= 85) return 'role.star';
+    if (ovr >= 80) return (diff >= -6 || loyalty >= 40) ? 'role.star' : 'role.key';
+    if (diff >= 4 || loyalty >= 70) return 'role.star';
+    if (diff >= -3 || loyalty >= 40) return 'role.key';
+    if (diff >= -8 || loyalty >= 20) return 'role.rotation';
+    return 'role.prospect';
+  }
+
+  function roleText(ovr, clubS, state) {
+    const rKey = roleKey(ovr, clubS, state);
+    return root.I18n ? root.I18n.T(rKey) : rKey;
   }
 
   const RELEASED_REASONS = [
@@ -981,6 +983,7 @@
           type: 'transfer',
           club: loanClub,
           fee,
+          roleKey: roleKey(p.ovr, loanClub.s, state),
           role: roleText(p.ovr, loanClub.s, state),
           noteKey: nk,
           note: T(nk),
@@ -995,6 +998,7 @@
           type: 'loan',
           club: loanClub,
           fee: null,
+          roleKey: roleKey(p.ovr, loanClub.s, state),
           role: roleText(p.ovr, loanClub.s, state),
           noteKey: nk,
           note: T(nk)
@@ -1007,6 +1011,7 @@
         offers.push({
           type: 'stay',
           club: parentClub,
+          roleKey: roleKey(p.ovr, parentClub.s, state),
           role: roleText(p.ovr, parentClub.s, state),
           noteKey: 'offerNote.newContract',
           note: T('offerNote.newContract'),
@@ -1016,6 +1021,7 @@
         offers.push({
           type: 'return',
           club: parentClub,
+          roleKey: roleKey(p.ovr, parentClub.s, state),
           role: roleText(p.ovr, parentClub.s, state),
           noteKey: 'offerNote.return',
           noteParams: { club: parentClub.n },
@@ -1035,6 +1041,7 @@
           type: isLoanOffer ? 'loan' : 'transfer',
           club: c,
           fee: isLoanOffer ? null : fee,
+          roleKey: roleKey(p.ovr, c.s, state),
           role: roleText(p.ovr, c.s, state),
           noteKey: isLoanOffer ? 'offerNote.devLoan' : 'offerNote.fresh',
           note: T(isLoanOffer ? 'offerNote.devLoan' : 'offerNote.fresh')
@@ -1050,6 +1057,7 @@
       offers.push({
         type: 'stay',
         club: cur,
+        roleKey: roleKey(p.ovr, cur.s, state),
         role: roleText(p.ovr, cur.s, state),
         noteKey: nk,
         note: T(nk)
@@ -1135,7 +1143,7 @@
       else if (c.s >= 88) nk = 'offerNote.royalty';
       else if (c.s > cur.s + 4) nk = 'offerNote.stepUp';
       else nk = 'offerNote.fresh';
-      offers.push({ type: loan ? 'loan' : 'transfer', club: c, fee: loan ? null : fee, role: roleText(p.ovr, c.s, state), noteKey: nk, note: T(nk) });
+      offers.push({ type: loan ? 'loan' : 'transfer', club: c, fee: loan ? null : fee, roleKey: roleKey(p.ovr, c.s, state), role: roleText(p.ovr, c.s, state), noteKey: nk, note: T(nk) });
     });
 
     state.recentOffers = picked.map((c) => c.cid);
@@ -1332,7 +1340,9 @@
     const p = state.player;
     p.ovr = getOvr(p.stats, p.position);
     p.tier = getTier(p.ovr);
-    p.value = marketValue(p);
+    if (!p.value || state.stage === 'sim') {
+      p.value = marketValue(p);
+    }
     p.salary = annualSalary(p, state);
 
     state.clubLoyalty = state.clubLoyalty || {};
@@ -1387,6 +1397,8 @@
     const age = p.age;
     const form = clamp(1 + state.pendingForm + (p.morale - 70) / 300, 0.72, 1.28);
     const ovrBefore = p.ovr;
+    const hypeBefore = p.hype || 0;
+    const repBefore = p.reputation || 0;
 
     // Appearances & output (stamina and injuries reduce minutes)
     let apps = computeApps(p.ovr, club, age, form);
@@ -1402,6 +1414,7 @@
       league: club.league, loan: !!state.club.loan, apps, injured,
       goals: 0, assists: 0, saves: 0, conceded: 0, cleanSheets: 0,
       rating: 6.0, trophies: [], caps: 0, ntGoals: 0, salary: p.salary,
+      hypeBefore, repBefore,
     };
 
     const weakLeague = 1 + Math.max(0, 78 - club.s) * 0.004;
@@ -1435,40 +1448,52 @@
     }
 
     // Track seasons per country for naturalization (5+ seasons rule)
+    const T = (k, params) => root.I18n ? root.I18n.T(k, params) : k;
+    p.initialCountryId = p.initialCountryId || p.countryId;
+    p.earnedNationalities = p.earnedNationalities || [];
     state.countrySeasons = state.countrySeasons || {};
     state.countrySeasons[club.countryId] = (state.countrySeasons[club.countryId] || 0) + 1;
 
-    // Check naturalization switch option if not yet committed to a national team
-    if (!state.ntCalledUp && (!state.totals || !state.totals.caps)) {
-      const hostCountryId = Object.keys(state.countrySeasons).find((c) => c !== p.countryId && state.countrySeasons[c] >= 5);
-      if (hostCountryId) {
-        state.naturalizationEligibleHost = hostCountryId;
-      }
+    if (club.countryId !== p.initialCountryId && state.countrySeasons[club.countryId] >= 5 && !p.earnedNationalities.includes(club.countryId)) {
+      p.earnedNationalities.push(club.countryId);
+      state.triggerNaturalizationModal = club.countryId;
+      const newNat = countryById(club.countryId);
+      logStatNote(state, T('note.naturalizationEarned', { country: countryName(newNat) }));
     }
 
-    // National team
-    let thr = nationalThreshold(nat.rank);
-    if (age <= 19 && p.potential >= 85) thr -= 3;
-    if (p.ovr >= thr && age >= 16) {
-      if (!state.ntCalledUp && !state.ntDeclinedThisYear) {
-        state.triggerNtCallUpModal = true;
-      }
-      if (state.ntCalledUp) {
-        state.ntFirstYear = state.ntFirstYear || year;
-        const rate = DATA.ATTACK_RATES[p.position];
-        res.caps = clamp(5 + ri(0, 5) + (p.ovr >= 85 ? 2 : 0), 0, 12);
-        if (!p.isGK) {
-          res.ntGoals = Math.max(0, Math.round(res.caps * rate.g * Math.pow(p.ovr / 82, 2) * 0.8 * (0.6 + rnd() * 0.8)));
-          res.ntCleanSheets = 0;
-        } else {
-          res.ntGoals = 0;
-          res.ntCleanSheets = Math.min(res.caps, Math.max(0, Math.round(res.caps * (0.35 + (p.ovr / 100) * 0.25))));
-        }
-        const confT = TOURNAMENTS[nat.confed];
-        if (TOURNAMENTS.WC.years.includes(year)) {
-          if (chance(ntWinProb(nat.rank, p.ovr, true))) res.trophies.push({ type: 'Country', name: 'FIFA World Cup' });
-        } else if (confT && confT.years.includes(year)) {
-          if (chance(ntWinProb(nat.rank, p.ovr, false))) res.trophies.push({ type: 'Country', name: confT.name });
+    // National team evaluation across all eligible nationalities (Birth + Earned)
+    const candidateNats = [p.initialCountryId || p.countryId, ...(p.earnedNationalities || [])].filter((c, i, a) => a.indexOf(c) === i);
+    for (const cCode of candidateNats) {
+      if (state.ntRejectedPerm && state.ntRejectedPerm[cCode]) continue;
+      if (state.ntCalledUp && state.ntCountryId && state.ntCountryId !== cCode && state.totals && state.totals.caps > 0) continue;
+
+      const cNat = countryById(cCode);
+      if (!cNat) continue;
+      let thr = nationalThreshold(cNat.rank);
+      if (age <= 19 && p.potential >= 85) thr -= 3;
+
+      if (p.ovr >= thr && age >= 16) {
+        if (state.ntCalledUp && (state.ntCountryId === cCode || p.countryId === cCode)) {
+          state.ntFirstYear = state.ntFirstYear || year;
+          const rate = DATA.ATTACK_RATES[p.position];
+          res.caps = clamp(5 + ri(0, 5) + (p.ovr >= 85 ? 2 : 0), 0, 12);
+          if (!p.isGK) {
+            res.ntGoals = Math.max(0, Math.round(res.caps * rate.g * Math.pow(p.ovr / 82, 2) * 0.8 * (0.6 + rnd() * 0.8)));
+            res.ntCleanSheets = 0;
+          } else {
+            res.ntGoals = 0;
+            res.ntCleanSheets = Math.min(res.caps, Math.max(0, Math.round(res.caps * (0.35 + (p.ovr / 100) * 0.25))));
+          }
+          const confT = TOURNAMENTS[cNat.confed];
+          if (TOURNAMENTS.WC.years.includes(year)) {
+            if (chance(ntWinProb(cNat.rank, p.ovr, true))) res.trophies.push({ type: 'Country', name: 'FIFA World Cup' });
+          } else if (confT && confT.years.includes(year)) {
+            if (chance(ntWinProb(cNat.rank, p.ovr, false))) res.trophies.push({ type: 'Country', name: confT.name });
+          }
+          break;
+        } else if (!state.ntCalledUp && !state.ntDeclinedThisYear) {
+          state.triggerNtCallUpModal = cCode;
+          break;
         }
       }
     }
@@ -1500,6 +1525,10 @@
     p.morale = clamp(Math.round((p.morale + morDelta - 70) * 0.8 + 70), 5, 100);
     res.stamina = p.stamina;
     res.morale = p.morale;
+    res.hypeAfter = p.hype || 0;
+    res.hypeDelta = res.hypeAfter - res.hypeBefore;
+    res.repAfter = p.reputation || 0;
+    res.repDelta = res.repAfter - res.repBefore;
 
     // Totals & stints
     const t = state.totals;
@@ -1519,6 +1548,10 @@
     stint.saves += res.saves; stint.conceded += res.conceded; stint.cleanSheets += res.cleanSheets;
     res.trophies.forEach((tr) => { if (tr.type !== 'Country') stint.trophies.push(tr); else state.ntTrophies.push({ name: tr.name, year }); });
 
+    // Historical season expenses tracking
+    res.agentSpent = (state.agent && state.agent.annualSalary > 0) ? state.agent.annualSalary : 0;
+    res.shopSpent = (state.shopSpentSeason === year) ? (state.shopSpentThisSeason || 0) : 0;
+
     // Money & league table
     state.earnings += p.salary;
     if (state.agent && state.agent.annualSalary > 0) {
@@ -1529,12 +1562,13 @@
     state.superAgent = false;
     state.standings = simLeague(state, club, res.trophies.some((tr) => tr.type === 'League'));
 
-    // Contract decrement & Free Agency
-    if (state.contract && !state.club.loan) {
+    // Contract decrement & Free Agency (Parent contract ticks down EVERY season even while on loan!)
+    if (state.contract) {
       state.contract.yearsLeft = Math.max(0, state.contract.yearsLeft - 1);
       if (state.contract.yearsLeft === 0) {
         state.isFreeAgent = true;
-        logStatNote(state, `Contract with ${club.n} expired! Entering Free Agency.`);
+        const parentName = (state.club && state.club.loan && state.club.parentCid) ? clubByCid(state.club.parentCid).n : club.n;
+        logStatNote(state, `Contract with ${parentName} expired! Entering Free Agency.`);
       }
     }
 
@@ -1652,21 +1686,40 @@
     return generic[targetPos] || generic.st;
   }
 
-  function acceptNtCallUp(state) {
+  function acceptNtCallUp(state, cCode) {
+    const targetNatCode = cCode || (typeof state.triggerNtCallUpModal === 'string' ? state.triggerNtCallUpModal : null) || state.player.countryId;
     state.ntCalledUp = true;
+    state.ntCountryId = targetNatCode;
+    state.ntStatus = 'active';
+    state.player.countryId = targetNatCode;
     state.triggerNtCallUpModal = false;
-    const nat = countryById(state.player.countryId);
+    const nat = countryById(targetNatCode);
     const T = (k, p) => root.I18n ? root.I18n.T(k, p) : k;
     logStatNote(state, T('note.ntAccepted', { country: countryName(nat) }));
   }
 
-  function declineNtCallUp(state) {
+  function declineNtCallUpTemp(state, cCode) {
+    const targetNatCode = cCode || (typeof state.triggerNtCallUpModal === 'string' ? state.triggerNtCallUpModal : null) || state.player.countryId;
     state.ntCalledUp = false;
+    state.ntStatus = 'declined_temp';
     state.triggerNtCallUpModal = false;
     state.ntDeclinedThisYear = true;
-    const nat = countryById(state.player.countryId);
+    const nat = countryById(targetNatCode);
     const T = (k, p) => root.I18n ? root.I18n.T(k, p) : k;
-    logStatNote(state, T('note.ntDeclined', { country: countryName(nat) }));
+    logStatNote(state, T('note.ntDeclinedTemp', { country: countryName(nat) }));
+  }
+
+  function rejectNtCallUpPerm(state, cCode) {
+    const targetNatCode = cCode || (typeof state.triggerNtCallUpModal === 'string' ? state.triggerNtCallUpModal : null) || state.player.countryId;
+    state.ntCalledUp = false;
+    state.ntStatus = 'rejected_perm';
+    state.triggerNtCallUpModal = false;
+    state.ntDeclinedThisYear = true;
+    state.ntRejectedPerm = state.ntRejectedPerm || {};
+    state.ntRejectedPerm[targetNatCode] = true;
+    const nat = countryById(targetNatCode);
+    const T = (k, p) => root.I18n ? root.I18n.T(k, p) : k;
+    logStatNote(state, T('note.ntRejectedPerm', { country: countryName(nat) }));
   }
 
   function naturalizeAndSwitchNt(state, hostCountryId) {
@@ -1689,7 +1742,7 @@
     getOvr, getTier, marketValue, annualSalary, fmtValue, recompute,
     clubByCid, countryById, countryName, ALL_CLUBS, allClubs, statKeys,
     hireAgent, rollAgentMarket, requestTransfer, demandSalaryRaise, negotiateCommission, DAD_AGENT, addReputation,
-    getLegendForPlayer, calcContractLength, acceptNtCallUp, declineNtCallUp, naturalizeAndSwitchNt,
+    getLegendForPlayer, calcContractLength, acceptNtCallUp, declineNtCallUp: declineNtCallUpTemp, declineNtCallUpTemp, rejectNtCallUpPerm, naturalizeAndSwitchNt,
   };
 
   root.Engine = Engine;

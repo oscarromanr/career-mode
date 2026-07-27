@@ -63,7 +63,8 @@
   function langToggle(rerender) {
     const btn = h('button', 'lang-toggle', I18n.getLang() === 'en' ? '🌐 ES' : '🌐 EN');
     btn.type = 'button';
-    btn.onclick = () => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
       I18n.setLang(I18n.getLang() === 'en' ? 'es' : 'en');
       rerender();
     };
@@ -143,7 +144,7 @@
       b.dataset.name = c.name.toLowerCase();
       const f = flagEl(c.code, 80);
       b.appendChild(f);
-      b.appendChild(h('i', '', esc(c.name)));
+      b.appendChild(h('i', '', esc(E().countryName(c))));
       b.appendChild(h('em', '', `#${c.rank}`));
       cGrid.appendChild(b);
     });
@@ -225,6 +226,22 @@
     const flagBox = h('div', 'pcard-flag');
     flagBox.appendChild(flagEl(nat.code, 80));
     flagBox.appendChild(h('em', '', esc(E().countryName(nat))));
+
+    if (p.earnedNationalities && p.earnedNationalities.length > 0) {
+      const miniFlagsRow = h('div', 'mini-flags-row');
+      miniFlagsRow.title = T('nat.multipleNationalitiesTitle') || 'Multiple Nationalities';
+      p.earnedNationalities.forEach((cId) => {
+        if (cId === p.countryId) return;
+        const eNat = E().countryById(cId);
+        if (eNat) {
+          const miniF = flagEl(eNat.code, 20);
+          miniF.title = E().countryName(eNat);
+          miniFlagsRow.appendChild(miniF);
+        }
+      });
+      if (miniFlagsRow.children.length > 0) flagBox.appendChild(miniFlagsRow);
+    }
+
     top.appendChild(flagBox);
     card.appendChild(top);
 
@@ -292,15 +309,15 @@
   }
 
   /* ================= BANK & AGENT CARD ================= */
-  function financeBar(salary, expenses, shopSpent) {
+  /* ================= BANK & AGENT CARD ================= */
+  function financeBar(salary, expenses) {
     const wrap = h('div', 'finance-bar-wrap');
     const salVal = Math.max(0, salary || 0);
-    const agentExp = Math.max(0, expenses || 0);
-    const shopExp = Math.max(0, shopSpent || 0);
-    const expVal = agentExp + shopExp;
+    const expVal = Math.max(0, expenses || 0);
 
     const perYearStr = T('card.perYear') || '/yr';
-    const feeStr = expVal > 0 ? `${T('agent.fee') || 'Annual Expenses'}: -${E().fmtValue(expVal)}${perYearStr}` : (T('agent.noFee') || 'No Expenses');
+    const feeLabel = T('agent.agentFeeLabel') || T('agent.fee') || 'Agent Fee';
+    const feeStr = expVal > 0 ? `${feeLabel}: -${E().fmtValue(expVal)}${perYearStr}` : (T('agent.noFee') || 'No Expenses');
 
     const baseVal = Math.max(1, salVal, expVal);
     const expPct = Math.min(100, Math.round((expVal / baseVal) * 100));
@@ -314,6 +331,26 @@
       <div class="fin-bar-track">
         <i class="fin-bar-sal" style="width:${netSalPct}%"></i>
         ${expVal > 0 ? `<i class="fin-bar-exp" style="width:${expPct}%"></i>` : ''}
+      </div>`;
+    return wrap;
+  }
+
+  function bankBar(savings, shopSpent) {
+    const wrap = h('div', 'finance-bar-wrap bank-bar-wrap');
+    const savVal = Math.max(0, savings || 0);
+    const shopVal = Math.max(0, shopSpent || 0);
+    const baseVal = Math.max(1, savVal + shopVal);
+    const shopPct = Math.min(100, Math.round((shopVal / baseVal) * 100));
+    const savPct = Math.max(0, 100 - shopPct);
+
+    wrap.innerHTML = `
+      <div class="finance-bar-labels">
+        <span class="sal" style="color:var(--cyan);">${T('agent.savingsLabel') || 'Total Savings'}: ${E().fmtValue(savVal)}</span>
+        <span class="exp" style="color:var(--pink);">${shopVal > 0 ? `${T('agent.shopSpentLabel') || 'Shop Spent'}: -${E().fmtValue(shopVal)}` : ''}</span>
+      </div>
+      <div class="fin-bar-track">
+        <i class="fin-bar-sav" style="width:${savPct}%;background:linear-gradient(90deg, #64d2ff, #30b0ff);"></i>
+        ${shopVal > 0 ? `<i class="fin-bar-shop" style="width:${shopPct}%;background:#ff2d55;"></i>` : ''}
       </div>`;
     return wrap;
   }
@@ -346,9 +383,17 @@
 
     const isLoan = !!(state.club && state.club.loan && state.club.parentCid);
     const parentClub = isLoan ? E().clubByCid(state.club.parentCid) : null;
-    if (parentClub) {
-      const propText = T('agent.propertyOf', { club: parentClub.n });
-      card.appendChild(h('div', 'agent-property-tag', `📋 ${esc(propText)}`));
+    const curClub = state.club ? E().clubByCid(state.club.cid) : null;
+    const displayClub = parentClub || curClub;
+
+    if (displayClub) {
+      const propText = isLoan
+        ? T('agent.propertyOf', { club: displayClub.n })
+        : `${T('agent.currentClub') || 'Current Club'}: ${displayClub.n}`;
+      const badgeWrap = h('div', 'agent-property-banner');
+      badgeWrap.appendChild(badgeEl(displayClub, 26));
+      badgeWrap.appendChild(h('span', 'agent-prop-text', esc(propText)));
+      card.appendChild(badgeWrap);
     }
 
     const targetClub = state.targetClubCid ? E().clubByCid(state.targetClubCid) : null;
@@ -367,10 +412,6 @@
         <b>👤 ${esc(agentNameStr)}</b>
       </div>
       <div class="agent-item">
-        <span>${T('agent.banked')}</span>
-        <b>🏦 ${E().fmtValue(state.earnings - state.spent)}</b>
-      </div>
-      <div class="agent-item">
         <span>${T('agent.targetClub')}</span>
         <b>🎯 ${targetClub ? esc(targetClub.n) : T('agent.none')}</b>
       </div>
@@ -381,7 +422,8 @@
     card.appendChild(grid);
 
     const seasonShopSpent = (state.shopSpentSeason === state.season) ? (state.shopSpentThisSeason || 0) : 0;
-    card.appendChild(financeBar(p.salary, agent.annualSalary || 0, seasonShopSpent));
+    card.appendChild(financeBar(p.salary, agent.annualSalary || 0));
+    card.appendChild(bankBar(state.earnings - state.spent, seasonShopSpent));
 
     const btn = h('button', 'agent-talk-btn primary-btn', T('agent.talkBtn'));
     btn.type = 'button';
@@ -413,7 +455,8 @@
 
     const commPct = state.transferCommissionPct !== undefined ? state.transferCommissionPct : 5;
     const commDisabled = cooldowns.commReq;
-    const btnComm = h('button', `agent-opt-btn ${commDisabled ? 'disabled' : ''}`, `<span>${T('agent.negotiateComm')} (${commPct}%)${commDisabled ? ' (Used)' : ''}</span><i>➔</i>`);
+    const btnComm = h('button', `agent-opt-btn ${commDisabled ? 'disabled' : ''}`, `<span>${T('agent.negotiateComm')} (${commPct}%)</span><i>➔</i>`);
+    if (commDisabled) btnComm.disabled = true;
     btnComm.onclick = () => {
       if (commDisabled) return;
       m.close();
@@ -422,7 +465,8 @@
     optsList.appendChild(btnComm);
 
     const reqDisabled = cooldowns.transferReq;
-    const btnReq = h('button', `agent-opt-btn ${reqDisabled ? 'disabled' : ''}`, `<span>${T('agent.requestMove')}${reqDisabled ? ' (Used)' : ''}</span><i>➔</i>`);
+    const btnReq = h('button', `agent-opt-btn ${reqDisabled ? 'disabled' : ''}`, `<span>${T('agent.requestMove')}</span><i>➔</i>`);
+    if (reqDisabled) btnReq.disabled = true;
     btnReq.onclick = () => {
       if (reqDisabled) return;
       m.close();
@@ -431,7 +475,8 @@
     optsList.appendChild(btnReq);
 
     const raiseDisabled = cooldowns.raiseReq;
-    const btnRaise = h('button', `agent-opt-btn ${raiseDisabled ? 'disabled' : ''}`, `<span>${T('agent.demandRaise')}${raiseDisabled ? ' (Used)' : ''}</span><i>➔</i>`);
+    const btnRaise = h('button', `agent-opt-btn ${raiseDisabled ? 'disabled' : ''}`, `<span>${T('agent.demandRaise')}</span><i>➔</i>`);
+    if (raiseDisabled) btnRaise.disabled = true;
     btnRaise.onclick = () => {
       if (raiseDisabled) return;
       m.close();
@@ -514,12 +559,12 @@
       resDiv.innerHTML = '';
       const q = (query || '').trim().toLowerCase();
       if (!q) {
-        resDiv.innerHTML = `<div style="padding:10px;color:var(--text-3);font-size:12px;">Type to search 700+ clubs...</div>`;
+        resDiv.innerHTML = `<div style="padding:10px;color:var(--text-3);font-size:12px;">${T('agent.searchPlaceholderClubs')}</div>`;
         return;
       }
       const matches = E().allClubs().filter((cl) => cl.n.toLowerCase().includes(q) || cl.league.toLowerCase().includes(q)).slice(0, 15);
       if (!matches.length) {
-        resDiv.innerHTML = `<div style="padding:10px;color:var(--text-3);font-size:12px;">No clubs found matching "${esc(query)}"</div>`;
+        resDiv.innerHTML = `<div style="padding:10px;color:var(--text-3);font-size:12px;">${T('agent.noClubsFound', { query: esc(query) })}</div>`;
         return;
       }
       matches.forEach((cl) => {
@@ -558,7 +603,7 @@
   }
 
   /* ================= STAGE AREA ================= */
-  function stageHeader(state, active) {
+  function stageHeader(state, active, handlers) {
     const club = state.club ? E().clubByCid(state.club.cid) : null;
     const head = h('div', 'stage-head');
     const left = h('div', 'stage-title');
@@ -589,8 +634,41 @@
         <button data-action="retire">${T('menu.retire')}</button>
         <button data-action="restart" class="menu-danger">${T('menu.restart')}</button>
       </div>`;
-    right.appendChild(actions);
 
+    if (handlers) {
+      const shopBtn = actions.querySelector('[data-action="shop"]');
+      if (shopBtn && handlers.onShop) {
+        shopBtn.onclick = (e) => {
+          e.stopPropagation();
+          handlers.onShop();
+        };
+      }
+      const langBtn = actions.querySelector('[data-action="lang"]');
+      if (langBtn) {
+        langBtn.onclick = (e) => {
+          e.stopPropagation();
+          I18n.setLang(currentLang === 'en' ? 'es' : 'en');
+          if (handlers.onLanguageChange) handlers.onLanguageChange();
+          else renderGame(state, handlers);
+        };
+      }
+      const menuBtn = actions.querySelector('[data-action="menu"]');
+      const menuPop = actions.querySelector('#game-menu');
+      if (menuBtn && menuPop) {
+        menuBtn.onclick = (e) => {
+          e.stopPropagation();
+          menuPop.classList.toggle('hidden');
+        };
+        const exportBtn = menuPop.querySelector('[data-action="export"]');
+        if (exportBtn && handlers.onExport) exportBtn.onclick = (e) => { e.stopPropagation(); menuPop.classList.add('hidden'); handlers.onExport(); };
+        const retireBtn = menuPop.querySelector('[data-action="retire"]');
+        if (retireBtn && handlers.onRetire) retireBtn.onclick = (e) => { e.stopPropagation(); menuPop.classList.add('hidden'); handlers.onRetire(); };
+        const restartBtn = menuPop.querySelector('[data-action="restart"]');
+        if (restartBtn && handlers.onRestart) restartBtn.onclick = (e) => { e.stopPropagation(); menuPop.classList.add('hidden'); handlers.onRestart(); };
+      }
+    }
+
+    right.appendChild(actions);
     head.appendChild(right);
     return head;
   }
@@ -604,15 +682,8 @@
     const nm = h('div', 'club-pick-name');
     nm.innerHTML = `<b>${esc(club.n)}</b><i>${esc(club.league)} · ${esc(countryStr)}</i>`;
     topRow.appendChild(nm);
-
-    let chipText = opts.chip;
-    let chipCls = opts.chipCls || '';
-    if (opts.isLoanBuyout) {
-      chipText = T('offer.loanBuyout') || 'BUYOUT';
-      chipCls = 'chip-academy';
-    }
-    if (chipText) topRow.appendChild(h('span', `type-chip ${chipCls}`, chipText));
     card.appendChild(topRow);
+
     const meter = h('div', 'strength');
     meter.innerHTML = `<span>${T('club.level')}</span><div class="strength-bar"><i style="width:${club.s}%"></i></div><b>${club.s}</b>`;
     card.appendChild(meter);
@@ -623,6 +694,18 @@
     if (roleText) card.appendChild(h('div', 'pick-role', esc(roleText)));
     if (noteText) card.appendChild(h('div', 'pick-note', esc(noteText)));
     if (opts.fee) card.appendChild(h('div', 'pick-fee', `${T('club.fee')} <b>${E().fmtValue(opts.fee)}</b>`));
+
+    let chipText = opts.chip;
+    let chipCls = opts.chipCls || '';
+    if (opts.isLoanBuyout) {
+      chipText = T('offer.loanBuyout') || 'BUYOUT';
+      chipCls = 'chip-academy';
+    }
+    if (chipText) {
+      const footer = h('div', 'club-pick-footer');
+      footer.appendChild(h('span', `type-chip ${chipCls}`, chipText));
+      card.appendChild(footer);
+    }
     return card;
   }
 
@@ -631,7 +714,7 @@
     const stage = state.stage;
 
     if (stage === 'academy') {
-      rootEl.appendChild(stageHeader(state, 'decision'));
+      rootEl.appendChild(stageHeader(state, 'decision', handlers));
       const box = h('div', 'stage-body');
       box.appendChild(h('div', 'stage-intro',
         `<h2>${T('academy.title')}</h2><p>${T('academy.desc', { league: esc(E().countryById(state.player.countryId).league) })}</p>`));
@@ -665,7 +748,7 @@
     }
 
     if (stage === 'decision') {
-      rootEl.appendChild(stageHeader(state, 'decision'));
+      rootEl.appendChild(stageHeader(state, 'decision', handlers));
       const box = h('div', 'stage-body');
       const d = state.currentDecision;
       if (!d) {
@@ -712,7 +795,7 @@
     }
 
     if (stage === 'booster') {
-      rootEl.appendChild(stageHeader(state, 'booster'));
+      rootEl.appendChild(stageHeader(state, 'booster', handlers));
       const box = h('div', 'stage-body');
       box.appendChild(h('div', 'stage-intro',
         `<h2>${T('booster.title')}</h2><p>${T('booster.desc')}</p>`));
@@ -733,7 +816,7 @@
     }
 
     if (stage === 'club') {
-      rootEl.appendChild(stageHeader(state, 'club'));
+      rootEl.appendChild(stageHeader(state, 'club', handlers));
       const box = h('div', 'stage-body');
       box.appendChild(h('div', 'stage-intro',
         `<h2>${T('club.title')}</h2><p>${T('club.desc', { n: state.season })}</p>`));
@@ -741,7 +824,7 @@
       state.currentOffers.forEach((o, idx) => {
         const chipKey = 'offer.' + o.type;
         const card = clubCard(o.club, {
-          role: o.role, noteKey: o.noteKey, noteParams: o.noteParams, note: o.note, fee: o.type === 'transfer' ? o.fee : null,
+          roleKey: o.roleKey, role: o.role, noteKey: o.noteKey, noteParams: o.noteParams, note: o.note, fee: o.type === 'transfer' ? o.fee : null,
           chip: T(chipKey), chipCls: `chip-${o.type === 'return' ? 'stay' : o.type}`,
           isLoanBuyout: o.isLoanBuyout || o.noteKey === 'offerNote.loanBuyout',
         });
@@ -754,7 +837,7 @@
     }
 
     if (stage === 'sim') {
-      rootEl.appendChild(stageHeader(state, 'club'));
+      rootEl.appendChild(stageHeader(state, 'club', handlers));
       const box = h('div', 'stage-body sim-body');
       box.innerHTML = `
         <h2>${T('sim.title', { n: state.season })}</h2>
@@ -850,7 +933,7 @@
     }
 
     const box = h('div', 'summary-tab-container');
-    const stints = Object.values(state.clubStints || {});
+    const stints = Object.values(state.clubStints || {}).sort((a, b) => b.lastYear - a.lastYear);
     stints.forEach((stint) => {
       const club = E().clubByCid(stint.cid);
       if (!club) return;
@@ -864,7 +947,8 @@
       const stintSalaries = (stint.salaries && stint.salaries.length) ? stint.salaries : clubSeasons.map((r) => r.salary).filter(Boolean);
       const minSal = stintSalaries.length ? Math.min(...stintSalaries) : 0;
       const maxSal = stintSalaries.length ? Math.max(...stintSalaries) : 0;
-      const salText = minSal > 0 ? (minSal === maxSal ? `${E().fmtValue(minSal)}/yr` : `${E().fmtValue(minSal)} – ${E().fmtValue(maxSal)}/yr`) : '';
+      const perYearStr = T('card.perYear') || '/yr';
+      const salText = minSal > 0 ? (minSal === maxSal ? `${E().fmtValue(minSal)}${perYearStr}` : `${E().fmtValue(minSal)} – ${E().fmtValue(maxSal)}${perYearStr}`) : '';
 
       const trophyCounts = {};
       (stint.trophies || []).forEach((t) => {
@@ -885,7 +969,7 @@
 
       const stintInfo = h('div', 'stint-info');
       stintInfo.innerHTML = `<b class="stint-club-name">${esc(club.n)}</b>
-        <span class="stint-years">${yearRange} · ${esc(club.league)}${salText ? ' · 💰 ' + salText : ''}</span>`;
+        <span class="stint-years">${yearRange} · ${esc(club.league)}</span>`;
       stintHead.appendChild(stintInfo);
       stintHead.appendChild(h('span', 'stint-rating', `★ ${avgRating}`));
       card.appendChild(stintHead);
@@ -893,8 +977,12 @@
       const statsDiv = h('div', 'stint-stats', statLine);
       card.appendChild(statsDiv);
 
+      if (salText) {
+        card.appendChild(h('div', 'stint-salary-row', `💰 ${salText}`));
+      }
+
       if (trophyChips.length) {
-        const trDiv = h('div', 'stint-trophies', trophyChips.map(t => `<span class="tr-chip tr-big">🏆 ${esc(t)}</span>`).join(''));
+        const trDiv = h('div', 'stint-trophies', trophyChips.map(t => `<span class="tr-chip">🏆 ${esc(t)}</span>`).join(''));
         card.appendChild(trDiv);
       }
 
@@ -940,32 +1028,37 @@
     rootEl.appendChild(box);
   }
 
-  function renderHistory(rootEl, state) {
+  function renderHistory(rootEl, state, handlers) {
     rootEl.innerHTML = '';
+
+    const tabsBox = h('div', 'history-tabs-box');
     const tabs = h('div', 'hist-tabs');
     [['summary', T('hist.summary')], ['career', T('hist.career')], ['league', T('hist.league')]].forEach(([id, label]) => {
       const t = h('button', 'hist-tab' + (histTab === id ? ' active' : ''), label);
       t.type = 'button';
-      t.onclick = () => { histTab = id; renderHistory(rootEl, state); };
+      t.onclick = () => { histTab = id; renderHistory(rootEl, state, handlers); };
       tabs.appendChild(t);
     });
-    rootEl.appendChild(tabs);
+    tabsBox.appendChild(tabs);
 
+    const contentBox = h('div', 'history-tabs-content');
     if (histTab === 'summary') {
-      renderSummaryTab(rootEl, state);
-      return;
+      renderSummaryTab(contentBox, state);
+    } else if (histTab === 'league') {
+      renderStandings(contentBox, state);
+    } else if (!state.history.length) {
+      contentBox.appendChild(h('div', 'history-empty', T('hist.empty')));
+    } else {
+      const list = h('div', 'history-list');
+      state.history.forEach((r) => list.appendChild(historyRow(r)));
+      contentBox.appendChild(list);
     }
-    if (histTab === 'league') {
-      renderStandings(rootEl, state);
-      return;
-    }
-    if (!state.history.length) {
-      rootEl.appendChild(h('div', 'history-empty', T('hist.empty')));
-      return;
-    }
-    const list = h('div', 'history-list');
-    state.history.forEach((r) => list.appendChild(historyRow(r)));
-    rootEl.appendChild(list);
+    tabsBox.appendChild(contentBox);
+    rootEl.appendChild(tabsBox);
+
+    const agentBox = h('div', 'history-agent-box');
+    agentBox.appendChild(agentCard(state, handlers));
+    rootEl.appendChild(agentBox);
   }
 
   /* ================= MODALS ================= */
@@ -1075,6 +1168,7 @@
         let valHtml = `${currentVal}`;
         if (delta > 0) valHtml += `<span class="stat-offset up">+${delta}</span>`;
         else if (delta < 0) valHtml += `<span class="stat-offset down">${delta}</span>`;
+        else valHtml += `<span class="stat-offset">+0${currentVal >= maxVal ? ' (MAX)' : ''}</span>`;
 
         const row = h('div', 'sr-pstat-row');
         row.innerHTML = `
@@ -1177,8 +1271,10 @@
       c.appendChild(h('div', 'sr-caps', capText));
     }
 
-    const seasonShopSpent = (state.shopSpentSeason === state.season) ? (state.shopSpentThisSeason || 0) : 0;
-    c.appendChild(financeBar(res.salary, state.agent ? state.agent.annualSalary : 0, seasonShopSpent));
+    const seasonShopSpent = res.shopSpent !== undefined ? res.shopSpent : (state.shopSpentThisSeason || 0);
+    const netSavings = Math.max(0, state.earnings - state.spent);
+    c.appendChild(financeBar(res.salary, state.agent ? state.agent.annualSalary : 0));
+    c.appendChild(bankBar(netSavings, seasonShopSpent));
 
     // Player Card Stat Bars with +/- offsets & Condition bars
     const statsBox = h('div', 'sr-player-stats');
@@ -1236,6 +1332,32 @@
       <div class="sr-pstat-bar-track"><i class="sr-bar-base sr-bar-loyalty" style="width:${p.loyalty || 20}%"></i></div>
       <span class="sr-pstat-val">${p.loyalty || 20}</span>`;
     rows.appendChild(loyRow);
+
+    const hypeVal = p.hype || 0;
+    const hypeDelta = res.hypeDelta || 0;
+    let hypeValHtml = `${hypeVal}`;
+    if (hypeDelta > 0) hypeValHtml += `<span class="stat-offset up">+${hypeDelta}</span>`;
+    else if (hypeDelta < 0) hypeValHtml += `<span class="stat-offset down">${hypeDelta}</span>`;
+
+    const hypeRow = h('div', 'sr-pstat-row');
+    hypeRow.innerHTML = `
+      <span class="sr-pstat-name">${T('card.hype')}</span>
+      <div class="sr-pstat-bar-track"><i class="sr-bar-base shop-stat-fill hype" style="width:${hypeVal}%"></i></div>
+      <span class="sr-pstat-val">${hypeValHtml}</span>`;
+    rows.appendChild(hypeRow);
+
+    const repVal = p.reputation || 0;
+    const repDelta = res.repDelta || 0;
+    let repValHtml = `${repVal}`;
+    if (repDelta > 0) repValHtml += `<span class="stat-offset up">+${repDelta}</span>`;
+    else if (repDelta < 0) repValHtml += `<span class="stat-offset down">${repDelta}</span>`;
+
+    const repRow = h('div', 'sr-pstat-row');
+    repRow.innerHTML = `
+      <span class="sr-pstat-name">${T('card.reputation') || 'Reputation'}</span>
+      <div class="sr-pstat-bar-track"><i class="sr-bar-base sr-bar-rep" style="width:${repVal}%"></i></div>
+      <span class="sr-pstat-val">${repValHtml}</span>`;
+    rows.appendChild(repRow);
 
     statsBox.appendChild(rows);
     c.appendChild(statsBox);
@@ -1330,10 +1452,15 @@
       btn.dataset.zone = z.id;
       goal.appendChild(btn);
     });
-    const verdict = h('div', 'mini-verdict', '');
-    c.appendChild(goal);
-    c.appendChild(verdict);
-    const m = modal(c);
+    let finished = false;
+    const m = modal(c, {
+      onClose: () => {
+        if (!finished) {
+          finished = true;
+          onResult('good');
+        }
+      }
+    });
 
     goal.addEventListener('click', (ev) => {
       const btn = ev.target.closest('.goal-zone');
@@ -1350,7 +1477,13 @@
         verdict.textContent = scored ? T('pen.goal') : T('pen.saved');
         verdict.className = 'mini-verdict show ' + (scored ? 'v-good' : 'v-bad');
         if (scored) confetti();
-        setTimeout(() => { m.close(); onResult(scored ? 'good' : 'bad'); }, 1200);
+        setTimeout(() => {
+          if (!finished) {
+            finished = true;
+            m.close();
+            onResult(scored ? 'good' : 'bad');
+          }
+        }, 1200);
       }, 550);
     });
   }
@@ -1375,7 +1508,16 @@
     c.appendChild(bar);
     c.appendChild(verdict);
     c.appendChild(strike);
-    const m = modal(c);
+
+    let finished = false;
+    const m = modal(c, {
+      onClose: () => {
+        if (!finished) {
+          finished = true;
+          onResult('good');
+        }
+      }
+    });
 
     let pos = 0, dir = 1, raf = null, done = false;
     const speed = 1.15; // full cycles per second
@@ -1405,7 +1547,13 @@
       verdict.textContent = label;
       verdict.className = 'mini-verdict show ' + cls;
       if (key === 'good') confetti();
-      setTimeout(() => { m.close(); onResult(key); }, 1100);
+      setTimeout(() => {
+        if (!finished) {
+          finished = true;
+          m.close();
+          onResult(key);
+        }
+      }, 1100);
     };
     bar.addEventListener('click', finish);
     strike.addEventListener('click', finish);
@@ -1441,7 +1589,16 @@
     c.appendChild(goal);
     c.appendChild(btnRow);
     c.appendChild(verdict);
-    const m = modal(c);
+
+    let finished = false;
+    const m = modal(c, {
+      onClose: () => {
+        if (!finished) {
+          finished = true;
+          onResult('good');
+        }
+      }
+    });
 
     btnRow.addEventListener('click', (ev) => {
       const btn = ev.target.closest('.dive-btn');
@@ -1454,13 +1611,19 @@
       verdict.textContent = saved ? T('gk.saved') : T('gk.goal');
       verdict.className = 'mini-verdict show ' + (saved ? 'v-good' : 'v-bad');
       if (saved) confetti();
-      setTimeout(() => { m.close(); onResult(saved ? 'good' : 'bad'); }, 1200);
+      setTimeout(() => {
+        if (!finished) {
+          finished = true;
+          m.close();
+          onResult(saved ? 'good' : 'bad');
+        }
+      }, 1200);
     });
   }
 
-  function showNtCallUpModal(state, onDone) {
+  function showNaturalizationModal(state, countryId, onDone) {
     const p = state.player;
-    const nat = E().countryById(p.countryId);
+    const nat = E().countryById(countryId);
     const countryStr = E().countryName(nat);
     const c = h('div', 'nt-callup-modal outcome');
 
@@ -1470,37 +1633,89 @@
 
     const content = h('div', 'nt-content');
     content.innerHTML = `
-      <div class="outcome-kicker">${T('nt.kicker')}</div>
-      <h3>${T('nt.title', { country: esc(countryStr) })}</h3>
-      <p>${T('nt.desc', { rank: nat.rank })}</p>
+      <div class="outcome-kicker">${T('nat.kicker')}</div>
+      <h3>${T('nat.title', { country: esc(countryStr) })}</h3>
+      <p>${T('nat.desc', { name: esc(p.name), country: esc(countryStr) })}</p>
       <div class="nt-badge-chips">
-        <span class="chip tr-country">${T('nt.debut')}</span>
-        <span class="chip chip-hype">${T('nt.exposure')}</span>
+        <span class="chip tr-country">${T('nat.chip')}</span>
       </div>`;
     c.appendChild(content);
 
     const btnRow = h('div', 'nt-btn-row');
-    btnRow.style.display = 'flex';
-    btnRow.style.gap = '10px';
-    btnRow.style.marginTop = '16px';
+    const btn = h('button', 'primary-btn', T('nat.btn'));
+    btn.onclick = () => { m.close(); };
+    btnRow.appendChild(btn);
+    c.appendChild(btnRow);
 
-    const btnAccept = h('button', 'primary-btn', T('nt.btn'));
+    const m = modal(c, { onClose: onDone });
+    confetti();
+  }
+
+  function showNtCallUpModal(state, countryCode, onDone) {
+    const targetCountry = (typeof countryCode === 'string' ? countryCode : null) || state.triggerNtCallUpModal || state.player.countryId;
+    const p = state.player;
+    const nat = E().countryById(targetCountry);
+    const countryStr = E().countryName(nat);
+    const isSecondary = targetCountry !== (p.initialCountryId || p.countryId);
+    const c = h('div', 'nt-callup-modal outcome');
+
+    const repBoost = nat.rank <= 5 ? 15 : nat.rank <= 20 ? 10 : 6;
+    const repChipText = T('nt.repChip', { rep: repBoost }) || (`🔥 +${repBoost} Reputation Boost`);
+
+    const flagHeader = h('div', 'nt-flag-header');
+    flagHeader.appendChild(flagEl(nat.code, 80));
+    c.appendChild(flagHeader);
+
+    const content = h('div', 'nt-content');
+    const titleText = isSecondary ? T('nt.secondaryTitle', { country: esc(countryStr) }) : T('nt.title', { country: esc(countryStr) });
+    const descText = isSecondary ? T('nt.secondaryDesc', { country: esc(countryStr), rank: nat.rank }) : T('nt.desc', { rank: nat.rank });
+
+    const repVal = p.reputation || 0;
+    content.innerHTML = `
+      <div class="outcome-kicker">${T('nt.kicker')}</div>
+      <h3>${titleText}</h3>
+      <p>${descText}</p>
+      <div class="nt-badge-chips">
+        <span class="chip tr-country">${T('nt.debut')}</span>
+      </div>`;
+
+    const repRow = h('div', 'sr-pstat-row', `
+      <span class="sr-pstat-name">${T('card.reputation')}</span>
+      <div class="sr-pstat-bar-track"><i class="sr-bar-base sr-bar-rep" style="width:${repVal}%"></i><i class="sr-bar-delta up" style="left:${repVal}%; width:${repBoost}%"></i></div>
+      <span class="sr-pstat-val">${repVal} <span class="stat-offset up">+${repBoost}</span></span>`);
+    content.appendChild(repRow);
+    c.appendChild(content);
+
+    const btnRow = h('div', 'nt-btn-row');
+
+    const btnAccept = h('button', 'primary-btn', T('nt.btnAccept') || T('nt.btn'));
     btnAccept.onclick = () => {
-      if (E().acceptNtCallUp) E().acceptNtCallUp(state);
+      if (E().acceptNtCallUp) E().acceptNtCallUp(state, targetCountry);
+      if (E().addReputation) E().addReputation(state, repBoost);
       m.close();
     };
 
-    const btnDecline = h('button', 'secondary-btn ghost', T('nt.declineBtn') || 'Decline Call-Up');
-    btnDecline.onclick = () => {
-      if (E().declineNtCallUp) E().declineNtCallUp(state);
+    const btnDeclineTemp = h('button', 'primary-btn ghost', T('nt.btnDeclineTemp') || 'Decline For Now');
+    btnDeclineTemp.onclick = () => {
+      if (E().declineNtCallUpTemp) E().declineNtCallUpTemp(state, targetCountry);
+      else if (E().declineNtCallUp) E().declineNtCallUp(state, targetCountry);
+      m.close();
+    };
+
+    const btnRejectPerm = h('button', 'primary-btn danger-ghost', T('nt.btnRejectPerm') || 'Reject Permanently');
+    btnRejectPerm.onclick = () => {
+      if (E().rejectNtCallUpPerm) E().rejectNtCallUpPerm(state, targetCountry);
+      else if (E().declineNtCallUp) E().declineNtCallUp(state, targetCountry);
       m.close();
     };
 
     btnRow.appendChild(btnAccept);
-    btnRow.appendChild(btnDecline);
+    btnRow.appendChild(btnDeclineTemp);
+    btnRow.appendChild(btnRejectPerm);
     c.appendChild(btnRow);
 
-    const m = modal(c, { onClose: onDone });
+    const callbackFn = typeof countryCode === 'function' ? countryCode : onDone;
+    const m = modal(c, { onClose: callbackFn });
     confetti();
   }
 
@@ -1536,21 +1751,46 @@
 
     const grid = h('div', 'shop-grid');
     items.forEach((it) => {
-      const fx = (state.player.isGK && it.fxGk) ? it.fxGk : it.fx;
-      const chips = [];
-      if (fx.stats) Object.entries(fx.stats).forEach(([k, v]) => chips.push(`<span class="chip chip-up">+${v} ${k}</span>`));
-      if (fx.stam) chips.push(`<span class="chip chip-sta">+${fx.stam} STA</span>`);
-      if (fx.mor) chips.push(`<span class="chip chip-mor">+${fx.mor} MOR</span>`);
-      if (fx.hype) chips.push(`<span class="chip chip-hype">+${fx.hype * 5} HYPE</span>`);
-      if (fx.special === 'injuryShield') chips.push(`<span class="chip chip-shield">${T('chip.injuryShield')}</span>`);
-      if (fx.special === 'superAgent') chips.push(`<span class="chip chip-hype">${T('chip.superAgentShop')}</span>`);
+      const fx = it.fx || {};
+      const bars = [];
+      const p = state.player;
+      if (fx.stats) {
+        Object.entries(fx.stats).forEach(([k, v]) => {
+          const cls = k.toLowerCase();
+          const label = T('stat.' + k) || k;
+          const curr = Math.min(100, Math.max(0, p.stats ? (p.stats[k] || 50) : 50));
+          const gain = Math.min(100 - curr, Math.max(0, v));
+          bars.push(`<div class="shop-stat-row"><span class="shop-stat-lbl">${esc(label)}</span><div class="shop-stat-track"><i class="shop-stat-fill ${cls}" style="left:0; width:${curr}%"></i><i class="shop-stat-delta up" style="left:${curr}%; width:${gain}%"></i></div><span class="shop-stat-gain up">+${v}</span></div>`);
+        });
+      }
+      if (fx.stam) {
+        const curr = Math.min(100, Math.max(0, p.stamina || 70));
+        const gain = Math.min(100 - curr, Math.max(0, fx.stam));
+        bars.push(`<div class="shop-stat-row"><span class="shop-stat-lbl">${T('card.stamina')}</span><div class="shop-stat-track"><i class="shop-stat-fill sta" style="left:0; width:${curr}%"></i><i class="shop-stat-delta up" style="left:${curr}%; width:${gain}%"></i></div><span class="shop-stat-gain up">+${fx.stam}</span></div>`);
+      }
+      if (fx.mor) {
+        const curr = Math.min(100, Math.max(0, p.morale || 70));
+        const gain = Math.min(100 - curr, Math.max(0, fx.mor));
+        bars.push(`<div class="shop-stat-row"><span class="shop-stat-lbl">${T('card.morale')}</span><div class="shop-stat-track"><i class="shop-stat-fill mor" style="left:0; width:${curr}%"></i><i class="shop-stat-delta up" style="left:${curr}%; width:${gain}%"></i></div><span class="shop-stat-gain up">+${fx.mor}</span></div>`);
+      }
+      if (fx.hype) {
+        const curr = Math.min(100, Math.max(0, p.hype || 0));
+        const gainVal = fx.hype * 5;
+        const gain = Math.min(100 - curr, Math.max(0, gainVal));
+        bars.push(`<div class="shop-stat-row"><span class="shop-stat-lbl">${T('card.hype')}</span><div class="shop-stat-track"><i class="shop-stat-fill hype" style="left:0; width:${curr}%"></i><i class="shop-stat-delta up" style="left:${curr}%; width:${gain}%"></i></div><span class="shop-stat-gain up">+${gainVal}</span></div>`);
+      }
+      if (fx.special === 'superAgent') {
+        const curr = 50;
+        const gain = 25;
+        bars.push(`<div class="shop-stat-row"><span class="shop-stat-lbl">${T('agent.negotiation') || 'Negotiation'}</span><div class="shop-stat-track"><i class="shop-stat-fill super" style="left:0; width:${curr}%"></i><i class="shop-stat-delta up" style="left:${curr}%; width:${gain}%"></i></div><span class="shop-stat-gain up">+25</span></div>`);
+      }
 
       const isAlreadyBought = state.shopPurchasedIds && state.shopPurchasesSeason === state.season && state.shopPurchasedIds.includes(it.id);
       const cardDisabled = !canBuy || !it.affordable || isAlreadyBought;
       const btnText = isAlreadyBought ? T('shop.purchased') : E().fmtValue(it.cost);
       const card = h('div', 'shop-item' + (cardDisabled ? ' disabled' : ''));
       card.innerHTML = `<b>${esc(TD('consumable', it, 'name'))}</b><i>${esc(TD('consumable', it, 'desc'))}</i>
-        <div class="stat-chips">${chips.join('')}</div>
+        <div class="shop-stat-preview">${bars.join('')}</div>
         <button class="shop-buy" ${cardDisabled ? 'disabled' : ''}>${btnText}</button>`;
       if (canBuy && it.affordable && !isAlreadyBought) {
         card.querySelector('.shop-buy').onclick = () => { if (m) m.close(); handlers.onShopBuy(it.id); };
@@ -1718,15 +1958,14 @@
     const right = document.getElementById('history-panel');
     left.innerHTML = '';
     left.appendChild(playerCard(state));
-    left.appendChild(agentCard(state, handlers));
     renderStage(center, state, handlers);
-    renderHistory(right, state);
+    renderHistory(right, state, handlers);
   }
 
   root.UI = {
     renderSetup, renderGame, renderSummary,
     showOutcome, showSeasonResult, showShop, showRetireConfirm, showConfirm,
-    showRiskReveal, showPenaltyMini, showTimingMini, showGkPenaltyMini, showNtCallUpModal, confetti,
+    showRiskReveal, showPenaltyMini, showTimingMini, showGkPenaltyMini, showNtCallUpModal, showNaturalizationModal, confetti,
     h, esc,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

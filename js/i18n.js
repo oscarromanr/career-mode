@@ -64,10 +64,15 @@
     'role.key': 'Key starter',
     'role.rotation': 'Rotation player',
     'role.prospect': 'Prospect',
+    'Titular clave': 'Key starter',
+    'Jugador estrella': 'Star player',
+    'Jugador de rotación': 'Rotation player',
+    'Promesa': 'Prospect',
 
     // Offer notes
     'offerNote.return': 'Return from loan to {club}. Claim your spot in the squad.',
     'offerNote.newContract': 'Contract Renewal Offer. Your parent club offers a new contract extension.',
+    'offerNote.freeAgentTransfer': 'Free Agent Sign. No transfer fee required.',
     'offerNote.loyal': 'Club Icon. Senior leader — the fans chant your name.',
     'offerNote.veteran': 'The fans want one more year.',
     'offerNote.stay': 'Loyalty. The fans sing your name.',
@@ -200,6 +205,7 @@
     'agent.season1': 'Season left',
     'agent.seasonsN': 'Seasons left',
     'agent.fee': 'Annual Expenses',
+    'agent.agentFeeLabel': 'Agent Fee',
     'agent.noFee': 'No Expenses',
     'agent.marketDesc': 'Hire a new representative or switch back to your Dad. Firing a paid agent requires paying their release buyout clause.',
     'agent.activeChip': 'Active',
@@ -228,7 +234,12 @@
     'agent.cantAffordBuyout': 'Cannot afford the {amount} release buyout clause of your current agent.',
     'agent.cantAffordSalary': 'Your annual salary ({salary}) cannot cover this agent\'s annual fee ({fee}).',
     'agent.propertyOf': 'Property of {club}',
+    'agent.currentClub': 'Current Club',
+    'agent.savingsLabel': 'Total Banked Savings',
+    'agent.shopSpentLabel': 'Shop Spent This Season',
     'agent.searchPlaceholder': 'Search club name...',
+    'agent.searchPlaceholderClubs': 'Type to search 700+ clubs...',
+    'agent.noClubsFound': 'No clubs found matching "{query}"',
     'agent.targetSet': 'Publicly declared interest in joining {club}!',
     'agent.commSet': 'Negotiated {pct}% transfer fee commission with your agent!',
     'agent.transferRequested': 'Requested a transfer/loan list placement. Market hype increased!',
@@ -298,10 +309,24 @@
     'nt.desc': 'Your stellar form has earned you a call-up to represent your country on the international stage! (FIFA Rank #{rank})',
     'nt.debut': '🌍 National Team Debut',
     'nt.exposure': '🔥 International Exposure',
+    'nt.repChip': '🔥 +{rep} Reputation Boost',
     'nt.btn': 'Represent Your Nation',
+    'nt.btnAccept': 'Represent Your Country',
+    'nt.btnDeclineTemp': 'Decline For Now',
+    'nt.btnRejectPerm': 'Reject Permanently',
     'nt.declineBtn': 'Decline Call-Up',
     'nt.declinedNote': 'Declined national team call-up for {country}. Remaining eligible for future options.',
     'nt.naturalizedNote': 'Earned citizenship in {country} after 5+ seasons and accepted National Team call-up!',
+    'nt.secondaryTitle': 'Call-Up from {country}!',
+    'nt.secondaryDesc': '{country} has extended an official international call-up to you as a naturalized citizen (FIFA Rank #{rank})! Accept to represent {country} on the international stage.',
+    'nat.kicker': '📜 LEAGUE SENIORITY CITIZENSHIP',
+    'nat.title': 'Naturalization Granted: {country}!',
+    'nat.desc': 'After playing 5 seasons in {country}, {name} has officially earned dual citizenship! You are now eligible to receive national team call-ups from {country}.',
+    'nat.chip': '📜 Dual Citizenship Granted',
+    'nat.btn': 'Awesome!',
+    'note.ntDeclinedTemp': 'Declined call-up for {country} (open to future call-ups)',
+    'note.ntRejectedPerm': 'Permanently rejected call-up for {country}',
+    'note.naturalizationEarned': 'Earned citizenship in {country} after 5+ seasons in the league!',
 
     // Shop
     'shop.kicker': 'CLUB SHOP · {tier} TIER ({used}/{max} PURCHASES USED)',
@@ -471,6 +496,10 @@
     'role.key': 'Titular clave',
     'role.rotation': 'Jugador de rotación',
     'role.prospect': 'Promesa',
+    'Star player': 'Jugador estrella',
+    'Key starter': 'Titular clave',
+    'Rotation player': 'Jugador de rotación',
+    'Prospect': 'Promesa',
 
     // Raw string fallbacks
     'Elite academy': 'Academia de élite',
@@ -503,6 +532,7 @@
     // Offer notes
     'offerNote.return': 'Volvés del préstamo a {club}. A pelear un lugar en el plantel.',
     'offerNote.newContract': 'Oferta de Renovación. Tu club dueño te ofrece renovar el contrato.',
+    'offerNote.freeAgentTransfer': 'Fichaje Libre. Sin costo de transferencia.',
     'offerNote.loyal': 'Ídolo del club. Referente del plantel — los hinchas cantan tu nombre.',
     'offerNote.veteran': 'Los hinchas piden un año más.',
     'offerNote.stay': 'Lealtad. La tribuna canta tu nombre.',
@@ -623,7 +653,7 @@
     // Academy
     'academy.title': 'Elegí tu academia',
     'academy.desc': 'Tenés 14 años. Scouts de tres clubes de {league} están en tu puerta. Esta elección marca tu desarrollo — instalaciones de élite o minutos tempranos.',
-    'academy.chip': 'ACADEMY',
+    'academy.chip': 'CANTERA',
     'academy.searchCustom': '🎯 Elegir Club de Academia Personalizado',
 
     // Agent & Finances Card
@@ -637,6 +667,7 @@
     'agent.season1': 'Temporada restante',
     'agent.seasonsN': 'Temporadas restantes',
     'agent.fee': 'Gastos Anuales',
+    'agent.agentFeeLabel': 'Comisión Agente',
     'agent.noFee': 'Sin Gastos',
     'agent.marketDesc': 'Contratá un nuevo representante o volvé con tu Padre. Despedir a un agente pago requiere abonar su cláusula de rescisión.',
     'agent.activeChip': 'Activo',
@@ -665,7 +696,12 @@
     'agent.cantAffordBuyout': 'No tenés suficiente dinero en el banco para pagar la cláusula de rescisión de {amount}.',
     'agent.cantAffordSalary': 'Tu sueldo anual ({salary}) no alcanza para cubrir la tarifa anual de este agente ({fee}).',
     'agent.propertyOf': 'Propiedad de {club}',
+    'agent.currentClub': 'Club Actual',
+    'agent.savingsLabel': 'Ahorros Totales',
+    'agent.shopSpentLabel': 'Gastos Tienda Esta Temp.',
     'agent.searchPlaceholder': 'Buscar club...',
+    'agent.searchPlaceholderClubs': 'Escribe para buscar entre 700+ clubes...',
+    'agent.noClubsFound': 'No se encontraron clubes que coincidan con "{query}"',
     'agent.targetSet': '¡Declaraste públicamente tu deseo de jugar en {club}!',
     'agent.commSet': '¡Conseguiste un {pct}% de comisión en tu próxima transferencia!',
     'agent.transferRequested': '¡Tu agente pidió tu salida! Aumentó tu valor y visibilidad en el mercado.',
@@ -735,10 +771,24 @@
     'nt.desc': '¡Tu gran nivel te ganó una convocatoria para representar a tu país en el escenario internacional! (Ranking FIFA #{rank})',
     'nt.debut': '🌍 Debut en la Selección',
     'nt.exposure': '🔥 Exposición Internacional',
+    'nt.repChip': '🔥 +{rep} Exposición y Reputación',
     'nt.btn': 'Representar a Tu País',
+    'nt.btnAccept': 'Representar a Tu País',
+    'nt.btnDeclineTemp': 'Declinar por Ahora',
+    'nt.btnRejectPerm': 'Rechazar Definitivamente',
     'nt.declineBtn': 'Rechazar Convocatoria',
     'nt.declinedNote': 'Rechazó la convocatoria a la selección de {country}. Mantiene elegibilidad para el futuro.',
     'nt.naturalizedNote': '¡Obtuvo la ciudadanía en {country} tras 5+ temporadas y se unió a la Selección!',
+    'nt.secondaryTitle': '¡Convocatoria de {country}!',
+    'nt.secondaryDesc': '¡{country} te ha enviado una convocatoria oficial como ciudadano naturalizado (Ranking FIFA #{rank})! Acepta para representar a {country} en el escenario internacional.',
+    'nat.kicker': '📜 CIUDADANÍA POR PERMANENCIA',
+    'nat.title': '¡Ciudadanía Otorgada: {country}!',
+    'nat.desc': 'Tras jugar 5 temporadas en {country}, ¡{name} ha obtenido oficialmente la doble nacionalidad! Ahora eres elegible para recibir convocatorias de la selección de {country}.',
+    'nat.chip': '📜 Doble Nacionalidad Obtenida',
+    'nat.btn': '¡Excelente!',
+    'note.ntDeclinedTemp': 'Declinó por ahora la convocatoria con {country} (podrá ser convocado más adelante)',
+    'note.ntRejectedPerm': 'Cerró definitivamente la puerta a la selección de {country}',
+    'note.naturalizationEarned': '¡Obtuvo la ciudadanía en {country} tras 5+ temporadas en la liga!',
 
     // Shop
     'shop.kicker': 'TIENDA · NIVEL {tier} ({used}/{max} COMPRAS USADAS)',
@@ -896,10 +946,53 @@
     return TData(category, id, key);
   }
 
+  const RISK_OUTCOMES_ES = {
+    'injury-scare': {
+      good: 'Marcás un golazo en la exhibición. La libreta del ojeador dice: "mentalidad de guerrero". Tres clubes llaman a tu agente.',
+      bad: 'A los 20 minutos, el isquiotibial dice basta. Semanas de kinesiología. La nota del ojeador solo dice "¿frágil?".',
+    },
+    'semi-pen': {
+      good: 'La picás a lo Panenka en cámara lenta. El arquero ya está en el suelo. El estadio se viene abajo.',
+      bad: 'La picás a lo Panenka... directo al pecho del arquero. Ni siquiera lo festeja. Eso duele más.',
+    },
+    'pen-practice': {
+      good: 'Ángulo, travesaño, ángulo otra vez. Encargado de penales: asegurado. El pateador titular aplaude masticando bronca.',
+      bad: 'Mandás el penal decisivo por arriba del travesaño. El arquero mete bailecito. Encargo de penales: perdido.',
+    },
+    'first-red': {
+      good: '¡Apelación GANADA! Tarjeta roja anulada. El árbitro recibió una "evaluación de desempeño". La justicia es dulce.',
+      bad: 'Apelación rechazada y sanción extendida por "reclamo frívolo". El sistema está arreglado. Probablemente.',
+    },
+    'broken-promise': {
+      good: 'Te escucha de verdad. Titular el domingo y golazo. La confianza se reconstruye ladrillo a ladrillo.',
+      bad: '"Mi puerta siempre está abierta", dice mientras la cierra. Entrenás con rabia silenciosa durante un mes.',
+    },
+    'bungee': {
+      good: 'Te tirás al vacío gritando. El plantel enloquece. Miedo: conquistado.',
+      bad: 'Te golpeás contra la plataforma en el rebote. Nada roto, todo moretonado. Las lágrimas del kinesiólogo tenían razón.',
+    },
+    'karting-gp': {
+      good: '¡P1! ¡Se rompió la racha! Vuelta de honor con el trofeo. El cuerpo técnico exige VAR.',
+      bad: 'P7. Te ganó un mecánico. La sequía entra en su cuarto año. El grupo de WhatsApp no tiene piedad.',
+    },
+    'record-pen': {
+      good: 'Te da la pelota. Al ángulo. El récord es TUYO. El relator se queda sin voz.',
+      bad: 'Atajado. El arquero te mira desde arriba. El récord espera. Tu intento de negociación se hace viral por las razones equivocadas.',
+    },
+    'chess-club': {
+      good: 'Jaque mate en 19 jugadas. Se acaba el tarareo. Campeón de dos deportes.',
+      bad: 'Sacrifica una torre y FUNCIONA. El tarareo se intensifica. Se exige revancha semanal.',
+    },
+    'contract-three-way': {
+      good: 'Apostaste por vos y la rompiste. El próximo verano: el doble de sueldo, el triple de ofertas.',
+      bad: 'Una temporada floja en el peor momento. La oferta de renovación cae un 30%. Apoyarte en vos mismo sigue siendo una apuesta.',
+    },
+  };
+
   function riskOutcome(id, good) {
-    if (currentLang === 'es' && root.I18N_ES && root.I18N_ES.riskOutcomes && root.I18N_ES.riskOutcomes[id]) {
-      const o = root.I18N_ES.riskOutcomes[id];
-      return good ? o.good : o.bad;
+    if (currentLang === 'es') {
+      const o = RISK_OUTCOMES_ES[id] || (root.I18N_ES && root.I18N_ES.riskOutcomes && root.I18N_ES.riskOutcomes[id]);
+      if (o) return good ? o.good : o.bad;
     }
     return null;
   }

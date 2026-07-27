@@ -1204,7 +1204,7 @@
     { id: 'ice-baths', name: 'Portable Cryo Ice Bath', price: 120000, desc: 'Sub-zero therapy after every training session. Muscles recover twice as fast.', fx: { stam: 20 } },
     { id: 'chef', name: 'Private Chef', price: 150000, desc: 'Macros on point, every plate. Your body notices by week two.', fx: { stats: { PHY: 1 }, stam: 5 }, fxGk: { stats: { REF: 1 }, stam: 5 } },
     { id: 'massage-therapist', name: 'Dedicated Physio Therapist', price: 200000, desc: 'Deep tissue work twice a week. Tight hamstrings are a thing of the past.', fx: { stam: 15, mor: 5 } },
-    { id: 'physio-shield', name: 'Physio Insurance Package', price: 250000, desc: 'World-class physio on call. The next injury scare gets neutralized.', fx: { special: 'injuryShield' } },
+    { id: 'physio-shield', name: 'Physio Insurance Package', price: 250000, desc: 'World-class physical conditioning and injury resilience.', fx: { stats: { PHY: 2 }, stam: 10 } },
 
     // Mid Career ($300K - $800K)
     { id: 'mental-coach', name: 'Elite Mental Coach', price: 300000, desc: 'She coached three Ballon d\'Or winners. You are her easiest project.', fx: { stats: { MEN: 2 } }, fxGk: { stats: { COM: 2 } } },
@@ -1212,25 +1212,25 @@
     { id: 'hyperbaric', name: 'Hyperbaric Chamber Suite', price: 400000, desc: 'Pure oxygen, pure recovery. You bounce out of bed like a glitch.', fx: { stats: { PAC: 1 }, stam: 15 }, fxGk: { stats: { REF: 1 }, stam: 15 } },
     { id: 'retreat', name: 'Mindfulness Retreat', price: 450000, desc: 'One week. No phone. Just breath, silence and a suspiciously wise monk.', fx: { mor: 20, stam: 5 } },
     { id: 'trainer', name: 'Personal Fitness Trainer', price: 500000, desc: 'Ex-footballer, current sadist. Your core becomes a fortress.', fx: { stats: { PHY: 2 } }, fxGk: { stats: { REF: 2 } } },
-    { id: 'sleep-pod', name: 'Circadian Sleep Pod System', price: 550000, desc: 'NASA-grade sleep tracking & light therapy. Deep REM every single night.', fx: { stam: 25, mor: 10 } },
+    { id: 'sleep-pod', name: 'Circadian Sleep Pod System', price: 550000, desc: 'NASA-grade sleep tracking & light therapy. Deep REM every single night.', fx: { stam: 18, mor: 10 } },
     { id: 'pr-team', name: 'PR & Brand Agency', price: 600000, desc: 'Billboards, features, a documentary teaser. Your name starts trending.', fx: { hype: 3 } },
     { id: 'pilates-expert', name: 'Biomechanics & Flexibility Specialist', price: 700000, desc: 'Sprint mechanics re-engineered. You gain an extra yard of acceleration.', fx: { stats: { PAC: 2 } }, fxGk: { stats: { REF: 2 } } },
     { id: 'super-boots', name: 'Custom Lab 3D Boots', price: 800000, desc: '3D-scanned, wind-tunnel tested, 40 grams lighter. Weapons-grade footwear.', fx: { stats: { SHO: 2 } }, fxGk: { stats: { LEA: 2 } } },
 
     // High Level ($1.0M - $3.5M)
-    { id: 'jet-concierge', name: 'Private Jet Travel Pass', price: 1000000, desc: 'Bypass commercial airports during international breaks. Zero jetlag.', fx: { stam: 20, hype: 2 } },
+    { id: 'jet-concierge', name: 'Private Jet Travel Pass', price: 1000000, desc: 'Bypass commercial airports during international breaks. Zero jetlag.', fx: { stam: 15, hype: 2 } },
     { id: 'agent-push', name: 'Super-Agent Package', price: 1200000, desc: 'Your agent becomes a super-agent for a season. Better offers, +35% contract wage.', fx: { special: 'superAgent', hype: 2 } },
     { id: 'speed-lab', name: 'Sprint & Agility Lab', price: 1500000, desc: 'High-speed camera tracking & stride mechanics. Pure explosiveness.', fx: { stats: { PAC: 2, DRI: 1 } }, fxGk: { stats: { REF: 2, VIS: 1 } } },
     { id: 'strike-coach', name: 'Legendary Striker Coaching Session', price: 2000000, desc: 'Three weeks with a retired legend. Finishing becomes second nature.', fx: { stats: { SHO: 3 } }, fxGk: { stats: { COM: 3 } } },
     { id: 'midfield-maestro', name: 'Playmaker Masterclass', price: 2200000, desc: 'Vision and passing angles unlocked by one of the game\'s mid-court gods.', fx: { stats: { PAS: 3 } }, fxGk: { stats: { VIS: 3 } } },
     { id: 'mentor-session', name: 'Ballon d\'Or Winner Mentorship', price: 2500000, desc: 'One-on-one sessions with a footballing icon. Tactical mind elevated.', fx: { stats: { MEN: 3, PAS: 1 } }, fxGk: { stats: { LEA: 3, COM: 1 } } },
     { id: 'fashion-brand-drop', name: 'Global Apparel & Sneaker Drop', price: 3000000, desc: 'Your signature sneaker sells out worldwide in 12 minutes.', fx: { hype: 4, mor: 10 } },
-    { id: 'sports-villa', name: 'Private Mountain Recovery Villa', price: 3500000, desc: 'Altitude training, private turf, full medical staff in the Swiss Alps.', fx: { stats: { PHY: 2 }, stam: 30, mor: 15 } },
+    { id: 'sports-villa', name: 'Private Mountain Recovery Villa', price: 3500000, desc: 'Altitude training, private turf, full medical staff in the Swiss Alps.', fx: { stats: { PHY: 2 }, stam: 18, mor: 15 } },
 
     // Elite / Wealth Tier ($5.0M - $15.0M)
-    { id: 'biomed-institute', name: 'Private Sports Science Lab', price: 5000000, desc: 'Genome-tailored nutrition and recovery. Peak athletic perfection.', fx: { stats: { PAC: 1, PHY: 2, MEN: 1 }, stam: 25 }, fxGk: { stats: { REF: 2, COM: 2 }, stam: 25 } },
+    { id: 'biomed-institute', name: 'Private Sports Science Lab', price: 5000000, desc: 'Genome-tailored nutrition and recovery. Peak athletic perfection.', fx: { stats: { PAC: 1, PHY: 2, MEN: 1 }, stam: 20 }, fxGk: { stats: { REF: 2, COM: 2 }, stam: 20 } },
     { id: 'supercar-garage', name: 'Hypercar Collection Reveal', price: 6500000, desc: 'A neon hypercar and a YouTube studio. You are the main character.', fx: { hype: 5, mor: 20 } },
-    { id: 'luxury-yacht', name: 'Mediterranean Megayacht Break', price: 8000000, desc: 'Two weeks in Ibiza & Monaco with your inner circle. Morale at absolute 100.', fx: { mor: 40, stam: 20, hype: 3 } },
+    { id: 'luxury-yacht', name: 'Mediterranean Megayacht Break', price: 8000000, desc: 'Two weeks in Ibiza & Monaco with your inner circle. Morale at absolute 100.', fx: { mor: 40, stam: 15, hype: 3 } },
     { id: 'esports-empire', name: 'Esports & Media Empire Ownership', price: 10000000, desc: 'You buy 30% of a global gaming franchise. Millions of new fans overnight.', fx: { hype: 6, mor: 15 } },
     { id: 'academy-foundation', name: 'Grassroots Youth Academy Foundation', price: 12000000, desc: 'You build a state-of-the-art academy in your hometown. Pure legacy.', fx: { stats: { MEN: 3, LEA: 2 }, hype: 4 }, fxGk: { stats: { LEA: 4, COM: 2 }, hype: 4 } },
     { id: 'super-agent-vip', name: 'Super-Agent VIP Lifetime Retainer', price: 15000000, desc: 'The biggest agent in world football takes you as their flagship client.', fx: { special: 'superAgent', hype: 5, mor: 25 } },
@@ -1261,6 +1261,49 @@
   ];
 
   const CLUB_LEGENDS = {
+    'Chivas': [
+      { name: 'Oswaldo Sánchez', pos: 'gk', title: 'San Oswaldo' },
+      { name: 'Claudio Suárez', pos: 'def', title: 'El Emperador' },
+      { name: 'Ramón Morales', pos: 'mid', title: 'Ramoncito' },
+      { name: 'Omar Bravo', pos: 'st', title: 'Máximo Goleador de Chivas' },
+      { name: 'Javier Hernández', pos: 'st', title: 'Chicharito' }
+    ],
+    'Guadalajara': [
+      { name: 'Oswaldo Sánchez', pos: 'gk', title: 'San Oswaldo' },
+      { name: 'Claudio Suárez', pos: 'def', title: 'El Emperador' },
+      { name: 'Ramón Morales', pos: 'mid', title: 'Ramoncito' },
+      { name: 'Omar Bravo', pos: 'st', title: 'Máximo Goleador de Chivas' }
+    ],
+    'CD Guadalajara': [
+      { name: 'Oswaldo Sánchez', pos: 'gk', title: 'San Oswaldo' },
+      { name: 'Claudio Suárez', pos: 'def', title: 'El Emperador' },
+      { name: 'Ramón Morales', pos: 'mid', title: 'Ramoncito' },
+      { name: 'Omar Bravo', pos: 'st', title: 'Máximo Goleador de Chivas' }
+    ],
+    'América': [
+      { name: 'Guillermo Ochoa', pos: 'gk', title: 'San Memo' },
+      { name: 'Alfredo Tena', pos: 'def', title: 'Capitán Furia' },
+      { name: 'Cuauhtémoc Blanco', pos: 'mid', title: 'El Cuau' },
+      { name: 'Luís Roberto Alves Zague', pos: 'st', title: 'Máximo Goleador Águila' }
+    ],
+    'Tigres': [
+      { name: 'Nahuel Guzmán', pos: 'gk', title: 'El Patón' },
+      { name: 'Hugo Ayala', pos: 'def', title: 'El Muralla' },
+      { name: 'Lucas Lobos', pos: 'mid', title: 'El Ídolo de San Nicolás' },
+      { name: 'André-Pierre Gignac', pos: 'st', title: 'El Bomboro' }
+    ],
+    'Cruz Azul': [
+      { name: 'Óscar Pérez', pos: 'gk', title: 'El Conejo' },
+      { name: 'Ignacio Flores', pos: 'def', title: 'Nacho' },
+      { name: 'Carlos Hermosillo', pos: 'st', title: 'El Grandote de Cerro Azul' },
+      { name: 'Christian Giménez', pos: 'mid', title: 'El Chaco' }
+    ],
+    'Pumas': [
+      { name: 'Jorge Campos', pos: 'gk', title: 'El Inmortal' },
+      { name: 'Darío Verón', pos: 'def', title: 'El Mariscal' },
+      { name: 'Manuel Negrete', pos: 'mid', title: 'El Gol de Tijera' },
+      { name: 'Hugo Sánchez', pos: 'st', title: 'Pentapichi' }
+    ],
     'Real Madrid': [
       { name: 'Iker Casillas', pos: 'gk', title: 'San Iker' },
       { name: 'Sergio Ramos', pos: 'def', title: 'El Capitán del 93\'' },
