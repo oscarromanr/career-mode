@@ -5,8 +5,8 @@
 (function (root) {
   'use strict';
 
-  const FIRST_NAMES = ['Carlos', 'Jorge', 'Marco', 'Matteo', 'Pierre', 'Hugo', 'Lucas', 'Julian', 'Diego', 'Gabriel', 'Sven', 'Lars', 'Felix', 'Arthur', 'Bruno'];
-  const LAST_NAMES = ['Mendes', 'Raiola', 'Zahavi', 'Barnett', 'Ramadani', 'Struth', 'Bertolucci', 'Riso', 'Pastorello', 'Gallardo', 'Schneider', 'Vargas', 'Silva'];
+  const FIRST_NAMES = ['Carlos', 'Jorge', 'Marco', 'Matteo', 'Pierre', 'Hugo', 'Lucas', 'Julian', 'Diego', 'Gabriel', 'Sven', 'Lars', 'Felix', 'Arthur', 'Bruno', 'Gonzalo', 'Alejandro', 'Federico', 'Joao', 'Fabio', 'Enzo', 'Leonardo', 'Massimo', 'Antoine'];
+  const LAST_NAMES = ['Mendes', 'Raiola', 'Zahavi', 'Barnett', 'Ramadani', 'Struth', 'Bertolucci', 'Riso', 'Pastorello', 'Gallardo', 'Schneider', 'Vargas', 'Silva', 'D’Alessandro', 'Canales', 'Fonseca', 'Russo', 'Martins', 'Moreira'];
 
   const DAD_AGENT = {
     id: 'dad',
@@ -19,16 +19,29 @@
     annualSalary: 0,
   };
 
-  function generateAgentName() {
+  function generateAgentName(usedNames) {
     const fn = root.EngineRng || Math.random;
     const pick = (arr) => arr[Math.floor(fn() * arr.length)];
-    return `${pick(FIRST_NAMES)} ${pick(LAST_NAMES)}`;
+    let name;
+    let attempts = 0;
+    do {
+      name = `${pick(FIRST_NAMES)} ${pick(LAST_NAMES)}`;
+      attempts++;
+    } while (usedNames && usedNames.has(name) && attempts < 60);
+    if (usedNames) usedNames.add(name);
+    return name;
   }
 
   function rollAgentMarket(state) {
     const fn = root.EngineRng || Math.random;
     const ri = (min, max) => Math.floor(fn() * (max - min + 1)) + min;
     const pSal = (state.player && state.player.salary) ? state.player.salary : 30000;
+
+    const usedNames = new Set();
+    if (state.agent && state.agent.name) {
+      const cleanActiveName = state.agent.name.replace(/\s*\((Elite|Veteran)\)$/i, '');
+      usedNames.add(cleanActiveName);
+    }
 
     const candidates = [DAD_AGENT];
 
@@ -38,9 +51,10 @@
     const stdNeg = ri(50, 80);
     const stdCalc = Math.round((pSal * 0.25 * (0.85 + fn() * 0.35)) / 5000) * 5000;
     const stdSalary = Math.max(20000, Math.min(stdCalc, pSal * 0.45));
+    const stdName = generateAgentName(usedNames);
     candidates.push({
       id: 'agent_std_' + state.season,
-      name: generateAgentName(),
+      name: stdName,
       type: 'pro',
       patience: stdPat,
       greed: stdGrd,
@@ -55,9 +69,10 @@
     const eleNeg = ri(75, 98);
     const eleCalc = Math.round((pSal * 0.45 * (0.9 + fn() * 0.3)) / 5000) * 5000;
     const eleSalary = Math.max(45000, Math.min(eleCalc, Math.round(pSal * 0.75)));
+    const eleName = generateAgentName(usedNames);
     candidates.push({
       id: 'agent_elite_' + state.season,
-      name: generateAgentName() + ' (Elite)',
+      name: eleName + ' (Elite)',
       type: 'elite',
       patience: elePat,
       greed: eleGrd,
@@ -72,9 +87,10 @@
     const vetNeg = ri(65, 85);
     const vetCalc = Math.round((pSal * 0.30 * (0.8 + fn() * 0.4)) / 5000) * 5000;
     const vetSalary = Math.max(30000, Math.min(vetCalc, Math.round(pSal * 0.55)));
+    const vetName = generateAgentName(usedNames);
     candidates.push({
       id: 'agent_vet_' + state.season,
-      name: generateAgentName() + ' (Veteran)',
+      name: vetName + ' (Veteran)',
       type: 'pro',
       patience: vetPat,
       greed: vetGrd,

@@ -227,11 +227,14 @@
     flagBox.appendChild(flagEl(nat.code, 80));
     flagBox.appendChild(h('em', '', esc(E().countryName(nat))));
 
-    if (p.earnedNationalities && p.earnedNationalities.length > 0) {
+    // Collect ALL nationalities (Initial Birth Country + Earned Nationalities)
+    const allNats = [p.initialCountryId || p.countryId, ...(p.earnedNationalities || [])].filter((c, i, a) => a.indexOf(c) === i);
+    const otherNatIds = allNats.filter((cId) => cId !== p.countryId);
+
+    if (otherNatIds.length > 0) {
       const miniFlagsRow = h('div', 'mini-flags-row');
       miniFlagsRow.title = T('nat.multipleNationalitiesTitle') || 'Multiple Nationalities';
-      p.earnedNationalities.forEach((cId) => {
-        if (cId === p.countryId) return;
+      otherNatIds.forEach((cId) => {
         const eNat = E().countryById(cId);
         if (eNat) {
           const miniF = flagEl(eNat.code, 20);
@@ -763,10 +766,12 @@
         box.appendChild(btn);
       } else {
         const kicker = d.kicker ? (TD('decision', d, 'kicker') || T(d.kicker)) : T('decision.kicker');
-        const legend = (d.id.startsWith('legend-') || d.id === 'national-legend-call') && E().getLegendForPlayer ? E().getLegendForPlayer(state) : null;
+        const legend = (d.id.startsWith('legend-') || d.id === 'national-legend-call') && E().getLegendForPlayer ? E().getLegendForPlayer(state, d.id) : null;
         let legBadge = '';
         if (legend) {
-          legBadge = `<div class="legend-icon-badge" style="margin-bottom:8px;font-size:12px;font-weight:800;color:#ffd60a;display:flex;align-items:center;gap:6px;">⭐ <span>${esc(legend.name)}</span> <i style="font-weight:400;opacity:0.85;">(${esc(legend.title || legend.pos.toUpperCase())})</i></div>`;
+          const icon = legend.isNat ? '🚩' : '⭐';
+          const tVal = (state.lang === 'es' && legend.title_es) ? legend.title_es : legend.title;
+          legBadge = `<div class="legend-icon-badge" style="margin-bottom:8px;font-size:12px;font-weight:800;color:#ffd60a;display:flex;align-items:center;gap:6px;">${icon} <span>${esc(legend.name)}</span> <i style="font-weight:400;opacity:0.85;">(${esc(tVal || legend.pos.toUpperCase())})</i></div>`;
         }
         box.appendChild(h('div', 'situation glass', `
           <div class="sit-kicker">${esc(kicker)}</div>

@@ -9,6 +9,10 @@
     ? require('./data.js')
     : root.GAME_DATA;
 
+  if (typeof module !== 'undefined' && module.exports) {
+    try { require('./engine/legends.js'); } catch (e) {}
+  }
+
   // ---- RNG (injectable for tests) ----
   let RNG = Math.random;
   const rnd = () => RNG();
@@ -1730,10 +1734,14 @@
     };
   }
 
-  function getLegendForPlayer(state) {
+  function getLegendForPlayer(state, decisionId) {
+    if (root.EngineLegends && root.EngineLegends.getLegendForPlayer) {
+      return root.EngineLegends.getLegendForPlayer(state, decisionId);
+    }
     const p = state.player;
-    const natCode = p.countryId;
-    const natList = DATA.NAT_LEGENDS[natCode];
+    if (!p) return null;
+    const natCode = state.ntCountryId || p.countryId;
+    const natList = DATA.NAT_LEGENDS ? DATA.NAT_LEGENDS[natCode] : null;
     const isGK = p.isGK;
     const isDef = ['CB', 'LB', 'RB'].includes(p.position);
     const isMid = ['CM', 'CAM', 'CDM', 'LM', 'RM'].includes(p.position);
@@ -1742,7 +1750,7 @@
     if (natList && natList.length) {
       const match = natList.find((l) => l.pos === targetPos);
       if (match) return match;
-      return pick(natList);
+      return natList[0];
     }
 
     const generic = {

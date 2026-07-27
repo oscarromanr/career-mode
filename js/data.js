@@ -1261,246 +1261,19822 @@
   ];
 
   const CLUB_LEGENDS = {
-    'Chivas': [
-      { name: 'Oswaldo Sánchez', pos: 'gk', title: 'San Oswaldo' },
-      { name: 'Claudio Suárez', pos: 'def', title: 'El Emperador' },
-      { name: 'Ramón Morales', pos: 'mid', title: 'Ramoncito' },
-      { name: 'Omar Bravo', pos: 'st', title: 'Máximo Goleador de Chivas' },
-      { name: 'Javier Hernández', pos: 'st', title: 'Chicharito' }
-    ],
-    'Guadalajara': [
-      { name: 'Oswaldo Sánchez', pos: 'gk', title: 'San Oswaldo' },
-      { name: 'Claudio Suárez', pos: 'def', title: 'El Emperador' },
-      { name: 'Ramón Morales', pos: 'mid', title: 'Ramoncito' },
-      { name: 'Omar Bravo', pos: 'st', title: 'Máximo Goleador de Chivas' }
-    ],
-    'CD Guadalajara': [
-      { name: 'Oswaldo Sánchez', pos: 'gk', title: 'San Oswaldo' },
-      { name: 'Claudio Suárez', pos: 'def', title: 'El Emperador' },
-      { name: 'Ramón Morales', pos: 'mid', title: 'Ramoncito' },
-      { name: 'Omar Bravo', pos: 'st', title: 'Máximo Goleador de Chivas' }
-    ],
-    'América': [
-      { name: 'Guillermo Ochoa', pos: 'gk', title: 'San Memo' },
-      { name: 'Alfredo Tena', pos: 'def', title: 'Capitán Furia' },
-      { name: 'Cuauhtémoc Blanco', pos: 'mid', title: 'El Cuau' },
-      { name: 'Luís Roberto Alves Zague', pos: 'st', title: 'Máximo Goleador Águila' }
-    ],
-    'Tigres': [
-      { name: 'Nahuel Guzmán', pos: 'gk', title: 'El Patón' },
-      { name: 'Hugo Ayala', pos: 'def', title: 'El Muralla' },
-      { name: 'Lucas Lobos', pos: 'mid', title: 'El Ídolo de San Nicolás' },
-      { name: 'André-Pierre Gignac', pos: 'st', title: 'El Bomboro' }
-    ],
-    'Cruz Azul': [
-      { name: 'Óscar Pérez', pos: 'gk', title: 'El Conejo' },
-      { name: 'Ignacio Flores', pos: 'def', title: 'Nacho' },
-      { name: 'Carlos Hermosillo', pos: 'st', title: 'El Grandote de Cerro Azul' },
-      { name: 'Christian Giménez', pos: 'mid', title: 'El Chaco' }
-    ],
-    'Pumas': [
-      { name: 'Jorge Campos', pos: 'gk', title: 'El Inmortal' },
-      { name: 'Darío Verón', pos: 'def', title: 'El Mariscal' },
-      { name: 'Manuel Negrete', pos: 'mid', title: 'El Gol de Tijera' },
-      { name: 'Hugo Sánchez', pos: 'st', title: 'Pentapichi' }
-    ],
-    'Real Madrid': [
-      { name: 'Iker Casillas', pos: 'gk', title: 'San Iker' },
-      { name: 'Sergio Ramos', pos: 'def', title: 'El Capitán del 93\'' },
-      { name: 'Luka Modrić', pos: 'mid', title: 'El Maestro del Exterior' },
-      { name: 'Raúl González', pos: 'st', title: 'El Ángel del Madrid' }
-    ],
-    'Barcelona': [
-      { name: 'Víctor Valdés', pos: 'gk', title: 'El Arquero del Pep Team' },
-      { name: 'Carles Puyol', pos: 'def', title: 'El Tarzán de La Masia' },
-      { name: 'Xavi Hernández', pos: 'mid', title: 'El Arquitecto' },
-      { name: 'Lionel Messi', pos: 'st', title: 'El Rey de LaLiga' }
-    ],
-    'River Plate': [
-      { name: 'Ubaldo Fillol', pos: 'gk', title: 'El Pato' },
-      { name: 'Daniel Passarella', pos: 'def', title: 'El Gran Capitán' },
-      { name: 'Ariel Ortega', pos: 'mid', title: 'El Burrito' },
-      { name: 'Enzo Francescoli', pos: 'st', title: 'El Príncipe' }
-    ],
-    'Boca Juniors': [
-      { name: 'Roberto Abbondanzieri', pos: 'gk', title: 'El Pato' },
-      { name: 'Jorge Bermúdez', pos: 'def', title: 'El Patrón' },
-      { name: 'Juan Román Riquelme', pos: 'mid', title: 'El Último Diez' },
-      { name: 'Martín Palermo', pos: 'st', title: 'El Titán' }
-    ],
-    'Manchester United': [
-      { name: 'Peter Schmeichel', pos: 'gk', title: 'The Great Dane' },
-      { name: 'Rio Ferdinand', pos: 'def', title: 'The Rolls-Royce Defender' },
-      { name: 'Paul Scholes', pos: 'mid', title: 'The Midfield General' },
-      { name: 'Wayne Rooney', pos: 'st', title: 'Wazza' }
-    ],
-    'Liverpool': [
-      { name: 'Alisson Becker', pos: 'gk', title: 'The Wall' },
-      { name: 'Jamie Carragher', pos: 'def', title: 'Carra' },
-      { name: 'Steven Gerrard', pos: 'mid', title: 'Captain Fantastic' },
-      { name: 'Robbie Fowler', pos: 'st', title: 'God' }
-    ],
-    'Arsenal': [
-      { name: 'David Seaman', pos: 'gk', title: 'Safe Hands' },
-      { name: 'Tony Adams', pos: 'def', title: 'Mr. Arsenal' },
-      { name: 'Patrick Vieira', pos: 'mid', title: 'The Invincible Captain' },
-      { name: 'Thierry Henry', pos: 'st', title: 'King Henry' }
-    ],
-    'Bayern Munich': [
-      { name: 'Manuel Neuer', pos: 'gk', title: 'The Sweeper Keeper' },
-      { name: 'Philipp Lahm', pos: 'def', title: 'The Magic Dwarf' },
-      { name: 'Bastian Schweinsteiger', pos: 'mid', title: 'Der Fußballgott' },
-      { name: 'Thomas Müller', pos: 'st', title: 'Der Raumdeuter' }
-    ],
-    'Juventus': [
-      { name: 'Gianluigi Buffon', pos: 'gk', title: 'Gigi' },
-      { name: 'Giorgio Chiellini', pos: 'def', title: 'King Kong' },
-      { name: 'Andrea Pirlo', pos: 'mid', title: 'Il Maestro' },
-      { name: 'Alessandro Del Piero', pos: 'st', title: 'Pinturicchio' }
-    ],
-    'AC Milan': [
-      { name: 'Dida', pos: 'gk', title: 'El Muro Rossonero' },
-      { name: 'Paolo Maldini', pos: 'def', title: 'Il Capitano' },
-      { name: 'Kaká', pos: 'mid', title: 'O Iluminado' },
-      { name: 'Andriy Shevchenko', pos: 'st', title: 'The Ukrainian Express' }
-    ]
-  };
+  "River Plate": [
+    {
+      "name": "Ubaldo Fillol",
+      "pos": "gk",
+      "title": "El Pato",
+      "title_es": "El Pato"
+    },
+    {
+      "name": "Daniel Passarella",
+      "pos": "def",
+      "title": "El Gran Capitán",
+      "title_es": "El Gran Capitán"
+    },
+    {
+      "name": "Enzo Francescoli",
+      "pos": "mid",
+      "title": "The Prince",
+      "title_es": "El Príncipe"
+    },
+    {
+      "name": "Ángel Labruna",
+      "pos": "st",
+      "title": "El Feo",
+      "title_es": "El Feo"
+    }
+  ],
+  "Boca Juniors": [
+    {
+      "name": "Roberto Abbondanzieri",
+      "pos": "gk",
+      "title": "El Pato",
+      "title_es": "El Pato"
+    },
+    {
+      "name": "Rolando Schiavi",
+      "pos": "def",
+      "title": "El Flaco",
+      "title_es": "El Flaco"
+    },
+    {
+      "name": "Juan Román Riquelme",
+      "pos": "mid",
+      "title": "The Last Number Ten",
+      "title_es": "El Último Diez"
+    },
+    {
+      "name": "Martín Palermo",
+      "pos": "st",
+      "title": "The Titan",
+      "title_es": "El Titán"
+    }
+  ],
+  "Racing Club": [
+    {
+      "name": "Sebastián Saja",
+      "pos": "gk",
+      "title": "El Chino",
+      "title_es": "El Chino"
+    },
+    {
+      "name": "Roberto Perfumo",
+      "pos": "def",
+      "title": "El Mariscal",
+      "title_es": "El Mariscal"
+    },
+    {
+      "name": "Rubén Paz",
+      "pos": "mid",
+      "title": "The Maestro",
+      "title_es": "El Maestro"
+    },
+    {
+      "name": "Diego Milito",
+      "pos": "st",
+      "title": "The Prince",
+      "title_es": "El Príncipe"
+    }
+  ],
+  "Independiente": [
+    {
+      "name": "Faryd Mondragón",
+      "pos": "gk",
+      "title": "El Turco",
+      "title_es": "El Turco"
+    },
+    {
+      "name": "Gabriel Milito",
+      "pos": "def",
+      "title": "The Marshal",
+      "title_es": "El Mariscal"
+    },
+    {
+      "name": "Ricardo Bochini",
+      "pos": "mid",
+      "title": "El Bocha",
+      "title_es": "El Bocha"
+    },
+    {
+      "name": "Arsenio Erico",
+      "pos": "st",
+      "title": "The Jumper",
+      "title_es": "El Saltarín"
+    }
+  ],
+  "San Lorenzo": [
+    {
+      "name": "Sebastián Torrico",
+      "pos": "gk",
+      "title": "Saint Torrico",
+      "title_es": "San Torrico"
+    },
+    {
+      "name": "Fabricio Coloccini",
+      "pos": "def",
+      "title": "Colo",
+      "title_es": "Colo"
+    },
+    {
+      "name": "Leandro Romagnoli",
+      "pos": "mid",
+      "title": "Pipi",
+      "title_es": "Pipi"
+    },
+    {
+      "name": "José Sanfilippo",
+      "pos": "st",
+      "title": "El Nene",
+      "title_es": "El Nene"
+    }
+  ],
+  "Estudiantes": [
+    {
+      "name": "Mariano Andújar",
+      "pos": "gk",
+      "title": "The Wall",
+      "title_es": "El Muro"
+    },
+    {
+      "name": "José Luis Brown",
+      "pos": "def",
+      "title": "Tata",
+      "title_es": "Tata"
+    },
+    {
+      "name": "Juan Sebastián Verón",
+      "pos": "mid",
+      "title": "La Brujita",
+      "title_es": "La Brujita"
+    },
+    {
+      "name": "Mauro Boselli",
+      "pos": "st",
+      "title": "Mauro",
+      "title_es": "Mauro"
+    }
+  ],
+  "Vélez Sarsfield": [
+    {
+      "name": "José Luis Chilavert",
+      "pos": "gk",
+      "title": "Chila",
+      "title_es": "Chila"
+    },
+    {
+      "name": "Fabián Cubero",
+      "pos": "def",
+      "title": "Poroto",
+      "title_es": "Poroto"
+    },
+    {
+      "name": "Christian Bassedas",
+      "pos": "mid",
+      "title": "Christian",
+      "title_es": "Christian"
+    },
+    {
+      "name": "Carlos Bianchi",
+      "pos": "st",
+      "title": "The Viceroy",
+      "title_es": "El Virrey"
+    }
+  ],
+  "Talleres": [
+    {
+      "name": "Guido Herrera",
+      "pos": "gk",
+      "title": "Guido",
+      "title_es": "Guido"
+    },
+    {
+      "name": "Luis Galván",
+      "pos": "def",
+      "title": "El Maestro",
+      "title_es": "El Maestro"
+    },
+    {
+      "name": "Pablo Guiñazú",
+      "pos": "mid",
+      "title": "Cholo",
+      "title_es": "Cholo"
+    },
+    {
+      "name": "Gonzalo Klusener",
+      "pos": "st",
+      "title": "Kluse",
+      "title_es": "Kluse"
+    }
+  ],
+  "Lanús": [
+    {
+      "name": "Agustín Marchesín",
+      "pos": "gk",
+      "title": "Marche",
+      "title_es": "Marche"
+    },
+    {
+      "name": "Maximiliano Velázquez",
+      "pos": "def",
+      "title": "Maxi",
+      "title_es": "Maxi"
+    },
+    {
+      "name": "Diego Valeri",
+      "pos": "mid",
+      "title": "El Maestro",
+      "title_es": "El Maestro"
+    },
+    {
+      "name": "José Sand",
+      "pos": "st",
+      "title": "Pepe",
+      "title_es": "Pepe"
+    }
+  ],
+  "Newell's": [
+    {
+      "name": "Nahuel Guzmán",
+      "pos": "gk",
+      "title": "Patón",
+      "title_es": "Patón"
+    },
+    {
+      "name": "Walter Samuel",
+      "pos": "def",
+      "title": "The Wall",
+      "title_es": "El Muro"
+    },
+    {
+      "name": "Maxi Rodríguez",
+      "pos": "mid",
+      "title": "La Fiera",
+      "title_es": "La Fiera"
+    },
+    {
+      "name": "Ignacio Scocco",
+      "pos": "st",
+      "title": "Nacho",
+      "title_es": "Nacho"
+    }
+  ],
+  "Rosario Central": [
+    {
+      "name": "Jeremías Ledesma",
+      "pos": "gk",
+      "title": "Conan",
+      "title_es": "Conan"
+    },
+    {
+      "name": "Edgardo Bauza",
+      "pos": "def",
+      "title": "El Patón",
+      "title_es": "El Patón"
+    },
+    {
+      "name": "Omar Palma",
+      "pos": "mid",
+      "title": "El Negro",
+      "title_es": "El Negro"
+    },
+    {
+      "name": "Marco Ruben",
+      "pos": "st",
+      "title": "Marco",
+      "title_es": "Marco"
+    }
+  ],
+  "Defensa y Justicia": [
+    {
+      "name": "Ezequiel Unsain",
+      "pos": "gk",
+      "title": "Eze",
+      "title_es": "Eze"
+    },
+    {
+      "name": "Alexander Barboza",
+      "pos": "def",
+      "title": "Barboza",
+      "title_es": "Barboza"
+    },
+    {
+      "name": "Lisandro Martínez",
+      "pos": "mid",
+      "title": "The Butcher",
+      "title_es": "El Carnicero"
+    },
+    {
+      "name": "Braian Romero",
+      "pos": "st",
+      "title": "Braian",
+      "title_es": "Braian"
+    }
+  ],
+  "Huracán": [
+    {
+      "name": "Marcos Díaz",
+      "pos": "gk",
+      "title": "Marcos",
+      "title_es": "Marcos"
+    },
+    {
+      "name": "Paolo Goltz",
+      "pos": "def",
+      "title": "Paolo",
+      "title_es": "Paolo"
+    },
+    {
+      "name": "Miguel Brindisi",
+      "pos": "mid",
+      "title": "Miguelito",
+      "title_es": "Miguelito"
+    },
+    {
+      "name": "Herminio Masantonio",
+      "pos": "st",
+      "title": "Masantonio",
+      "title_es": "Masantonio"
+    }
+  ],
+  "Argentinos Juniors": [
+    {
+      "name": "Adrián Domenech",
+      "pos": "gk",
+      "title": "Domi",
+      "title_es": "Domi"
+    },
+    {
+      "name": "Sergio Batista",
+      "pos": "def",
+      "title": "Checho",
+      "title_es": "Checho"
+    },
+    {
+      "name": "Diego Maradona",
+      "pos": "mid",
+      "title": "El Pelusa",
+      "title_es": "El Pelusa"
+    },
+    {
+      "name": "Claudio Borghi",
+      "pos": "st",
+      "title": "Bichi",
+      "title_es": "Bichi"
+    }
+  ],
+  "Godoy Cruz": [
+    {
+      "name": "Sebastián Torrico",
+      "pos": "gk",
+      "title": "San Torrico",
+      "title_es": "San Torrico"
+    },
+    {
+      "name": "Leonardo Sigali",
+      "pos": "def",
+      "title": "Oso",
+      "title_es": "Oso"
+    },
+    {
+      "name": "David Ramírez",
+      "pos": "mid",
+      "title": "El Mago",
+      "title_es": "El Mago"
+    },
+    {
+      "name": "Santiago García",
+      "pos": "st",
+      "title": "El Morro",
+      "title_es": "El Morro"
+    }
+  ],
+  "Belgrano": [
+    {
+      "name": "Juan Carlos Olave",
+      "pos": "gk",
+      "title": "Juanca",
+      "title_es": "Juanca"
+    },
+    {
+      "name": "Claudio Pérez",
+      "pos": "def",
+      "title": "Chiqui",
+      "title_es": "Chiqui"
+    },
+    {
+      "name": "Franco Vázquez",
+      "pos": "mid",
+      "title": "El Mudo",
+      "title_es": "El Mudo"
+    },
+    {
+      "name": "Luis Artime",
+      "pos": "st",
+      "title": "El Luifa",
+      "title_es": "El Luifa"
+    }
+  ],
+  "Paris Saint-Germain": [
+    {
+      "name": "Bernard Lama",
+      "pos": "gk",
+      "title": "The Cat",
+      "title_es": "El Gato"
+    },
+    {
+      "name": "Thiago Silva",
+      "pos": "def",
+      "title": "O Monstro",
+      "title_es": "El Monstruo"
+    },
+    {
+      "name": "Raí",
+      "pos": "mid",
+      "title": "Raí",
+      "title_es": "Raí"
+    },
+    {
+      "name": "Zlatan Ibrahimović",
+      "pos": "st",
+      "title": "Ibra",
+      "title_es": "Ibra"
+    }
+  ],
+  "Marseille": [
+    {
+      "name": "Steve Mandanda",
+      "pos": "gk",
+      "title": "Il Fenomeno",
+      "title_es": "El Fenómeno"
+    },
+    {
+      "name": "Basile Boli",
+      "pos": "def",
+      "title": "Basile",
+      "title_es": "Basile"
+    },
+    {
+      "name": "Abedi Pelé",
+      "pos": "mid",
+      "title": "The Maestro",
+      "title_es": "El Maestro"
+    },
+    {
+      "name": "Jean-Pierre Papin",
+      "pos": "st",
+      "title": "JPP",
+      "title_es": "JPP"
+    }
+  ],
+  "Monaco": [
+    {
+      "name": "Jean-Luc Ettori",
+      "pos": "gk",
+      "title": "Ettori",
+      "title_es": "Ettori"
+    },
+    {
+      "name": "Manuel Amoros",
+      "pos": "def",
+      "title": "Manu",
+      "title_es": "Manu"
+    },
+    {
+      "name": "Ludovic Giuly",
+      "pos": "mid",
+      "title": "Ludo",
+      "title_es": "Ludo"
+    },
+    {
+      "name": "Thierry Henry",
+      "pos": "st",
+      "title": "Titi",
+      "title_es": "Titi"
+    }
+  ],
+  "Lyon": [
+    {
+      "name": "Grégory Coupet",
+      "pos": "gk",
+      "title": "Greg",
+      "title_es": "Greg"
+    },
+    {
+      "name": "Cris",
+      "pos": "def",
+      "title": "The Policeman",
+      "title_es": "El Policía"
+    },
+    {
+      "name": "Juninho Pernambucano",
+      "pos": "mid",
+      "title": "The Free-Kick King",
+      "title_es": "El Rey del Tiro Libre"
+    },
+    {
+      "name": "Alexandre Lacazette",
+      "pos": "st",
+      "title": "The General",
+      "title_es": "El General"
+    }
+  ],
+  "Lille": [
+    {
+      "name": "Vincent Enyeama",
+      "pos": "gk",
+      "title": "The Cat",
+      "title_es": "El Gato"
+    },
+    {
+      "name": "Mathieu Debuchy",
+      "pos": "def",
+      "title": "Debuchy",
+      "title_es": "Debuchy"
+    },
+    {
+      "name": "Eden Hazard",
+      "pos": "mid",
+      "title": "Eden",
+      "title_es": "Eden"
+    },
+    {
+      "name": "Moussa Sow",
+      "pos": "st",
+      "title": "Moussa",
+      "title_es": "Moussa"
+    }
+  ],
+  "Nice": [
+    {
+      "name": "Hugo Lloris",
+      "pos": "gk",
+      "title": "Hugo",
+      "title_es": "Hugo"
+    },
+    {
+      "name": "Dante",
+      "pos": "def",
+      "title": "Comandante",
+      "title_es": "Comandante"
+    },
+    {
+      "name": "Jean-Marc Guillou",
+      "pos": "mid",
+      "title": "JMG",
+      "title_es": "JMG"
+    },
+    {
+      "name": "Mario Balotelli",
+      "pos": "st",
+      "title": "Super Mario",
+      "title_es": "Súper Mario"
+    }
+  ],
+  "Lens": [
+    {
+      "name": "Guillaume Warmuz",
+      "pos": "gk",
+      "title": "Warmuz",
+      "title_es": "Warmuz"
+    },
+    {
+      "name": "Éric Sikora",
+      "pos": "def",
+      "title": "Captain Siko",
+      "title_es": "Capitán Siko"
+    },
+    {
+      "name": "Seko Fofana",
+      "pos": "mid",
+      "title": "Captain Seko",
+      "title_es": "Capitán Seko"
+    },
+    {
+      "name": "Tony Vairelles",
+      "pos": "st",
+      "title": "Tony",
+      "title_es": "Tony"
+    }
+  ],
+  "Rennes": [
+    {
+      "name": "Benoît Costil",
+      "pos": "gk",
+      "title": "Costil",
+      "title_es": "Costil"
+    },
+    {
+      "name": "Romain Danzé",
+      "pos": "def",
+      "title": "La Danze",
+      "title_es": "La Danze"
+    },
+    {
+      "name": "Eduardo Camavinga",
+      "pos": "mid",
+      "title": "Cama",
+      "title_es": "Cama"
+    },
+    {
+      "name": "Alexander Frei",
+      "pos": "st",
+      "title": "Alex",
+      "title_es": "Alex"
+    }
+  ],
+  "Strasbourg": [
+    {
+      "name": "Alexander Vencel",
+      "pos": "gk",
+      "title": "Alex",
+      "title_es": "Alex"
+    },
+    {
+      "name": "Léonard Specht",
+      "pos": "def",
+      "title": "Leo",
+      "title_es": "Leo"
+    },
+    {
+      "name": "Youri Djorkaeff",
+      "pos": "mid",
+      "title": "The Snake",
+      "title_es": "La Serpiente"
+    },
+    {
+      "name": "Albert Gemmrich",
+      "pos": "st",
+      "title": "Albert",
+      "title_es": "Albert"
+    }
+  ],
+  "Toulouse": [
+    {
+      "name": "Alban Lafont",
+      "pos": "gk",
+      "title": "Alban",
+      "title_es": "Alban"
+    },
+    {
+      "name": "Issa Diop",
+      "pos": "def",
+      "title": "Issa",
+      "title_es": "Issa"
+    },
+    {
+      "name": "Étienne Capoue",
+      "pos": "mid",
+      "title": "Capoue",
+      "title_es": "Capoue"
+    },
+    {
+      "name": "André-Pierre Gignac",
+      "pos": "st",
+      "title": "Dédé",
+      "title_es": "Dédé"
+    }
+  ],
+  "Nantes": [
+    {
+      "name": "Mickaël Landreau",
+      "pos": "gk",
+      "title": "Micka",
+      "title_es": "Micka"
+    },
+    {
+      "name": "Maxime Bossis",
+      "pos": "def",
+      "title": "Max",
+      "title_es": "Max"
+    },
+    {
+      "name": "Henri Michel",
+      "pos": "mid",
+      "title": "Henri",
+      "title_es": "Henri"
+    },
+    {
+      "name": "Emiliano Sala",
+      "pos": "st",
+      "title": "Emi",
+      "title_es": "Emi"
+    }
+  ],
+  "Brest": [
+    {
+      "name": "Gautier Larsonneur",
+      "pos": "gk",
+      "title": "Gautier",
+      "title_es": "Gautier"
+    },
+    {
+      "name": "Paul Baysse",
+      "pos": "def",
+      "title": "Paul",
+      "title_es": "Paul"
+    },
+    {
+      "name": "Corentin Martins",
+      "pos": "mid",
+      "title": "Coco",
+      "title_es": "Coco"
+    },
+    {
+      "name": "Nolan Roux",
+      "pos": "st",
+      "title": "Nolan",
+      "title_es": "Nolan"
+    }
+  ],
+  "Montpellier": [
+    {
+      "name": "Geoffrey Jourdren",
+      "pos": "gk",
+      "title": "Jourdren",
+      "title_es": "Jourdren"
+    },
+    {
+      "name": "Vitorino Hilton",
+      "pos": "def",
+      "title": "Captain Hilton",
+      "title_es": "Capitán Hilton"
+    },
+    {
+      "name": "Téji Savanier",
+      "pos": "mid",
+      "title": "Téji",
+      "title_es": "Téji"
+    },
+    {
+      "name": "Olivier Giroud",
+      "pos": "st",
+      "title": "Oli",
+      "title_es": "Oli"
+    }
+  ],
+  "Auxerre": [
+    {
+      "name": "Fabien Cool",
+      "pos": "gk",
+      "title": "Fabien",
+      "title_es": "Fabien"
+    },
+    {
+      "name": "Philippe Mexès",
+      "pos": "def",
+      "title": "Phil",
+      "title_es": "Phil"
+    },
+    {
+      "name": "Yann Lachuer",
+      "pos": "mid",
+      "title": "Yann",
+      "title_es": "Yann"
+    },
+    {
+      "name": "Djibril Cissé",
+      "pos": "st",
+      "title": "Djibril",
+      "title_es": "Djibril"
+    }
+  ],
+  "Lorient": [
+    {
+      "name": "Fabien Audard",
+      "pos": "gk",
+      "title": "Fabien",
+      "title_es": "Fabien"
+    },
+    {
+      "name": "Michaël Ciani",
+      "pos": "def",
+      "title": "Ciani",
+      "title_es": "Ciani"
+    },
+    {
+      "name": "Christian Gourcuff",
+      "pos": "mid",
+      "title": "The Architect",
+      "title_es": "El Arquitecto"
+    },
+    {
+      "name": "Kévin Gameiro",
+      "pos": "st",
+      "title": "Kévin",
+      "title_es": "Kévin"
+    }
+  ],
+  "Le Havre": [
+    {
+      "name": "Christophe Revault",
+      "pos": "gk",
+      "title": "Revault",
+      "title_es": "Revault"
+    },
+    {
+      "name": "Jean-Alain Boumsong",
+      "pos": "def",
+      "title": "Boumsong",
+      "title_es": "Boumsong"
+    },
+    {
+      "name": "Vikash Dhorasoo",
+      "pos": "mid",
+      "title": "Vikash",
+      "title_es": "Vikash"
+    },
+    {
+      "name": "Guillaume Hoarau",
+      "pos": "st",
+      "title": "Guillaume",
+      "title_es": "Guillaume"
+    }
+  ],
+  "Angers": [
+    {
+      "name": "Ludovic Butelle",
+      "pos": "gk",
+      "title": "Ludo",
+      "title_es": "Ludo"
+    },
+    {
+      "name": "Romain Thomas",
+      "pos": "def",
+      "title": "Romain",
+      "title_es": "Romain"
+    },
+    {
+      "name": "Thomas Mangani",
+      "pos": "mid",
+      "title": "Mangani",
+      "title_es": "Mangani"
+    },
+    {
+      "name": "Famara Diédhiou",
+      "pos": "st",
+      "title": "Famara",
+      "title_es": "Famara"
+    }
+  ],
+  "Metz": [
+    {
+      "name": "Thomas Didillon",
+      "pos": "gk",
+      "title": "Thomas",
+      "title_es": "Thomas"
+    },
+    {
+      "name": "Sylvain Kastendeuch",
+      "pos": "def",
+      "title": "Sylvain",
+      "title_es": "Sylvain"
+    },
+    {
+      "name": "Robert Pires",
+      "pos": "mid",
+      "title": "Robert",
+      "title_es": "Robert"
+    },
+    {
+      "name": "Papiss Cissé",
+      "pos": "st",
+      "title": "Papiss",
+      "title_es": "Papiss"
+    }
+  ],
+  "Real Madrid": [
+    {
+      "name": "Iker Casillas",
+      "pos": "gk",
+      "title": "San Iker",
+      "title_es": "San Iker"
+    },
+    {
+      "name": "Sergio Ramos",
+      "pos": "def",
+      "title": "El Capitán",
+      "title_es": "El Capitán"
+    },
+    {
+      "name": "Zinedine Zidane",
+      "pos": "mid",
+      "title": "Zizou",
+      "title_es": "Zizou"
+    },
+    {
+      "name": "Cristiano Ronaldo",
+      "pos": "st",
+      "title": "CR7",
+      "title_es": "CR7"
+    }
+  ],
+  "Barcelona": [
+    {
+      "name": "Víctor Valdés",
+      "pos": "gk",
+      "title": "Víctor",
+      "title_es": "Víctor"
+    },
+    {
+      "name": "Carles Puyol",
+      "pos": "def",
+      "title": "El Tiburón",
+      "title_es": "El Tiburón"
+    },
+    {
+      "name": "Xavi",
+      "pos": "mid",
+      "title": "The Puppet Master",
+      "title_es": "El Titiritero"
+    },
+    {
+      "name": "Lionel Messi",
+      "pos": "st",
+      "title": "La Pulga",
+      "title_es": "La Pulga"
+    }
+  ],
+  "Atlético Madrid": [
+    {
+      "name": "Jan Oblak",
+      "pos": "gk",
+      "title": "The Wall",
+      "title_es": "El Muro"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Pharaoh",
+      "title_es": "El Faraón"
+    },
+    {
+      "name": "Diego Simeone",
+      "pos": "mid",
+      "title": "Cholo",
+      "title_es": "Cholo"
+    },
+    {
+      "name": "Fernando Torres",
+      "pos": "st",
+      "title": "El Niño",
+      "title_es": "El Niño"
+    }
+  ],
+  "Athletic Club": [
+    {
+      "name": "José Ángel Iribar",
+      "pos": "gk",
+      "title": "El Txopo",
+      "title_es": "El Txopo"
+    },
+    {
+      "name": "Andoni Iraola",
+      "pos": "def",
+      "title": "Iraola",
+      "title_es": "Iraola"
+    },
+    {
+      "name": "Julen Guerrero",
+      "pos": "mid",
+      "title": "The Pearl",
+      "title_es": "La Perla"
+    },
+    {
+      "name": "Telmo Zarra",
+      "pos": "st",
+      "title": "Zarra",
+      "title_es": "Zarra"
+    }
+  ],
+  "Villarreal": [
+    {
+      "name": "Sergio Asenjo",
+      "pos": "gk",
+      "title": "Sergio",
+      "title_es": "Sergio"
+    },
+    {
+      "name": "Gonzalo Rodríguez",
+      "pos": "def",
+      "title": "Gonzalo",
+      "title_es": "Gonzalo"
+    },
+    {
+      "name": "Marcos Senna",
+      "pos": "mid",
+      "title": "El Capitán",
+      "title_es": "El Capitán"
+    },
+    {
+      "name": "Gerard Moreno",
+      "pos": "st",
+      "title": "Gerard",
+      "title_es": "Gerard"
+    }
+  ],
+  "Real Sociedad": [
+    {
+      "name": "Luis Arconada",
+      "pos": "gk",
+      "title": "The Octopus",
+      "title_es": "El Pulpo"
+    },
+    {
+      "name": "Inaxio Kortabarria",
+      "pos": "def",
+      "title": "Inaxio",
+      "title_es": "Inaxio"
+    },
+    {
+      "name": "Xabi Prieto",
+      "pos": "mid",
+      "title": "Xabi",
+      "title_es": "Xabi"
+    },
+    {
+      "name": "Darko Kovačević",
+      "pos": "st",
+      "title": "Darko",
+      "title_es": "Darko"
+    }
+  ],
+  "Real Betis": [
+    {
+      "name": "José Ramón Esnaola",
+      "pos": "gk",
+      "title": "Esnaola",
+      "title_es": "Esnaola"
+    },
+    {
+      "name": "Juanito",
+      "pos": "def",
+      "title": "Juanito",
+      "title_es": "Juanito"
+    },
+    {
+      "name": "Joaquín",
+      "pos": "mid",
+      "title": "The Artist",
+      "title_es": "El Arte"
+    },
+    {
+      "name": "Rubén Castro",
+      "pos": "st",
+      "title": "Rubén",
+      "title_es": "Rubén"
+    }
+  ],
+  "Sevilla": [
+    {
+      "name": "Andrés Palop",
+      "pos": "gk",
+      "title": "Palop",
+      "title_es": "Palop"
+    },
+    {
+      "name": "Javi Navarro",
+      "pos": "def",
+      "title": "Navarro",
+      "title_es": "Navarro"
+    },
+    {
+      "name": "Jesús Navas",
+      "pos": "mid",
+      "title": "El Duende",
+      "title_es": "El Duende"
+    },
+    {
+      "name": "Frédéric Kanouté",
+      "pos": "st",
+      "title": "Kanouté",
+      "title_es": "Kanouté"
+    }
+  ],
+  "Valencia": [
+    {
+      "name": "Santiago Cañizares",
+      "pos": "gk",
+      "title": "The Dragon",
+      "title_es": "El Dragón"
+    },
+    {
+      "name": "Roberto Ayala",
+      "pos": "def",
+      "title": "El Ratón",
+      "title_es": "El Ratón"
+    },
+    {
+      "name": "Gaizka Mendieta",
+      "pos": "mid",
+      "title": "Mendieta",
+      "title_es": "Mendieta"
+    },
+    {
+      "name": "Mario Kempes",
+      "pos": "st",
+      "title": "El Matador",
+      "title_es": "El Matador"
+    }
+  ],
+  "Girona": [
+    {
+      "name": "Bono",
+      "pos": "gk",
+      "title": "Bono",
+      "title_es": "Bono"
+    },
+    {
+      "name": "Bernardo Espinosa",
+      "pos": "def",
+      "title": "Bernardo",
+      "title_es": "Bernardo"
+    },
+    {
+      "name": "Borja García",
+      "pos": "mid",
+      "title": "Borja",
+      "title_es": "Borja"
+    },
+    {
+      "name": "Cristhian Stuani",
+      "pos": "st",
+      "title": "El Matador",
+      "title_es": "El Matador"
+    }
+  ],
+  "Celta Vigo": [
+    {
+      "name": "Sergio Álvarez",
+      "pos": "gk",
+      "title": "O Gato",
+      "title_es": "O Gato"
+    },
+    {
+      "name": "Hugo Mallo",
+      "pos": "def",
+      "title": "Hugo",
+      "title_es": "Hugo"
+    },
+    {
+      "name": "Aleksandr Mostovoi",
+      "pos": "mid",
+      "title": "The Tsar",
+      "title_es": "El Zar"
+    },
+    {
+      "name": "Iago Aspas",
+      "pos": "st",
+      "title": "The Prince",
+      "title_es": "El Príncipe"
+    }
+  ],
+  "Osasuna": [
+    {
+      "name": "Ricardo",
+      "pos": "gk",
+      "title": "Ricardo",
+      "title_es": "Ricardo"
+    },
+    {
+      "name": "César Cruchaga",
+      "pos": "def",
+      "title": "Captain",
+      "title_es": "Capitán"
+    },
+    {
+      "name": "Patxi Puñal",
+      "pos": "mid",
+      "title": "Patxi",
+      "title_es": "Patxi"
+    },
+    {
+      "name": "Jan Urban",
+      "pos": "st",
+      "title": "Jan",
+      "title_es": "Jan"
+    }
+  ],
+  "Getafe": [
+    {
+      "name": "David Soria",
+      "pos": "gk",
+      "title": "Soria",
+      "title_es": "Soria"
+    },
+    {
+      "name": "Djené",
+      "pos": "def",
+      "title": "Djené",
+      "title_es": "Djené"
+    },
+    {
+      "name": "Javier Casquero",
+      "pos": "mid",
+      "title": "Casquero",
+      "title_es": "Casquero"
+    },
+    {
+      "name": "Manu del Moral",
+      "pos": "st",
+      "title": "Manu",
+      "title_es": "Manu"
+    }
+  ],
+  "Espanyol": [
+    {
+      "name": "Thomas N'Kono",
+      "pos": "gk",
+      "title": "The Panther",
+      "title_es": "La Pantera"
+    },
+    {
+      "name": "Mauricio Pochettino",
+      "pos": "def",
+      "title": "Poche",
+      "title_es": "Poche"
+    },
+    {
+      "name": "Iván de la Peña",
+      "pos": "mid",
+      "title": "Little Buddha",
+      "title_es": "El Pequeño Buda"
+    },
+    {
+      "name": "Raúl Tamudo",
+      "pos": "st",
+      "title": "Tamudo",
+      "title_es": "Tamudo"
+    }
+  ],
+  "Mallorca": [
+    {
+      "name": "Leo Franco",
+      "pos": "gk",
+      "title": "Leo",
+      "title_es": "Leo"
+    },
+    {
+      "name": "Miguel Ángel Nadal",
+      "pos": "def",
+      "title": "The Beast",
+      "title_es": "La Bestia"
+    },
+    {
+      "name": "Ariel Ibagaza",
+      "pos": "mid",
+      "title": "El Caño",
+      "title_es": "El Caño"
+    },
+    {
+      "name": "Samuel Eto'o",
+      "pos": "st",
+      "title": "The Lion",
+      "title_es": "El León"
+    }
+  ],
+  "Rayo Vallecano": [
+    {
+      "name": "Wilfred Agbonavbare",
+      "pos": "gk",
+      "title": "Willy",
+      "title_es": "Willy"
+    },
+    {
+      "name": "Paco Jémez",
+      "pos": "def",
+      "title": "Paco",
+      "title_es": "Paco"
+    },
+    {
+      "name": "Roberto Trashorras",
+      "pos": "mid",
+      "title": "Trashorras",
+      "title_es": "Trashorras"
+    },
+    {
+      "name": "Jon Pérez Bolo",
+      "pos": "st",
+      "title": "Bolo",
+      "title_es": "Bolo"
+    }
+  ],
+  "Alavés": [
+    {
+      "name": "Fernando Pacheco",
+      "pos": "gk",
+      "title": "Pacheco",
+      "title_es": "Pacheco"
+    },
+    {
+      "name": "Víctor Laguardia",
+      "pos": "def",
+      "title": "Víctor",
+      "title_es": "Víctor"
+    },
+    {
+      "name": "Manu García",
+      "pos": "mid",
+      "title": "Manu",
+      "title_es": "Manu"
+    },
+    {
+      "name": "Javi Moreno",
+      "pos": "st",
+      "title": "Javi",
+      "title_es": "Javi"
+    }
+  ],
+  "Las Palmas": [
+    {
+      "name": "Daniel Carnevali",
+      "pos": "gk",
+      "title": "Daniel",
+      "title_es": "Daniel"
+    },
+    {
+      "name": "David García",
+      "pos": "def",
+      "title": "David",
+      "title_es": "David"
+    },
+    {
+      "name": "Juan Carlos Valerón",
+      "pos": "mid",
+      "title": "The Magician",
+      "title_es": "El Mago"
+    },
+    {
+      "name": "Sergio Araujo",
+      "pos": "st",
+      "title": "Chino",
+      "title_es": "Chino"
+    }
+  ],
+  "Levante": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "Keylor",
+      "title_es": "Keylor"
+    },
+    {
+      "name": "Sergio Ballesteros",
+      "pos": "def",
+      "title": "Ballesteros",
+      "title_es": "Ballesteros"
+    },
+    {
+      "name": "José Luis Morales",
+      "pos": "mid",
+      "title": "El Comandante",
+      "title_es": "El Comandante"
+    },
+    {
+      "name": "Roger Martí",
+      "pos": "st",
+      "title": "Pistolero",
+      "title_es": "Pistolero"
+    }
+  ],
+  "Elche": [
+    {
+      "name": "Manu Herrera",
+      "pos": "gk",
+      "title": "Manu",
+      "title_es": "Manu"
+    },
+    {
+      "name": "Edu Albácar",
+      "pos": "def",
+      "title": "Edu",
+      "title_es": "Edu"
+    },
+    {
+      "name": "Fidel",
+      "pos": "mid",
+      "title": "Fidel",
+      "title_es": "Fidel"
+    },
+    {
+      "name": "Nino",
+      "pos": "st",
+      "title": "Nino",
+      "title_es": "Nino"
+    }
+  ],
+  "Manchester City": [
+    {
+      "name": "Bert Trautmann",
+      "pos": "gk",
+      "title": "Bert",
+      "title_es": "Bert"
+    },
+    {
+      "name": "Vincent Kompany",
+      "pos": "def",
+      "title": "Captain",
+      "title_es": "Capitán"
+    },
+    {
+      "name": "Kevin De Bruyne",
+      "pos": "mid",
+      "title": "KDB",
+      "title_es": "KDB"
+    },
+    {
+      "name": "Sergio Agüero",
+      "pos": "st",
+      "title": "Kun",
+      "title_es": "Kun"
+    }
+  ],
+  "Arsenal": [
+    {
+      "name": "David Seaman",
+      "pos": "gk",
+      "title": "Safe Hands",
+      "title_es": "Manos Seguras"
+    },
+    {
+      "name": "Tony Adams",
+      "pos": "def",
+      "title": "Mr. Arsenal",
+      "title_es": "Mr. Arsenal"
+    },
+    {
+      "name": "Patrick Vieira",
+      "pos": "mid",
+      "title": "Paddy",
+      "title_es": "Paddy"
+    },
+    {
+      "name": "Thierry Henry",
+      "pos": "st",
+      "title": "The King",
+      "title_es": "El Rey"
+    }
+  ],
+  "Liverpool": [
+    {
+      "name": "Ray Clemence",
+      "pos": "gk",
+      "title": "Ray",
+      "title_es": "Ray"
+    },
+    {
+      "name": "Alan Hansen",
+      "pos": "def",
+      "title": "Jocky",
+      "title_es": "Jocky"
+    },
+    {
+      "name": "Steven Gerrard",
+      "pos": "mid",
+      "title": "Captain Fantastic",
+      "title_es": "Capitán Fantástico"
+    },
+    {
+      "name": "Ian Rush",
+      "pos": "st",
+      "title": "Rushie",
+      "title_es": "Rushie"
+    }
+  ],
+  "Chelsea": [
+    {
+      "name": "Petr Čech",
+      "pos": "gk",
+      "title": "Big Pete",
+      "title_es": "Big Pete"
+    },
+    {
+      "name": "John Terry",
+      "pos": "def",
+      "title": "Captain, Leader, Legend",
+      "title_es": "Capitán, Líder, Leyenda"
+    },
+    {
+      "name": "Frank Lampard",
+      "pos": "mid",
+      "title": "Super Frank",
+      "title_es": "Súper Frank"
+    },
+    {
+      "name": "Didier Drogba",
+      "pos": "st",
+      "title": "The King",
+      "title_es": "El Rey"
+    }
+  ],
+  "Tottenham": [
+    {
+      "name": "Pat Jennings",
+      "pos": "gk",
+      "title": "Pat",
+      "title_es": "Pat"
+    },
+    {
+      "name": "Ledley King",
+      "pos": "def",
+      "title": "The King",
+      "title_es": "El Rey"
+    },
+    {
+      "name": "Paul Gascoigne",
+      "pos": "mid",
+      "title": "Gazza",
+      "title_es": "Gazza"
+    },
+    {
+      "name": "Harry Kane",
+      "pos": "st",
+      "title": "Hurricane",
+      "title_es": "Huracán"
+    }
+  ],
+  "Newcastle": [
+    {
+      "name": "Shay Given",
+      "pos": "gk",
+      "title": "Shay",
+      "title_es": "Shay"
+    },
+    {
+      "name": "Fabricio Coloccini",
+      "pos": "def",
+      "title": "Colo",
+      "title_es": "Colo"
+    },
+    {
+      "name": "Gary Speed",
+      "pos": "mid",
+      "title": "Speedo",
+      "title_es": "Speedo"
+    },
+    {
+      "name": "Alan Shearer",
+      "pos": "st",
+      "title": "Big Al",
+      "title_es": "Big Al"
+    }
+  ],
+  "Manchester United": [
+    {
+      "name": "Peter Schmeichel",
+      "pos": "gk",
+      "title": "The Great Dane",
+      "title_es": "El Gran Danés"
+    },
+    {
+      "name": "Rio Ferdinand",
+      "pos": "def",
+      "title": "Rio",
+      "title_es": "Rio"
+    },
+    {
+      "name": "Paul Scholes",
+      "pos": "mid",
+      "title": "The Prince",
+      "title_es": "El Príncipe"
+    },
+    {
+      "name": "Wayne Rooney",
+      "pos": "st",
+      "title": "Wazza",
+      "title_es": "Wazza"
+    }
+  ],
+  "Aston Villa": [
+    {
+      "name": "Nigel Spink",
+      "pos": "gk",
+      "title": "Spinky",
+      "title_es": "Spinky"
+    },
+    {
+      "name": "Paul McGrath",
+      "pos": "def",
+      "title": "God",
+      "title_es": "Dios"
+    },
+    {
+      "name": "Gordon Cowans",
+      "pos": "mid",
+      "title": "Sid",
+      "title_es": "Sid"
+    },
+    {
+      "name": "Peter Withe",
+      "pos": "st",
+      "title": "Peter",
+      "title_es": "Peter"
+    }
+  ],
+  "Brighton": [
+    {
+      "name": "Mat Ryan",
+      "pos": "gk",
+      "title": "Mat",
+      "title_es": "Mat"
+    },
+    {
+      "name": "Lewis Dunk",
+      "pos": "def",
+      "title": "Dunky",
+      "title_es": "Dunky"
+    },
+    {
+      "name": "Pascal Groß",
+      "pos": "mid",
+      "title": "Pascal",
+      "title_es": "Pascal"
+    },
+    {
+      "name": "Glenn Murray",
+      "pos": "st",
+      "title": "Glenn",
+      "title_es": "Glenn"
+    }
+  ],
+  "West Ham": [
+    {
+      "name": "Phil Parkes",
+      "pos": "gk",
+      "title": "Phil",
+      "title_es": "Phil"
+    },
+    {
+      "name": "Bobby Moore",
+      "pos": "def",
+      "title": "Mooro",
+      "title_es": "Mooro"
+    },
+    {
+      "name": "Trevor Brooking",
+      "pos": "mid",
+      "title": "Sir Trevor",
+      "title_es": "Sir Trevor"
+    },
+    {
+      "name": "Paolo Di Canio",
+      "pos": "st",
+      "title": "Paolo",
+      "title_es": "Paolo"
+    }
+  ],
+  "Crystal Palace": [
+    {
+      "name": "Julian Speroni",
+      "pos": "gk",
+      "title": "Jules",
+      "title_es": "Jules"
+    },
+    {
+      "name": "Jim Cannon",
+      "pos": "def",
+      "title": "Jim",
+      "title_es": "Jim"
+    },
+    {
+      "name": "Attilio Lombardo",
+      "pos": "mid",
+      "title": "The Bald Eagle",
+      "title_es": "El Águila Calva"
+    },
+    {
+      "name": "Wilfried Zaha",
+      "pos": "st",
+      "title": "Wilf",
+      "title_es": "Wilf"
+    }
+  ],
+  "Fulham": [
+    {
+      "name": "Mark Schwarzer",
+      "pos": "gk",
+      "title": "Mark",
+      "title_es": "Mark"
+    },
+    {
+      "name": "Brede Hangeland",
+      "pos": "def",
+      "title": "Brede",
+      "title_es": "Brede"
+    },
+    {
+      "name": "Danny Murphy",
+      "pos": "mid",
+      "title": "Danny",
+      "title_es": "Danny"
+    },
+    {
+      "name": "Clint Dempsey",
+      "pos": "st",
+      "title": "Deuce",
+      "title_es": "Deuce"
+    }
+  ],
+  "Bournemouth": [
+    {
+      "name": "Artur Boruc",
+      "pos": "gk",
+      "title": "Holy Goalie",
+      "title_es": "Holy Goalie"
+    },
+    {
+      "name": "Steve Cook",
+      "pos": "def",
+      "title": "Cookie",
+      "title_es": "Cookie"
+    },
+    {
+      "name": "Marc Pugh",
+      "pos": "mid",
+      "title": "Pughie",
+      "title_es": "Pughie"
+    },
+    {
+      "name": "Callum Wilson",
+      "pos": "st",
+      "title": "Callum",
+      "title_es": "Callum"
+    }
+  ],
+  "Brentford": [
+    {
+      "name": "David Raya",
+      "pos": "gk",
+      "title": "David",
+      "title_es": "David"
+    },
+    {
+      "name": "Pontus Jansson",
+      "pos": "def",
+      "title": "Pontus",
+      "title_es": "Pontus"
+    },
+    {
+      "name": "Christian Nørgaard",
+      "pos": "mid",
+      "title": "Christian",
+      "title_es": "Christian"
+    },
+    {
+      "name": "Ivan Toney",
+      "pos": "st",
+      "title": "Ivan",
+      "title_es": "Ivan"
+    }
+  ],
+  "Everton": [
+    {
+      "name": "Neville Southall",
+      "pos": "gk",
+      "title": "Big Nev",
+      "title_es": "Big Nev"
+    },
+    {
+      "name": "Leighton Baines",
+      "pos": "def",
+      "title": "Bainesy",
+      "title_es": "Bainesy"
+    },
+    {
+      "name": "Tim Cahill",
+      "pos": "mid",
+      "title": "Timmy",
+      "title_es": "Timmy"
+    },
+    {
+      "name": "Dixie Dean",
+      "pos": "st",
+      "title": "Dixie",
+      "title_es": "Dixie"
+    }
+  ],
+  "Nottingham Forest": [
+    {
+      "name": "Peter Shilton",
+      "pos": "gk",
+      "title": "Shilts",
+      "title_es": "Shilts"
+    },
+    {
+      "name": "Stuart Pearce",
+      "pos": "def",
+      "title": "Psycho",
+      "title_es": "Psycho"
+    },
+    {
+      "name": "Roy Keane",
+      "pos": "mid",
+      "title": "Keano",
+      "title_es": "Keano"
+    },
+    {
+      "name": "Stan Collymore",
+      "pos": "st",
+      "title": "Stan",
+      "title_es": "Stan"
+    }
+  ],
+  "Wolves": [
+    {
+      "name": "Rui Patrício",
+      "pos": "gk",
+      "title": "Rui",
+      "title_es": "Rui"
+    },
+    {
+      "name": "Billy Wright",
+      "pos": "def",
+      "title": "Billy",
+      "title_es": "Billy"
+    },
+    {
+      "name": "Rúben Neves",
+      "pos": "mid",
+      "title": "Rúben",
+      "title_es": "Rúben"
+    },
+    {
+      "name": "Steve Bull",
+      "pos": "st",
+      "title": "Bully",
+      "title_es": "Bully"
+    }
+  ],
+  "Leicester": [
+    {
+      "name": "Kasper Schmeichel",
+      "pos": "gk",
+      "title": "Kasper",
+      "title_es": "Kasper"
+    },
+    {
+      "name": "Wes Morgan",
+      "pos": "def",
+      "title": "Captain Morgan",
+      "title_es": "Capitán Morgan"
+    },
+    {
+      "name": "N'Golo Kanté",
+      "pos": "mid",
+      "title": "N'Golo",
+      "title_es": "N'Golo"
+    },
+    {
+      "name": "Jamie Vardy",
+      "pos": "st",
+      "title": "Vards",
+      "title_es": "Vards"
+    }
+  ],
+  "Leeds": [
+    {
+      "name": "Nigel Martyn",
+      "pos": "gk",
+      "title": "Nigel",
+      "title_es": "Nigel"
+    },
+    {
+      "name": "Norman Hunter",
+      "pos": "def",
+      "title": "Bites Yer Legs",
+      "title_es": "Bites Yer Legs"
+    },
+    {
+      "name": "Billy Bremner",
+      "pos": "mid",
+      "title": "King Billy",
+      "title_es": "Rey Billy"
+    },
+    {
+      "name": "Peter Lorimer",
+      "pos": "st",
+      "title": "Lash",
+      "title_es": "Lash"
+    }
+  ],
+  "Sunderland": [
+    {
+      "name": "Jimmy Montgomery",
+      "pos": "gk",
+      "title": "Monty",
+      "title_es": "Monty"
+    },
+    {
+      "name": "Charlie Hurley",
+      "pos": "def",
+      "title": "The King",
+      "title_es": "El Rey"
+    },
+    {
+      "name": "Julio Arca",
+      "pos": "mid",
+      "title": "Julio",
+      "title_es": "Julio"
+    },
+    {
+      "name": "Kevin Phillips",
+      "pos": "st",
+      "title": "Super Kev",
+      "title_es": "Súper Kev"
+    }
+  ],
+  "Flamengo": [
+    {
+      "name": "Júlio César",
+      "pos": "gk",
+      "title": "The Emperor",
+      "title_es": "El Emperador"
+    },
+    {
+      "name": "Júnior",
+      "pos": "def",
+      "title": "Capacete",
+      "title_es": "Capacete"
+    },
+    {
+      "name": "Zico",
+      "pos": "mid",
+      "title": "The White Pelé",
+      "title_es": "El Pelé Blanco"
+    },
+    {
+      "name": "Gabigol",
+      "pos": "st",
+      "title": "Gabi",
+      "title_es": "Gabi"
+    }
+  ],
+  "Palmeiras": [
+    {
+      "name": "Marcos",
+      "pos": "gk",
+      "title": "Saint Marcos",
+      "title_es": "San Marcos"
+    },
+    {
+      "name": "Gustavo Gómez",
+      "pos": "def",
+      "title": "El Capitán",
+      "title_es": "El Capitán"
+    },
+    {
+      "name": "Ademir da Guia",
+      "pos": "mid",
+      "title": "The Divine",
+      "title_es": "El Divino"
+    },
+    {
+      "name": "Evair",
+      "pos": "st",
+      "title": "El Matador",
+      "title_es": "El Matador"
+    }
+  ],
+  "Botafogo": [
+    {
+      "name": "Jefferson",
+      "pos": "gk",
+      "title": "Jeff",
+      "title_es": "Jeff"
+    },
+    {
+      "name": "Nilton Santos",
+      "pos": "def",
+      "title": "The Encyclopedia",
+      "title_es": "La Enciclopedia"
+    },
+    {
+      "name": "Didi",
+      "pos": "mid",
+      "title": "Mr. Football",
+      "title_es": "Señor Fútbol"
+    },
+    {
+      "name": "Garrincha",
+      "pos": "st",
+      "title": "Joy of the People",
+      "title_es": "Alegría del Pueblo"
+    }
+  ],
+  "Corinthians": [
+    {
+      "name": "Cássio",
+      "pos": "gk",
+      "title": "Gigante",
+      "title_es": "Gigante"
+    },
+    {
+      "name": "Wladimir",
+      "pos": "def",
+      "title": "Wlad",
+      "title_es": "Wlad"
+    },
+    {
+      "name": "Sócrates",
+      "pos": "mid",
+      "title": "Doctor",
+      "title_es": "El Doctor"
+    },
+    {
+      "name": "Ronaldo",
+      "pos": "st",
+      "title": "O Fenômeno",
+      "title_es": "El Fenómeno"
+    }
+  ],
+  "São Paulo": [
+    {
+      "name": "Rogério Ceni",
+      "pos": "gk",
+      "title": "El Mito",
+      "title_es": "El Mito"
+    },
+    {
+      "name": "Diego Lugano",
+      "pos": "def",
+      "title": "El Dios",
+      "title_es": "El Dios"
+    },
+    {
+      "name": "Raí",
+      "pos": "mid",
+      "title": "Raí",
+      "title_es": "Raí"
+    },
+    {
+      "name": "Careca",
+      "pos": "st",
+      "title": "Careca",
+      "title_es": "Careca"
+    }
+  ],
+  "Atlético Mineiro": [
+    {
+      "name": "Victor",
+      "pos": "gk",
+      "title": "Saint Victor",
+      "title_es": "San Victor"
+    },
+    {
+      "name": "Réver",
+      "pos": "def",
+      "title": "Captain",
+      "title_es": "Capitán"
+    },
+    {
+      "name": "Ronaldinho",
+      "pos": "mid",
+      "title": "Bruxo",
+      "title_es": "El Brujo"
+    },
+    {
+      "name": "Reinaldo",
+      "pos": "st",
+      "title": "The King",
+      "title_es": "El Rey"
+    }
+  ],
+  "Fluminense": [
+    {
+      "name": "Castilho",
+      "pos": "gk",
+      "title": "Castilho",
+      "title_es": "Castilho"
+    },
+    {
+      "name": "Thiago Silva",
+      "pos": "def",
+      "title": "O Monstro",
+      "title_es": "El Monstruo"
+    },
+    {
+      "name": "Romerito",
+      "pos": "mid",
+      "title": "Romerito",
+      "title_es": "Romerito"
+    },
+    {
+      "name": "Fred",
+      "pos": "st",
+      "title": "Don Fredon",
+      "title_es": "Don Fredon"
+    }
+  ],
+  "Grêmio": [
+    {
+      "name": "Danrlei",
+      "pos": "gk",
+      "title": "Danrlei",
+      "title_es": "Danrlei"
+    },
+    {
+      "name": "Pedro Geromel",
+      "pos": "def",
+      "title": "Geromito",
+      "title_es": "Geromito"
+    },
+    {
+      "name": "Luan",
+      "pos": "mid",
+      "title": "Rei da América",
+      "title_es": "Rey de América"
+    },
+    {
+      "name": "Renato Gaúcho",
+      "pos": "st",
+      "title": "Renato",
+      "title_es": "Renato"
+    }
+  ],
+  "Santos": [
+    {
+      "name": "Gilmar",
+      "pos": "gk",
+      "title": "Gilmar",
+      "title_es": "Gilmar"
+    },
+    {
+      "name": "Carlos Alberto Torres",
+      "pos": "def",
+      "title": "The Captain",
+      "title_es": "El Capitán"
+    },
+    {
+      "name": "Zito",
+      "pos": "mid",
+      "title": "Zito",
+      "title_es": "Zito"
+    },
+    {
+      "name": "Pelé",
+      "pos": "st",
+      "title": "The King",
+      "title_es": "O Rei"
+    }
+  ],
+  "Internacional": [
+    {
+      "name": "Taffarel",
+      "pos": "gk",
+      "title": "Taffa",
+      "title_es": "Taffa"
+    },
+    {
+      "name": "Elías Figueroa",
+      "pos": "def",
+      "title": "Don Elías",
+      "title_es": "Don Elías"
+    },
+    {
+      "name": "Falcão",
+      "pos": "mid",
+      "title": "The King of Rome",
+      "title_es": "El Rey de Roma"
+    },
+    {
+      "name": "Fernandão",
+      "pos": "st",
+      "title": "Captain Fernandão",
+      "title_es": "Capitán Fernandão"
+    }
+  ],
+  "Cruzeiro": [
+    {
+      "name": "Dida",
+      "pos": "gk",
+      "title": "Dida",
+      "title_es": "Dida"
+    },
+    {
+      "name": "Juan Pablo Sorín",
+      "pos": "def",
+      "title": "Sorín",
+      "title_es": "Sorín"
+    },
+    {
+      "name": "Alex",
+      "pos": "mid",
+      "title": "Talento",
+      "title_es": "Talento"
+    },
+    {
+      "name": "Tostão",
+      "pos": "st",
+      "title": "Tostão",
+      "title_es": "Tostão"
+    }
+  ],
+  "Athletico-PR": [
+    {
+      "name": "Weverton",
+      "pos": "gk",
+      "title": "Weverton",
+      "title_es": "Weverton"
+    },
+    {
+      "name": "Thiago Heleno",
+      "pos": "def",
+      "title": "General",
+      "title_es": "El General"
+    },
+    {
+      "name": "Kléberson",
+      "pos": "mid",
+      "title": "Kléberson",
+      "title_es": "Kléberson"
+    },
+    {
+      "name": "Sicupira",
+      "pos": "st",
+      "title": "Sicupira",
+      "title_es": "Sicupira"
+    }
+  ],
+  "Bahia": [
+    {
+      "name": "Ronaldo",
+      "pos": "gk",
+      "title": "Ronaldo",
+      "title_es": "Ronaldo"
+    },
+    {
+      "name": "Roberto Rebouças",
+      "pos": "def",
+      "title": "Roberto",
+      "title_es": "Roberto"
+    },
+    {
+      "name": "Bobô",
+      "pos": "mid",
+      "title": "Bobô",
+      "title_es": "Bobô"
+    },
+    {
+      "name": "Nonato",
+      "pos": "st",
+      "title": "Nonato",
+      "title_es": "Nonato"
+    }
+  ],
+  "Vasco": [
+    {
+      "name": "Carlos Germano",
+      "pos": "gk",
+      "title": "Germano",
+      "title_es": "Germano"
+    },
+    {
+      "name": "Mauro Galvão",
+      "pos": "def",
+      "title": "Galvão",
+      "title_es": "Galvão"
+    },
+    {
+      "name": "Juninho Pernambucano",
+      "pos": "mid",
+      "title": "The Monumental",
+      "title_es": "El Monumental"
+    },
+    {
+      "name": "Roberto Dinamite",
+      "pos": "st",
+      "title": "Dinamite",
+      "title_es": "Dinamita"
+    }
+  ],
+  "Fortaleza": [
+    {
+      "name": "Marcelo Boeck",
+      "pos": "gk",
+      "title": "Boeck",
+      "title_es": "Boeck"
+    },
+    {
+      "name": "Tinga",
+      "pos": "def",
+      "title": "Tinga",
+      "title_es": "Tinga"
+    },
+    {
+      "name": "Yago Pikachu",
+      "pos": "mid",
+      "title": "Pikachu",
+      "title_es": "Pikachu"
+    },
+    {
+      "name": "Clodoaldo",
+      "pos": "st",
+      "title": "Clodô",
+      "title_es": "Clodô"
+    }
+  ],
+  "Bragantino": [
+    {
+      "name": "Cleiton",
+      "pos": "gk",
+      "title": "Cleiton",
+      "title_es": "Cleiton"
+    },
+    {
+      "name": "Léo Ortiz",
+      "pos": "def",
+      "title": "Ortiz",
+      "title_es": "Ortiz"
+    },
+    {
+      "name": "Claudinho",
+      "pos": "mid",
+      "title": "Claudinho",
+      "title_es": "Claudinho"
+    },
+    {
+      "name": "Ytalo",
+      "pos": "st",
+      "title": "Ytalo",
+      "title_es": "Ytalo"
+    }
+  ],
+  "Ceará": [
+    {
+      "name": "João Marcos",
+      "pos": "gk",
+      "title": "João Marcos",
+      "title_es": "João Marcos"
+    },
+    {
+      "name": "Luiz Otávio",
+      "pos": "def",
+      "title": "Xerife",
+      "title_es": "Xerife"
+    },
+    {
+      "name": "Ricardinho",
+      "pos": "mid",
+      "title": "Ricardinho",
+      "title_es": "Ricardinho"
+    },
+    {
+      "name": "Magno Alves",
+      "pos": "st",
+      "title": "Magnata",
+      "title_es": "Magnata"
+    }
+  ],
+  "Juventude": [
+    {
+      "name": "Michel Alves",
+      "pos": "gk",
+      "title": "Michel",
+      "title_es": "Michel"
+    },
+    {
+      "name": "Antônio Carlos Zago",
+      "pos": "def",
+      "title": "Zago",
+      "title_es": "Zago"
+    },
+    {
+      "name": "Nenê",
+      "pos": "mid",
+      "title": "Nenê",
+      "title_es": "Nenê"
+    },
+    {
+      "name": "Hugo",
+      "pos": "st",
+      "title": "Hugo",
+      "title_es": "Hugo"
+    }
+  ],
+  "Vitória": [
+    {
+      "name": "Dida",
+      "pos": "gk",
+      "title": "Dida",
+      "title_es": "Dida"
+    },
+    {
+      "name": "David Luiz",
+      "pos": "def",
+      "title": "David",
+      "title_es": "David"
+    },
+    {
+      "name": "Ramon Menezes",
+      "pos": "mid",
+      "title": "Ramon",
+      "title_es": "Ramon"
+    },
+    {
+      "name": "Bebeto",
+      "pos": "st",
+      "title": "Bebeto",
+      "title_es": "Bebeto"
+    }
+  ],
+  "Sport Recife": [
+    {
+      "name": "Magrão",
+      "pos": "gk",
+      "title": "Magrão",
+      "title_es": "Magrão"
+    },
+    {
+      "name": "Durval",
+      "pos": "def",
+      "title": "Durval",
+      "title_es": "Durval"
+    },
+    {
+      "name": "Diego Souza",
+      "pos": "mid",
+      "title": "DS87",
+      "title_es": "DS87"
+    },
+    {
+      "name": "Leonardo",
+      "pos": "st",
+      "title": "Leonardo",
+      "title_es": "Leonardo"
+    }
+  ],
+  "Sporting CP": [
+    {
+      "name": "Rui Patrício",
+      "pos": "gk",
+      "title": "São Patrício",
+      "title_es": "San Patrício"
+    },
+    {
+      "name": "Sebastián Coates",
+      "pos": "def",
+      "title": "El Capitán",
+      "title_es": "El Capitán"
+    },
+    {
+      "name": "Luís Figo",
+      "pos": "mid",
+      "title": "Figo",
+      "title_es": "Figo"
+    },
+    {
+      "name": "Fernando Peyroteo",
+      "pos": "st",
+      "title": "Peyroteo",
+      "title_es": "Peyroteo"
+    }
+  ],
+  "Benfica": [
+    {
+      "name": "Michel Preud'homme",
+      "pos": "gk",
+      "title": "Saint Michel",
+      "title_es": "San Michel"
+    },
+    {
+      "name": "Luisão",
+      "pos": "def",
+      "title": "Giraffe",
+      "title_es": "Jirafa"
+    },
+    {
+      "name": "Rui Costa",
+      "pos": "mid",
+      "title": "The Maestro",
+      "title_es": "El Maestro"
+    },
+    {
+      "name": "Eusébio",
+      "pos": "st",
+      "title": "The Black Panther",
+      "title_es": "La Pantera Negra"
+    }
+  ],
+  "Porto": [
+    {
+      "name": "Vítor Baía",
+      "pos": "gk",
+      "title": "Baía",
+      "title_es": "Baía"
+    },
+    {
+      "name": "Pepe",
+      "pos": "def",
+      "title": "Pepe",
+      "title_es": "Pepe"
+    },
+    {
+      "name": "Deco",
+      "pos": "mid",
+      "title": "The Magician",
+      "title_es": "El Mago"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "El Tigre",
+      "title_es": "El Tigre"
+    }
+  ],
+  "Braga": [
+    {
+      "name": "Matheus",
+      "pos": "gk",
+      "title": "Matheus",
+      "title_es": "Matheus"
+    },
+    {
+      "name": "Moisés",
+      "pos": "def",
+      "title": "Moisés",
+      "title_es": "Moisés"
+    },
+    {
+      "name": "Alan",
+      "pos": "mid",
+      "title": "Alan",
+      "title_es": "Alan"
+    },
+    {
+      "name": "Ricardo Horta",
+      "pos": "st",
+      "title": "Horta",
+      "title_es": "Horta"
+    }
+  ],
+  "Vitória Guimarães": [
+    {
+      "name": "Neno",
+      "pos": "gk",
+      "title": "Neno",
+      "title_es": "Neno"
+    },
+    {
+      "name": "Edmond Tapsoba",
+      "pos": "def",
+      "title": "Tapsoba",
+      "title_es": "Tapsoba"
+    },
+    {
+      "name": "Nuno Assis",
+      "pos": "mid",
+      "title": "Nuno",
+      "title_es": "Nuno"
+    },
+    {
+      "name": "Paulinho Cascavel",
+      "pos": "st",
+      "title": "Cascavel",
+      "title_es": "Cascavel"
+    }
+  ],
+  "Famalicão": [
+    {
+      "name": "Luiz Júnior",
+      "pos": "gk",
+      "title": "Luiz",
+      "title_es": "Luiz"
+    },
+    {
+      "name": "Riccieli",
+      "pos": "def",
+      "title": "Riccieli",
+      "title_es": "Riccieli"
+    },
+    {
+      "name": "Pedro Gonçalves",
+      "pos": "mid",
+      "title": "Pote",
+      "title_es": "Pote"
+    },
+    {
+      "name": "Toni Martínez",
+      "pos": "st",
+      "title": "Toni",
+      "title_es": "Toni"
+    }
+  ],
+  "Estoril": [
+    {
+      "name": "Vagner",
+      "pos": "gk",
+      "title": "Vagner",
+      "title_es": "Vagner"
+    },
+    {
+      "name": "Joãozinho",
+      "pos": "def",
+      "title": "Joãozinho",
+      "title_es": "Joãozinho"
+    },
+    {
+      "name": "Lica",
+      "pos": "mid",
+      "title": "Lica",
+      "title_es": "Lica"
+    },
+    {
+      "name": "Kléber",
+      "pos": "st",
+      "title": "Kléber",
+      "title_es": "Kléber"
+    }
+  ],
+  "Casa Pia": [
+    {
+      "name": "Ricardo Batista",
+      "pos": "gk",
+      "title": "Ricardo",
+      "title_es": "Ricardo"
+    },
+    {
+      "name": "Vasco Fernandes",
+      "pos": "def",
+      "title": "Vasco",
+      "title_es": "Vasco"
+    },
+    {
+      "name": "Neto",
+      "pos": "mid",
+      "title": "Neto",
+      "title_es": "Neto"
+    },
+    {
+      "name": "Saviour Godwin",
+      "pos": "st",
+      "title": "Godwin",
+      "title_es": "Godwin"
+    }
+  ],
+  "Santa Clara": [
+    {
+      "name": "Marco Pereira",
+      "pos": "gk",
+      "title": "Marco",
+      "title_es": "Marco"
+    },
+    {
+      "name": "Fábio Cardoso",
+      "pos": "def",
+      "title": "Fábio",
+      "title_es": "Fábio"
+    },
+    {
+      "name": "Osama Rashid",
+      "pos": "mid",
+      "title": "Rashid",
+      "title_es": "Rashid"
+    },
+    {
+      "name": "Thiago Santana",
+      "pos": "st",
+      "title": "Santana",
+      "title_es": "Santana"
+    }
+  ],
+  "Gil Vicente": [
+    {
+      "name": "Adriano Facchini",
+      "pos": "gk",
+      "title": "Adriano",
+      "title_es": "Adriano"
+    },
+    {
+      "name": "Rúben Fernandes",
+      "pos": "def",
+      "title": "Rúben",
+      "title_es": "Rúben"
+    },
+    {
+      "name": "Vítor Gonçalves",
+      "pos": "mid",
+      "title": "Vítor",
+      "title_es": "Vítor"
+    },
+    {
+      "name": "Fran Navarro",
+      "pos": "st",
+      "title": "El Toro",
+      "title_es": "El Toro"
+    }
+  ],
+  "Rio Ave": [
+    {
+      "name": "Cássio",
+      "pos": "gk",
+      "title": "Cássio",
+      "title_es": "Cássio"
+    },
+    {
+      "name": "Marcelo",
+      "pos": "def",
+      "title": "Marcelo",
+      "title_es": "Marcelo"
+    },
+    {
+      "name": "Tarantini",
+      "pos": "mid",
+      "title": "Tarantini",
+      "title_es": "Tarantini"
+    },
+    {
+      "name": "Mehdi Taremi",
+      "pos": "st",
+      "title": "Taremi",
+      "title_es": "Taremi"
+    }
+  ],
+  "Moreirense": [
+    {
+      "name": "Jhonatan",
+      "pos": "gk",
+      "title": "Jhonatan",
+      "title_es": "Jhonatan"
+    },
+    {
+      "name": "João Aurélio",
+      "pos": "def",
+      "title": "João",
+      "title_es": "João"
+    },
+    {
+      "name": "Filipe Soares",
+      "pos": "mid",
+      "title": "Filipe",
+      "title_es": "Filipe"
+    },
+    {
+      "name": "Nenê",
+      "pos": "st",
+      "title": "Nenê",
+      "title_es": "Nenê"
+    }
+  ],
+  "Arouca": [
+    {
+      "name": "Bracali",
+      "pos": "gk",
+      "title": "Bracali",
+      "title_es": "Bracali"
+    },
+    {
+      "name": "Sema Velázquez",
+      "pos": "def",
+      "title": "Sema",
+      "title_es": "Sema"
+    },
+    {
+      "name": "David Simão",
+      "pos": "mid",
+      "title": "David",
+      "title_es": "David"
+    },
+    {
+      "name": "Rafa Mújica",
+      "pos": "st",
+      "title": "Rafa",
+      "title_es": "Rafa"
+    }
+  ],
+  "Nacional Madeira": [
+    {
+      "name": "Diego Benaglio",
+      "pos": "gk",
+      "title": "Diego",
+      "title_es": "Diego"
+    },
+    {
+      "name": "Zainadine Júnior",
+      "pos": "def",
+      "title": "Zaina",
+      "title_es": "Zaina"
+    },
+    {
+      "name": "Rúben Micael",
+      "pos": "mid",
+      "title": "Rúben",
+      "title_es": "Rúben"
+    },
+    {
+      "name": "Nenê",
+      "pos": "st",
+      "title": "Nenê",
+      "title_es": "Nenê"
+    }
+  ],
+  "Estrela": [
+    {
+      "name": "Tomislav Ivković",
+      "pos": "gk",
+      "title": "Tomislav",
+      "title_es": "Tomislav"
+    },
+    {
+      "name": "Jorge Andrade",
+      "pos": "def",
+      "title": "Jorge",
+      "title_es": "Jorge"
+    },
+    {
+      "name": "Rebelo",
+      "pos": "mid",
+      "title": "Rebelo",
+      "title_es": "Rebelo"
+    },
+    {
+      "name": "Paulo Alves",
+      "pos": "st",
+      "title": "Paulo",
+      "title_es": "Paulo"
+    }
+  ],
+  "Alverca": [
+    {
+      "name": "Yannick",
+      "pos": "gk",
+      "title": "Yannick",
+      "title_es": "Yannick"
+    },
+    {
+      "name": "Ricardo Carvalho",
+      "pos": "def",
+      "title": "Ricardo",
+      "title_es": "Ricardo"
+    },
+    {
+      "name": "Deco",
+      "pos": "mid",
+      "title": "Deco",
+      "title_es": "Deco"
+    },
+    {
+      "name": "Mantorras",
+      "pos": "st",
+      "title": "Mantorras",
+      "title_es": "Mantorras"
+    }
+  ],
+  "Farense": [
+    {
+      "name": "Peter Rufai",
+      "pos": "gk",
+      "title": "Rufai",
+      "title_es": "Rufai"
+    },
+    {
+      "name": "Jorge Soares",
+      "pos": "def",
+      "title": "Jorge",
+      "title_es": "Jorge"
+    },
+    {
+      "name": "Hajry Redouane",
+      "pos": "mid",
+      "title": "Hajry",
+      "title_es": "Hajry"
+    },
+    {
+      "name": "Hassan Nader",
+      "pos": "st",
+      "title": "Hassan",
+      "title_es": "Hassan"
+    }
+  ],
+  "AVS": [
+    {
+      "name": "Quim",
+      "pos": "gk",
+      "title": "Quim",
+      "title_es": "Quim"
+    },
+    {
+      "name": "Rodrigo Defendi",
+      "pos": "def",
+      "title": "Rodrigo",
+      "title_es": "Rodrigo"
+    },
+    {
+      "name": "Vítor Gomes",
+      "pos": "mid",
+      "title": "Vítor",
+      "title_es": "Vítor"
+    },
+    {
+      "name": "Derley",
+      "pos": "st",
+      "title": "Derley",
+      "title_es": "Derley"
+    }
+  ],
+  "Ajax": [
+    {
+      "name": "Edwin van der Sar",
+      "pos": "gk",
+      "title": "The Flying Dutchman",
+      "title_es": "El Holandés Volador"
+    },
+    {
+      "name": "Frank de Boer",
+      "pos": "def",
+      "title": "Frank",
+      "title_es": "Frank"
+    },
+    {
+      "name": "Johan Cruyff",
+      "pos": "mid",
+      "title": "El Flaco",
+      "title_es": "El Flaco"
+    },
+    {
+      "name": "Marco van Basten",
+      "pos": "st",
+      "title": "San Marco",
+      "title_es": "San Marco"
+    }
+  ],
+  "PSV": [
+    {
+      "name": "Hans van Breukelen",
+      "pos": "gk",
+      "title": "De Breuk",
+      "title_es": "De Breuk"
+    },
+    {
+      "name": "Ronald Koeman",
+      "pos": "def",
+      "title": "Tintin",
+      "title_es": "Tintín"
+    },
+    {
+      "name": "Ruud Gullit",
+      "pos": "mid",
+      "title": "The Black Tulip",
+      "title_es": "El Tulipán Negro"
+    },
+    {
+      "name": "Romário",
+      "pos": "st",
+      "title": "Baixinho",
+      "title_es": "Baixinho"
+    }
+  ],
+  "Feyenoord": [
+    {
+      "name": "Eddy Pieters Graafland",
+      "pos": "gk",
+      "title": "Eddy PG",
+      "title_es": "Eddy PG"
+    },
+    {
+      "name": "Rinus Israël",
+      "pos": "def",
+      "title": "Iron Rinus",
+      "title_es": "Rinus de Hierro"
+    },
+    {
+      "name": "Willem van Hanegem",
+      "pos": "mid",
+      "title": "De Kromme",
+      "title_es": "De Kromme"
+    },
+    {
+      "name": "Dirk Kuyt",
+      "pos": "st",
+      "title": "Mr. Duracell",
+      "title_es": "Mr. Duracell"
+    }
+  ],
+  "AZ Alkmaar": [
+    {
+      "name": "Joey Didulica",
+      "pos": "gk",
+      "title": "Joey",
+      "title_es": "Joey"
+    },
+    {
+      "name": "Barry Opdam",
+      "pos": "def",
+      "title": "Barry",
+      "title_es": "Barry"
+    },
+    {
+      "name": "Kenneth Perez",
+      "pos": "mid",
+      "title": "Kenneth",
+      "title_es": "Kenneth"
+    },
+    {
+      "name": "Kees Kist",
+      "pos": "st",
+      "title": "Kees",
+      "title_es": "Kees"
+    }
+  ],
+  "Utrecht": [
+    {
+      "name": "Jan Willem van Ede",
+      "pos": "gk",
+      "title": "Jan",
+      "title_es": "Jan"
+    },
+    {
+      "name": "Ton du Chatinier",
+      "pos": "def",
+      "title": "Ton",
+      "title_es": "Ton"
+    },
+    {
+      "name": "Jean-Paul de Jong",
+      "pos": "mid",
+      "title": "Jean-Paul",
+      "title_es": "Jean-Paul"
+    },
+    {
+      "name": "Dries Mertens",
+      "pos": "st",
+      "title": "Ciro",
+      "title_es": "Ciro"
+    }
+  ],
+  "Twente": [
+    {
+      "name": "Sander Boschker",
+      "pos": "gk",
+      "title": "Sander",
+      "title_es": "Sander"
+    },
+    {
+      "name": "Douglas",
+      "pos": "def",
+      "title": "Douglas",
+      "title_es": "Douglas"
+    },
+    {
+      "name": "Wout Brama",
+      "pos": "mid",
+      "title": "Wout",
+      "title_es": "Wout"
+    },
+    {
+      "name": "Blaise Nkufo",
+      "pos": "st",
+      "title": "Blaise",
+      "title_es": "Blaise"
+    }
+  ],
+  "NEC": [
+    {
+      "name": "Gábor Babos",
+      "pos": "gk",
+      "title": "Gábor",
+      "title_es": "Gábor"
+    },
+    {
+      "name": "Patrick Pothuizen",
+      "pos": "def",
+      "title": "Potje",
+      "title_es": "Potje"
+    },
+    {
+      "name": "Lasse Schöne",
+      "pos": "mid",
+      "title": "Lasse",
+      "title_es": "Lasse"
+    },
+    {
+      "name": "Björn Vleminckx",
+      "pos": "st",
+      "title": "The Blonde Arrow",
+      "title_es": "La Flecha Rubia"
+    }
+  ],
+  "Go Ahead Eagles": [
+    {
+      "name": "Nico van Zoghel",
+      "pos": "gk",
+      "title": "Nico",
+      "title_es": "Nico"
+    },
+    {
+      "name": "Dick Schneider",
+      "pos": "def",
+      "title": "Dick",
+      "title_es": "Dick"
+    },
+    {
+      "name": "Paul Bosvelt",
+      "pos": "mid",
+      "title": "Paul",
+      "title_es": "Paul"
+    },
+    {
+      "name": "Ruud Geels",
+      "pos": "st",
+      "title": "Ruud",
+      "title_es": "Ruud"
+    }
+  ],
+  "Sparta Rotterdam": [
+    {
+      "name": "Pim Doesburg",
+      "pos": "gk",
+      "title": "Pim",
+      "title_es": "Pim"
+    },
+    {
+      "name": "Danny Blind",
+      "pos": "def",
+      "title": "Danny",
+      "title_es": "Danny"
+    },
+    {
+      "name": "Louis van Gaal",
+      "pos": "mid",
+      "title": "The Iron Tulip",
+      "title_es": "El Tulipán de Hierro"
+    },
+    {
+      "name": "Tonny van Ede",
+      "pos": "st",
+      "title": "Tonny",
+      "title_es": "Tonny"
+    }
+  ],
+  "Heerenveen": [
+    {
+      "name": "Brian Vandenbussche",
+      "pos": "gk",
+      "title": "Brian",
+      "title_es": "Brian"
+    },
+    {
+      "name": "Petter Hansson",
+      "pos": "def",
+      "title": "Petter",
+      "title_es": "Petter"
+    },
+    {
+      "name": "Mika Väyrynen",
+      "pos": "mid",
+      "title": "Mika",
+      "title_es": "Mika"
+    },
+    {
+      "name": "Afonso Alves",
+      "pos": "st",
+      "title": "Afonso",
+      "title_es": "Afonso"
+    }
+  ],
+  "Groningen": [
+    {
+      "name": "Sergio Padt",
+      "pos": "gk",
+      "title": "Sergio",
+      "title_es": "Sergio"
+    },
+    {
+      "name": "Virgil van Dijk",
+      "pos": "def",
+      "title": "Virgil",
+      "title_es": "Virgil"
+    },
+    {
+      "name": "Arjen Robben",
+      "pos": "mid",
+      "title": "The Flying Dutchman",
+      "title_es": "El Holandés Volador"
+    },
+    {
+      "name": "Luis Suárez",
+      "pos": "st",
+      "title": "El Pistolero",
+      "title_es": "El Pistolero"
+    }
+  ],
+  "Willem II": [
+    {
+      "name": "Geert De Vlieger",
+      "pos": "gk",
+      "title": "Geert",
+      "title_es": "Geert"
+    },
+    {
+      "name": "Joris Mathijsen",
+      "pos": "def",
+      "title": "Joris",
+      "title_es": "Joris"
+    },
+    {
+      "name": "Frenkie de Jong",
+      "pos": "mid",
+      "title": "Frenkie",
+      "title_es": "Frenkie"
+    },
+    {
+      "name": "Fran Sol",
+      "pos": "st",
+      "title": "Fran",
+      "title_es": "Fran"
+    }
+  ],
+  "Heracles": [
+    {
+      "name": "Brian van Loo",
+      "pos": "gk",
+      "title": "Brian",
+      "title_es": "Brian"
+    },
+    {
+      "name": "Antoine van der Linden",
+      "pos": "def",
+      "title": "Antoine",
+      "title_es": "Antoine"
+    },
+    {
+      "name": "Thomas Bruns",
+      "pos": "mid",
+      "title": "Thomas",
+      "title_es": "Thomas"
+    },
+    {
+      "name": "Everton",
+      "pos": "st",
+      "title": "Everton",
+      "title_es": "Everton"
+    }
+  ],
+  "NAC Breda": [
+    {
+      "name": "Jelle ten Rouwelaar",
+      "pos": "gk",
+      "title": "Jelle",
+      "title_es": "Jelle"
+    },
+    {
+      "name": "Rob Penders",
+      "pos": "def",
+      "title": "Rob",
+      "title_es": "Rob"
+    },
+    {
+      "name": "Nemanja Gudelj",
+      "pos": "mid",
+      "title": "Nemanja",
+      "title_es": "Nemanja"
+    },
+    {
+      "name": "Pierre van Hooijdonk",
+      "pos": "st",
+      "title": "Pi-Air",
+      "title_es": "Pi-Air"
+    }
+  ],
+  "Fortuna Sittard": [
+    {
+      "name": "Ruud Hesp",
+      "pos": "gk",
+      "title": "Ruud",
+      "title_es": "Ruud"
+    },
+    {
+      "name": "Kevin Hofland",
+      "pos": "def",
+      "title": "Kevin",
+      "title_es": "Kevin"
+    },
+    {
+      "name": "Mark van Bommel",
+      "pos": "mid",
+      "title": "Mark",
+      "title_es": "Mark"
+    },
+    {
+      "name": "Burak Yılmaz",
+      "pos": "st",
+      "title": "Kral",
+      "title_es": "Kral"
+    }
+  ],
+  "Zwolle": [
+    {
+      "name": "Diederik Boer",
+      "pos": "gk",
+      "title": "Diederik",
+      "title_es": "Diederik"
+    },
+    {
+      "name": "Bram van Polen",
+      "pos": "def",
+      "title": "Bram",
+      "title_es": "Bram"
+    },
+    {
+      "name": "Jesper Drost",
+      "pos": "mid",
+      "title": "Jesper",
+      "title_es": "Jesper"
+    },
+    {
+      "name": "Stefan Nijland",
+      "pos": "st",
+      "title": "Stefan",
+      "title_es": "Stefan"
+    }
+  ],
+  "Volendam": [
+    {
+      "name": "Edwin Zoetebier",
+      "pos": "gk",
+      "title": "Edwin",
+      "title_es": "Edwin"
+    },
+    {
+      "name": "Keje Molenaar",
+      "pos": "def",
+      "title": "Keje",
+      "title_es": "Keje"
+    },
+    {
+      "name": "Wim Jonk",
+      "pos": "mid",
+      "title": "Wim",
+      "title_es": "Wim"
+    },
+    {
+      "name": "Jack Tuyp",
+      "pos": "st",
+      "title": "Jack",
+      "title_es": "Jack"
+    }
+  ],
+  "Telstar": [
+    {
+      "name": "Heinz Stuy",
+      "pos": "gk",
+      "title": "Heinz",
+      "title_es": "Heinz"
+    },
+    {
+      "name": "Louis van Gaal",
+      "pos": "def",
+      "title": "Louis",
+      "title_es": "Louis"
+    },
+    {
+      "name": "Jerdy Schouten",
+      "pos": "mid",
+      "title": "Jerdy",
+      "title_es": "Jerdy"
+    },
+    {
+      "name": "Glynor Plet",
+      "pos": "st",
+      "title": "Glynor",
+      "title_es": "Glynor"
+    }
+  ],
+  "Club Brugge": [
+    {
+      "name": "Dany Verlinden",
+      "pos": "gk",
+      "title": "The Wall",
+      "title_es": "El Muro"
+    },
+    {
+      "name": "Timmy Simons",
+      "pos": "def",
+      "title": "Timmy",
+      "title_es": "Timmy"
+    },
+    {
+      "name": "Ruud Vormer",
+      "pos": "mid",
+      "title": "Ruud",
+      "title_es": "Ruud"
+    },
+    {
+      "name": "Gert Verheyen",
+      "pos": "st",
+      "title": "Gert",
+      "title_es": "Gert"
+    }
+  ],
+  "Union Saint-Gilloise": [
+    {
+      "name": "Anthony Moris",
+      "pos": "gk",
+      "title": "Anthony",
+      "title_es": "Anthony"
+    },
+    {
+      "name": "Christian Burgess",
+      "pos": "def",
+      "title": "Christian",
+      "title_es": "Christian"
+    },
+    {
+      "name": "Teddy Teuma",
+      "pos": "mid",
+      "title": "Teddy",
+      "title_es": "Teddy"
+    },
+    {
+      "name": "Dante Vanzeir",
+      "pos": "st",
+      "title": "Dante",
+      "title_es": "Dante"
+    }
+  ],
+  "Anderlecht": [
+    {
+      "name": "Filip De Wilde",
+      "pos": "gk",
+      "title": "Filip",
+      "title_es": "Filip"
+    },
+    {
+      "name": "Vincent Kompany",
+      "pos": "def",
+      "title": "Vince the Prince",
+      "title_es": "Vince el Príncipe"
+    },
+    {
+      "name": "Enzo Scifo",
+      "pos": "mid",
+      "title": "Enzo",
+      "title_es": "Enzo"
+    },
+    {
+      "name": "Romelu Lukaku",
+      "pos": "st",
+      "title": "Big Rom",
+      "title_es": "Big Rom"
+    }
+  ],
+  "Genk": [
+    {
+      "name": "Thibaut Courtois",
+      "pos": "gk",
+      "title": "The Wall",
+      "title_es": "El Muro"
+    },
+    {
+      "name": "Kalidou Koulibaly",
+      "pos": "def",
+      "title": "K2",
+      "title_es": "K2"
+    },
+    {
+      "name": "Kevin De Bruyne",
+      "pos": "mid",
+      "title": "KDB",
+      "title_es": "KDB"
+    },
+    {
+      "name": "Wesley Sonck",
+      "pos": "st",
+      "title": "Wesley",
+      "title_es": "Wesley"
+    }
+  ],
+  "Gent": [
+    {
+      "name": "Matz Sels",
+      "pos": "gk",
+      "title": "Matz",
+      "title_es": "Matz"
+    },
+    {
+      "name": "Nana Asare",
+      "pos": "def",
+      "title": "Nana",
+      "title_es": "Nana"
+    },
+    {
+      "name": "Sven Kums",
+      "pos": "mid",
+      "title": "Sven",
+      "title_es": "Sven"
+    },
+    {
+      "name": "Laurent Depoitre",
+      "pos": "st",
+      "title": "Lolo",
+      "title_es": "Lolo"
+    }
+  ],
+  "Antwerp": [
+    {
+      "name": "Jean-Marie Pfaff",
+      "pos": "gk",
+      "title": "El Sympatico",
+      "title_es": "El Sympatico"
+    },
+    {
+      "name": "Toby Alderweireld",
+      "pos": "def",
+      "title": "Toby",
+      "title_es": "Toby"
+    },
+    {
+      "name": "Radja Nainggolan",
+      "pos": "mid",
+      "title": "Ninja",
+      "title_es": "Ninja"
+    },
+    {
+      "name": "Dieumerci Mbokani",
+      "pos": "st",
+      "title": "Dieumerci",
+      "title_es": "Dieumerci"
+    }
+  ],
+  "Standard Liège": [
+    {
+      "name": "Michel Preud'homme",
+      "pos": "gk",
+      "title": "Saint Michel",
+      "title_es": "San Michel"
+    },
+    {
+      "name": "Eric Gerets",
+      "pos": "def",
+      "title": "The Lion of Flanders",
+      "title_es": "El León de Flandes"
+    },
+    {
+      "name": "Axel Witsel",
+      "pos": "mid",
+      "title": "Axel",
+      "title_es": "Axel"
+    },
+    {
+      "name": "Milan Jovanović",
+      "pos": "st",
+      "title": "The Snake",
+      "title_es": "La Serpiente"
+    }
+  ],
+  "Charleroi": [
+    {
+      "name": "Nicolas Penneteau",
+      "pos": "gk",
+      "title": "Nico",
+      "title_es": "Nico"
+    },
+    {
+      "name": "Dorian Dessoleil",
+      "pos": "def",
+      "title": "Dorian",
+      "title_es": "Dorian"
+    },
+    {
+      "name": "Ryota Morioka",
+      "pos": "mid",
+      "title": "Ryota",
+      "title_es": "Ryota"
+    },
+    {
+      "name": "Kaveh Rezaei",
+      "pos": "st",
+      "title": "Kaveh",
+      "title_es": "Kaveh"
+    }
+  ],
+  "Mechelen": [
+    {
+      "name": "Jean-François Gillet",
+      "pos": "gk",
+      "title": "Jean-François",
+      "title_es": "Jean-François"
+    },
+    {
+      "name": "Seth De Witte",
+      "pos": "def",
+      "title": "Seth",
+      "title_es": "Seth"
+    },
+    {
+      "name": "Steven Defour",
+      "pos": "mid",
+      "title": "Steven",
+      "title_es": "Steven"
+    },
+    {
+      "name": "Marc Wilmots",
+      "pos": "st",
+      "title": "The Bull of Dongelberg",
+      "title_es": "El Toro de Dongelberg"
+    }
+  ],
+  "Cercle Brugge": [
+    {
+      "name": "Miguel Van Damme",
+      "pos": "gk",
+      "title": "Miguel",
+      "title_es": "Miguel"
+    },
+    {
+      "name": "Denis Viane",
+      "pos": "def",
+      "title": "Denis",
+      "title_es": "Denis"
+    },
+    {
+      "name": "Thomas Buffel",
+      "pos": "mid",
+      "title": "Thomas",
+      "title_es": "Thomas"
+    },
+    {
+      "name": "Ayase Ueda",
+      "pos": "st",
+      "title": "Ayase",
+      "title_es": "Ayase"
+    }
+  ],
+  "OH Leuven": [
+    {
+      "name": "Logan Bailly",
+      "pos": "gk",
+      "title": "Logan",
+      "title_es": "Logan"
+    },
+    {
+      "name": "Pierre-Yves Ngawa",
+      "pos": "def",
+      "title": "Pierre",
+      "title_es": "Pierre"
+    },
+    {
+      "name": "Mathieu Maertens",
+      "pos": "mid",
+      "title": "Mathieu",
+      "title_es": "Mathieu"
+    },
+    {
+      "name": "Thomas Henry",
+      "pos": "st",
+      "title": "Thomas",
+      "title_es": "Thomas"
+    }
+  ],
+  "Sint-Truiden": [
+    {
+      "name": "Simon Mignolet",
+      "pos": "gk",
+      "title": "Simon",
+      "title_es": "Simon"
+    },
+    {
+      "name": "Daiki Hashioka",
+      "pos": "def",
+      "title": "Daiki",
+      "title_es": "Daiki"
+    },
+    {
+      "name": "Rob Schoofs",
+      "pos": "mid",
+      "title": "Rob",
+      "title_es": "Rob"
+    },
+    {
+      "name": "Yuma Suzuki",
+      "pos": "st",
+      "title": "Yuma",
+      "title_es": "Yuma"
+    }
+  ],
+  "Westerlo": [
+    {
+      "name": "Sinan Bolat",
+      "pos": "gk",
+      "title": "Sinan",
+      "title_es": "Sinan"
+    },
+    {
+      "name": "Jef Delen",
+      "pos": "def",
+      "title": "Jef",
+      "title_es": "Jef"
+    },
+    {
+      "name": "Lukas Van Eenoo",
+      "pos": "mid",
+      "title": "Lukas",
+      "title_es": "Lukas"
+    },
+    {
+      "name": "Nacer Chadli",
+      "pos": "st",
+      "title": "Nacer",
+      "title_es": "Nacer"
+    }
+  ],
+  "Zulte Waregem": [
+    {
+      "name": "Sammy Bossut",
+      "pos": "gk",
+      "title": "Sammy",
+      "title_es": "Sammy"
+    },
+    {
+      "name": "Olivier Deschacht",
+      "pos": "def",
+      "title": "Olivier",
+      "title_es": "Olivier"
+    },
+    {
+      "name": "Franck Berrier",
+      "pos": "mid",
+      "title": "Franck",
+      "title_es": "Franck"
+    },
+    {
+      "name": "Mbaye Leye",
+      "pos": "st",
+      "title": "Mbaye",
+      "title_es": "Mbaye"
+    }
+  ],
+  "Dender": [
+    {
+      "name": "Michaël Cordier",
+      "pos": "gk",
+      "title": "Michaël",
+      "title_es": "Michaël"
+    },
+    {
+      "name": "Filip Daems",
+      "pos": "def",
+      "title": "Filip",
+      "title_es": "Filip"
+    },
+    {
+      "name": "Steven De Petter",
+      "pos": "mid",
+      "title": "Steven",
+      "title_es": "Steven"
+    },
+    {
+      "name": "Henri Munyaneza",
+      "pos": "st",
+      "title": "Henri",
+      "title_es": "Henri"
+    }
+  ],
+  "Inter": [
+    {
+      "name": "Walter Zenga",
+      "pos": "gk",
+      "title": "Spider",
+      "title_es": "El Hombre Araña"
+    },
+    {
+      "name": "Javier Zanetti",
+      "pos": "def",
+      "title": "Il Capitano",
+      "title_es": "Il Capitano"
+    },
+    {
+      "name": "Lothar Matthäus",
+      "pos": "mid",
+      "title": "Lothar",
+      "title_es": "Lothar"
+    },
+    {
+      "name": "Ronaldo",
+      "pos": "st",
+      "title": "Il Fenomeno",
+      "title_es": "El Fenómeno"
+    }
+  ],
+  "Napoli": [
+    {
+      "name": "Dino Zoff",
+      "pos": "gk",
+      "title": "Dino",
+      "title_es": "Dino"
+    },
+    {
+      "name": "Ciro Ferrara",
+      "pos": "def",
+      "title": "Ciro",
+      "title_es": "Ciro"
+    },
+    {
+      "name": "Diego Maradona",
+      "pos": "mid",
+      "title": "El Pibe de Oro",
+      "title_es": "El Pibe de Oro"
+    },
+    {
+      "name": "Dries Mertens",
+      "pos": "st",
+      "title": "Ciro",
+      "title_es": "Ciro"
+    }
+  ],
+  "Juventus": [
+    {
+      "name": "Gianluigi Buffon",
+      "pos": "gk",
+      "title": "Gigi",
+      "title_es": "Gigi"
+    },
+    {
+      "name": "Giorgio Chiellini",
+      "pos": "def",
+      "title": "King Kong",
+      "title_es": "King Kong"
+    },
+    {
+      "name": "Michel Platini",
+      "pos": "mid",
+      "title": "Le Roi",
+      "title_es": "Le Roi"
+    },
+    {
+      "name": "Alessandro Del Piero",
+      "pos": "st",
+      "title": "Pinturicchio",
+      "title_es": "Pinturicchio"
+    }
+  ],
+  "Milan": [
+    {
+      "name": "Dida",
+      "pos": "gk",
+      "title": "Dida",
+      "title_es": "Dida"
+    },
+    {
+      "name": "Paolo Maldini",
+      "pos": "def",
+      "title": "Il Capitano",
+      "title_es": "Il Capitano"
+    },
+    {
+      "name": "Ruud Gullit",
+      "pos": "mid",
+      "title": "The Black Tulip",
+      "title_es": "El Tulipán Negro"
+    },
+    {
+      "name": "Marco van Basten",
+      "pos": "st",
+      "title": "The Swan of Utrecht",
+      "title_es": "El Cisne de Utrecht"
+    }
+  ],
+  "Atalanta": [
+    {
+      "name": "Pierluigi Gollini",
+      "pos": "gk",
+      "title": "Gollo",
+      "title_es": "Gollo"
+    },
+    {
+      "name": "Rafael Tolói",
+      "pos": "def",
+      "title": "Tolói",
+      "title_es": "Tolói"
+    },
+    {
+      "name": "Alejandro Gómez",
+      "pos": "mid",
+      "title": "Papu",
+      "title_es": "Papu"
+    },
+    {
+      "name": "Duván Zapata",
+      "pos": "st",
+      "title": "Duván",
+      "title_es": "Duván"
+    }
+  ],
+  "Roma": [
+    {
+      "name": "Alisson",
+      "pos": "gk",
+      "title": "Alisson",
+      "title_es": "Alisson"
+    },
+    {
+      "name": "Aldair",
+      "pos": "def",
+      "title": "Pluto",
+      "title_es": "Pluto"
+    },
+    {
+      "name": "Francesco Totti",
+      "pos": "mid",
+      "title": "Il Capitano",
+      "title_es": "Il Capitano"
+    },
+    {
+      "name": "Gabriel Batistuta",
+      "pos": "st",
+      "title": "Batigol",
+      "title_es": "Batigol"
+    }
+  ],
+  "Lazio": [
+    {
+      "name": "Angelo Peruzzi",
+      "pos": "gk",
+      "title": "Tyson",
+      "title_es": "Tyson"
+    },
+    {
+      "name": "Alessandro Nesta",
+      "pos": "def",
+      "title": "Sandro",
+      "title_es": "Sandro"
+    },
+    {
+      "name": "Pavel Nedvěd",
+      "pos": "mid",
+      "title": "The Czech Fury",
+      "title_es": "La Furia Checa"
+    },
+    {
+      "name": "Ciro Immobile",
+      "pos": "st",
+      "title": "Ciro",
+      "title_es": "Ciro"
+    }
+  ],
+  "Fiorentina": [
+    {
+      "name": "Francesco Toldo",
+      "pos": "gk",
+      "title": "Toldo",
+      "title_es": "Toldo"
+    },
+    {
+      "name": "Daniel Passarella",
+      "pos": "def",
+      "title": "El Gran Capitán",
+      "title_es": "El Gran Capitán"
+    },
+    {
+      "name": "Giancarlo Antognoni",
+      "pos": "mid",
+      "title": "The Boy Looking at the Stars",
+      "title_es": "El Chico Que Miraba a las Estrellas"
+    },
+    {
+      "name": "Gabriel Batistuta",
+      "pos": "st",
+      "title": "Batigol",
+      "title_es": "Batigol"
+    }
+  ],
+  "Bologna": [
+    {
+      "name": "Gianluca Pagliuca",
+      "pos": "gk",
+      "title": "Pagliuca",
+      "title_es": "Pagliuca"
+    },
+    {
+      "name": "Tazio Roversi",
+      "pos": "def",
+      "title": "Tazio",
+      "title_es": "Tazio"
+    },
+    {
+      "name": "Giacomo Bulgarelli",
+      "pos": "mid",
+      "title": "Bulgarelli",
+      "title_es": "Bulgarelli"
+    },
+    {
+      "name": "Giuseppe Signori",
+      "pos": "st",
+      "title": "Beppe",
+      "title_es": "Beppe"
+    }
+  ],
+  "Torino": [
+    {
+      "name": "Valerio Bacigalupo",
+      "pos": "gk",
+      "title": "Bacigalupo",
+      "title_es": "Bacigalupo"
+    },
+    {
+      "name": "Giorgio Ferrini",
+      "pos": "def",
+      "title": "Capitano",
+      "title_es": "Capitán"
+    },
+    {
+      "name": "Valentino Mazzola",
+      "pos": "mid",
+      "title": "Valentino",
+      "title_es": "Valentino"
+    },
+    {
+      "name": "Paolo Pulici",
+      "pos": "st",
+      "title": "Puliciclone",
+      "title_es": "Puliciclone"
+    }
+  ],
+  "Como": [
+    {
+      "name": "Silvano Martina",
+      "pos": "gk",
+      "title": "Martina",
+      "title_es": "Martina"
+    },
+    {
+      "name": "Pietro Vierchowod",
+      "pos": "def",
+      "title": "The Tsar",
+      "title_es": "El Zar"
+    },
+    {
+      "name": "Gianfranco Matteoli",
+      "pos": "mid",
+      "title": "Matteoli",
+      "title_es": "Matteoli"
+    },
+    {
+      "name": "Stefano Borgonovo",
+      "pos": "st",
+      "title": "Borgonovo",
+      "title_es": "Borgonovo"
+    }
+  ],
+  "Udinese": [
+    {
+      "name": "Samir Handanović",
+      "pos": "gk",
+      "title": "Batman",
+      "title_es": "Batman"
+    },
+    {
+      "name": "Valerio Bertotto",
+      "pos": "def",
+      "title": "Bertotto",
+      "title_es": "Bertotto"
+    },
+    {
+      "name": "Zico",
+      "pos": "mid",
+      "title": "The White Pelé",
+      "title_es": "El Pelé Blanco"
+    },
+    {
+      "name": "Antonio Di Natale",
+      "pos": "st",
+      "title": "Totò",
+      "title_es": "Totò"
+    }
+  ],
+  "Genoa": [
+    {
+      "name": "Mattia Perin",
+      "pos": "gk",
+      "title": "Perin",
+      "title_es": "Perin"
+    },
+    {
+      "name": "Gianluca Signorini",
+      "pos": "def",
+      "title": "Il Capitano",
+      "title_es": "Il Capitano"
+    },
+    {
+      "name": "Stefano Eranio",
+      "pos": "mid",
+      "title": "Eranio",
+      "title_es": "Eranio"
+    },
+    {
+      "name": "Diego Milito",
+      "pos": "st",
+      "title": "The Prince",
+      "title_es": "El Príncipe"
+    }
+  ],
+  "Parma": [
+    {
+      "name": "Gianluigi Buffon",
+      "pos": "gk",
+      "title": "Gigi",
+      "title_es": "Gigi"
+    },
+    {
+      "name": "Lilian Thuram",
+      "pos": "def",
+      "title": "Thuram",
+      "title_es": "Thuram"
+    },
+    {
+      "name": "Juan Sebastián Verón",
+      "pos": "mid",
+      "title": "La Brujita",
+      "title_es": "La Brujita"
+    },
+    {
+      "name": "Hernán Crespo",
+      "pos": "st",
+      "title": "Valdanito",
+      "title_es": "Valdanito"
+    }
+  ],
+  "Empoli": [
+    {
+      "name": "Davide Bassi",
+      "pos": "gk",
+      "title": "Bassi",
+      "title_es": "Bassi"
+    },
+    {
+      "name": "Daniele Rugani",
+      "pos": "def",
+      "title": "Rugani",
+      "title_es": "Rugani"
+    },
+    {
+      "name": "Riccardo Saponara",
+      "pos": "mid",
+      "title": "Saponara",
+      "title_es": "Saponara"
+    },
+    {
+      "name": "Massimo Maccarone",
+      "pos": "st",
+      "title": "Big Mac",
+      "title_es": "Big Mac"
+    }
+  ],
+  "Sassuolo": [
+    {
+      "name": "Andrea Consigli",
+      "pos": "gk",
+      "title": "Consigli",
+      "title_es": "Consigli"
+    },
+    {
+      "name": "Francesco Acerbi",
+      "pos": "def",
+      "title": "Acerbi",
+      "title_es": "Acerbi"
+    },
+    {
+      "name": "Domenico Berardi",
+      "pos": "mid",
+      "title": "Mimmo",
+      "title_es": "Mimmo"
+    },
+    {
+      "name": "Francesco Caputo",
+      "pos": "st",
+      "title": "Ciccio",
+      "title_es": "Ciccio"
+    }
+  ],
+  "Cagliari": [
+    {
+      "name": "Enrico Albertosi",
+      "pos": "gk",
+      "title": "Albertosi",
+      "title_es": "Albertosi"
+    },
+    {
+      "name": "Pierluigi Cera",
+      "pos": "def",
+      "title": "Cera",
+      "title_es": "Cera"
+    },
+    {
+      "name": "Gianfranco Zola",
+      "pos": "mid",
+      "title": "Magic Box",
+      "title_es": "Magic Box"
+    },
+    {
+      "name": "Luigi Riva",
+      "pos": "st",
+      "title": "Rombo di Tuono",
+      "title_es": "Rombo di Tuono"
+    }
+  ],
+  "Verona": [
+    {
+      "name": "Claudio Garella",
+      "pos": "gk",
+      "title": "Garella",
+      "title_es": "Garella"
+    },
+    {
+      "name": "Roberto Tricella",
+      "pos": "def",
+      "title": "Tricella",
+      "title_es": "Tricella"
+    },
+    {
+      "name": "Hans-Peter Briegel",
+      "pos": "mid",
+      "title": "The Roller",
+      "title_es": "La Apisonadora"
+    },
+    {
+      "name": "Luca Toni",
+      "pos": "st",
+      "title": "Toni",
+      "title_es": "Toni"
+    }
+  ],
+  "Lecce": [
+    {
+      "name": "Wladimiro Falcone",
+      "pos": "gk",
+      "title": "Falcone",
+      "title_es": "Falcone"
+    },
+    {
+      "name": "Lorenzo Stovini",
+      "pos": "def",
+      "title": "Stovini",
+      "title_es": "Stovini"
+    },
+    {
+      "name": "Guillermo Giacomazzi",
+      "pos": "mid",
+      "title": "Giacomazzi",
+      "title_es": "Giacomazzi"
+    },
+    {
+      "name": "Ernesto Chevantón",
+      "pos": "st",
+      "title": "Cheva",
+      "title_es": "Cheva"
+    }
+  ],
+  "Pisa": [
+    {
+      "name": "Alessandro Mannini",
+      "pos": "gk",
+      "title": "Mannini",
+      "title_es": "Mannini"
+    },
+    {
+      "name": "Henrik Larsen",
+      "pos": "def",
+      "title": "Larsen",
+      "title_es": "Larsen"
+    },
+    {
+      "name": "Dunga",
+      "pos": "mid",
+      "title": "Dunga",
+      "title_es": "Dunga"
+    },
+    {
+      "name": "Wim Kieft",
+      "pos": "st",
+      "title": "Kieft",
+      "title_es": "Kieft"
+    }
+  ],
+  "Cremonese": [
+    {
+      "name": "Michelangelo Rampulla",
+      "pos": "gk",
+      "title": "Rampulla",
+      "title_es": "Rampulla"
+    },
+    {
+      "name": "Corrado Verdelli",
+      "pos": "def",
+      "title": "Verdelli",
+      "title_es": "Verdelli"
+    },
+    {
+      "name": "Attilio Lombardo",
+      "pos": "mid",
+      "title": "The Bald Eagle",
+      "title_es": "El Águila Calva"
+    },
+    {
+      "name": "Gianluca Vialli",
+      "pos": "st",
+      "title": "Vialli",
+      "title_es": "Vialli"
+    }
+  ],
+  "Bayern Munich": [
+    {
+      "name": "Oliver Kahn",
+      "pos": "gk",
+      "title": "Der Titan",
+      "title_es": "El Titán"
+    },
+    {
+      "name": "Franz Beckenbauer",
+      "pos": "def",
+      "title": "Der Kaiser",
+      "title_es": "El Káiser"
+    },
+    {
+      "name": "Lothar Matthäus",
+      "pos": "mid",
+      "title": "Lothar",
+      "title_es": "Lothar"
+    },
+    {
+      "name": "Gerd Müller",
+      "pos": "st",
+      "title": "Der Bomber",
+      "title_es": "El Bombardero"
+    }
+  ],
+  "Bayer Leverkusen": [
+    {
+      "name": "Rüdiger Vollborn",
+      "pos": "gk",
+      "title": "Rüdiger",
+      "title_es": "Rüdiger"
+    },
+    {
+      "name": "Jens Nowotny",
+      "pos": "def",
+      "title": "Jens",
+      "title_es": "Jens"
+    },
+    {
+      "name": "Michael Ballack",
+      "pos": "mid",
+      "title": "Capitano",
+      "title_es": "Capitano"
+    },
+    {
+      "name": "Ulf Kirsten",
+      "pos": "st",
+      "title": "Der Schwatte",
+      "title_es": "El Negro"
+    }
+  ],
+  "Borussia Dortmund": [
+    {
+      "name": "Roman Weidenfeller",
+      "pos": "gk",
+      "title": "Roman",
+      "title_es": "Roman"
+    },
+    {
+      "name": "Mats Hummels",
+      "pos": "def",
+      "title": "Mats",
+      "title_es": "Mats"
+    },
+    {
+      "name": "Marco Reus",
+      "pos": "mid",
+      "title": "Woodyinho",
+      "title_es": "Woodyinho"
+    },
+    {
+      "name": "Robert Lewandowski",
+      "pos": "st",
+      "title": "Lewy",
+      "title_es": "Lewy"
+    }
+  ],
+  "RB Leipzig": [
+    {
+      "name": "Péter Gulácsi",
+      "pos": "gk",
+      "title": "Pete",
+      "title_es": "Pete"
+    },
+    {
+      "name": "Dayot Upamecano",
+      "pos": "def",
+      "title": "Upa",
+      "title_es": "Upa"
+    },
+    {
+      "name": "Emil Forsberg",
+      "pos": "mid",
+      "title": "Emil",
+      "title_es": "Emil"
+    },
+    {
+      "name": "Timo Werner",
+      "pos": "st",
+      "title": "Turbo Timo",
+      "title_es": "Turbo Timo"
+    }
+  ],
+  "Stuttgart": [
+    {
+      "name": "Timo Hildebrand",
+      "pos": "gk",
+      "title": "Timo",
+      "title_es": "Timo"
+    },
+    {
+      "name": "Karlheinz Förster",
+      "pos": "def",
+      "title": "Förster",
+      "title_es": "Förster"
+    },
+    {
+      "name": "Krassimir Balakov",
+      "pos": "mid",
+      "title": "Bala",
+      "title_es": "Bala"
+    },
+    {
+      "name": "Mario Gómez",
+      "pos": "st",
+      "title": "Super Mario",
+      "title_es": "Súper Mario"
+    }
+  ],
+  "Eintracht Frankfurt": [
+    {
+      "name": "Kevin Trapp",
+      "pos": "gk",
+      "title": "Trapp",
+      "title_es": "Trapp"
+    },
+    {
+      "name": "Karl-Heinz Körbel",
+      "pos": "def",
+      "title": "Charly",
+      "title_es": "Charly"
+    },
+    {
+      "name": "Bernd Hölzenbein",
+      "pos": "mid",
+      "title": "Bernd",
+      "title_es": "Bernd"
+    },
+    {
+      "name": "Anthony Yeboah",
+      "pos": "st",
+      "title": "Tony",
+      "title_es": "Tony"
+    }
+  ],
+  "Wolfsburg": [
+    {
+      "name": "Diego Benaglio",
+      "pos": "gk",
+      "title": "Diego",
+      "title_es": "Diego"
+    },
+    {
+      "name": "Marcel Schäfer",
+      "pos": "def",
+      "title": "Schäfer",
+      "title_es": "Schäfer"
+    },
+    {
+      "name": "Kevin De Bruyne",
+      "pos": "mid",
+      "title": "KDB",
+      "title_es": "KDB"
+    },
+    {
+      "name": "Edin Džeko",
+      "pos": "st",
+      "title": "The Bosnian Diamond",
+      "title_es": "El Diamante Bosnio"
+    }
+  ],
+  "Gladbach": [
+    {
+      "name": "Marc-André ter Stegen",
+      "pos": "gk",
+      "title": "Marc",
+      "title_es": "Marc"
+    },
+    {
+      "name": "Berti Vogts",
+      "pos": "def",
+      "title": "Der Terrier",
+      "title_es": "El Terrier"
+    },
+    {
+      "name": "Günter Netzer",
+      "pos": "mid",
+      "title": "Günter",
+      "title_es": "Günter"
+    },
+    {
+      "name": "Jupp Heynckes",
+      "pos": "st",
+      "title": "Don Jupp",
+      "title_es": "Don Jupp"
+    }
+  ],
+  "Freiburg": [
+    {
+      "name": "Richard Golz",
+      "pos": "gk",
+      "title": "Golz",
+      "title_es": "Golz"
+    },
+    {
+      "name": "Christian Günter",
+      "pos": "def",
+      "title": "Captain Günter",
+      "title_es": "Capitán Günter"
+    },
+    {
+      "name": "Vincenzo Grifo",
+      "pos": "mid",
+      "title": "Grifo",
+      "title_es": "Grifo"
+    },
+    {
+      "name": "Nils Petersen",
+      "pos": "st",
+      "title": "Der Joker",
+      "title_es": "El Joker"
+    }
+  ],
+  "Hoffenheim": [
+    {
+      "name": "Oliver Baumann",
+      "pos": "gk",
+      "title": "Baumann",
+      "title_es": "Baumann"
+    },
+    {
+      "name": "Andreas Beck",
+      "pos": "def",
+      "title": "Beck",
+      "title_es": "Beck"
+    },
+    {
+      "name": "Sejad Salihović",
+      "pos": "mid",
+      "title": "Salihović",
+      "title_es": "Salihović"
+    },
+    {
+      "name": "Andrej Kramarić",
+      "pos": "st",
+      "title": "Kramarić",
+      "title_es": "Kramarić"
+    }
+  ],
+  "Mainz": [
+    {
+      "name": "Dimo Wache",
+      "pos": "gk",
+      "title": "Wache",
+      "title_es": "Wache"
+    },
+    {
+      "name": "Nikolče Noveski",
+      "pos": "def",
+      "title": "Noveski",
+      "title_es": "Noveski"
+    },
+    {
+      "name": "Andreas Ivanschitz",
+      "pos": "mid",
+      "title": "Ivanschitz",
+      "title_es": "Ivanschitz"
+    },
+    {
+      "name": "Shinji Okazaki",
+      "pos": "st",
+      "title": "Okazaki",
+      "title_es": "Okazaki"
+    }
+  ],
+  "Union Berlin": [
+    {
+      "name": "Rafał Gikiewicz",
+      "pos": "gk",
+      "title": "Giki",
+      "title_es": "Giki"
+    },
+    {
+      "name": "Christopher Trimmel",
+      "pos": "def",
+      "title": "Trimmi",
+      "title_es": "Trimmi"
+    },
+    {
+      "name": "Max Kruse",
+      "pos": "mid",
+      "title": "Kruse",
+      "title_es": "Kruse"
+    },
+    {
+      "name": "Taiwo Awoniyi",
+      "pos": "st",
+      "title": "Taiwo",
+      "title_es": "Taiwo"
+    }
+  ],
+  "Werder Bremen": [
+    {
+      "name": "Tim Wiese",
+      "pos": "gk",
+      "title": "Wiese",
+      "title_es": "Wiese"
+    },
+    {
+      "name": "Per Mertesacker",
+      "pos": "def",
+      "title": "Big Fucking German",
+      "title_es": "BFG"
+    },
+    {
+      "name": "Johan Micoud",
+      "pos": "mid",
+      "title": "Le Chef",
+      "title_es": "Le Chef"
+    },
+    {
+      "name": "Claudio Pizarro",
+      "pos": "st",
+      "title": "El Bombardero de los Andes",
+      "title_es": "El Bombardero"
+    }
+  ],
+  "Augsburg": [
+    {
+      "name": "Marwin Hitz",
+      "pos": "gk",
+      "title": "Hitz",
+      "title_es": "Hitz"
+    },
+    {
+      "name": "Jeffrey Gouweleeuw",
+      "pos": "def",
+      "title": "Gouweleeuw",
+      "title_es": "Gouweleeuw"
+    },
+    {
+      "name": "Daniel Baier",
+      "pos": "mid",
+      "title": "Baier",
+      "title_es": "Baier"
+    },
+    {
+      "name": "Raúl Bobadilla",
+      "pos": "st",
+      "title": "Bobadilla",
+      "title_es": "Bobadilla"
+    }
+  ],
+  "Köln": [
+    {
+      "name": "Harald Schumacher",
+      "pos": "gk",
+      "title": "Toni",
+      "title_es": "Toni"
+    },
+    {
+      "name": "Jonas Hector",
+      "pos": "def",
+      "title": "Hector",
+      "title_es": "Hector"
+    },
+    {
+      "name": "Wolfgang Overath",
+      "pos": "mid",
+      "title": "Overath",
+      "title_es": "Overath"
+    },
+    {
+      "name": "Lukas Podolski",
+      "pos": "st",
+      "title": "Poldi",
+      "title_es": "Poldi"
+    }
+  ],
+  "Hamburg": [
+    {
+      "name": "Uli Stein",
+      "pos": "gk",
+      "title": "Uli",
+      "title_es": "Uli"
+    },
+    {
+      "name": "Manfred Kaltz",
+      "pos": "def",
+      "title": "Manni",
+      "title_es": "Manni"
+    },
+    {
+      "name": "Felix Magath",
+      "pos": "mid",
+      "title": "Magath",
+      "title_es": "Magath"
+    },
+    {
+      "name": "Uwe Seeler",
+      "pos": "st",
+      "title": "Uns Uwe",
+      "title_es": "Uns Uwe"
+    }
+  ],
+  "Heidenheim": [
+    {
+      "name": "Kevin Müller",
+      "pos": "gk",
+      "title": "Müller",
+      "title_es": "Müller"
+    },
+    {
+      "name": "Patrick Mainka",
+      "pos": "def",
+      "title": "Mainka",
+      "title_es": "Mainka"
+    },
+    {
+      "name": "Marc Schnatterer",
+      "pos": "mid",
+      "title": "Schnatti",
+      "title_es": "Schnatti"
+    },
+    {
+      "name": "Tim Kleindienst",
+      "pos": "st",
+      "title": "Kleindienst",
+      "title_es": "Kleindienst"
+    }
+  ],
+  "St. Pauli": [
+    {
+      "name": "Philipp Tschauner",
+      "pos": "gk",
+      "title": "Tschauni",
+      "title_es": "Tschauni"
+    },
+    {
+      "name": "Marcel Halstenberg",
+      "pos": "def",
+      "title": "Halste",
+      "title_es": "Halste"
+    },
+    {
+      "name": "Fabian Boll",
+      "pos": "mid",
+      "title": "Boller",
+      "title_es": "Boller"
+    },
+    {
+      "name": "Marius Ebbers",
+      "pos": "st",
+      "title": "Ebbe",
+      "title_es": "Ebbe"
+    }
+  ],
+  "Dinamo Zagreb": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Hajduk Split": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Rijeka": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Osijek": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Lokomotiva Zagreb": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Varaždin": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Slaven Belupo": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Istra 1961": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Gorica": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Vukovar 91": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Wydad": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Raja": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "RS Berkane": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "FUS Rabat": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "FAR Rabat": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Maghreb Fès": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Ittihad Tanger": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "OC Safi": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Difaâ El Jadida": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Hassania Agadir": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Moghreb Tétouan": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Chabab Mohammedia": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Union Touarga": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Renaissance Zemamra": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Nacional": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Peñarol": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Defensor Sporting": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Danubio": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Liverpool Montevideo": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Cerro Largo": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Boston River": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Racing Montevideo": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "River Plate Montevideo": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Wanderers": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Plaza Colonia": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Fénix": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Deportivo Maldonado": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Juventud": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Atlético Nacional": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Millonarios": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "América de Cali": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Junior": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Deportes Tolima": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Deportivo Cali": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Santa Fe": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Independiente Medellín": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Bucaramanga": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Once Caldas": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Deportivo Pasto": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "La Equidad": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Águilas Doradas": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Deportivo Pereira": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Envigado": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Alianza": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "América": [
+    {
+      "name": "Guillermo Ochoa",
+      "pos": "gk",
+      "title": "Saint Memo",
+      "title_es": "San Memo"
+    },
+    {
+      "name": "Alfredo Tena",
+      "pos": "def",
+      "title": "Captain Fury",
+      "title_es": "Capitán Furia"
+    },
+    {
+      "name": "Cuauhtémoc Blanco",
+      "pos": "mid",
+      "title": "El Cuau",
+      "title_es": "El Cuau"
+    },
+    {
+      "name": "Luís Roberto Alves Zague",
+      "pos": "st",
+      "title": "Top Eagle Scorer",
+      "title_es": "Máximo Goleador Águila"
+    }
+  ],
+  "Tigres": [
+    {
+      "name": "Nahuel Guzmán",
+      "pos": "gk",
+      "title": "El Patón",
+      "title_es": "El Patón"
+    },
+    {
+      "name": "Juninho",
+      "pos": "def",
+      "title": "The Feline Captain",
+      "title_es": "El Capitán Felino"
+    },
+    {
+      "name": "Lucas Lobos",
+      "pos": "mid",
+      "title": "The Feline Maestro",
+      "title_es": "El Maestro Felino"
+    },
+    {
+      "name": "André-Pierre Gignac",
+      "pos": "st",
+      "title": "The King of Monterrey",
+      "title_es": "El Rey de Monterrey"
+    }
+  ],
+  "Monterrey": [
+    {
+      "name": "Hugo González",
+      "pos": "gk",
+      "title": "The Mexican Guard",
+      "title_es": "El Guardián Mexicano"
+    },
+    {
+      "name": "Hugo Ayala",
+      "pos": "def",
+      "title": "The Mexican Center-Back",
+      "title_es": "El Central Mexicano"
+    },
+    {
+      "name": "Javier Aquino",
+      "pos": "mid",
+      "title": "The Mexican Winger",
+      "title_es": "El Volante Mexicano"
+    },
+    {
+      "name": "Oribe Peralta",
+      "pos": "st",
+      "title": "The Olympic Scorer",
+      "title_es": "El Goleador Olímpico"
+    }
+  ],
+  "Cruz Azul": [
+    {
+      "name": "Óscar Pérez",
+      "pos": "gk",
+      "title": "The Rabbit",
+      "title_es": "El Conejo"
+    },
+    {
+      "name": "Pablo Aguilar",
+      "pos": "def",
+      "title": "The Celestial Marshal",
+      "title_es": "El Mariscal Celeste"
+    },
+    {
+      "name": "Christian Giménez",
+      "pos": "mid",
+      "title": "El Chaco",
+      "title_es": "El Chaco"
+    },
+    {
+      "name": "Carlos Hermosillo",
+      "pos": "st",
+      "title": "The Giant of Cerro Azul",
+      "title_es": "El Grandote de Cerro Azul"
+    }
+  ],
+  "Toluca": [
+    {
+      "name": "Óscar Pérez",
+      "pos": "gk",
+      "title": "The Veteran Keeper",
+      "title_es": "El Portero Histórico"
+    },
+    {
+      "name": "Adrián Aldrete",
+      "pos": "def",
+      "title": "The Mexican Left-Back",
+      "title_es": "El Defensor Mexicano"
+    },
+    {
+      "name": "Luis Montes",
+      "pos": "mid",
+      "title": "The Mexican Playmaker",
+      "title_es": "El Organizador Mexicano"
+    },
+    {
+      "name": "Henry Martín",
+      "pos": "st",
+      "title": "The Mexican Striker",
+      "title_es": "El Delantero Mexicano"
+    }
+  ],
+  "Chivas": [
+    {
+      "name": "Oswaldo Sánchez",
+      "pos": "gk",
+      "title": "Saint Oswaldo",
+      "title_es": "San Oswaldo"
+    },
+    {
+      "name": "Claudio Suárez",
+      "pos": "def",
+      "title": "The Emperor",
+      "title_es": "El Emperador"
+    },
+    {
+      "name": "Ramón Morales",
+      "pos": "mid",
+      "title": "Ramoncito",
+      "title_es": "Ramoncito"
+    },
+    {
+      "name": "Omar Bravo",
+      "pos": "st",
+      "title": "Chivas Top Scorer",
+      "title_es": "Máximo Goleador de Chivas"
+    }
+  ],
+  "Pumas": [
+    {
+      "name": "Jorge Campos",
+      "pos": "gk",
+      "title": "The Immortal",
+      "title_es": "El Inmortal"
+    },
+    {
+      "name": "Darío Verón",
+      "pos": "def",
+      "title": "The Sorcerer",
+      "title_es": "El Hechicero"
+    },
+    {
+      "name": "Leandro Augusto",
+      "pos": "mid",
+      "title": "The Auriazul Engine",
+      "title_es": "El Motor Auriazul"
+    },
+    {
+      "name": "Hugo Sánchez",
+      "pos": "st",
+      "title": "Pentapichi",
+      "title_es": "Pentapichi"
+    }
+  ],
+  "León": [
+    {
+      "name": "Óscar Pérez",
+      "pos": "gk",
+      "title": "The Veteran Keeper",
+      "title_es": "El Portero Histórico"
+    },
+    {
+      "name": "Adrián Aldrete",
+      "pos": "def",
+      "title": "The Mexican Left-Back",
+      "title_es": "El Defensor Mexicano"
+    },
+    {
+      "name": "Luis Montes",
+      "pos": "mid",
+      "title": "The Mexican Playmaker",
+      "title_es": "El Organizador Mexicano"
+    },
+    {
+      "name": "Henry Martín",
+      "pos": "st",
+      "title": "The Mexican Striker",
+      "title_es": "El Delantero Mexicano"
+    }
+  ],
+  "Pachuca": [
+    {
+      "name": "Hugo González",
+      "pos": "gk",
+      "title": "The Mexican Guard",
+      "title_es": "El Guardián Mexicano"
+    },
+    {
+      "name": "Hugo Ayala",
+      "pos": "def",
+      "title": "The Mexican Center-Back",
+      "title_es": "El Central Mexicano"
+    },
+    {
+      "name": "Javier Aquino",
+      "pos": "mid",
+      "title": "The Mexican Winger",
+      "title_es": "El Volante Mexicano"
+    },
+    {
+      "name": "Oribe Peralta",
+      "pos": "st",
+      "title": "The Olympic Scorer",
+      "title_es": "El Goleador Olímpico"
+    }
+  ],
+  "Santos Laguna": [
+    {
+      "name": "Óscar Pérez",
+      "pos": "gk",
+      "title": "The Veteran Keeper",
+      "title_es": "El Portero Histórico"
+    },
+    {
+      "name": "Adrián Aldrete",
+      "pos": "def",
+      "title": "The Mexican Left-Back",
+      "title_es": "El Defensor Mexicano"
+    },
+    {
+      "name": "Luis Montes",
+      "pos": "mid",
+      "title": "The Mexican Playmaker",
+      "title_es": "El Organizador Mexicano"
+    },
+    {
+      "name": "Henry Martín",
+      "pos": "st",
+      "title": "The Mexican Striker",
+      "title_es": "El Delantero Mexicano"
+    }
+  ],
+  "Atlas": [
+    {
+      "name": "Hugo González",
+      "pos": "gk",
+      "title": "The Mexican Guard",
+      "title_es": "El Guardián Mexicano"
+    },
+    {
+      "name": "Hugo Ayala",
+      "pos": "def",
+      "title": "The Mexican Center-Back",
+      "title_es": "El Central Mexicano"
+    },
+    {
+      "name": "Javier Aquino",
+      "pos": "mid",
+      "title": "The Mexican Winger",
+      "title_es": "El Volante Mexicano"
+    },
+    {
+      "name": "Oribe Peralta",
+      "pos": "st",
+      "title": "The Olympic Scorer",
+      "title_es": "El Goleador Olímpico"
+    }
+  ],
+  "Necaxa": [
+    {
+      "name": "Óscar Pérez",
+      "pos": "gk",
+      "title": "The Veteran Keeper",
+      "title_es": "El Portero Histórico"
+    },
+    {
+      "name": "Adrián Aldrete",
+      "pos": "def",
+      "title": "The Mexican Left-Back",
+      "title_es": "El Defensor Mexicano"
+    },
+    {
+      "name": "Luis Montes",
+      "pos": "mid",
+      "title": "The Mexican Playmaker",
+      "title_es": "El Organizador Mexicano"
+    },
+    {
+      "name": "Henry Martín",
+      "pos": "st",
+      "title": "The Mexican Striker",
+      "title_es": "El Delantero Mexicano"
+    }
+  ],
+  "Puebla": [
+    {
+      "name": "Hugo González",
+      "pos": "gk",
+      "title": "The Mexican Guard",
+      "title_es": "El Guardián Mexicano"
+    },
+    {
+      "name": "Hugo Ayala",
+      "pos": "def",
+      "title": "The Mexican Center-Back",
+      "title_es": "El Central Mexicano"
+    },
+    {
+      "name": "Javier Aquino",
+      "pos": "mid",
+      "title": "The Mexican Winger",
+      "title_es": "El Volante Mexicano"
+    },
+    {
+      "name": "Oribe Peralta",
+      "pos": "st",
+      "title": "The Olympic Scorer",
+      "title_es": "El Goleador Olímpico"
+    }
+  ],
+  "Tijuana": [
+    {
+      "name": "Óscar Pérez",
+      "pos": "gk",
+      "title": "The Veteran Keeper",
+      "title_es": "El Portero Histórico"
+    },
+    {
+      "name": "Adrián Aldrete",
+      "pos": "def",
+      "title": "The Mexican Left-Back",
+      "title_es": "El Defensor Mexicano"
+    },
+    {
+      "name": "Luis Montes",
+      "pos": "mid",
+      "title": "The Mexican Playmaker",
+      "title_es": "El Organizador Mexicano"
+    },
+    {
+      "name": "Henry Martín",
+      "pos": "st",
+      "title": "The Mexican Striker",
+      "title_es": "El Delantero Mexicano"
+    }
+  ],
+  "Querétaro": [
+    {
+      "name": "Óscar Pérez",
+      "pos": "gk",
+      "title": "The Veteran Keeper",
+      "title_es": "El Portero Histórico"
+    },
+    {
+      "name": "Adrián Aldrete",
+      "pos": "def",
+      "title": "The Mexican Left-Back",
+      "title_es": "El Defensor Mexicano"
+    },
+    {
+      "name": "Luis Montes",
+      "pos": "mid",
+      "title": "The Mexican Playmaker",
+      "title_es": "El Organizador Mexicano"
+    },
+    {
+      "name": "Henry Martín",
+      "pos": "st",
+      "title": "The Mexican Striker",
+      "title_es": "El Delantero Mexicano"
+    }
+  ],
+  "Juárez": [
+    {
+      "name": "Hugo González",
+      "pos": "gk",
+      "title": "The Mexican Guard",
+      "title_es": "El Guardián Mexicano"
+    },
+    {
+      "name": "Hugo Ayala",
+      "pos": "def",
+      "title": "The Mexican Center-Back",
+      "title_es": "El Central Mexicano"
+    },
+    {
+      "name": "Javier Aquino",
+      "pos": "mid",
+      "title": "The Mexican Winger",
+      "title_es": "El Volante Mexicano"
+    },
+    {
+      "name": "Oribe Peralta",
+      "pos": "st",
+      "title": "The Olympic Scorer",
+      "title_es": "El Goleador Olímpico"
+    }
+  ],
+  "Mazatlán": [
+    {
+      "name": "Óscar Pérez",
+      "pos": "gk",
+      "title": "The Veteran Keeper",
+      "title_es": "El Portero Histórico"
+    },
+    {
+      "name": "Adrián Aldrete",
+      "pos": "def",
+      "title": "The Mexican Left-Back",
+      "title_es": "El Defensor Mexicano"
+    },
+    {
+      "name": "Luis Montes",
+      "pos": "mid",
+      "title": "The Mexican Playmaker",
+      "title_es": "El Organizador Mexicano"
+    },
+    {
+      "name": "Henry Martín",
+      "pos": "st",
+      "title": "The Mexican Striker",
+      "title_es": "El Delantero Mexicano"
+    }
+  ],
+  "Atlético San Luis": [
+    {
+      "name": "Óscar Pérez",
+      "pos": "gk",
+      "title": "The Veteran Keeper",
+      "title_es": "El Portero Histórico"
+    },
+    {
+      "name": "Adrián Aldrete",
+      "pos": "def",
+      "title": "The Mexican Left-Back",
+      "title_es": "El Defensor Mexicano"
+    },
+    {
+      "name": "Luis Montes",
+      "pos": "mid",
+      "title": "The Mexican Playmaker",
+      "title_es": "El Organizador Mexicano"
+    },
+    {
+      "name": "Henry Martín",
+      "pos": "st",
+      "title": "The Mexican Striker",
+      "title_es": "El Delantero Mexicano"
+    }
+  ],
+  "Inter Miami": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "LAFC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "LA Galaxy": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Columbus Crew": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Seattle Sounders": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Atlanta United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "NYCFC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Cincinnati": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Orlando City": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Philadelphia Union": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Austin FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Nashville SC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Portland Timbers": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Real Salt Lake": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sporting KC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Houston Dynamo": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Minnesota United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "DC United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Chicago Fire": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Charlotte FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "San Jose Earthquakes": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Young Boys": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Basel": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Servette": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "St. Gallen": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Zürich": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Lugano": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Luzern": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sion": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Grasshoppers": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Lausanne": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Thun": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Winterthur": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Yverdon": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Vissel Kobe": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Kawasaki Frontale": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Yokohama F. Marinos": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Kashima Antlers": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Urawa Red Diamonds": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Gamba Osaka": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sanfrecce Hiroshima": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Cerezo Osaka": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "FC Tokyo": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Nagoya Grampus": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Kashiwa Reysol": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Shimizu S-Pulse": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Kyoto Sanga": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Avispa Fukuoka": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Consadole Sapporo": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Albirex Niigata": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sagan Tosu": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Shonan Bellmare": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Génération Foot": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "ASC Jaraaf": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Teungueth FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Casa Sports": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Diambars": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Dakar Sacré-Cœur": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "AS Pikine": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Guédiawaye": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Stade de Mbour": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "US Gorée": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Ndiambour": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sonacos": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Copenhagen": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Midtjylland": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Brøndby": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Nordsjælland": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Aarhus": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Randers": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Silkeborg": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Viborg": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "OB": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sønderjyske": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Lyngby": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Vejle": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Red Bull Salzburg": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sturm Graz": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Rapid Wien": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Austria Wien": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "LASK": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Wolfsberger": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Hartberg": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Austria Klagenfurt": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "WSG Tirol": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Ried": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Altach": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Blau-Weiß Linz": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Shakhtar": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Dynamo Kyiv": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Dnipro-1": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Zorya": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Oleksandriya": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Polissya Zhytomyr": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Kryvbas": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Kolos Kovalivka": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Vorskla Poltava": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Rukh Lviv": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "LNZ Cherkasy": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Veres Rivne": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Obolon Kyiv": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Chornomorets Odesa": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Ulsan HD": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Jeonbuk": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "FC Seoul": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Pohang Steelers": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Gimcheon Sangmu": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Gwangju FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Suwon Samsung": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Daegu FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Daejeon Hana Citizen": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Gangwon FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Jeju United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Incheon United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "LDU Quito": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Independiente del Valle": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Barcelona SC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Emelec": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Aucas": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Universidad Católica Quito": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Delfín": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Deportivo Cuenca": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Técnico Universitario": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Orense": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Macará": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Mushuc Runa": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sydney FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Melbourne City": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Melbourne Victory": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Central Coast Mariners": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Western Sydney": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Adelaide United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Wellington Phoenix": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Brisbane Roar": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Newcastle Jets": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Macarthur FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Perth Glory": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Western United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Galatasaray": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Fenerbahçe": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Beşiktaş": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Trabzonspor": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Başakşehir": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Samsunspor": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Göztepe": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Konyaspor": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Rizespor": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Antalyaspor": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Kasımpaşa": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sivasspor": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Eyüpspor": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Adana Demirspor": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Alanyaspor": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Gaziantep": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Kayserispor": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Gençlerbirliği": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Malmö FF": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Hammarby": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Djurgården": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "AIK": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Elfsborg": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Häcken": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Norrköping": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "IFK Göteborg": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "GAIS": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sirius": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Brommapojkarna": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Värnamo": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Halmstad": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Öster": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "The New Saints": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Connah's Quay": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Penybont": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Bala Town": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Cardiff MU": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Caernarfon": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Newtown": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Barry Town": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Haverfordwest": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Flint Town": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Legia Warsaw": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Raków": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Lech Poznań": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Jagiellonia": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Wisła Kraków": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Pogoń Szczecin": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Górnik Zabrze": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Cracovia": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Piast Gliwice": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Widzew Łódź": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Zagłębie Lubin": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Radomiak Radom": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Stal Mielec": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Korona Kielce": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Motor Lublin": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "GKS Katowice": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Red Star Belgrade": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Partizan": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "TSC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Vojvodina": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Čukarički": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "OFK Beograd": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Radnički Niš": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Spartak Subotica": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Novi Pazar": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Napredak": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Železničar": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Mladost Lučani": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Bodø/Glimt": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Molde": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Brann": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Rosenborg": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Viking": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Tromsø": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Fredrikstad": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Vålerenga": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Lillestrøm": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sarpsborg 08": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Strømsgodset": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Haugesund": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Kristiansund": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "HamKam": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al Ahly": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Pyramids": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Zamalek": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Ismaily": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al Masry": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Future FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Ceramica Cleopatra": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "ZED FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Smouha": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "ENPPI": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Talaea El Gaish": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "National Bank": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Pharco": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Ghazl El Mahalla": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "CR Belouizdad": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "MC Alger": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "USM Alger": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "JS Kabylie": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "ES Sétif": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "CS Constantine": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "JS Saoura": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Paradou": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "ASO Chlef": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "NC Magra": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "USM Khenchela": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Olympique Akbou": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "MC El Bayadh": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "RC Kouba": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Persepolis": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Esteghlal": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sepahan": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Tractor": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Foolad": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Gol Gohar": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Zob Ahan": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Mes Rafsanjan": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Malavan": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Aluminium Arak": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Nassaji": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Shams Azar": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Havadar": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Paykan": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Enyimba": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Rivers United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Remo Stars": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Kano Pillars": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Shooting Stars": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Plateau United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Bendel Insurance": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Rangers International": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Kwara United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Abia Warriors": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Nasarawa United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Akwa United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Wikki Tourists": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Niger Tornadoes": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Ikorodu City": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "ASEC Mimosas": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "San Pedro": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Africa Sports": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Stade d'Abidjan": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "SOL FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Racing d'Abidjan": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "SO Armée": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sporting Gagnoa": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "AS Denguelé": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Bouaké FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Olympiacos": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "PAOK": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Panathinaikos": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "AEK": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Aris": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Asteras Tripolis": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "OFI Crete": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Atromitos": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Panetolikos": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Volos": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Panserraikos": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Levadiakos": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Lamia": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Kifisia": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Espérance": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Étoile du Sahel": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Club Africain": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "CS Sfaxien": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "US Monastir": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Stade Tunisien": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Olympique Béja": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "CA Bizertin": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "AS Marsa": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "US Ben Guerdane": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "JS Omrane": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "EGS Gafsa": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Celtic": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Rangers": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Aberdeen": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Hearts": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Hibernian": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Kilmarnock": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "St Mirren": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Dundee United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Motherwell": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "St Johnstone": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Ross County": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Livingston": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Olimpia": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Cerro Porteño": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Libertad": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Guaraní": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Nacional Asunción": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sportivo Luqueño": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sportivo Ameliano": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "2 de Mayo": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "General Caballero": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Deportivo Recoleta": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Atlético Tembetary": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Colo-Colo": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Universidad de Chile": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Universidad Católica": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Unión Española": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Palestino": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Huachipato": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Coquimbo Unido": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Audax Italiano": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "O'Higgins": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Ñublense": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Cobresal": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Everton Viña": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Deportes Iquique": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "La Serena": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Universitario": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sporting Cristal": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Alianza Lima": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Melgar": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Cienciano": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Cusco FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "ADT": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sport Huancayo": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Atlético Grau": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Deportivo Garcilaso": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Comerciantes Unidos": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Juan Pablo II": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Deportivo Táchira": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Caracas": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Metropolitanos": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Estudiantes de Mérida": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Carabobo": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Monagas": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Portuguesa": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Zamora": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Academia Puerto Cabello": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Deportivo La Guaira": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Rayo Zuliano": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Yaracuyanos": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Toronto FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Vancouver Whitecaps": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "CF Montréal": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Forge FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Cavalry FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Atlético Ottawa": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Pacific FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "HFX Wanderers": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Valour FC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "York United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Sadd": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Duhail": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Rayyan": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Arabi": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Gharafa": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Wakrah": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Qatar SC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Umm Salal": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Shahania": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Khor": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Sailiya": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Shamal": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Hilal": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Nassr": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Ittihad": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Ahli": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Ettifaq": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Shabab": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Taawoun": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Fateh": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Khaleej": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Raed": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Fayha": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Damac": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Neom SC": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Okhdood": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Riyadh": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Al-Najma": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Mamelodi Sundowns": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Orlando Pirates": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Kaizer Chiefs": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "SuperSport United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Stellenbosch": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Cape Town City": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "AmaZulu": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sekhukhune United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Golden Arrows": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "TS Galaxy": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Richards Bay": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Chippa United": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Polokwane City": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Marumo Gallants": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Saprissa": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Alajuelense": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Herediano": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Cartaginés": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "San Carlos": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Puntarenas": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Sporting San José": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Pérez Zeledón": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Santos de Guápiles": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Guanacasteca": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Coton Sport": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Canon Yaoundé": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Union Douala": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Fovu Club": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "APEJES": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Astres Douala": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Colombe": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "PWD Bamenda": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Stade Renard": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Young Sport Academy": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Stade Malien": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Djoliba": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Real Bamako": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "US Bougouba": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "AS Police": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Onze Créateurs": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "Afrique Football Élite": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ],
+  "USC Kita": [
+    {
+      "name": "Keylor Navas",
+      "pos": "gk",
+      "title": "The Goalkeeper",
+      "title_es": "El Guardián"
+    },
+    {
+      "name": "Diego Godín",
+      "pos": "def",
+      "title": "The Defender",
+      "title_es": "El Defensor"
+    },
+    {
+      "name": "Carlos Valderrama",
+      "pos": "mid",
+      "title": "The Midfielder",
+      "title_es": "El Volante"
+    },
+    {
+      "name": "Radamel Falcao",
+      "pos": "st",
+      "title": "The Striker",
+      "title_es": "El Delantero"
+    }
+  ]
+};
 
   const NAT_LEGENDS = {
-    MX: [
-      { name: 'Jorge Campos', pos: 'gk', title: 'El Inmortal' },
-      { name: 'Rafa Márquez', pos: 'def', title: 'El Káiser de Michoacán' },
-      { name: 'Andrés Guardado', pos: 'mid', title: 'El Principito' },
-      { name: 'Hugo Sánchez', pos: 'st', title: 'Pentapichi' },
-      { name: 'Guillermo Ochoa', pos: 'gk', title: 'San Memo' }
+    "AR": [
+        {
+            "name": "Franco Armani",
+            "pos": "gk",
+            "title": "The Wall of River",
+            "title_es": "El Muro de River"
+        },
+        {
+            "name": "Javier Zanetti",
+            "pos": "def",
+            "title": "The Tractor",
+            "title_es": "El Tractor"
+        },
+        {
+            "name": "Juan Román Riquelme",
+            "pos": "mid",
+            "title": "The Last Number Ten",
+            "title_es": "El Último Diez"
+        },
+        {
+            "name": "Lionel Messi",
+            "pos": "st",
+            "title": "The Flea",
+            "title_es": "La Pulga"
+        }
     ],
-    AR: [
-      { name: 'Lionel Messi', pos: 'st', title: 'La Pulga' },
-      { name: 'Javier Zanetti', pos: 'def', title: 'El Tractor' },
-      { name: 'Juan Román Riquelme', pos: 'mid', title: 'El Último Diez' },
-      { name: 'Gabriel Batistuta', pos: 'st', title: 'Batigol' },
-      { name: 'Ubaldo Fillol', pos: 'gk', title: 'El Pato' }
+    "FR": [
+        {
+            "name": "Fabien Barthez",
+            "pos": "gk",
+            "title": "The Divine Bald",
+            "title_es": "Le Divine Chauve"
+        },
+        {
+            "name": "Lilian Thuram",
+            "pos": "def",
+            "title": "The Rock",
+            "title_es": "La Roca"
+        },
+        {
+            "name": "Zinedine Zidane",
+            "pos": "mid",
+            "title": "Zizou",
+            "title_es": "Zizou"
+        },
+        {
+            "name": "Thierry Henry",
+            "pos": "st",
+            "title": "Titi",
+            "title_es": "Titi"
+        }
     ],
-    BR: [
-      { name: 'Ronaldo Nazário', pos: 'st', title: 'O Fenômeno' },
-      { name: 'Ronaldinho Gaúcho', pos: 'mid', title: 'O Bruxo' },
-      { name: 'Cafu', pos: 'def', title: 'O Capitão' },
-      { name: 'Roberto Carlos', pos: 'def', title: 'El Hombre Bala' },
-      { name: 'Cláudio Taffarel', pos: 'gk', title: 'O Parapenaltis' }
+    "ES": [
+        {
+            "name": "Iker Casillas",
+            "pos": "gk",
+            "title": "Saint Iker",
+            "title_es": "San Iker"
+        },
+        {
+            "name": "Sergio Ramos",
+            "pos": "def",
+            "title": "The 93rd Minute Captain",
+            "title_es": "El Capitán del 93'"
+        },
+        {
+            "name": "Andrés Iniesta",
+            "pos": "mid",
+            "title": "Don Andrés",
+            "title_es": "Don Andrés"
+        },
+        {
+            "name": "David Villa",
+            "pos": "st",
+            "title": "El Guaje",
+            "title_es": "El Guaje"
+        }
     ],
-    ES: [
-      { name: 'Iker Casillas', pos: 'gk', title: 'San Iker' },
-      { name: 'Sergio Ramos', pos: 'def', title: 'El Capitán' },
-      { name: 'Xavi Hernández', pos: 'mid', title: 'El Maestro' },
-      { name: 'Andrés Iniesta', pos: 'mid', title: 'Don Andrés' },
-      { name: 'Raúl González', pos: 'st', title: 'El Ángel del Gol' }
+    "EN": [
+        {
+            "name": "David Seaman",
+            "pos": "gk",
+            "title": "Safe Hands",
+            "title_es": "Manos Seguras"
+        },
+        {
+            "name": "Rio Ferdinand",
+            "pos": "def",
+            "title": "The Rolls-Royce Defender",
+            "title_es": "El Defensor Elegante"
+        },
+        {
+            "name": "Steven Gerrard",
+            "pos": "mid",
+            "title": "Captain Fantastic",
+            "title_es": "Capitán Fantástico"
+        },
+        {
+            "name": "Wayne Rooney",
+            "pos": "st",
+            "title": "Wazza",
+            "title_es": "Wazza"
+        }
     ],
-    DE: [
-      { name: 'Manuel Neuer', pos: 'gk', title: 'The Sweeper-Keeper' },
-      { name: 'Philipp Lahm', pos: 'def', title: 'The Magic Dwarf' },
-      { name: 'Lothar Matthäus', pos: 'mid', title: 'Der Imperator' },
-      { name: 'Thomas Müller', pos: 'st', title: 'Der Raumdeuter' },
-      { name: 'Toni Kroos', pos: 'mid', title: 'Der Metronom' }
+    "BR": [
+        {
+            "name": "Marcos",
+            "pos": "gk",
+            "title": "Saint Marcos",
+            "title_es": "São Marcos"
+        },
+        {
+            "name": "Cafu",
+            "pos": "def",
+            "title": "Captain of the Fifth Star",
+            "title_es": "O Capitão do Penta"
+        },
+        {
+            "name": "Ronaldinho",
+            "pos": "mid",
+            "title": "The Wizard",
+            "title_es": "O Bruxo"
+        },
+        {
+            "name": "Ronaldo Nazário",
+            "pos": "st",
+            "title": "The Phenomenon",
+            "title_es": "O Fenômeno"
+        }
     ],
-    EN: [
-      { name: 'Wayne Rooney', pos: 'st', title: 'Wazza' },
-      { name: 'David Beckham', pos: 'mid', title: 'Golden Balls' },
-      { name: 'Alan Shearer', pos: 'st', title: 'Premier League King' },
-      { name: 'Steven Gerrard', pos: 'mid', title: 'Captain Fantastic' },
-      { name: 'David Seaman', pos: 'gk', title: 'Safe Hands' }
+    "PT": [
+        {
+            "name": "Vítor Baía",
+            "pos": "gk",
+            "title": "The Wall of Dragão",
+            "title_es": "O Muro de Dragão"
+        },
+        {
+            "name": "Pepe",
+            "pos": "def",
+            "title": "The Sheriff",
+            "title_es": "O Xerife"
+        },
+        {
+            "name": "Luís Figo",
+            "pos": "mid",
+            "title": "The Genius of Alvalade",
+            "title_es": "O Genio de Alvalade"
+        },
+        {
+            "name": "Cristiano Ronaldo",
+            "pos": "st",
+            "title": "CR7",
+            "title_es": "CR7"
+        }
     ],
-    FR: [
-      { name: 'Zinedine Zidane', pos: 'mid', title: 'Zizou' },
-      { name: 'Thierry Henry', pos: 'st', title: 'Titi' },
-      { name: 'Lilian Thuram', pos: 'def', title: 'The Rock' },
-      { name: 'Hugo Lloris', pos: 'gk', title: 'Le Capitaine' },
-      { name: 'Antoine Griezmann', pos: 'st', title: 'Grizou' }
+    "NL": [
+        {
+            "name": "Edwin van der Sar",
+            "pos": "gk",
+            "title": "The Flying Dutchman",
+            "title_es": "El Holandés Volador"
+        },
+        {
+            "name": "Jaap Stam",
+            "pos": "def",
+            "title": "The Dutch Rock",
+            "title_es": "La Roca Holandesa"
+        },
+        {
+            "name": "Ruud Gullit",
+            "pos": "mid",
+            "title": "The Black Tulip",
+            "title_es": "El Tulipán Negro"
+        },
+        {
+            "name": "Marco van Basten",
+            "pos": "st",
+            "title": "The Swan of Utrecht",
+            "title_es": "El Cisne de Utrecht"
+        }
     ],
-    IT: [
-      { name: 'Gianluigi Buffon', pos: 'gk', title: 'Gigi' },
-      { name: 'Paolo Maldini', pos: 'def', title: 'Il Capitano' },
-      { name: 'Andrea Pirlo', pos: 'mid', title: 'Il Maestro' },
-      { name: 'Francesco Totti', pos: 'st', title: 'Il Gladiatore' },
-      { name: 'Alessandro Del Piero', pos: 'st', title: 'Pinturicchio' }
+    "BE": [
+        {
+            "name": "Thibaut Courtois",
+            "pos": "gk",
+            "title": "The Belgian Wall",
+            "title_es": "El Muro Belga"
+        },
+        {
+            "name": "Vincent Kompany",
+            "pos": "def",
+            "title": "Captain Kompany",
+            "title_es": "Capitán Kompany"
+        },
+        {
+            "name": "Kevin De Bruyne",
+            "pos": "mid",
+            "title": "KDB",
+            "title_es": "KDB"
+        },
+        {
+            "name": "Romelu Lukaku",
+            "pos": "st",
+            "title": "Big Rom",
+            "title_es": "Big Rom"
+        }
     ],
-    PT: [
-      { name: 'Cristiano Ronaldo', pos: 'st', title: 'CR7' },
-      { name: 'Luís Figo', pos: 'mid', title: 'O Rei' },
-      { name: 'Pepe', pos: 'def', title: 'O Xerife' },
-      { name: 'Rui Costa', pos: 'mid', title: 'O Maestro' },
-      { name: 'Vítor Baía', pos: 'gk', title: 'O Guardião' }
+    "IT": [
+        {
+            "name": "Gianluigi Buffon",
+            "pos": "gk",
+            "title": "Gigi",
+            "title_es": "Gigi"
+        },
+        {
+            "name": "Paolo Maldini",
+            "pos": "def",
+            "title": "The Captain",
+            "title_es": "Il Capitano"
+        },
+        {
+            "name": "Andrea Pirlo",
+            "pos": "mid",
+            "title": "The Maestro",
+            "title_es": "Il Maestro"
+        },
+        {
+            "name": "Alessandro Del Piero",
+            "pos": "st",
+            "title": "Pinturicchio",
+            "title_es": "Pinturicchio"
+        }
     ],
-    NL: [
-      { name: 'Edwin van der Sar', pos: 'gk', title: 'The Flying Dutchman' },
-      { name: 'Virgil van Dijk', pos: 'def', title: 'VVD' },
-      { name: 'Wesley Sneijder', pos: 'mid', title: 'The Playmaker' },
-      { name: 'Robin van Persie', pos: 'st', title: 'The Flying Dutchman' },
-      { name: 'Ruud van Nistelrooy', pos: 'st', title: 'Ruud' }
+    "DE": [
+        {
+            "name": "Manuel Neuer",
+            "pos": "gk",
+            "title": "The Sweeper Keeper",
+            "title_es": "El Portero Líbero"
+        },
+        {
+            "name": "Philipp Lahm",
+            "pos": "def",
+            "title": "The Magic Dwarf",
+            "title_es": "El Enano Mágico"
+        },
+        {
+            "name": "Bastian Schweinsteiger",
+            "pos": "mid",
+            "title": "The Football God",
+            "title_es": "Der Fußballgott"
+        },
+        {
+            "name": "Thomas Müller",
+            "pos": "st",
+            "title": "The Space Interpreter",
+            "title_es": "Der Raumdeuter"
+        }
     ],
-    CO: [
-      { name: 'David Ospina', pos: 'gk', title: 'El Guardián Tricolor' },
-      { name: 'Mario Yepes', pos: 'def', title: 'El Mariscal' },
-      { name: 'Carlos Valderrama', pos: 'mid', title: 'El Pibe' },
-      { name: 'James Rodríguez', pos: 'mid', title: 'Bota de Oro 2014' },
-      { name: 'Radamel Falcao', pos: 'st', title: 'El Tigre' }
+    "HR": [
+        {
+            "name": "Danijel Subašić",
+            "pos": "gk",
+            "title": "The World Cup Hero",
+            "title_es": "El Héroe Mundialista"
+        },
+        {
+            "name": "Vedran Ćorluka",
+            "pos": "def",
+            "title": "The Rock of Zagreb",
+            "title_es": "La Roca de Zagreb"
+        },
+        {
+            "name": "Luka Modrić",
+            "pos": "mid",
+            "title": "The Croatian Maestro",
+            "title_es": "El Maestro Croata"
+        },
+        {
+            "name": "Mario Mandžukić",
+            "pos": "st",
+            "title": "Super Mario",
+            "title_es": "Súper Mario"
+        }
     ],
-    UY: [
-      { name: 'Fernando Muslera', pos: 'gk', title: 'Nené' },
-      { name: 'Diego Godín', pos: 'def', title: 'El Faraón' },
-      { name: 'Federico Valverde', pos: 'mid', title: 'El Halcón' },
-      { name: 'Luis Suárez', pos: 'st', title: 'El Pistolero' },
-      { name: 'Edinson Cavani', pos: 'st', title: 'El Matador' }
+    "MA": [
+        {
+            "name": "Yassine Bounou",
+            "pos": "gk",
+            "title": "Bono",
+            "title_es": "Bono"
+        },
+        {
+            "name": "Mehdi Benatia",
+            "pos": "def",
+            "title": "Captain of the Lions",
+            "title_es": "El Capitán de los Leones"
+        },
+        {
+            "name": "Hakim Ziyech",
+            "pos": "mid",
+            "title": "The Wizard",
+            "title_es": "El Mago"
+        },
+        {
+            "name": "Youssef En-Nesyri",
+            "pos": "st",
+            "title": "The Air Striker",
+            "title_es": "El Delantero Volador"
+        }
     ],
-    CL: [
-      { name: 'Claudio Bravo', pos: 'gk', title: 'El Capitán América' },
-      { name: 'Gary Medel', pos: 'def', title: 'El Pitbull' },
-      { name: 'Arturo Vidal', pos: 'mid', title: 'El King' },
-      { name: 'Alexis Sánchez', pos: 'st', title: 'El Niño Maravilla' },
-      { name: 'Humberto Suazo', pos: 'st', title: 'Chupete' }
+    "UY": [
+        {
+            "name": "Fernando Muslera",
+            "pos": "gk",
+            "title": "El Nene",
+            "title_es": "El Nene"
+        },
+        {
+            "name": "Diego Godín",
+            "pos": "def",
+            "title": "The Pharaoh",
+            "title_es": "El Faraón"
+        },
+        {
+            "name": "Enzo Francescoli",
+            "pos": "mid",
+            "title": "The Prince",
+            "title_es": "El Príncipe"
+        },
+        {
+            "name": "Luis Suárez",
+            "pos": "st",
+            "title": "The Gunman",
+            "title_es": "El Pistolero"
+        }
     ],
-    US: [
-      { name: 'Tim Howard', pos: 'gk', title: 'The Secretary of Defense' },
-      { name: 'Carlos Bocanegra', pos: 'def', title: 'Captain Bocanegra' },
-      { name: 'Clint Dempsey', pos: 'mid', title: 'Deuce' },
-      { name: 'Landon Donovan', pos: 'st', title: 'US Soccer Icon' },
-      { name: 'Christian Pulisic', pos: 'st', title: 'Captain America' }
+    "CO": [
+        {
+            "name": "René Higuita",
+            "pos": "gk",
+            "title": "El Loco",
+            "title_es": "El Loco"
+        },
+        {
+            "name": "Iván Córdoba",
+            "pos": "def",
+            "title": "The Wall",
+            "title_es": "El Muralla"
+        },
+        {
+            "name": "Carlos Valderrama",
+            "pos": "mid",
+            "title": "El Pibe",
+            "title_es": "El Pibe"
+        },
+        {
+            "name": "Radamel Falcao",
+            "pos": "st",
+            "title": "The Tiger",
+            "title_es": "El Tigre"
+        }
     ],
-    BE: [
-      { name: 'Thibaut Courtois', pos: 'gk', title: 'El Muro Belga' },
-      { name: 'Vincent Kompany', pos: 'def', title: 'Vince the Prince' },
-      { name: 'Kevin De Bruyne', pos: 'mid', title: 'KDB' },
-      { name: 'Eden Hazard', pos: 'st', title: 'The Duke of Hazard' },
-      { name: 'Romelu Lukaku', pos: 'st', title: 'Big Rom' }
+    "MX": [
+        {
+            "name": "Jorge Campos",
+            "pos": "gk",
+            "title": "The Immortal",
+            "title_es": "El Inmortal"
+        },
+        {
+            "name": "Rafael Márquez",
+            "pos": "def",
+            "title": "The Kaiser of Michoacán",
+            "title_es": "El Káiser de Michoacán"
+        },
+        {
+            "name": "Cuauhtémoc Blanco",
+            "pos": "mid",
+            "title": "El Cuau",
+            "title_es": "El Cuau"
+        },
+        {
+            "name": "Hugo Sánchez",
+            "pos": "st",
+            "title": "Pentapichi",
+            "title_es": "Pentapichi"
+        }
     ],
-    HR: [
-      { name: 'Dominik Livaković', pos: 'gk', title: 'Penalty Hero' },
-      { name: 'Vedran Ćorluka', pos: 'def', title: 'The Wall of Zagreb' },
-      { name: 'Luka Modrić', pos: 'mid', title: 'The Golden Ball' },
-      { name: 'Ivan Rakitić', pos: 'mid', title: 'The Engine' },
-      { name: 'Mario Mandžukić', pos: 'st', title: 'Super Mario' }
+    "US": [
+        {
+            "name": "Tim Howard",
+            "pos": "gk",
+            "title": "The Secretary of Defense",
+            "title_es": "El Secretario de Defensa"
+        },
+        {
+            "name": "Carlos Bocanegra",
+            "pos": "def",
+            "title": "Captain America",
+            "title_es": "Capitán América"
+        },
+        {
+            "name": "Clint Dempsey",
+            "pos": "mid",
+            "title": "Deuce",
+            "title_es": "Deuce"
+        },
+        {
+            "name": "Landon Donovan",
+            "pos": "st",
+            "title": "Captain Landon",
+            "title_es": "Capitán Landon"
+        }
     ],
-    JP: [
-      { name: 'Eiji Kawashima', pos: 'gk', title: 'Samurai Defender' },
-      { name: 'Maya Yoshida', pos: 'def', title: 'The Leader' },
-      { name: 'Hidetoshi Nakata', pos: 'mid', title: 'The Pioneer' },
-      { name: 'Keisuke Honda', pos: 'mid', title: 'Emperor Honda' },
-      { name: 'Shinji Kagawa', pos: 'st', title: 'The Dortmund Maestro' }
+    "CH": [
+        {
+            "name": "Yann Sommer",
+            "pos": "gk",
+            "title": "The Swiss Stopper",
+            "title_es": "El Guardián Suizo"
+        },
+        {
+            "name": "Stephan Lichtsteiner",
+            "pos": "def",
+            "title": "Forrest Gump",
+            "title_es": "Forrest Gump"
+        },
+        {
+            "name": "Xherdan Shaqiri",
+            "pos": "mid",
+            "title": "The Alpine Messi",
+            "title_es": "El Messi Alpino"
+        },
+        {
+            "name": "Alexander Frei",
+            "pos": "st",
+            "title": "Top Scorer",
+            "title_es": "Máximo Goleador"
+        }
     ],
-    SN: [
-      { name: 'Édouard Mendy', pos: 'gk', title: 'The Champion Keeper' },
-      { name: 'Kalidou Koulibaly', pos: 'def', title: 'K2' },
-      { name: 'Idrissa Gueye', pos: 'mid', title: 'The Engine' },
-      { name: 'Sadio Mané', pos: 'st', title: 'The Lion of Teranga' },
-      { name: 'El Hadji Diouf', pos: 'st', title: 'The Legend' }
+    "JP": [
+        {
+            "name": "Eiji Kawashima",
+            "pos": "gk",
+            "title": "The Blue Samurai Wall",
+            "title_es": "El Muro Samurái"
+        },
+        {
+            "name": "Yuto Nagatomo",
+            "pos": "def",
+            "title": "The Samurai Engine",
+            "title_es": "El Motor Samurái"
+        },
+        {
+            "name": "Hidetoshi Nakata",
+            "pos": "mid",
+            "title": "The Pioneer",
+            "title_es": "El Pionero"
+        },
+        {
+            "name": "Keisuke Honda",
+            "pos": "st",
+            "title": "The Emperor",
+            "title_es": "El Emperador"
+        }
     ],
-    EG: [
-      { name: 'Essam El-Hadary', pos: 'gk', title: 'The High Dam' },
-      { name: 'Wael Gomaa', pos: 'def', title: 'The Rock' },
-      { name: 'Mohamed Elneny', pos: 'mid', title: 'The Dynamo' },
-      { name: 'Mohamed Salah', pos: 'st', title: 'The Egyptian King' },
-      { name: 'Mido', pos: 'st', title: 'The Pharaoh' }
+    "SN": [
+        {
+            "name": "Édouard Mendy",
+            "pos": "gk",
+            "title": "The Champions League Winner",
+            "title_es": "El Campeón de la Champions"
+        },
+        {
+            "name": "Kalidou Koulibaly",
+            "pos": "def",
+            "title": "The Rock of Dakar",
+            "title_es": "La Roca de Dakar"
+        },
+        {
+            "name": "Idrissa Gueye",
+            "pos": "mid",
+            "title": "The Engine",
+            "title_es": "El Motor"
+        },
+        {
+            "name": "Sadio Mané",
+            "pos": "st",
+            "title": "The Lion of Teranga",
+            "title_es": "El León de Teranga"
+        }
+    ],
+    "DK": [
+        {
+            "name": "Kasper Schmeichel",
+            "pos": "gk",
+            "title": "The Miracle Keeper",
+            "title_es": "El Portero Milagroso"
+        },
+        {
+            "name": "Daniel Agger",
+            "pos": "def",
+            "title": "The Dagger",
+            "title_es": "La Daga"
+        },
+        {
+            "name": "Christian Eriksen",
+            "pos": "mid",
+            "title": "The Magician",
+            "title_es": "El Mago"
+        },
+        {
+            "name": "Jon Dahl Tomasson",
+            "pos": "st",
+            "title": "The Hunter",
+            "title_es": "El Cazador"
+        }
+    ],
+    "AT": [
+        {
+            "name": "Michael Consel",
+            "pos": "gk",
+            "title": "The Panther",
+            "title_es": "El Pantera"
+        },
+        {
+            "name": "David Alaba",
+            "pos": "def",
+            "title": "The Boss",
+            "title_es": "El Jefe"
+        },
+        {
+            "name": "Andreas Herzog",
+            "pos": "mid",
+            "title": "Andy",
+            "title_es": "Andy"
+        },
+        {
+            "name": "Toni Polster",
+            "pos": "st",
+            "title": "Toni Double",
+            "title_es": "Toni Doppelpack"
+        }
+    ],
+    "UA": [
+        {
+            "name": "Andriy Pyatov",
+            "pos": "gk",
+            "title": "The Ukrainian Wall",
+            "title_es": "El Muro Ucraniano"
+        },
+        {
+            "name": "Olexandr Zinchenko",
+            "pos": "def",
+            "title": "The Versatile Wall",
+            "title_es": "El Lateral Polivalente"
+        },
+        {
+            "name": "Ruslan Malinovskyi",
+            "pos": "mid",
+            "title": "The Cannon",
+            "title_es": "El Cañón"
+        },
+        {
+            "name": "Andriy Shevchenko",
+            "pos": "st",
+            "title": "The Ukrainian Express",
+            "title_es": "El Expreso Ucraniano"
+        }
+    ],
+    "KR": [
+        {
+            "name": "Lee Woon-jae",
+            "pos": "gk",
+            "title": "The 2002 Hero",
+            "title_es": "El Héroe de 2002"
+        },
+        {
+            "name": "Hong Myung-bo",
+            "pos": "def",
+            "title": "The Eternal Captain",
+            "title_es": "El Capitán Eterno"
+        },
+        {
+            "name": "Park Ji-sung",
+            "pos": "mid",
+            "title": "Three-Lungs Park",
+            "title_es": "Park Tres Pulmones"
+        },
+        {
+            "name": "Son Heung-min",
+            "pos": "st",
+            "title": "Sonny",
+            "title_es": "Sonny"
+        }
+    ],
+    "EC": [
+        {
+            "name": "Alexander Domínguez",
+            "pos": "gk",
+            "title": "Dida",
+            "title_es": "Dida"
+        },
+        {
+            "name": "Iván Hurtado",
+            "pos": "def",
+            "title": "El Bam Bam",
+            "title_es": "El Bam Bam"
+        },
+        {
+            "name": "Antonio Valencia",
+            "pos": "mid",
+            "title": "The Amazonian Train",
+            "title_es": "El Tren Amazónico"
+        },
+        {
+            "name": "Enner Valencia",
+            "pos": "st",
+            "title": "Superman",
+            "title_es": "Superman"
+        }
+    ],
+    "AU": [
+        {
+            "name": "Mark Schwarzer",
+            "pos": "gk",
+            "title": "The Aussie Giant",
+            "title_es": "El Gigante Australiano"
+        },
+        {
+            "name": "Lucas Neill",
+            "pos": "def",
+            "title": "Captain Lucas",
+            "title_es": "Capitán Lucas"
+        },
+        {
+            "name": "Tim Cahill",
+            "pos": "mid",
+            "title": "Corner Flag King",
+            "title_es": "El Rey del Banderín"
+        },
+        {
+            "name": "Mark Viduka",
+            "pos": "st",
+            "title": "V-Dux",
+            "title_es": "V-Dux"
+        }
+    ],
+    "TR": [
+        {
+            "name": "Rüştü Reçber",
+            "pos": "gk",
+            "title": "The War-Paint Keeper",
+            "title_es": "El Portero Bélico"
+        },
+        {
+            "name": "Alpay Özalan",
+            "pos": "def",
+            "title": "The Rock of Istanbul",
+            "title_es": "La Roca de Estambul"
+        },
+        {
+            "name": "Arda Turan",
+            "pos": "mid",
+            "title": "The Turkish Wizard",
+            "title_es": "El Mago Turco"
+        },
+        {
+            "name": "Burak Yılmaz",
+            "pos": "st",
+            "title": "Kral",
+            "title_es": "Kral"
+        }
+    ],
+    "SE": [
+        {
+            "name": "Andreas Isaksson",
+            "pos": "gk",
+            "title": "The Swedish Wall",
+            "title_es": "El Muro Sueco"
+        },
+        {
+            "name": "Olof Mellberg",
+            "pos": "def",
+            "title": "The Viking Beard",
+            "title_es": "La Barba Vikinga"
+        },
+        {
+            "name": "Freddie Ljungberg",
+            "pos": "mid",
+            "title": "The Red-Haired Wizard",
+            "title_es": "El Mago Pelirrojo"
+        },
+        {
+            "name": "Zlatan Ibrahimović",
+            "pos": "st",
+            "title": "King Zlatan",
+            "title_es": "Rey Zlatan"
+        }
+    ],
+    "WA": [
+        {
+            "name": "Wayne Hennessey",
+            "pos": "gk",
+            "title": "100-Cap Wall",
+            "title_es": "El Muro Centenario"
+        },
+        {
+            "name": "Ashley Williams",
+            "pos": "def",
+            "title": "Captain Ash",
+            "title_es": "Capitán Ash"
+        },
+        {
+            "name": "Aaron Ramsey",
+            "pos": "mid",
+            "title": "Rambo",
+            "title_es": "Rambo"
+        },
+        {
+            "name": "Gareth Bale",
+            "pos": "st",
+            "title": "The Dragon of Cardiff",
+            "title_es": "El Dragón de Cardiff"
+        }
+    ],
+    "PL": [
+        {
+            "name": "Jerzy Dudek",
+            "pos": "gk",
+            "title": "The Istanbul Hero",
+            "title_es": "El Héroe de Estambul"
+        },
+        {
+            "name": "Kamil Glik",
+            "pos": "def",
+            "title": "The Polish Rock",
+            "title_es": "La Roca Polaca"
+        },
+        {
+            "name": "Jakub Błaszczykowski",
+            "pos": "mid",
+            "title": "Kuba",
+            "title_es": "Kuba"
+        },
+        {
+            "name": "Robert Lewandowski",
+            "pos": "st",
+            "title": "Lewy",
+            "title_es": "Lewy"
+        }
+    ],
+    "RS": [
+        {
+            "name": "Marko Dmitrović",
+            "pos": "gk",
+            "title": "The Serbian Keeper",
+            "title_es": "El Guardián Serbio"
+        },
+        {
+            "name": "Branislav Ivanović",
+            "pos": "def",
+            "title": "Bane",
+            "title_es": "Bane"
+        },
+        {
+            "name": "Dejan Stanković",
+            "pos": "mid",
+            "title": "Deki",
+            "title_es": "Deki"
+        },
+        {
+            "name": "Aleksandar Mitrović",
+            "pos": "st",
+            "title": "Mitro",
+            "title_es": "Mitro"
+        }
+    ],
+    "NO": [
+        {
+            "name": "Rune Jarstein",
+            "pos": "gk",
+            "title": "The Viking Wall",
+            "title_es": "El Muro Vikingo"
+        },
+        {
+            "name": "Henning Berg",
+            "pos": "def",
+            "title": "The Premier League Champion",
+            "title_es": "El Campeón de la Premier"
+        },
+        {
+            "name": "Martin Ødegaard",
+            "pos": "mid",
+            "title": "The Norwegian Maestro",
+            "title_es": "El Maestro Noruego"
+        },
+        {
+            "name": "Erling Haaland",
+            "pos": "st",
+            "title": "The Robot",
+            "title_es": "El Robot"
+        }
+    ],
+    "EG": [
+        {
+            "name": "Essam El-Hadary",
+            "pos": "gk",
+            "title": "The High Dam",
+            "title_es": "La Gran Presa"
+        },
+        {
+            "name": "Wael Gomaa",
+            "pos": "def",
+            "title": "The Rock of Africa",
+            "title_es": "La Roca de África"
+        },
+        {
+            "name": "Mohamed Aboutrika",
+            "pos": "mid",
+            "title": "The Smiling Magician",
+            "title_es": "El Mago Sonriente"
+        },
+        {
+            "name": "Mohamed Salah",
+            "pos": "st",
+            "title": "The Pharaoh",
+            "title_es": "El Faraón"
+        }
+    ],
+    "DZ": [
+        {
+            "name": "Rais M'Bolhi",
+            "pos": "gk",
+            "title": "The World Cup Wall",
+            "title_es": "El Muro Mundialista"
+        },
+        {
+            "name": "Madjid Bougherra",
+            "pos": "def",
+            "title": "The Magic Fennec",
+            "title_es": "El Zorro Mágico"
+        },
+        {
+            "name": "Riyad Mahrez",
+            "pos": "mid",
+            "title": "The Fennec Wizard",
+            "title_es": "El Mago Argelino"
+        },
+        {
+            "name": "Islam Slimani",
+            "pos": "st",
+            "title": "The Super Fennec",
+            "title_es": "El Súper Argelino"
+        }
+    ],
+    "IR": [
+        {
+            "name": "Alireza Beiranvand",
+            "pos": "gk",
+            "title": "The Penalty King",
+            "title_es": "El Rey de los Penaltis"
+        },
+        {
+            "name": "Jalal Hosseini",
+            "pos": "def",
+            "title": "The Rock of Tehran",
+            "title_es": "La Roca de Teherán"
+        },
+        {
+            "name": "Javad Nekounam",
+            "pos": "mid",
+            "title": "Captain Nekounam",
+            "title_es": "Capitán Nekounam"
+        },
+        {
+            "name": "Mehdi Taremi",
+            "pos": "st",
+            "title": "The Persian Striker",
+            "title_es": "El Delantero Persa"
+        }
+    ],
+    "NG": [
+        {
+            "name": "Vincent Enyeama",
+            "pos": "gk",
+            "title": "The Cat of Calabar",
+            "title_es": "El Gato de Calabar"
+        },
+        {
+            "name": "Joseph Yobo",
+            "pos": "def",
+            "title": "Captain Yobo",
+            "title_es": "Capitán Yobo"
+        },
+        {
+            "name": "Jay-Jay Okocha",
+            "pos": "mid",
+            "title": "So Good They Named Him Twice",
+            "title_es": "El Mago de las Gambetas"
+        },
+        {
+            "name": "Nwankwo Kanu",
+            "pos": "st",
+            "title": "King Kanu",
+            "title_es": "Rey Kanu"
+        }
+    ],
+    "CI": [
+        {
+            "name": "Boubacar Barry",
+            "pos": "gk",
+            "title": "Copa",
+            "title_es": "Copa"
+        },
+        {
+            "name": "Kolo Touré",
+            "pos": "def",
+            "title": "King Kolo",
+            "title_es": "Rey Kolo"
+        },
+        {
+            "name": "Yaya Touré",
+            "pos": "mid",
+            "title": "The Machine",
+            "title_es": "La Máquina"
+        },
+        {
+            "name": "Didier Drogba",
+            "pos": "st",
+            "title": "King Didier",
+            "title_es": "Rey Didier"
+        }
+    ],
+    "GR": [
+        {
+            "name": "Antonis Nikopolidis",
+            "pos": "gk",
+            "title": "The 2004 Wall",
+            "title_es": "El Muro de 2004"
+        },
+        {
+            "name": "Traianos Dellas",
+            "pos": "def",
+            "title": "The Colossus of Rhodes",
+            "title_es": "El Coloso de Rodas"
+        },
+        {
+            "name": "Giorgos Karagounis",
+            "pos": "mid",
+            "title": "The 139-Cap Captain",
+            "title_es": "El Capitán Griego"
+        },
+        {
+            "name": "Angelos Charisteas",
+            "pos": "st",
+            "title": "The 2004 Winner",
+            "title_es": "El Héroe de 2004"
+        }
+    ],
+    "TN": [
+        {
+            "name": "Aymen Mathlouthi",
+            "pos": "gk",
+            "title": "Balbouli",
+            "title_es": "Balbouli"
+        },
+        {
+            "name": "Radhi Jaïdi",
+            "pos": "def",
+            "title": "The Rock of Tunis",
+            "title_es": "La Roca de Túnez"
+        },
+        {
+            "name": "Wahbi Khazri",
+            "pos": "mid",
+            "title": "The Tunisian Maestro",
+            "title_es": "El Maestro Tunecino"
+        },
+        {
+            "name": "Issam Jemâa",
+            "pos": "st",
+            "title": "All-Time Top Scorer",
+            "title_es": "Máximo Goleador Histórico"
+        }
+    ],
+    "SC": [
+        {
+            "name": "Craig Gordon",
+            "pos": "gk",
+            "title": "The Flying Scot",
+            "title_es": "El Escocés Volador"
+        },
+        {
+            "name": "Colin Hendry",
+            "pos": "def",
+            "title": "Braveheart",
+            "title_es": "Corazón Valiente"
+        },
+        {
+            "name": "Darren Fletcher",
+            "pos": "mid",
+            "title": "The Engine",
+            "title_es": "El Motor Escocés"
+        },
+        {
+            "name": "Kenny Miller",
+            "pos": "st",
+            "title": "The Old Firm Hero",
+            "title_es": "El Héroe Escocés"
+        }
+    ],
+    "PY": [
+        {
+            "name": "Justo Villar",
+            "pos": "gk",
+            "title": "Saint Villar",
+            "title_es": "San Villar"
+        },
+        {
+            "name": "Paulo da Silva",
+            "pos": "def",
+            "title": "The Great Captain",
+            "title_es": "El Gran Capitán"
+        },
+        {
+            "name": "Roberto Acuña",
+            "pos": "mid",
+            "title": "The Bull",
+            "title_es": "El Toro"
+        },
+        {
+            "name": "Roque Santa Cruz",
+            "pos": "st",
+            "title": "El Baby Gol",
+            "title_es": "El Baby Gol"
+        }
+    ],
+    "CL": [
+        {
+            "name": "Claudio Bravo",
+            "pos": "gk",
+            "title": "Captain America",
+            "title_es": "Capitán América"
+        },
+        {
+            "name": "Gary Medel",
+            "pos": "def",
+            "title": "The Pitbull",
+            "title_es": "El Pitbull"
+        },
+        {
+            "name": "Arturo Vidal",
+            "pos": "mid",
+            "title": "King Arturo",
+            "title_es": "Rey Arturo"
+        },
+        {
+            "name": "Alexis Sánchez",
+            "pos": "st",
+            "title": "Wonder Boy",
+            "title_es": "El Niño Maravilla"
+        }
+    ],
+    "PE": [
+        {
+            "name": "Pedro Gallese",
+            "pos": "gk",
+            "title": "The Octopus",
+            "title_es": "El Pulpo"
+        },
+        {
+            "name": "Alberto Rodríguez",
+            "pos": "def",
+            "title": "The Mute",
+            "title_es": "El Mudo"
+        },
+        {
+            "name": "Nolberto Solano",
+            "pos": "mid",
+            "title": "Nobby",
+            "title_es": "Nobby"
+        },
+        {
+            "name": "Paolo Guerrero",
+            "pos": "st",
+            "title": "The Predator",
+            "title_es": "El Depredador"
+        }
+    ],
+    "VE": [
+        {
+            "name": "Wuilker Faríñez",
+            "pos": "gk",
+            "title": "The Vinotinto Falcon",
+            "title_es": "El Halcón Vinotinto"
+        },
+        {
+            "name": "Oswaldo Vizcarrondo",
+            "pos": "def",
+            "title": "The Marshal",
+            "title_es": "El Mariscal"
+        },
+        {
+            "name": "Juan Arango",
+            "pos": "mid",
+            "title": "El Arangol",
+            "title_es": "El Arangol"
+        },
+        {
+            "name": "Salomón Rondón",
+            "pos": "st",
+            "title": "The Gladiator",
+            "title_es": "El Gladiador"
+        }
+    ],
+    "CA": [
+        {
+            "name": "Milan Borjan",
+            "pos": "gk",
+            "title": "The Sweatpants Keeper",
+            "title_es": "El Portero Canadiense"
+        },
+        {
+            "name": "Atiba Hutchinson",
+            "pos": "def",
+            "title": "The Canadian Ageless Legend",
+            "title_es": "La Leyenda Incombustible"
+        },
+        {
+            "name": "Alphonso Davies",
+            "pos": "mid",
+            "title": "Phonzie",
+            "title_es": "Phonzie"
+        },
+        {
+            "name": "Jonathan David",
+            "pos": "st",
+            "title": "The Iceman",
+            "title_es": "El Hombre de Hielo"
+        }
+    ],
+    "QA": [
+        {
+            "name": "Saad Al-Sheeb",
+            "pos": "gk",
+            "title": "The Asian Cup Wall",
+            "title_es": "El Muro de la Copa de Asia"
+        },
+        {
+            "name": "Abdelkarim Hassan",
+            "pos": "def",
+            "title": "Asian Player of the Year",
+            "title_es": "Jugador del Año de Asia"
+        },
+        {
+            "name": "Hassan Al-Haydos",
+            "pos": "mid",
+            "title": "Captain Hassan",
+            "title_es": "Capitán Hassan"
+        },
+        {
+            "name": "Almoez Ali",
+            "pos": "st",
+            "title": "Asian Cup Top Scorer",
+            "title_es": "Máximo Goleador de la Copa de Asia"
+        }
+    ],
+    "SA": [
+        {
+            "name": "Mohamed Al-Deayea",
+            "pos": "gk",
+            "title": "The Legend of the Desert",
+            "title_es": "La Leyenda del Desierto"
+        },
+        {
+            "name": "Osama Hawsawi",
+            "pos": "def",
+            "title": "The Green Wall",
+            "title_es": "El Muro Verde"
+        },
+        {
+            "name": "Nawaf Al-Temyat",
+            "pos": "mid",
+            "title": "The Desert Maestro",
+            "title_es": "El Maestro del Desierto"
+        },
+        {
+            "name": "Sami Al-Jaber",
+            "pos": "st",
+            "title": "The World Cup Legend",
+            "title_es": "La Leyenda Mundialista"
+        }
+    ],
+    "ZA": [
+        {
+            "name": "Itumeleng Khune",
+            "pos": "gk",
+            "title": "Spider-Kid",
+            "title_es": "Spider-Kid"
+        },
+        {
+            "name": "Lucas Radebe",
+            "pos": "def",
+            "title": "The Chief",
+            "title_es": "El Jefe"
+        },
+        {
+            "name": "Steven Pienaar",
+            "pos": "mid",
+            "title": "Schillo",
+            "title_es": "Schillo"
+        },
+        {
+            "name": "Benni McCarthy",
+            "pos": "st",
+            "title": "The Champions League Winner",
+            "title_es": "El Campeón de la Champions"
+        }
+    ],
+    "CR": [
+        {
+            "name": "Keylor Navas",
+            "pos": "gk",
+            "title": "The Falcon",
+            "title_es": "El Halcón"
+        },
+        {
+            "name": "Giancarlo González",
+            "pos": "def",
+            "title": "Pipo",
+            "title_es": "Pipo"
+        },
+        {
+            "name": "Bryan Ruiz",
+            "pos": "mid",
+            "title": "Captain Tico",
+            "title_es": "El Capitán Tico"
+        },
+        {
+            "name": "Paulo Wanchope",
+            "pos": "st",
+            "title": "The Tax Collector",
+            "title_es": "El Cobrador"
+        }
+    ],
+    "CM": [
+        {
+            "name": "Carlos Kameni",
+            "pos": "gk",
+            "title": "The Panther",
+            "title_es": "El Pantera"
+        },
+        {
+            "name": "Rigobert Song",
+            "pos": "def",
+            "title": "Big Chief",
+            "title_es": "Gran Jefe"
+        },
+        {
+            "name": "Alexandre Song",
+            "pos": "mid",
+            "title": "The Maestro",
+            "title_es": "El Maestro"
+        },
+        {
+            "name": "Samuel Eto'o",
+            "pos": "st",
+            "title": "The Indomitable Lion",
+            "title_es": "El León Indomable"
+        }
+    ],
+    "ML": [
+        {
+            "name": "Djigui Diarra",
+            "pos": "gk",
+            "title": "The Malian Wall",
+            "title_es": "El Muro de Malí"
+        },
+        {
+            "name": "Adama Coulibaly",
+            "pos": "def",
+            "title": "Police",
+            "title_es": "Policía"
+        },
+        {
+            "name": "Seydou Keita",
+            "pos": "mid",
+            "title": "The Golden Left",
+            "title_es": "La Zurda de Oro"
+        },
+        {
+            "name": "Frédéric Kanouté",
+            "pos": "st",
+            "title": "The Malian Giant",
+            "title_es": "El Gigante Maliense"
+        }
     ]
-  };
+};
 
   const DATA = {
     FIELD_STATS, GK_STATS, POSITIONS, OVR_WEIGHTS, ATTACK_RATES,
