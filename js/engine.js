@@ -1447,6 +1447,7 @@
   }
 
   function simulateSeason(state) {
+    state.ntDeclinedThisYear = false;
     const p = state.player;
     const club = clubByCid(state.club.cid);
     const nat = countryById(p.countryId);

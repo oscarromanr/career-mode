@@ -265,11 +265,28 @@ console.log('  peak ovr:', c4.sum.peakOvr, '| stints:', c4.sum.stints.length);
     s.club = { cid: zaClub.cid, yearsLeft: 5 };
     s.countrySeasons = { ZA: 4 };
     s.player.age = 18;
-    s.player.ovr = 72;
+    Engine.statKeys(false).forEach((k) => s.player.stats[k] = 80);
+    Engine.recompute(s);
+
     Engine.simulateSeason(s);
     assert(s.player.earnedNationalities && s.player.earnedNationalities.includes('ZA'), 'earned ZA nationality');
-    assert(s.triggerNaturalizationModal === 'ZA', 'triggered naturalization modal');
-    assert(s.triggerNtCallUpModal === 'ZA', 'triggered secondary NT call-up for ZA');
+    assert(s.triggerNtCallUpModal === 'ES', 'Spain calls up first as birth nation');
+    
+    // Decline Spain temporarily
+    Engine.declineNtCallUpTemp(s, 'ES');
+    assert(s.ntDeclinedCooldowns['ES'] === 2, 'Spain set on 2-season cooldown');
+
+    // Next season: Spain is on cooldown, South Africa should call up!
+    Engine.simulateSeason(s);
+    assert(s.triggerNtCallUpModal === 'ZA', 'South Africa calls up while Spain is on cooldown');
+
+    // Decline South Africa temporarily
+    Engine.declineNtCallUpTemp(s, 'ZA');
+    assert(s.ntDeclinedCooldowns['ZA'] === 2, 'ZA set on 2-season cooldown');
+
+    // Next season: Spain off cooldown, Spain calls up again!
+    Engine.simulateSeason(s);
+    assert(s.triggerNtCallUpModal === 'ES', 'Spain calls back after cooldown expires');
   }
   console.log('Naturalization & Dual Nationality Call-Up test OK');
 }
