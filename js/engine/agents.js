@@ -36,8 +36,8 @@
     const stdPat = ri(40, 75);
     const stdGrd = ri(45, 75);
     const stdNeg = ri(50, 80);
-    const stdCalc = Math.round((pSal * 0.15 * (0.8 + fn() * 0.4)) / 5000) * 5000;
-    const stdSalary = Math.max(10000, Math.min(stdCalc, pSal * 0.4));
+    const stdCalc = Math.round((pSal * 0.25 * (0.85 + fn() * 0.35)) / 5000) * 5000;
+    const stdSalary = Math.max(20000, Math.min(stdCalc, pSal * 0.45));
     candidates.push({
       id: 'agent_std_' + state.season,
       name: generateAgentName(),
@@ -53,8 +53,8 @@
     const elePat = ri(30, 60);
     const eleGrd = ri(70, 95);
     const eleNeg = ri(75, 98);
-    const eleCalc = Math.round((pSal * 0.35 * (0.9 + fn() * 0.3)) / 5000) * 5000;
-    const eleSalary = Math.max(25000, Math.min(eleCalc, Math.round(pSal * 0.7)));
+    const eleCalc = Math.round((pSal * 0.45 * (0.9 + fn() * 0.3)) / 5000) * 5000;
+    const eleSalary = Math.max(45000, Math.min(eleCalc, Math.round(pSal * 0.75)));
     candidates.push({
       id: 'agent_elite_' + state.season,
       name: generateAgentName() + ' (Elite)',
@@ -70,8 +70,8 @@
     const vetPat = ri(70, 95);
     const vetGrd = ri(30, 60);
     const vetNeg = ri(65, 85);
-    const vetCalc = Math.round((pSal * 0.20 * (0.8 + fn() * 0.4)) / 5000) * 5000;
-    const vetSalary = Math.max(15000, Math.min(vetCalc, Math.round(pSal * 0.5)));
+    const vetCalc = Math.round((pSal * 0.30 * (0.8 + fn() * 0.4)) / 5000) * 5000;
+    const vetSalary = Math.max(30000, Math.min(vetCalc, Math.round(pSal * 0.55)));
     candidates.push({
       id: 'agent_vet_' + state.season,
       name: generateAgentName() + ' (Veteran)',

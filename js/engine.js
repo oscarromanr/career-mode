@@ -949,12 +949,65 @@
 
   function clubOffers(state) {
     const p = state.player;
-    const cur = clubByCid(state.club.cid);
+    const isFreeAgent = !!(state.isFreeAgent || !state.club);
+    const cur = state.club ? clubByCid(state.club.cid) : null;
     const veteran = p.age >= 34 || (p.peakOvr - p.ovr >= 3 && p.age >= 32);
     const underage = p.age < 18;
     const teen = p.age <= 19;
     const offers = [];
     const T = (k, params) => root.I18n ? root.I18n.T(k, params) : k;
+
+    // ---- FREE AGENT LOGIC ----
+    if (isFreeAgent) {
+      const formerCid = state.lastClubCid || (state.history.length && state.history[0].cid);
+      const formerClub = formerCid ? clubByCid(formerCid) : null;
+      const loanClub = state.lastLoanClubCid ? clubByCid(state.lastLoanClubCid) : null;
+
+      // Option 1: Offer from former club (if willing)
+      if (formerClub) {
+        offers.push({
+          type: 'stay',
+          club: formerClub,
+          fee: 0,
+          roleKey: roleKey(p.ovr, formerClub.s, state),
+          role: roleText(p.ovr, formerClub.s, state),
+          noteKey: 'offerNote.newContract',
+          note: T('offerNote.newContract'),
+          isRenewal: true,
+        });
+      }
+
+      // Option 2: Offer from former loan club (if was on loan)
+      if (loanClub && (!formerClub || loanClub.cid !== formerClub.cid)) {
+        offers.push({
+          type: 'transfer',
+          club: loanClub,
+          fee: 0,
+          roleKey: roleKey(p.ovr, loanClub.s, state),
+          role: roleText(p.ovr, loanClub.s, state),
+          noteKey: 'offerNote.loanBuyout',
+          note: T('offerNote.loanBuyout'),
+        });
+      }
+
+      // Option 3, 4, 5: Offers from interested clubs on Free Transfer (NO LOANS for free agents)
+      const excludeCids = new Set([formerCid, state.lastLoanClubCid].filter(Boolean));
+      const candidatePool = ALL_CLUBS.filter((c) => !excludeCids.has(c.cid) && Math.abs(c.s - p.ovr) <= 12 && (!underage || c.countryId === p.countryId));
+      const picked = shuffle(candidatePool).slice(0, Math.max(1, 3 - offers.length));
+      picked.forEach((c) => {
+        offers.push({
+          type: 'transfer',
+          club: c,
+          fee: 0,
+          roleKey: roleKey(p.ovr, c.s, state),
+          role: roleText(p.ovr, c.s, state),
+          noteKey: 'offerNote.fresh',
+          note: T('offerNote.fresh'),
+        });
+      });
+
+      return offers.slice(0, 3);
+    }
 
     const loyal = (p.loyalty || 0) >= 60;
     const forcedOut = !loyal && !veteran && !teen && p.age >= 21 && (cur.s - p.ovr > 12);
@@ -1306,11 +1359,15 @@
     }
   }
 
-  function nationalThreshold(rank) {
-    if (rank <= 5) return 80;
-    if (rank <= 15) return 76;
-    if (rank <= 30) return 72;
-    return 68;
+  function nationalThreshold(rank, age, potential) {
+    let base;
+    if (rank <= 5) base = 76;
+    else if (rank <= 15) base = 72;
+    else if (rank <= 30) base = 68;
+    else base = 63;
+
+    if (age !== undefined && age <= 19 && potential >= 80) base -= 3;
+    return base;
   }
 
   function ntWinProb(rank, ovr, isWC) {
@@ -1454,6 +1511,13 @@
     state.countrySeasons = state.countrySeasons || {};
     state.countrySeasons[club.countryId] = (state.countrySeasons[club.countryId] || 0) + 1;
 
+    // Tick down active national team declined cooldowns
+    if (state.ntDeclinedCooldowns) {
+      for (const k in state.ntDeclinedCooldowns) {
+        if (state.ntDeclinedCooldowns[k] > 0) state.ntDeclinedCooldowns[k]--;
+      }
+    }
+
     if (club.countryId !== p.initialCountryId && state.countrySeasons[club.countryId] >= 5 && !p.earnedNationalities.includes(club.countryId)) {
       p.earnedNationalities.push(club.countryId);
       state.triggerNaturalizationModal = club.countryId;
@@ -1465,12 +1529,12 @@
     const candidateNats = [p.initialCountryId || p.countryId, ...(p.earnedNationalities || [])].filter((c, i, a) => a.indexOf(c) === i);
     for (const cCode of candidateNats) {
       if (state.ntRejectedPerm && state.ntRejectedPerm[cCode]) continue;
+      if (state.ntDeclinedCooldowns && state.ntDeclinedCooldowns[cCode] > 0) continue;
       if (state.ntCalledUp && state.ntCountryId && state.ntCountryId !== cCode && state.totals && state.totals.caps > 0) continue;
 
       const cNat = countryById(cCode);
       if (!cNat) continue;
-      let thr = nationalThreshold(cNat.rank);
-      if (age <= 19 && p.potential >= 85) thr -= 3;
+      const thr = nationalThreshold(cNat.rank, age, p.potential);
 
       if (p.ovr >= thr && age >= 16) {
         if (state.ntCalledUp && (state.ntCountryId === cCode || p.countryId === cCode)) {
@@ -1567,7 +1631,10 @@
       state.contract.yearsLeft = Math.max(0, state.contract.yearsLeft - 1);
       if (state.contract.yearsLeft === 0) {
         state.isFreeAgent = true;
-        const parentName = (state.club && state.club.loan && state.club.parentCid) ? clubByCid(state.club.parentCid).n : club.n;
+        const parentName = (state.club && state.club.loan && state.club.parentCid) ? clubByCid(state.club.parentCid).n : (club ? club.n : 'Club');
+        state.lastClubCid = (state.club && state.club.loan && state.club.parentCid) ? state.club.parentCid : (state.club ? state.club.cid : null);
+        state.lastLoanClubCid = (state.club && state.club.loan) ? state.club.cid : null;
+        state.club = null;
         logStatNote(state, `Contract with ${parentName} expired! Entering Free Agency.`);
       }
     }
@@ -1704,9 +1771,23 @@
     state.ntStatus = 'declined_temp';
     state.triggerNtCallUpModal = false;
     state.ntDeclinedThisYear = true;
+
+    state.ntDeclinedCounts = state.ntDeclinedCounts || {};
+    state.ntDeclinedCounts[targetNatCode] = (state.ntDeclinedCounts[targetNatCode] || 0) + 1;
+
+    state.ntDeclinedCooldowns = state.ntDeclinedCooldowns || {};
+
     const nat = countryById(targetNatCode);
     const T = (k, p) => root.I18n ? root.I18n.T(k, p) : k;
-    logStatNote(state, T('note.ntDeclinedTemp', { country: countryName(nat) }));
+
+    if (state.ntDeclinedCounts[targetNatCode] >= 3) {
+      state.ntRejectedPerm = state.ntRejectedPerm || {};
+      state.ntRejectedPerm[targetNatCode] = true;
+      logStatNote(state, T('note.ntRejectedPerm3', { country: countryName(nat) }));
+    } else {
+      state.ntDeclinedCooldowns[targetNatCode] = 2;
+      logStatNote(state, T('note.ntDeclinedTemp', { country: countryName(nat) }));
+    }
   }
 
   function rejectNtCallUpPerm(state, cCode) {

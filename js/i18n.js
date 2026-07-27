@@ -225,6 +225,10 @@
     'agent.none': 'None',
     'agent.setTarget': '🎯 Declare Public Target Club',
     'agent.negotiateComm': '💸 Negotiate Transfer Commission',
+    'agent.commDesc': 'Select the transfer cut percentage your agent will secure for you upon any future transfer sale:',
+    'agent.commStd': 'Standard Cut',
+    'agent.commStar': 'Star Cut',
+    'agent.commSuper': 'Super-Agent Cut',
     'agent.requestMove': '📋 Request Transfer / Loan List',
     'agent.demandRaise': '💰 Demand Salary Increase',
     'agent.openMarket': '🛒 Agent Market (Hire / Fire)',
@@ -250,7 +254,9 @@
     'note.paidAgentFee': 'Paid {amount} annual expenses to {name}',
     'note.ntAccepted': 'Received international call-up for {country}!',
     'note.ntDeclined': 'Declined international call-up for {country}',
+    'note.ntRejectedPerm3': 'Declined 3 call-ups from {country}. International door closed permanently.',
     'note.ntSwitched': 'Switched national team allegiance to {country}!',
+    'agent.freeAgentTitle': 'Free Agent / Unattached',
 
     // Season result
     'sr.kicker': 'SEASON {year} COMPLETE',
@@ -687,6 +693,10 @@
     'agent.none': 'Ninguno',
     'agent.setTarget': '🎯 Declarar Club Objetivo Público',
     'agent.negotiateComm': '💸 Negociar Comisión por Transferencia',
+    'agent.commDesc': 'Elegí el porcentaje de comisión que tu agente asegurará para vos en cualquier venta de transferencia futura:',
+    'agent.commStd': 'Comisión Estándar',
+    'agent.commStar': 'Comisión de Estrella',
+    'agent.commSuper': 'Comisión de Superagente',
     'agent.requestMove': '📋 Solicitar Transferencia o Préstamo',
     'agent.demandRaise': '💰 Exigir Aumento de Sueldo',
     'agent.openMarket': '🛒 Mercado de Agentes (Contratar / Despedir)',
@@ -712,7 +722,9 @@
     'note.paidAgentFee': 'Se abonaron {amount} de gastos anuales a {name}',
     'note.ntAccepted': '¡Convocatoria internacional con la selección de {country}!',
     'note.ntDeclined': 'Rechazó la convocatoria a la selección de {country}',
+    'note.ntRejectedPerm3': 'Rechazaste 3 convocatorias de {country}. La puerta de la selección se cerró definitivamente.',
     'note.ntSwitched': '¡Nacionalizado e integrado a la selección de {country}!',
+    'agent.freeAgentTitle': 'Agente Libre / Sin Club',
 
     // Season result
     'sr.kicker': 'TEMPORADA {year} COMPLETADA',

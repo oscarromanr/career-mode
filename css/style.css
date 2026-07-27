@@ -1735,15 +1735,40 @@ input { font-family: inherit; }
 .goal {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 8;
-  border: 5px solid #e8e8e8;
-  border-bottom: none;
+  aspect-ratio: 16 / 9;
+  border: 6px solid #f0f3f6;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.4);
   border-radius: 8px 8px 0 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.6);
   background:
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.13) 0 1px, transparent 1px 22px),
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.13) 0 1px, transparent 1px 22px),
-    repeating-linear-gradient(180deg, #2e7a3f 0 12.5%, #266835 12.5% 25%);
-  overflow: hidden;
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.15) 0 1px, transparent 1px 20px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.15) 0 1px, transparent 1px 20px),
+    linear-gradient(180deg, #1b4b26 0%, #29743a 70%, #1e562b 100%);
+  overflow: visible;
+  margin-bottom: 16px;
+}
+.mini-gk {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.85;
+}
+.mini-penalty-spot {
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  z-index: 3;
 }
 .goal-zone {
   position: absolute;
@@ -1763,11 +1788,11 @@ input { font-family: inherit; }
 .mini-ball {
   position: absolute;
   left: 50%;
-  top: 108%;
-  transform: translate(-50%, -50%);
+  bottom: -22px;
+  transform: translate(-50%, 0);
   font-size: 26px;
-  z-index: 4;
-  transition: left 0.5s cubic-bezier(.2,.7,.3,1), top 0.5s cubic-bezier(.2,.7,.3,1);
+  z-index: 5;
+  transition: left 0.55s cubic-bezier(.2,.7,.3,1), top 0.55s cubic-bezier(.2,.7,.3,1), bottom 0.55s cubic-bezier(.2,.7,.3,1);
   pointer-events: none;
 }
 .mini-ball.fly { font-size: 20px; }
@@ -1947,17 +1972,55 @@ input { font-family: inherit; }
 /* GK Penalty Minigame */
 .gk-penalty-mini { text-align: center; }
 .gk-goal {
-  height: 140px;
-  border-radius: 12px;
-  border: 2px dashed rgba(255, 255, 255, 0.2);
   position: relative;
-  margin: 14px 0;
-  background: rgba(255, 255, 255, 0.03);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 6px solid #f0f3f6;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.6);
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.15) 0 1px, transparent 1px 20px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.15) 0 1px, transparent 1px 20px),
+    linear-gradient(180deg, #1b4b26 0%, #29743a 70%, #1e562b 100%);
+  overflow: visible;
+  margin: 14px 0 20px;
 }
-.mini-striker { font-size: 32px; }
+.mini-striker {
+  position: absolute;
+  left: 50%;
+  bottom: -24px;
+  transform: translateX(-50%);
+  font-size: 32px;
+  z-index: 6;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+}
+.mini-gk-gloves {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 34px;
+  z-index: 4;
+  transition: transform 0.45s cubic-bezier(.2,.7,.3,1), left 0.45s cubic-bezier(.2,.7,.3,1), top 0.45s cubic-bezier(.2,.7,.3,1);
+  pointer-events: none;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+}
+.mini-gk-gloves.dive-left {
+  left: 20%;
+  top: 35%;
+  transform: translate(-50%, -50%) rotate(-35deg);
+}
+.mini-gk-gloves.dive-right {
+  left: 80%;
+  top: 35%;
+  transform: translate(-50%, -50%) rotate(35deg);
+}
+.mini-gk-gloves.dive-center {
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%, -50%) scale(1.25);
+}
 .gk-dive-btns {
   display: flex;
   gap: 10px;

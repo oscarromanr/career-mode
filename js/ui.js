@@ -381,12 +381,17 @@
     const title = h('div', 'agent-card-title', `💼 ${T('agent.title')}`);
     card.appendChild(title);
 
-    const isLoan = !!(state.club && state.club.loan && state.club.parentCid);
+    const isFreeAgent = !!(state.isFreeAgent || !state.contract || state.contract.yearsLeft === 0);
+    const isLoan = !isFreeAgent && !!(state.club && state.club.loan && state.club.parentCid);
     const parentClub = isLoan ? E().clubByCid(state.club.parentCid) : null;
-    const curClub = state.club ? E().clubByCid(state.club.cid) : null;
+    const curClub = (!isFreeAgent && state.club) ? E().clubByCid(state.club.cid) : null;
     const displayClub = parentClub || curClub;
 
-    if (displayClub) {
+    if (isFreeAgent) {
+      const badgeWrap = h('div', 'agent-property-banner free-agent-banner');
+      badgeWrap.appendChild(h('span', 'agent-prop-text', `🆓 ${T('agent.freeAgentTitle') || 'Free Agent / Unattached'}`));
+      card.appendChild(badgeWrap);
+    } else if (displayClub) {
       const propText = isLoan
         ? T('agent.propertyOf', { club: displayClub.n })
         : `${T('agent.currentClub') || 'Current Club'}: ${displayClub.n}`;
@@ -586,11 +591,11 @@
   function showCommissionSelector(state, handlers) {
     const c = h('div', 'comm-selector');
     c.innerHTML = `<h3>${T('agent.negotiateComm')}</h3>
-      <p style="font-size:13px;color:var(--text-2);margin-bottom:12px;">Select the transfer cut percentage your agent will secure for you upon any future transfer sale:</p>
+      <p style="font-size:13px;color:var(--text-2);margin-bottom:12px;">${T('agent.commDesc')}</p>
       <div style="display:flex;gap:10px;margin-bottom:14px;">
-        <button class="primary-btn" data-pct="5">5% (Standard)</button>
-        <button class="primary-btn" data-pct="8">8% (Star Cut)</button>
-        <button class="primary-btn" data-pct="12">12% (Super-Agent Cut)</button>
+        <button class="primary-btn" data-pct="5">5% (${T('agent.commStd')})</button>
+        <button class="primary-btn" data-pct="8">8% (${T('agent.commStar')})</button>
+        <button class="primary-btn" data-pct="12">12% (${T('agent.commSuper')})</button>
       </div>`;
     const m = modal(c);
     c.querySelectorAll('button').forEach((b) => {
@@ -1442,6 +1447,10 @@
       <h3>${T('pen.title')}</h3>
       <p class="mini-sub">${T('pen.sub', { good: mini.goodZones || 2, total: zonesN })}</p>`;
     const goal = h('div', 'goal');
+    goal.innerHTML = `
+      <div class="penalty-net-grid"></div>
+      <div class="mini-gk">🧤</div>
+      <div class="mini-penalty-spot"></div>`;
     const ball = h('div', 'mini-ball', '⚽');
     goal.appendChild(ball);
     zoneDefs.forEach((z) => {
@@ -1567,9 +1576,13 @@
       <p class="mini-sub">${T('gk.sub')}</p>`;
 
     const goal = h('div', 'gk-goal');
-    const striker = h('div', 'mini-striker', '⚽ 🏃');
+    goal.innerHTML = `
+      <div class="penalty-net-grid"></div>
+      <div class="mini-striker">🏃</div>
+      <div class="mini-gk-gloves">🧤</div>
+      <div class="mini-penalty-spot"></div>`;
+
     const ball = h('div', 'mini-ball', '⚽');
-    goal.appendChild(striker);
     goal.appendChild(ball);
 
     const btnRow = h('div', 'gk-dive-btns');
@@ -1608,16 +1621,29 @@
       const strikerChoice = ['left', 'center', 'right'][Math.floor(Math.random() * 3)];
       const saved = playerChoice === strikerChoice;
 
-      verdict.textContent = saved ? T('gk.saved') : T('gk.goal');
-      verdict.className = 'mini-verdict show ' + (saved ? 'v-good' : 'v-bad');
-      if (saved) confetti();
+      const gloves = goal.querySelector('.mini-gk-gloves');
+      if (gloves) gloves.classList.add('dive-' + playerChoice);
+
+      const targetX = strikerChoice === 'left' ? '18%' : (strikerChoice === 'right' ? '82%' : '50%');
+      const targetTop = '30%';
+
+      ball.style.left = targetX;
+      ball.style.top = targetTop;
+      ball.style.bottom = 'auto';
+      ball.classList.add('fly');
+
       setTimeout(() => {
-        if (!finished) {
-          finished = true;
-          m.close();
-          onResult(saved ? 'good' : 'bad');
-        }
-      }, 1200);
+        verdict.textContent = saved ? T('gk.saved') : T('gk.goal');
+        verdict.className = 'mini-verdict show ' + (saved ? 'v-good' : 'v-bad');
+        if (saved) confetti();
+        setTimeout(() => {
+          if (!finished) {
+            finished = true;
+            m.close();
+            onResult(saved ? 'good' : 'bad');
+          }
+        }, 1200);
+      }, 550);
     });
   }
 

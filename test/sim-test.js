@@ -124,11 +124,11 @@ function playCareer(position, countryId, verbose) {
     if (state.stage !== 'sim') {
       const offers = Engine.clubOffers(state);
       assert(offers.length >= 1 && offers.length <= 3, `1-3 club offers (${offers.length})`);
-      if (age < 18) {
+      if (age < 18 && !state.isFreeAgent) {
         offers.forEach((o) => {
           if (o.type === 'stay' || o.type === 'released' || o.type === 'return') return;
           assert(o.type === 'loan', `U18 only loans (got ${o.type} to ${o.club.n})`);
-          const curCountry = Engine.clubByCid(state.club.cid).countryId;
+          const curCountry = state.club ? Engine.clubByCid(state.club.cid).countryId : state.player.countryId;
           assert(o.club.countryId === state.player.countryId || o.club.countryId === curCountry || o.club.countryId === undefined, `U18 stays domestic (${o.club.n} in ${o.club.countryName})`);
         });
       }
@@ -145,8 +145,10 @@ function playCareer(position, countryId, verbose) {
     assert(state.earnings >= 0 && state.earnings >= state.spent, `earnings/spent sane (${state.earnings}/${state.spent})`);
     // standings
     assert(state.standings, 'standings exist');
-    const c = Engine.countryById(Engine.clubByCid(state.club.cid).countryId);
-    assert(state.standings.length === c.clubs.length, `standings covers league (${state.standings.length}/${c.clubs.length})`);
+    if (state.club) {
+      const c = Engine.countryById(Engine.clubByCid(state.club.cid).countryId);
+      assert(state.standings.length === c.clubs.length, `standings covers league (${state.standings.length}/${c.clubs.length})`);
+    }
     for (let i = 1; i < state.standings.length; i++) {
       assert(state.standings[i - 1].pts >= state.standings[i].pts, 'standings sorted');
     }
@@ -263,7 +265,7 @@ console.log('  peak ovr:', c4.sum.peakOvr, '| stints:', c4.sum.stints.length);
     s.club = { cid: zaClub.cid, yearsLeft: 5 };
     s.countrySeasons = { ZA: 4 };
     s.player.age = 18;
-    s.player.ovr = 75;
+    s.player.ovr = 72;
     Engine.simulateSeason(s);
     assert(s.player.earnedNationalities && s.player.earnedNationalities.includes('ZA'), 'earned ZA nationality');
     assert(s.triggerNaturalizationModal === 'ZA', 'triggered naturalization modal');
