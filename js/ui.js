@@ -266,7 +266,8 @@
       clubRow.appendChild(badgeEl(club, 22));
       clubRow.appendChild(h('span', 'pcard-club-name', `${esc(club.n)} <em>${esc(club.league)}</em>`));
     } else {
-      clubRow.appendChild(h('span', 'pcard-club-name', `<em>${T('card.unattached')}</em>`));
+      const unattachedText = state.stage === 'academy' ? T('card.unattached') : (T('card.freeAgentTitle') || 'Free Agent');
+      clubRow.appendChild(h('span', 'pcard-club-name', `<em>${unattachedText}</em>`));
     }
     card.appendChild(clubRow);
 
@@ -426,6 +427,10 @@
       <div class="agent-item">
         <span>${T('agent.contract')}</span>
         <b>${contractStr}</b>
+      </div>
+      <div class="agent-item">
+        <span>${T('agent.clubSituation') || 'Club Situation'}</span>
+        <b>${state.clubSituation === 'listed' ? (T('agent.sitListed') || 'Transfer Listed') : (state.clubSituation === 'loan_listed' ? (T('agent.sitLoan') || 'Available for Loan') : (T('agent.sitNotForSale') || 'Not on Sale'))}</b>
       </div>`;
     card.appendChild(grid);
 
@@ -473,7 +478,9 @@
     optsList.appendChild(btnComm);
 
     const reqDisabled = cooldowns.transferReq;
-    const btnReq = h('button', `agent-opt-btn ${reqDisabled ? 'disabled' : ''}`, `<span>${T('agent.requestMove')}</span><i>➔</i>`);
+    const isListed = state.clubSituation === 'listed';
+    const reqText = isListed ? (T('agent.withdrawMove') || 'Withdraw Transfer Request') : T('agent.requestMove');
+    const btnReq = h('button', `agent-opt-btn ${reqDisabled ? 'disabled' : ''}`, `<span>${reqText}</span><i>➔</i>`);
     if (reqDisabled) btnReq.disabled = true;
     btnReq.onclick = () => {
       if (reqDisabled) return;
@@ -620,9 +627,10 @@
     head.appendChild(left);
     const right = h('div', 'stage-right');
     const steps = h('div', 'stage-steps');
-    ['decision', 'booster', 'club'].forEach((s) => {
+    const stageOrder = ['club', 'decision', 'booster'];
+    stageOrder.forEach((s) => {
       const cls = 'step' + (s === active ? ' active' : '') +
-        (['decision', 'booster', 'club'].indexOf(s) < ['decision', 'booster', 'club'].indexOf(active) ? ' done' : '');
+        (stageOrder.indexOf(s) < stageOrder.indexOf(active) ? ' done' : '');
       steps.appendChild(h('span', cls, T('step.' + s)));
     });
     right.appendChild(steps);
@@ -721,6 +729,11 @@
     rootEl.innerHTML = '';
     const stage = state.stage;
 
+    if (state.isViewingSummary) {
+      rootEl.appendChild(stageHeader(state, 'booster', handlers));
+      return;
+    }
+
     if (stage === 'academy') {
       rootEl.appendChild(stageHeader(state, 'decision', handlers));
       const box = h('div', 'stage-body');
@@ -782,7 +795,8 @@
         const grid = h('div', `pick-grid ${optKeys.length === 2 ? 'two' : ''}`);
         optKeys.forEach((k) => {
           const o = d[k];
-          const card = h('button', `pick-card option-${k}`);
+          const cardCls = `pick-card option-${k}${o.mini ? ' gold-gradient' : ''}`;
+          const card = h('button', cardCls);
           card.type = 'button';
           let odds = '';
           if (o.fx && o.fx.risk) {
@@ -847,7 +861,7 @@
     }
 
     if (stage === 'sim') {
-      rootEl.appendChild(stageHeader(state, 'club', handlers));
+      rootEl.appendChild(stageHeader(state, 'booster', handlers));
       const box = h('div', 'stage-body sim-body');
       box.innerHTML = `
         <h2>${T('sim.title', { n: state.season })}</h2>
@@ -876,9 +890,10 @@
     const statsLine = r.saves || r.conceded || r.cleanSheets
       ? `<span>${r.apps} APP</span><span>${r.saves} SAV</span><span>${r.conceded} GC</span><span>${r.cleanSheets} CS</span>`
       : `<span>${r.apps} APP</span><span>${r.goals} G</span><span>${r.assists} A</span>`;
+    const capsText = r.caps ? (r.ntGoals ? T('summary.capsGoals', { caps: r.caps, goals: r.ntGoals }) : T('summary.capsOnly', { caps: r.caps })) : '';
     const line = h('div', 'hrow-stats', statsLine +
       `<span class="hrow-rating">★ ${r.rating.toFixed(1)}</span>` +
-      (r.caps ? `<span class="hrow-caps">${r.caps} caps${r.ntGoals ? ` · ${r.ntGoals} G` : ''}</span>` : ''));
+      (capsText ? `<span class="hrow-caps">${capsText}</span>` : ''));
     row.appendChild(line);
 
     if (r.trophies.length || (r.awards && r.awards.length)) {
@@ -903,7 +918,7 @@
       rootEl.appendChild(h('div', 'history-empty', T('hist.joinClub')));
       return;
     }
-    const country = E().countryById(club.countryId);
+    const country = E().countryById(state.standingsCountryId || club.countryId);
     const head2 = h('div', 'league-head');
     head2.innerHTML = `<b>${esc(country.league)}</b><i>${state.standings ? T('hist.finalTable', { year: state.season - 1 }) : T('hist.preseason')}</i>`;
     rootEl.appendChild(head2);
@@ -988,7 +1003,7 @@
       card.appendChild(statsDiv);
 
       if (salText) {
-        card.appendChild(h('div', 'stint-salary-row', `💰 ${salText}`));
+        card.appendChild(h('div', 'stint-salary-row', `<span class="tr-chip" style="color:#0cce6b;border-color:#0cce6b55;background:transparent;">💰 ${salText}</span>`));
       }
 
       if (trophyChips.length) {
@@ -1466,6 +1481,12 @@
       btn.dataset.zone = z.id;
       goal.appendChild(btn);
     });
+    
+    c.appendChild(goal);
+    
+    const verdict = h('div', 'mini-verdict', '');
+    c.appendChild(verdict);
+    
     let finished = false;
     const m = modal(c, {
       onClose: () => {

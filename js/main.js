@@ -56,7 +56,7 @@
     onAcademy(cid) {
       Engine.setAcademy(state, cid);
       delete state.currentAcademies;
-      enterBooster();
+      enterDecision();
     },
     onDecision(choice) {
       const d = state.currentDecision;
@@ -90,12 +90,10 @@
       const b = state.currentBoosters.find((x) => x.id === boosterId);
       const res = Engine.applyBooster(state, b);
       delete state.currentBoosters;
-      // Season 1: skip club stage (you just joined the academy)
-      state.stage = state.history.length === 0 ? 'sim' : 'club';
+      state.stage = 'sim';
       save();
       UI.showOutcome(I18n.TData('booster', b, 'title') || b.title, boosterOutcomeText(b), res.changes, () => {
-        if (state.stage === 'sim') runSim();
-        else enterClub();
+        runSim();
       }, state);
     },
     onClub(idx) {
@@ -103,7 +101,7 @@
       delete state.currentOffers;
       Engine.applyClubOffer(state, offer);
       save();
-      runSim();
+      enterDecision();
     },
     onRestart() {
       clearSave();
@@ -168,11 +166,13 @@
       }
     },
     onRequestTransfer() {
-      const res = Engine.requestTransfer(state);
+      const isListed = state.clubSituation === 'listed';
+      const res = isListed ? Engine.withdrawTransferRequest(state) : Engine.requestTransfer(state);
       save();
       UI.renderGame(state, handlers);
       if (res.ok) {
-        UI.showOutcome(T('agent.requestMove'), T('agent.transferRequested'), res.changes, () => UI.renderGame(state, handlers), state);
+        const msg = isListed ? (T('agent.transferWithdrawn') || 'Withdrew transfer request. You are no longer transfer listed.') : T('agent.transferRequested');
+        UI.showOutcome(T('agent.requestMove'), msg, res.changes, () => UI.renderGame(state, handlers), state);
       } else {
         UI.showOutcome(T('agent.requestMove'), res.reason, [], () => UI.renderGame(state, handlers), state);
       }
@@ -222,9 +222,9 @@
   function repairStage() {
     if (state.stage === 'sim' && !state.history.length) { runSim(); return; }
     if (state.stage === 'sim') state.stage = 'club';
+    if (state.stage === 'club' && !state.currentOffers) state.currentOffers = Engine.clubOffers(state);
     if (state.stage === 'decision' && !state.currentDecision) state.currentDecision = Engine.pickDecision(state);
     if (state.stage === 'booster' && !state.currentBoosters) state.currentBoosters = Engine.rollBoosters(state);
-    if (state.stage === 'club' && !state.currentOffers) state.currentOffers = Engine.clubOffers(state);
     if (state.stage === 'academy' && !state.currentAcademies) state.currentAcademies = Engine.academyOptions(state);
   }
 
@@ -328,16 +328,18 @@
       clearInterval(lineTimer);
       const res = Engine.simulateSeason(state);
       save();
+      state.isViewingSummary = true;
       UI.renderGame(state, handlers); // update card + history behind modal
 
       const proceedToSummary = () => {
         UI.showSeasonResult(state, res, () => {
+          state.isViewingSummary = false;
           if (state.retired) {
             clearSave();
             showScreen('summary');
             UI.renderSummary($('screen-summary'), state, handlers);
           } else {
-            enterDecision();
+            enterClub();
           }
         });
       };

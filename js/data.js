@@ -1002,10 +1002,7 @@
       a: { label: 'Thank him publicly', sub: 'Repost the clip', fx: { hype: 3, mor: 5 }, out: 'Your response trends #1. The world now knows the legend believes in you.' },
       b: { label: 'Stay humble in media', sub: 'Let your boots talk', fx: { stats: { COM: 1, LEA: 1 }, mor: 3 }, out: 'You answer: "I have accomplished nothing yet." The pundits applaud your elite mindset.' } },
 
-    { id: 'naturalization-switch', min: 19, max: 34, title: 'Naturalization Offer',
-      desc: 'After 5+ seasons in your host country, the national team coach and federation officially offer you citizenship and a spot in their national team squad.',
-      a: { label: 'Accept & Switch National Team', sub: 'Represent your adopted home', fx: { mor: 10, hype: 3 }, out: 'You officially receive citizenship and wear the new national team crest. A historic career milestone.' },
-      b: { label: 'Remain Loyal to Birth Nation', sub: 'Hold out for your homeland', fx: { mor: 5, stats: { LEA: 2 } }, out: 'You decline the switch. The fans of your homeland applaud your unwavering loyalty.' } },
+
 
     // ================= FINAL BATCH =================
     { id: 'ball-boy-debut', min: 14, max: 16, title: 'Ball Boy Duty',

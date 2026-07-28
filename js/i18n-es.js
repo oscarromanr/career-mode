@@ -540,6 +540,12 @@
       'def-yellow-record': { title: 'La Racha de Amarillas', desc: 'Estás a una amarilla de un récord de suspensión. El árbitro de hoy ama su bolsillo. El delantero que marcás ama tirarse.',
         a: { label: 'Ir fuerte igual', sub: 'Fútbol sin miedo', out: '' },
         b: { label: 'Defender con pinzas', sub: 'Cerebro sobre fuerza', out: 'Jugás el partido más inteligente de tu vida. El que se tira recibe la amarilla. Karma, en vivo por TV.' } },
+      'title-decider-pen': { title: 'El Penal de la Gloria', desc: 'Estás en la final de un torneo mayor. Minuto 90+4. El árbitro cobra penal. El estadio contiene la respiración.',
+        a: { label: 'Patear el penal', sub: 'El destino llama', out: '' },
+        b: { label: 'Dejar que patee el capitán', sub: 'Demasiada presión', out: '' } },
+      'title-decider-gk-pen': { title: 'La Atajada de la Gloria', desc: 'Estás en la final de un torneo mayor. Minuto 90+4. Penal en contra. Atajalo, y la copa es tuya.',
+        a: { label: 'Volar a la historia', sub: 'Leer al delantero', out: '' },
+        b: { label: 'Quedarse al medio', sub: 'Mantener la posición', out: '' } },
     },
 
     /* ---- BOOSTERS ---- */

@@ -212,10 +212,10 @@
   function hireAgent(state, agentId) {
     const market = state.agentMarket || rollAgentMarket(state);
     const candidate = market.find((a) => a.id === agentId);
-    if (!candidate) return { ok: false, reason: 'Agent not found' };
+    if (!candidate) return { ok: false, reason: T('agent.errNotFound') || 'Agent not found' };
 
     const current = state.agent || DAD_AGENT;
-    if (current.id === candidate.id) return { ok: false, reason: 'Already your active agent' };
+    if (current.id === candidate.id) return { ok: false, reason: T('agent.errAlreadyActive') || 'Already your active agent' };
 
     const pSalary = state.player ? (state.player.salary || 0) : 0;
     if (candidate.annualSalary > 0 && candidate.annualSalary > pSalary) {
@@ -243,7 +243,7 @@
   function requestTransfer(state) {
     if (!state.agentActionsThisSeason) state.agentActionsThisSeason = {};
     if (state.agentActionsThisSeason.transferReq) {
-      return { ok: false, reason: 'Already requested a transfer this season' };
+      return { ok: false, reason: T('agent.errToggled') || 'Already toggled transfer status this season' };
     }
 
     state.agentActionsThisSeason.transferReq = true;
@@ -255,6 +255,7 @@
     if (!isLoan) {
       state.player.loyalty = Math.max(5, (state.player.loyalty || 20) - 20);
       changes.push({ k: 'LOYALTY', d: -20 });
+      state.clubSituation = 'listed';
     } else {
       state.requestedLoanPermanentMove = true;
     }
@@ -263,10 +264,30 @@
     return { ok: true, changes };
   }
 
+  function withdrawTransferRequest(state) {
+    if (!state.agentActionsThisSeason) state.agentActionsThisSeason = {};
+    if (state.agentActionsThisSeason.transferReq) {
+      return { ok: false, reason: T('agent.errToggled') || 'Already toggled transfer status this season' };
+    }
+    if (state.clubSituation !== 'listed') {
+      return { ok: false, reason: T('agent.errNotListed') || 'You are not currently transfer listed.' };
+    }
+
+    state.agentActionsThisSeason.transferReq = true;
+    state.clubSituation = 'stable';
+    state.transferRequestBenched = false;
+
+    // Withdrawing costs a bit of agent relationship/player morale as it looks indecisive
+    state.player.morale = Math.max(5, state.player.morale - 5);
+    
+    return { ok: true, changes: [{ k: 'MOR', d: -5 }] };
+  }
+
+
   function demandSalaryRaise(state) {
     if (!state.agentActionsThisSeason) state.agentActionsThisSeason = {};
     if (state.agentActionsThisSeason.raiseReq) {
-      return { ok: false, reason: 'Already demanded a wage raise this season' };
+      return { ok: false, reason: T('agent.errRaiseDemanded') || 'Already demanded a wage raise this season' };
     }
 
     state.agentActionsThisSeason.raiseReq = true;
@@ -294,7 +315,7 @@
   function negotiateCommission(state, requestedPct) {
     if (!state.agentActionsThisSeason) state.agentActionsThisSeason = {};
     if (state.agentActionsThisSeason.commReq) {
-      return { ok: false, reason: 'Already negotiated transfer cut this season' };
+      return { ok: false, reason: T('agent.errCutNegotiated') || 'Already negotiated transfer cut this season' };
     }
 
     state.agentActionsThisSeason.commReq = true;
@@ -321,7 +342,7 @@
       ok: true,
       pct: state.transferCommissionPct || 5,
       accepted: false,
-      reason: `Agent ${agent.name} deemed a ${requestedPct}% cut unrealistic.`
+      reason: T('agent.errUnrealisticCut', { name: agent.name, pct: requestedPct }) || `Agent ${agent.name} deemed a ${requestedPct}% cut unrealistic.`
     };
   }
 
@@ -450,6 +471,14 @@
     // Gating for National Team decisions — only eligible once called up to National Team!
     const isNtDecision = d.requiresNt || ['national-legend-call', 'legend-mentor-session', 'international-fumes', 'gk-number-one-race'].includes(d.id);
     if (isNtDecision && !state.ntCalledUp && (!state.totals || !state.totals.caps)) return false;
+
+    if (d.requiresTournament) {
+      const club = clubByCid(state.club?.cid);
+      const isWcYear = state.year % 4 === 2;
+      const canPlayWc = state.ntCalledUp && isWcYear;
+      const isTopClub = club && club.s >= 75;
+      if (!isTopClub && !canPlayWc) return false;
+    }
 
     return true;
   }
@@ -671,6 +700,9 @@
       state.superAgent = true;
       changes.push({ k: 'SUPER', d: 1 });
     }
+    if (fx.special === 'winTitle' || fx.special === 'winTitlePassive') {
+      state.pendingTrophy = true;
+    }
     return changes;
   }
 
@@ -695,14 +727,7 @@
       return { out, changes, risk: true, good };
     }
     changes = applyFx(state, opt.fx);
-    if (decision.id === 'naturalization-switch') {
-      if (choice === 'a' && state.naturalizationEligibleHost) {
-        naturalizeAndSwitchNt(state, state.naturalizationEligibleHost);
-      } else {
-        const birthNat = countryById(state.player.countryId);
-        logStatNote(state, `Declined naturalization offer. Remaining loyal to ${countryName(birthNat)}.`);
-      }
-    }
+
     state.usedDecisions.push(decision.id);
     recompute(state);
     return { out, changes, risk: false };
@@ -718,23 +743,7 @@
     let fallback = res.out || '';
     let out = outcomeText(decision.id, resultKey, fallback);
 
-    // High-stakes Title-Decider penalty mechanic (25% chance on penalty kicks)
-    const isTitleDecider = mini.type === 'penalty' && chance(0.25);
     let fxToApply = res.fx || {};
-    if (isTitleDecider) {
-      if (resultKey === 'good') {
-        addReputation(state, 8);
-        fxToApply = Object.assign({}, fxToApply, { hype: (fxToApply.hype || 0) + 2, mor: (fxToApply.mor || 0) + 10 });
-        out = `🏆 TITLE-WINNING PENALTY GOAL! You bury the 90+4' penalty in the Cup Final! The stadium erupts as you seal the championship trophy!`;
-        if (state.club) {
-          const club = clubByCid(state.club.cid);
-          state.pendingNotes.push(`Scored 90+4' Title-Winning Penalty in the ${club.cup || 'Cup'} Final!`);
-        }
-      } else {
-        fxToApply = Object.assign({}, fxToApply, { mor: (fxToApply.mor || 0) - 10 });
-        out = `💀 SAVED! 90+4' Title-winning penalty saved in the final seconds! Total heartbreak in the Cup Final.`;
-      }
-    }
 
     const changes = applyFx(state, fxToApply);
     state.usedDecisions.push(decision.id);
@@ -743,10 +752,30 @@
   }
 
   // ---- Boosters ----
-  function rollRarity() {
-    const total = DATA.RARITY_ROLL.reduce((a, r) => a + r.p, 0);
+  function rollRarity(state) {
+    let probs = DATA.RARITY_ROLL.map(r => ({ ...r }));
+    const p = state.player;
+    const club = state.club ? clubByCid(state.club.cid) : null;
+    if (club && club.s > p.ovr) {
+      const diff = club.s - p.ovr;
+      const boost = clamp(0.05 + (diff / 20) * 0.10, 0.05, 0.15);
+      const total = probs.reduce((a, r) => a + r.p, 0);
+      const shift = total * boost;
+      
+      const bronze = probs.find(r => r.rarity === 'bronze');
+      const silver = probs.find(r => r.rarity === 'silver');
+      const gold = probs.find(r => r.rarity === 'gold');
+      
+      if (bronze && silver && gold) {
+        bronze.p -= shift;
+        silver.p += shift * 0.7;
+        gold.p += shift * 0.3;
+      }
+    }
+
+    const total = probs.reduce((a, r) => a + r.p, 0);
     let roll = rnd() * total;
-    for (const r of DATA.RARITY_ROLL) { if (roll < r.p) return r.rarity; roll -= r.p; }
+    for (const r of probs) { if (roll < r.p) return r.rarity; roll -= r.p; }
     return 'bronze';
   }
 
@@ -763,7 +792,7 @@
     const usedIds = new Set();
     const forceRare = state.boostPity >= 2;
     for (let i = 0; i < 3; i++) {
-      let rarity = rollRarity();
+      let rarity = rollRarity(state);
       if (forceRare && i === 0 && rarity === 'bronze') {
         const r2 = rnd();
         rarity = r2 < 0.75 ? 'silver' : r2 < 0.95 ? 'gold' : 'diamond';
@@ -820,8 +849,8 @@
   function rerollShop(state) {
     const cost = 50000;
     const balance = state.earnings - state.spent;
-    if (state.shopRerolledSeason === state.season) return { ok: false, reason: 'Already rerolled shop this season' };
-    if (balance < cost) return { ok: false, reason: 'Not enough career earnings to reroll' };
+    if (state.shopRerolledSeason === state.season) return { ok: false, reason: T('shop.errAlreadyRerolled') || 'Already rerolled shop this season' };
+    if (balance < cost) return { ok: false, reason: T('shop.errNoFunds') || 'Not enough career earnings to reroll' };
     state.spent += cost;
     state.shopRerolledSeason = state.season;
     const current = state.shopOffers || [];
@@ -835,15 +864,15 @@
     const maxP = maxShopPurchases(state);
     const countThisSeason = (state.shopPurchasesSeason === state.season) ? (state.shopPurchasesCount || 0) : 0;
     if (countThisSeason >= maxP) {
-      return { ok: false, reason: `Max shop purchases reached (${maxP} for ${state.player.tier.toUpperCase()} tier)` };
+      return { ok: false, reason: T('shop.errMaxPurchases', { max: maxP, tier: state.player.tier.toUpperCase() }) || `Max shop purchases reached (${maxP} for ${state.player.tier.toUpperCase()} tier)` };
     }
     const purchasedIds = (state.shopPurchasesSeason === state.season) ? (state.shopPurchasedIds || []) : [];
     if (purchasedIds.includes(id)) {
       return { ok: false, reason: 'Already purchased this item this season' };
     }
     const item = shopItems(state).find((i) => i.id === id);
-    if (!item) return { ok: false, reason: 'Unknown item' };
-    if (!item.affordable) return { ok: false, reason: 'Not enough career earnings' };
+    if (!item) return { ok: false, reason: T('shop.errUnknownItem') || 'Unknown item' };
+    if (!item.affordable) return { ok: false, reason: T('shop.errNoFunds') || 'Not enough career earnings' };
     state.spent += item.cost;
     // Track season shop spending for annual expenses display
     if (state.shopSpentSeason !== state.season) {
@@ -967,8 +996,8 @@
       const formerClub = formerCid ? clubByCid(formerCid) : null;
       const loanClub = state.lastLoanClubCid ? clubByCid(state.lastLoanClubCid) : null;
 
-      // Option 1: Offer from former club (if willing)
-      if (formerClub) {
+      // Option 1: Offer from former club (if willing and not transfer listed)
+      if (formerClub && state.clubSituation !== 'listed') {
         offers.push({
           type: 'stay',
           club: formerClub,
@@ -1022,7 +1051,7 @@
     }
 
     const loyal = (p.loyalty || 0) >= 60;
-    const forcedOut = !loyal && !veteran && !teen && p.age >= 21 && (cur.s - p.ovr > 12);
+    const forcedOut = state.clubSituation === 'listed' || (!loyal && !veteran && !teen && p.age >= 21 && (cur.s - p.ovr > 12));
     const parentClub = (state.club && state.club.loan && state.club.parentCid) ? clubByCid(state.club.parentCid) : null;
     
     const currentRole = roleKey(p.ovr, cur.s, state);
@@ -1266,9 +1295,9 @@
   }
 
   function calcContractLength(age) {
-    if (age <= 21) return ri(4, 5);
-    if (age <= 27) return ri(3, 5);
-    if (age <= 32) return ri(2, 3);
+    if (age <= 21) return ri(3, 5);
+    if (age <= 31) return ri(3, 5);
+    if (age <= 35) return ri(2, 3);
     return ri(1, 2);
   }
 
@@ -1322,6 +1351,7 @@
       }
       state.club = { cid: offer.club.cid, loan: true, parentCid };
       state.contract = { yearsLeft: 1, totalYears: 1, annualSalary: p.salary, isLoan: true };
+      state.clubSituation = 'stable';
       logStatNote(state, T('note.loanMove', { club: offer.club.n }));
     } else if (offer.type === 'transfer' || offer.type === 'stay') {
       state.loanSeasons = 0;
@@ -1338,8 +1368,13 @@
       }
 
       state.club = { cid: offer.club.cid, loan: false, parentCid: null };
-      const len = offer.contractYears || calcContractLength(p.age);
-      state.contract = { yearsLeft: len, totalYears: len, annualSalary: p.salary, isLoan: false };
+      if (offer.type === 'transfer' || !state.contract || state.contract.yearsLeft === 0) {
+        const len = offer.contractYears || calcContractLength(p.age);
+        state.contract = { yearsLeft: len, totalYears: len, annualSalary: p.salary, isLoan: false };
+      }
+      if (offer.type === 'transfer') {
+        state.clubSituation = 'stable';
+      }
       logStatNote(state, T('note.signedFor', { club: offer.club.n }));
 
       if (offer.type === 'transfer' && offer.fee) {
@@ -1381,16 +1416,15 @@
     const leagueGames = (country.clubs.length - 1) * 2;
     const cupGames = continentalFor(club) ? 8 : 3;
     const maxApps = leagueGames + cupGames;
-    const effS = age <= 19 ? Math.min(club.s, 74) : club.s;
-    const fit = ovr - effS;
+    const fit = ovr - club.s;
     let share;
-    if (age <= 15) share = 0.12 + fit * 0.012;
-    else if (age <= 17) share = 0.30 + fit * 0.02;
-    else if (age <= 19) share = 0.48 + fit * 0.024;
-    else share = 0.75 + fit * 0.018;
+    if (age <= 15) share = 0.12 + fit * 0.02;
+    else if (age <= 17) share = 0.30 + fit * 0.03;
+    else if (age <= 19) share = 0.45 + fit * 0.04;
+    else share = 0.75 + fit * 0.05;
     share *= (0.9 + rnd() * 0.2) * form;
-    share = clamp(share, 0.06, 0.97);
-    const min = age <= 16 ? 2 : 4;
+    share = clamp(share, 0.02, 0.97);
+    const min = age <= 16 ? 1 : 2;
     return clamp(Math.round(maxApps * share), min, maxApps);
   }
 
@@ -1407,16 +1441,17 @@
     const s = club.s;
     switch (club.confed) {
       case 'UEFA':
-        if (s >= 87) return { name: 'UEFA Champions League', p: 0.05 + (s - 87) * 0.015 };
-        if (s >= 76) return { name: 'UEFA Europa League', p: 0.08 };
+        if (s >= 82) return { name: 'UEFA Champions League', p: Math.max(0.01, 0.03 + (s - 85) * 0.02) };
+        if (s >= 75) return { name: 'UEFA Europa League', p: Math.max(0.02, 0.05 + (s - 78) * 0.02) };
+        if (s >= 70) return { name: 'UEFA Conference League', p: Math.max(0.02, 0.05 + (s - 72) * 0.02) };
         return null;
       case 'CONMEBOL':
-        if (s >= 78) return { name: 'Copa Libertadores', p: 0.10 };
-        if (s >= 72) return { name: 'Copa Sudamericana', p: 0.08 };
+        if (s >= 75) return { name: 'Copa Libertadores', p: Math.max(0.03, 0.05 + (s - 76) * 0.03) };
+        if (s >= 70) return { name: 'Copa Sudamericana', p: Math.max(0.02, 0.04 + (s - 72) * 0.03) };
         return null;
-      case 'CONCACAF': return s >= 74 ? { name: 'CONCACAF Champions Cup', p: 0.10 } : null;
-      case 'CAF': return s >= 70 ? { name: 'CAF Champions League', p: 0.09 } : null;
-      case 'AFC': return s >= 70 ? { name: 'AFC Champions League', p: 0.09 } : null;
+      case 'CONCACAF': return s >= 70 ? { name: 'CONCACAF Champions Cup', p: Math.max(0.02, 0.05 + (s - 72) * 0.03) } : null;
+      case 'CAF': return s >= 68 ? { name: 'CAF Champions League', p: Math.max(0.02, 0.05 + (s - 70) * 0.03) } : null;
+      case 'AFC': return s >= 68 ? { name: 'AFC Champions League', p: Math.max(0.02, 0.05 + (s - 70) * 0.03) } : null;
       default: return null;
     }
   }
@@ -1537,17 +1572,20 @@
       hypeBefore, repBefore,
     };
 
-    const weakLeague = 1 + Math.max(0, 78 - club.s) * 0.004;
+    const lAvg = leagueAvg(club.countryId);
+    const leagueDominance = 1 + Math.max(0, p.ovr - lAvg) * 0.03; 
+
     if (!p.isGK) {
       const rate = DATA.ATTACK_RATES[p.position];
-      const scale = Math.pow(p.ovr / 80, 2.0) * form * weakLeague;
+      const scale = Math.pow(p.ovr / 80, 2.0) * form * leagueDominance;
       res.goals = Math.max(0, Math.round(apps * rate.g * scale * (0.7 + rnd() * 0.6)));
       res.assists = Math.max(0, Math.round(apps * rate.a * scale * (0.7 + rnd() * 0.6)));
       const gPerApp = (res.goals + res.assists) / Math.max(apps, 1);
       res.rating = clamp(6.5 + (p.ovr - club.s) * 0.02 + gPerApp * 0.9 + (rnd() - 0.5) * 0.3, 5.9, 9.9);
     } else {
       res.saves = Math.round(apps * Math.max(2.2, 3.2 + (p.ovr - 60) * 0.06) * (0.8 + rnd() * 0.4));
-      const concRate = Math.max(0.45, 1.35 - (p.ovr - 60) * 0.008 + (78 - club.s) * 0.01) / form;
+      const defAdv = Math.max(0, club.s - lAvg) + Math.max(0, p.ovr - lAvg) * 0.5;
+      const concRate = Math.max(0.40, 1.45 - (p.ovr - 60) * 0.008 - defAdv * 0.025) / form;
       res.conceded = Math.round(apps * concRate * (0.8 + rnd() * 0.4));
       res.cleanSheets = clamp(Math.round(apps * (((p.ovr + club.s) / 2 - 55) * 0.02) * (0.7 + rnd() * 0.6)), 0, Math.round(apps * 0.6));
       res.rating = clamp(6.5 + (p.ovr - club.s) * 0.02 + (res.saves / Math.max(apps, 1)) * 0.18 - (res.conceded / Math.max(apps, 1)) * 0.35 + (res.cleanSheets / Math.max(apps, 1)) * 0.5, 5.9, 9.9);
@@ -1555,16 +1593,34 @@
     res.rating = Math.round(res.rating * 10) / 10;
 
     // Club trophies
-    const lAvg = leagueAvg(club.countryId);
-    const starBonus = p.ovr > club.s ? 0.05 : 0;
-    const pLeague = clamp(0.10 + (club.s - lAvg) * 0.055 + starBonus, 0.02, 0.55);
-    const pCup = clamp(pLeague * 0.75 + 0.04, 0.02, 0.5);
+    let pendingTrophyConsumed = false;
+    let pendingWcConsumed = false;
+
+    if (state.pendingTrophy) {
+      if ((year % 4 === 2) && state.ntCalledUp && chance(0.25)) {
+        res.trophies.push({ type: 'Country', name: 'FIFA World Cup' });
+        pendingWcConsumed = true;
+      } else {
+        const cont = continentalFor(club);
+        if (cont && chance(0.5)) {
+          res.trophies.push({ type: 'Continental', name: cont.name });
+          pendingTrophyConsumed = 'Continental';
+        } else {
+          res.trophies.push({ type: 'Cup', name: club.cup });
+          pendingTrophyConsumed = 'Cup';
+        }
+      }
+    }
+
+    const starBonus = Math.max(0, p.ovr - club.s) * 0.02; // +2% win chance for every OVR above club average
+    const pLeague = clamp(0.10 + (club.s - lAvg) * 0.055 + starBonus, 0.02, 0.85);
+    const pCup = clamp(pLeague * 0.75 + 0.04, 0.02, 0.70);
     if (chance(pLeague)) res.trophies.push({ type: 'League', name: club.league });
-    if (chance(pCup)) res.trophies.push({ type: 'Cup', name: club.cup });
+    if (pendingTrophyConsumed !== 'Cup' && chance(pCup)) res.trophies.push({ type: 'Cup', name: club.cup });
     const cont = continentalFor(club);
     if (cont) {
       const sb = p.ovr >= 90 ? 0.04 : p.ovr >= 85 ? 0.02 : 0;
-      if (chance(cont.p + sb)) res.trophies.push({ type: 'Continental', name: cont.name });
+      if (pendingTrophyConsumed !== 'Continental' && chance(cont.p + sb)) res.trophies.push({ type: 'Continental', name: cont.name });
     }
 
     // Track seasons per country for naturalization (5+ seasons rule)
@@ -1593,7 +1649,7 @@
     for (const cCode of candidateNats) {
       if (state.ntRejectedPerm && state.ntRejectedPerm[cCode]) continue;
       if (state.ntDeclinedCooldowns && state.ntDeclinedCooldowns[cCode] > 0) continue;
-      if (state.ntCalledUp && state.ntCountryId && state.ntCountryId !== cCode && state.totals && state.totals.caps > 0) continue;
+      if (state.ntCalledUp && p.countryId !== cCode) continue;
 
       const cNat = countryById(cCode);
       if (!cNat) continue;
@@ -1613,7 +1669,7 @@
           }
           const confT = TOURNAMENTS[cNat.confed];
           if (TOURNAMENTS.WC.years.includes(year)) {
-            if (chance(ntWinProb(cNat.rank, p.ovr, true))) res.trophies.push({ type: 'Country', name: 'FIFA World Cup' });
+            if (!pendingWcConsumed && chance(ntWinProb(cNat.rank, p.ovr, true))) res.trophies.push({ type: 'Country', name: 'FIFA World Cup' });
           } else if (confT && confT.years.includes(year)) {
             if (chance(ntWinProb(cNat.rank, p.ovr, false))) res.trophies.push({ type: 'Country', name: confT.name });
           }
@@ -1654,6 +1710,8 @@
     res.morale = p.morale;
     res.hypeAfter = p.hype || 0;
     res.hypeDelta = res.hypeAfter - res.hypeBefore;
+
+    delete state.pendingTrophy;
     res.repAfter = p.reputation || 0;
     res.repDelta = res.repAfter - res.repBefore;
 
@@ -1688,6 +1746,7 @@
     state.injuryMiss = 0;
     state.superAgent = false;
     state.standings = simLeague(state, club, res.trophies.some((tr) => tr.type === 'League'));
+    state.standingsCountryId = club.countryId;
 
     // Contract decrement & Free Agency (Parent contract ticks down EVERY season even while on loan!)
     if (state.contract) {
@@ -1698,7 +1757,7 @@
         state.lastClubCid = (state.club && state.club.loan && state.club.parentCid) ? state.club.parentCid : (state.club ? state.club.cid : null);
         state.lastLoanClubCid = (state.club && state.club.loan) ? state.club.cid : null;
         state.club = null;
-        logStatNote(state, `Contract with ${parentName} expired! Entering Free Agency.`);
+        logStatNote(state, T('note.contractExpired', { club: parentName }) || `Contract with ${parentName} expired! Entering Free Agency.`);
       }
     }
 
@@ -1889,7 +1948,7 @@
     computeSeasonAwards,
     getOvr, getTier, marketValue, annualSalary, fmtValue, recompute,
     clubByCid, countryById, countryName, ALL_CLUBS, allClubs, statKeys,
-    hireAgent, rollAgentMarket, requestTransfer, demandSalaryRaise, negotiateCommission, DAD_AGENT, addReputation,
+    hireAgent, rollAgentMarket, requestTransfer, withdrawTransferRequest, demandSalaryRaise, negotiateCommission, DAD_AGENT, addReputation,
     getLegendForPlayer, calcContractLength, acceptNtCallUp, declineNtCallUp: declineNtCallUpTemp, declineNtCallUpTemp, rejectNtCallUpPerm, naturalizeAndSwitchNt,
   };
 

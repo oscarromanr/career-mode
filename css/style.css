@@ -418,10 +418,10 @@ input { font-family: inherit; }
   animation: tierShine 4.5s ease-in-out infinite;
   pointer-events: none;
 }
-.pcard.tier-bronze { background: linear-gradient(165deg, #2a1a10 0%, #432816 50%, #5d3a1e 100%); border-color: rgba(205, 127, 50, 0.4); }
-.pcard.tier-silver { background: linear-gradient(165deg, #1c1f24 0%, #333a44 50%, #4d5763 100%); border-color: rgba(192, 200, 210, 0.4); }
-.pcard.tier-gold { background: linear-gradient(165deg, #241a05 0%, #4d3a0d 50%, #7a5f15 100%); border-color: rgba(255, 215, 94, 0.45); }
-.pcard.tier-diamond { background: linear-gradient(165deg, #150d2c 0%, #2f1a5e 50%, #4b2694 100%); border-color: rgba(167, 139, 250, 0.55); }
+.pcard.tier-bronze { background: linear-gradient(135deg, #432816 0%, #2a1a10 50%, #5d3a1e 100%); background-size: 200% 200%; animation: bgPan 10s ease infinite, popIn 0.4s ease both; border-color: rgba(205, 127, 50, 0.4); }
+.pcard.tier-silver { background: linear-gradient(135deg, #333a44 0%, #1c1f24 50%, #4d5763 100%); background-size: 200% 200%; animation: bgPan 10s ease infinite, popIn 0.4s ease both; border-color: rgba(192, 200, 210, 0.4); }
+.pcard.tier-gold { background: linear-gradient(135deg, #4d3a0d 0%, #241a05 50%, #7a5f15 100%); background-size: 200% 200%; animation: bgPan 10s ease infinite, popIn 0.4s ease both; border-color: rgba(255, 215, 94, 0.45); }
+.pcard.tier-diamond { background: linear-gradient(135deg, #2f1a5e 0%, #150d2c 50%, #4b2694 100%); background-size: 200% 200%; animation: bgPan 10s ease infinite, popIn 0.4s ease both; border-color: rgba(167, 139, 250, 0.55); }
 
 .pcard-top { display: flex; justify-content: space-between; align-items: flex-start; }
 .pcard-ovr { display: flex; flex-direction: column; line-height: 1; }
@@ -613,7 +613,13 @@ input { font-family: inherit; }
   backdrop-filter: blur(14px);
   text-align: left;
   transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
   animation: fadeUp 0.4s ease both;
+}
+@keyframes bgPan {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 .pick-card:nth-child(2) { animation-delay: 0.06s; }
 .pick-card:nth-child(3) { animation-delay: 0.12s; }
@@ -651,12 +657,30 @@ input { font-family: inherit; }
   border-radius: 999px;
   margin-bottom: 4px;
 }
-.rarity-bronze { border-color: rgba(205, 127, 50, 0.5); }
-.rarity-bronze .rarity-tag { background: rgba(205, 127, 50, 0.16); color: #eda76d; }
-.rarity-silver { border-color: rgba(192, 200, 210, 0.55); }
-.rarity-silver .rarity-tag { background: rgba(192, 200, 210, 0.14); color: #dfe6ee; }
-.rarity-gold { border-color: rgba(255, 215, 94, 0.6); box-shadow: 0 0 24px rgba(255, 215, 94, 0.08); }
-.rarity-gold .rarity-tag { background: rgba(255, 215, 94, 0.16); color: var(--gold); }
+.rarity-bronze { 
+  background: linear-gradient(135deg, rgba(205, 127, 50, 0.15), rgba(42, 26, 16, 0.8), rgba(205, 127, 50, 0.1));
+  background-size: 200% 200%;
+  animation: bgPan 8s ease infinite, fadeUp 0.4s ease both;
+  border-color: rgba(205, 127, 50, 0.5); 
+}
+.rarity-bronze .rarity-tag { background: transparent; color: #eda76d; border: 1px solid rgba(237, 167, 109, 0.3); }
+
+.rarity-silver { 
+  background: linear-gradient(135deg, rgba(192, 200, 210, 0.12), rgba(28, 31, 36, 0.8), rgba(192, 200, 210, 0.1));
+  background-size: 200% 200%;
+  animation: bgPan 8s ease infinite, fadeUp 0.4s ease both;
+  border-color: rgba(192, 200, 210, 0.55); 
+}
+.rarity-silver .rarity-tag { background: transparent; color: #dfe6ee; border: 1px solid rgba(223, 230, 238, 0.3); }
+
+.rarity-gold { 
+  background: linear-gradient(135deg, rgba(255, 215, 94, 0.16), rgba(36, 26, 5, 0.8), rgba(255, 215, 94, 0.1));
+  background-size: 200% 200%;
+  animation: bgPan 8s ease infinite, fadeUp 0.4s ease both;
+  border-color: rgba(255, 215, 94, 0.6); 
+  box-shadow: 0 0 24px rgba(255, 215, 94, 0.08); 
+}
+.rarity-gold .rarity-tag { background: transparent; color: var(--gold); border: 1px solid rgba(255, 215, 94, 0.4); }
 .rarity-gold:hover { box-shadow: 0 16px 44px rgba(255, 215, 94, 0.16); }
 
 .stat-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
@@ -776,13 +800,13 @@ input { font-family: inherit; }
   font-weight: 700;
   padding: 4px 9px;
   border-radius: 999px;
-  background: rgba(255, 215, 94, 0.1);
+  background: transparent;
   color: var(--gold);
-  border: 1px solid rgba(255, 215, 94, 0.2);
+  border: 1px solid rgba(255, 215, 94, 0.3);
 }
-.tr-chip.tr-cup { background: rgba(192, 200, 210, 0.1); color: #dfe6ee; border-color: rgba(192, 200, 210, 0.2); }
-.tr-chip.tr-cont { background: rgba(167, 139, 250, 0.12); color: #c4b5fd; border-color: rgba(167, 139, 250, 0.25); }
-.tr-chip.tr-country { background: rgba(10, 132, 255, 0.12); color: #64b5ff; border-color: rgba(10, 132, 255, 0.25); }
+.tr-chip.tr-cup { color: #dfe6ee; border-color: rgba(192, 200, 210, 0.3); }
+.tr-chip.tr-cont { color: #c4b5fd; border-color: rgba(167, 139, 250, 0.35); }
+.tr-chip.tr-country { color: #64b5ff; border-color: rgba(10, 132, 255, 0.35); }
 .tr-chip.tr-big { font-size: 12px; padding: 7px 13px; }
 
 /* ==================== MODALS ==================== */
@@ -1731,6 +1755,17 @@ input { font-family: inherit; }
 .mini h3 { font-size: 22px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 4px; text-align: center; }
 .mini .outcome-kicker { text-align: center; }
 .mini-sub { text-align: center; color: var(--text-2); font-size: 13px; margin-bottom: 14px; }
+.mini-verdict {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 800;
+  margin-top: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.mini-verdict.show { opacity: 1; }
+.mini-verdict.v-good { color: var(--green); }
+.mini-verdict.v-bad { color: var(--red); }
 
 .goal {
   position: relative;
