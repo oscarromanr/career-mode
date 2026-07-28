@@ -996,7 +996,15 @@
 
       // Option 3, 4, 5: Offers from interested clubs on Free Transfer (NO LOANS for free agents)
       const excludeCids = new Set([formerCid, state.lastLoanClubCid].filter(Boolean));
-      const candidatePool = ALL_CLUBS.filter((c) => !excludeCids.has(c.cid) && Math.abs(c.s - p.ovr) <= 12 && (!underage || c.countryId === p.countryId));
+      let candidatePool = ALL_CLUBS.filter((c) => !excludeCids.has(c.cid) && (!underage || c.countryId === p.countryId));
+      
+      // Tighten the Free Agency rating gap so stars don't drop down too far
+      if (veteran) {
+        candidatePool = candidatePool.filter(c => c.s >= p.ovr - 10 && c.s <= p.ovr + 4);
+      } else {
+        candidatePool = candidatePool.filter(c => c.s >= p.ovr - 4 && c.s <= p.ovr + 6);
+      }
+
       const picked = shuffle(candidatePool).slice(0, Math.max(1, 3 - offers.length));
       picked.forEach((c) => {
         offers.push({
@@ -1016,6 +1024,9 @@
     const loyal = (p.loyalty || 0) >= 60;
     const forcedOut = !loyal && !veteran && !teen && p.age >= 21 && (cur.s - p.ovr > 12);
     const parentClub = (state.club && state.club.loan && state.club.parentCid) ? clubByCid(state.club.parentCid) : null;
+    
+    const currentRole = roleKey(p.ovr, cur.s, state);
+    const isBenchwarmer = currentRole === 'role.prospect' || currentRole === 'role.rotation';
 
     // ---- ON LOAN: special logic ----
     if (state.club && state.club.loan && parentClub) {
@@ -1035,7 +1046,7 @@
         let rawFee = Math.round((p.value * (0.8 + rnd() * 0.4)) / 100000) * 100000;
         let fee = Math.min(rawFee, maxCap);
         if (state.superAgent) fee = Math.round(Math.min(fee * 1.35, maxCap * 1.1) / 100000) * 100000;
-      const nk = 'offerNote.loanBuyout';
+        const nk = 'offerNote.loanBuyout';
         offers.push({
           type: 'transfer',
           club: loanClub,
@@ -1064,36 +1075,55 @@
 
       // Option 3: Return to parent club OR Contract Renewal if contract is expiring
       const parentExpiring = state.isFreeAgent || (state.contract && state.contract.yearsLeft <= 1);
+      const outgrownParent = p.ovr > parentClub.s + 3;
+
       if (parentExpiring) {
-        offers.push({
-          type: 'stay',
-          club: parentClub,
-          roleKey: roleKey(p.ovr, parentClub.s, state),
-          role: roleText(p.ovr, parentClub.s, state),
-          noteKey: 'offerNote.newContract',
-          note: T('offerNote.newContract'),
-          isRenewal: true,
-        });
+        // If massively outgrown parent club, they might not renew you and let you leave (50% chance)
+        if (!outgrownParent || chance(0.5)) {
+          offers.push({
+            type: 'stay',
+            club: parentClub,
+            roleKey: roleKey(p.ovr, parentClub.s, state),
+            role: roleText(p.ovr, parentClub.s, state),
+            noteKey: 'offerNote.newContract',
+            note: T('offerNote.newContract'),
+            isRenewal: true,
+          });
+        }
       } else {
-        offers.push({
-          type: 'return',
-          club: parentClub,
-          roleKey: roleKey(p.ovr, parentClub.s, state),
-          role: roleText(p.ovr, parentClub.s, state),
-          noteKey: 'offerNote.return',
-          noteParams: { club: parentClub.n },
-          note: T('offerNote.return', { club: parentClub.n })
-        });
+        // Under contract, so returning is technically forced, but we represent it as an offer.
+        // If heavily outgrown, we reduce chance of this offer being shown to favor pure transfer options.
+        if (!outgrownParent || chance(0.2)) {
+          offers.push({
+            type: 'return',
+            club: parentClub,
+            roleKey: roleKey(p.ovr, parentClub.s, state),
+            role: roleText(p.ovr, parentClub.s, state),
+            noteKey: 'offerNote.return',
+            noteParams: { club: parentClub.n },
+            note: T('offerNote.return', { club: parentClub.n })
+          });
+        }
       }
 
       // Option 4 & 5: Alternative transfer/loan offers from other clubs
       const candidates = ALL_CLUBS.filter((c) => c.cid !== loanClub.cid && c.cid !== parentClub.cid && Math.abs(c.s - p.ovr) <= 10 && (!underage || c.countryId === p.countryId));
-      const pickedOthers = shuffle(candidates).slice(0, 2);
+      let affordableCandidates = candidates.filter(c => clubTransferCap(c) >= p.value * 0.45);
+      if (affordableCandidates.length < 2) affordableCandidates = candidates; // Fallback if no rich clubs
+      
+      const pickedOthers = shuffle(affordableCandidates).slice(0, 2);
       pickedOthers.forEach((c) => {
         let maxCap = clubTransferCap(c);
         let rawFee = Math.round((p.value * (0.8 + rnd() * 0.4)) / 100000) * 100000;
         let fee = (parentExpiring || underage) ? 0 : Math.min(rawFee, maxCap);
-        const isLoanOffer = underage || (teen && c.s > p.ovr + 2);
+        
+        let isLoanOffer = false;
+        if (underage) {
+          isLoanOffer = true;
+        } else if (p.age <= 23 && c.s > p.ovr + 3) {
+          isLoanOffer = true;
+        }
+
         offers.push({
           type: isLoanOffer ? 'loan' : 'transfer',
           club: c,
@@ -1144,6 +1174,15 @@
       pool = domestic.length ? domestic.slice(0, 3) : ALL_CLUBS.filter((c) => c.cid !== cur.cid).slice(0, 3);
     }
 
+    // NEW AFFORDABILITY FILTER: Filter out clubs that cannot afford the transfer fee if the player is expensive, unless we might loan them
+    pool = pool.filter(c => {
+      const cap = clubTransferCap(c);
+      const canAfford = cap >= p.value * 0.45; // Just needs to be able to bid decently
+      const canLoan = (p.age <= 23 || isBenchwarmer) && c.s > p.ovr;
+      return canAfford || canLoan;
+    });
+    if (!pool.length) pool = ALL_CLUBS.filter((c) => c.cid !== cur.cid).slice(0, 3); // Fallback
+
     // Exclude last season's offered clubs so options always refresh
     const recent = state.recentOffers || [];
     const fresh = pool.filter((c) => !recent.includes(c.cid));
@@ -1187,20 +1226,39 @@
     picked.forEach((c) => {
       const cap = clubTransferCap(c);
       const canAfford = cap >= p.value * 0.45;
-      const loan = underage || (teen && c.s > p.ovr + 2) || (!canAfford && p.value >= 12000000);
+      
+      let isLoanOffer = false;
+      if (underage) {
+        isLoanOffer = true;
+      } else if (p.age <= 23 && c.s > p.ovr + 3) {
+        isLoanOffer = true;
+      } else if (isBenchwarmer && !canAfford) {
+        isLoanOffer = true;
+      }
+      // Guarantee peak stars never get loaned out simply because a club can't afford them.
+
       let rawFee = Math.round((p.value * (0.9 + rnd() * 0.5)) / 100000) * 100000;
       let fee = Math.min(rawFee, cap);
       let nk;
-      if (state.superAgent && !loan) {
+      if (state.superAgent && !isLoanOffer) {
         fee = Math.round(Math.min(fee * 1.35, cap * 1.1) / 100000) * 100000;
         nk = 'offerNote.superAgent';
-      } else if (loan) nk = 'offerNote.devLoan';
+      } else if (isLoanOffer) nk = 'offerNote.devLoan';
       else if (veteran && ['US', 'SA', 'QA', 'AU'].includes(c.countryId)) nk = 'offerNote.sunset';
       else if (veteran && c.countryId === p.countryId) nk = 'offerNote.homecoming';
       else if (c.s >= 88) nk = 'offerNote.royalty';
       else if (c.s > cur.s + 4) nk = 'offerNote.stepUp';
       else nk = 'offerNote.fresh';
-      offers.push({ type: loan ? 'loan' : 'transfer', club: c, fee: loan ? null : fee, roleKey: roleKey(p.ovr, c.s, state), role: roleText(p.ovr, c.s, state), noteKey: nk, note: T(nk) });
+      
+      offers.push({ 
+        type: isLoanOffer ? 'loan' : 'transfer', 
+        club: c, 
+        fee: isLoanOffer ? null : fee, 
+        roleKey: roleKey(p.ovr, c.s, state), 
+        role: roleText(p.ovr, c.s, state), 
+        noteKey: nk, 
+        note: T(nk) 
+      });
     });
 
     state.recentOffers = picked.map((c) => c.cid);
