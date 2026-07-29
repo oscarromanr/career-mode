@@ -409,11 +409,11 @@
     {"id":"gen-def-109","min":16,"max":39,"pos":"def","rarity":"diamond","title":"Charity Match 109","desc":"You are invited to play in a charity match.","options":[{"id":"a","text":"Option A (Generated)","changes":[{"k":"sta","d":-3},{"k":"tac","d":4}]},{"id":"b","text":"Option B (Generated)","changes":[{"k":"rep","d":3},{"k":"sta","d":2}]}]}
   ];
 
-  if (root.DATA) {
-    if (!root.DATA.DECISIONS) root.DATA.DECISIONS = [];
-    root.DATA.DECISIONS = root.DATA.DECISIONS.concat(POS_DECISIONS);
+  if (root.GAME_DATA) {
+    if (!root.GAME_DATA.DECISIONS) root.GAME_DATA.DECISIONS = [];
+    root.GAME_DATA.DECISIONS = root.GAME_DATA.DECISIONS.concat(POS_DECISIONS);
   } else {
-    console.error("DATA not found. Make sure data.js is loaded before data-decisions.js");
+    console.error("GAME_DATA not found. Make sure data.js is loaded before data-decisions.js");
   }
 
 })(typeof window !== 'undefined' ? window : globalThis);
