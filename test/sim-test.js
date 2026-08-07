@@ -1,7 +1,12 @@
 /* Node test: simulate full careers through the engine and validate invariants. */
 'use strict';
-const Engine = require('../js/engine.js');
 const DATA = require('../js/data.js');
+global.GAME_DATA = DATA;
+require('../js/data-decisions-canonical.js');
+const Engine = require('../js/engine.js');
+const State = require('../js/state.js');
+const App = require('../js/app.js');
+const LEGACY_FIXTURE = require('./fixtures/export-test.json');
 
 let failures = 0;
 function assert(cond, msg) {
@@ -14,7 +19,7 @@ console.log('Data sanity:');
 console.log('  countries:', DATA.COUNTRIES.length, '| clubs:', Engine.ALL_CLUBS.length, '| decisions:', DATA.DECISIONS.length, '| boosters:', DATA.BOOSTERS.length, '| consumables:', DATA.CONSUMABLES.length);
 assert(DATA.COUNTRIES.length === 50, '50 countries');
 assert(Engine.ALL_CLUBS.length >= 600, `600+ clubs (${Engine.ALL_CLUBS.length})`);
-assert(DATA.DECISIONS.length >= 140, `140+ decisions (${DATA.DECISIONS.length})`);
+assert(DATA.DECISIONS.length >= 300, `300+ decisions (${DATA.DECISIONS.length})`);
 
 DATA.POSITIONS.forEach((p) => {
   const w = DATA.OVR_WEIGHTS[p.id];
@@ -25,6 +30,24 @@ const ids = new Set();
 DATA.DECISIONS.forEach((d) => { assert(!ids.has(d.id), `dup decision ${d.id}`); ids.add(d.id); });
 DATA.BOOSTERS.forEach((b) => { assert(!ids.has(b.id), `dup booster ${b.id}`); ids.add(b.id); });
 DATA.CONSUMABLES.forEach((c) => { assert(!ids.has(c.id), `dup consumable ${c.id}`); ids.add(c.id); });
+
+DATA.DECISIONS.forEach((d) => {
+  const normalized = Engine.normalizeDecision(d);
+  const optionKeys = ['a', 'b', 'c'].filter((k) => normalized && normalized[k]);
+  assert(optionKeys.length >= 2, `${d.id} normalizes to at least two options`);
+  optionKeys.forEach((k) => {
+    assert(normalized[k].label, `${d.id}.${k} has a renderable label`);
+    assert(normalized[k].mini || (normalized[k].fx && typeof normalized[k].fx === 'object'), `${d.id}.${k} has normalized effects`);
+  });
+  if (Array.isArray(d.options)) {
+    d.options.forEach((o) => {
+      assert(o.id && o.text, `${d.id}.${o.id} has text`);
+      const hasEffects = Array.isArray(o.changes) || (o.fx && typeof o.fx === 'object')
+        || (o.mini && o.mini.results && Object.keys(o.mini.results).length > 0);
+      assert(hasEffects, `${d.id}.${o.id} has effects (changes, fx, or mini)`);
+    });
+  }
+});
 
 // decision stat keys valid per position gate
 const FIELD_ONLY = ['SHO', 'DRI', 'PHY', 'MEN'];
@@ -39,11 +62,13 @@ function checkFxStats(d, optKey, stats) {
   });
 }
 DATA.DECISIONS.forEach((d) => {
+  const normalized = Engine.normalizeDecision(d);
   ['a', 'b', 'c'].forEach((k) => {
-    const o = d[k];
+    const o = normalized[k];
     if (!o) return;
     assert(o.label && o.label.length > 0, `${d.id}.${k} has label`);
     const fx = o.fx || {};
+    if (Array.isArray(d.options)) return;
     checkFxStats(d, k, fx.stats);
     if (fx.risk) {
       assert(fx.risk.p > 0 && fx.risk.p < 1, `${d.id}.${k} risk p valid`);
@@ -62,7 +87,7 @@ DATA.DECISIONS.forEach((d) => {
       }
     }
   });
-  assert(d.a && d.b, `${d.id} has at least two options`);
+  assert(normalized.a && normalized.b, `${d.id} has at least two options`);
   assert(d.min >= 14 && d.max <= 40 && d.min <= d.max, `${d.id} age range valid`);
 });
 
@@ -81,35 +106,96 @@ assert(Engine.getTier(87) === 'diamond', 'diamond at 87');
 assert(Engine.getTier(86) === 'gold', 'gold at 86');
 assert(Engine.getTier(75) === 'gold' && Engine.getTier(65) === 'silver' && Engine.getTier(64) === 'bronze', 'tier ladder');
 
+// ---------- phase state and save migration ----------
+{
+  const migrated = App.loadSave(JSON.parse(JSON.stringify(LEGACY_FIXTURE)));
+  assert(migrated.ok, 'legacy save loads');
+  const m = migrated.state;
+  assert(m.version === 4, `save migrated to version 4 (got ${m.version})`);
+  assert(State.phaseKind(m) === 'club', 'legacy club stage migrated to club phase');
+  assert(Array.isArray(State.getPhase(m).offers) && State.getPhase(m).offers.length > 0, 'legacy offers moved into phase');
+  assert(!Object.prototype.hasOwnProperty.call(m, 'stage'), 'legacy stage removed after migration');
+  assert(!Object.prototype.hasOwnProperty.call(m, 'phase'), 'v4 keeps phase in session only');
+  assert(m.session && m.session.phase && m.session.phase.kind === 'club', 'session owns the phase');
+
+  const postSeason = JSON.parse(JSON.stringify(LEGACY_FIXTURE));
+  postSeason.stage = 'decision';
+  delete postSeason.currentOffers;
+  delete postSeason.currentDecision;
+  const summary = App.loadSave(postSeason).state;
+  assert(State.phaseKind(summary) === 'season-summary', 'legacy post-season save resumes at summary');
+  assert(summary.session.phase.next.kind === 'club', 'post-season summary has club continuation');
+
+  const fresh = App.startCareer({ name: 'Phase Test', number: 10, position: 'ST', countryId: 'AR' });
+  App.chooseAcademy(fresh, State.getPhase(fresh).options[0].cid);
+  State.setPhase(fresh, State.simulating());
+  const { result } = App.completeSeason(fresh);
+  const roundTrip = App.loadSave(App.serialize(fresh)).state;
+  assert(State.phaseKind(roundTrip) === 'season-summary', 'season completion persists summary phase');
+  assert(roundTrip.session.phase.result.year === result.year, 'summary result survives save round-trip');
+  assert(roundTrip.session.phase.next.offers.length >= 1, 'summary stores next club offers');
+  App.dismissSummary(roundTrip);
+  assert(State.phaseKind(roundTrip) === 'club', 'summary continuation enters club phase');
+  console.log('Phase model and migration OK');
+}
+
+// alternate decision schema: options must execute through the normal engine path
+{
+  const s = Engine.newCareer({ name: 'Decision Schema', number: 10, position: 'CM', countryId: 'AR' });
+  Engine.setAcademy(s, Engine.academyOptions(s)[0].cid);
+  s.player.age = 20;
+  const d = DATA.DECISIONS.find((x) => x.id === 'conflict-teammate-feud');
+  const result = Engine.applyDecision(s, d, 'a');
+  assert(result.out.length > 0, 'alternate decision schema produces an outcome');
+  assert(result.changes.some((x) => x.k === 'LOYALTY' || x.k === 'PHY'), 'alternate decision effects apply');
+  console.log('Alternate decision schema OK');
+}
+
 // ---------- career simulation ----------
 function playCareer(position, countryId, verbose) {
-  const state = Engine.newCareer({ name: 'Test Player', number: 10, position, countryId });
+  const state = App.startCareer({ name: 'Test Player', number: 10, position, countryId });
   assert(state.player.age === 14, 'starts at 14');
   assert(state.player.stamina > 0 && state.player.morale > 0, 'stamina/morale init');
-  const academies = Engine.academyOptions(state);
+  const academies = State.getPhase(state).options;
   assert(academies.length === 3, '3 academy options');
-  Engine.setAcademy(state, academies[ri(0, 2)].cid);
+  App.chooseAcademy(state, academies[ri(0, 2)].cid);
   assert(state.player.salary > 0, 'salary computed');
 
   let seasons = 0;
   while (!state.retired) {
     const age = state.player.age;
-    if (state.stage === 'decision') {
-      const d = Engine.pickDecision(state);
+    const phase = State.getPhase(state);
+
+    if (phase.kind === 'season-summary') {
+      App.dismissSummary(state);
+      continue;
+    }
+
+    if (phase.kind === 'decision') {
+      const d = phase.card;
       if (d) {
         const opts = ['a', 'b', 'c'].filter((k) => d[k]);
         const choice = opts[ri(0, opts.length - 1)];
         const opt = d[choice];
-        const r = opt.mini
-          ? Engine.applyMiniResult(state, d, choice, ['good', 'bad'][ri(0, 1)])
-          : Engine.applyDecision(state, d, choice);
+        let r;
+        if (opt.mini) {
+          App.chooseDecision(state, choice); // moves to booster(null), returns minigame
+          r = App.resolveMiniResult(state, d, choice, ['good', 'bad'][ri(0, 1)]);
+        } else {
+          r = App.chooseDecision(state, choice).result;
+        }
         assert(typeof r.out === 'string' && r.out.length > 3, `decision outcome text (${d.id})`);
+      } else {
+        State.setPhase(state, State.booster(null));
       }
+      continue;
     }
-    if (state.stage === 'booster') {
-      const boosters = Engine.rollBoosters(state);
+
+    if (phase.kind === 'booster') {
+      if (!Array.isArray(phase.options) || !phase.options.length) App.enterBooster(state);
+      const boosters = State.getPhase(state).options;
       assert(boosters.length === 3, '3 boosters');
-      Engine.applyBooster(state, boosters[ri(0, 2)]);
+      App.chooseBooster(state, boosters[ri(0, 2)].id);
       // shop: buy something affordable in even seasons
       if (seasons % 2 === 0) {
         const items = Engine.shopItems(state).filter((i) => i.affordable);
@@ -120,9 +206,11 @@ function playCareer(position, countryId, verbose) {
           assert(!again.ok, 'one consumable per season enforced');
         }
       }
+      continue;
     }
-    if (state.stage !== 'sim') {
-      const offers = Engine.clubOffers(state);
+
+    if (phase.kind === 'club') {
+      const offers = phase.offers;
       assert(offers.length >= 1 && offers.length <= 3, `1-3 club offers (${offers.length})`);
       if (age < 18 && !state.isFreeAgent) {
         offers.forEach((o) => {
@@ -133,9 +221,13 @@ function playCareer(position, countryId, verbose) {
         });
       }
       const stay = offers.find((o) => o.type === 'stay');
-      Engine.applyClubOffer(state, (seasons === 0 && stay) ? stay : offers[ri(0, offers.length - 1)]);
+      const pick = (seasons === 0 && stay) ? stay : offers[ri(0, offers.length - 1)];
+      App.chooseClub(state, offers.indexOf(pick));
+      continue;
     }
-    const res = Engine.simulateSeason(state);
+
+    assert(State.phaseKind(state) === 'simulating', `career phase is simulating (${State.phaseKind(state)})`);
+    const { result: res } = App.completeSeason(state);
     seasons++;
     assert(res.apps >= 0 && res.apps <= 46, `apps in range (${res.apps})`);
     assert(res.rating >= 5.9 && res.rating <= 9.9, `rating in range (${res.rating})`);
@@ -186,11 +278,12 @@ console.log('  peak ovr:', c4.sum.peakOvr, '| stints:', c4.sum.stints.length);
 
 // manual retirement
 {
-  const s = Engine.newCareer({ name: 'Early Bird', number: 9, position: 'ST', countryId: 'BR' });
-  Engine.setAcademy(s, Engine.academyOptions(s)[0].cid);
-  Engine.simulateSeason(s);
-  Engine.retire(s);
-  assert(s.retired && s.stage === 'retired', 'manual retire works');
+  const s = App.startCareer({ name: 'Early Bird', number: 9, position: 'ST', countryId: 'BR' });
+  App.chooseAcademy(s, State.getPhase(s).options[0].cid);
+  State.setPhase(s, State.simulating());
+  App.completeSeason(s);
+  App.retire(s);
+  assert(s.retired && State.phaseKind(s) === 'retired', 'manual retire works');
   assert(['wonderkid', 'quiet', 'pro', 'star', 'legend', 'journeyman'].includes(s.retireType), `retire type valid (${s.retireType})`);
   const sum = Engine.careerSummary(s);
   assert(sum.retireType === s.retireType, 'summary carries retire type');
@@ -219,6 +312,23 @@ console.log('  peak ovr:', c4.sum.peakOvr, '| stints:', c4.sum.stints.length);
   }
   console.log('\nOffer variety: distinct clubs offered over 8 windows:', seen.size);
   assert(seen.size >= 5, `offer variety >= 5 distinct clubs (got ${seen.size})`);
+}
+
+// free-agent market: strict rating filters must not leave the club stage empty
+{
+  const s = Engine.newCareer({ name: 'Free Agent Fallback', number: 10, position: 'ST', countryId: 'AR' });
+  s.player.age = 25;
+  s.player.ovr = 99;
+  s.player.peakOvr = 99;
+  s.club = null;
+  s.isFreeAgent = true;
+  s.clubSituation = 'listed';
+  s.lastClubCid = 'ES:Real Madrid';
+  s.lastLoanClubCid = null;
+  s.history = [];
+  const offers = Engine.clubOffers(s);
+  assert(offers.length >= 1 && offers.length <= 3, `free-agent fallback offers (${offers.length})`);
+  console.log('Free-agent offer fallback OK');
 }
 
 // position-gated decisions
@@ -270,15 +380,16 @@ console.log('  peak ovr:', c4.sum.peakOvr, '| stints:', c4.sum.stints.length);
 
     Engine.simulateSeason(s);
     assert(s.player.earnedNationalities && s.player.earnedNationalities.includes('ZA'), 'earned ZA nationality');
-    assert(s.triggerNtCallUpModal === 'ES', 'Spain calls up first as birth nation');
+    assert(State.peekEffect(s, 'nt-callup') && State.peekEffect(s, 'nt-callup').countryCode === 'ES', 'Spain calls up first as birth nation');
     
     // Decline Spain temporarily
     Engine.declineNtCallUpTemp(s, 'ES');
     assert(s.ntDeclinedCooldowns['ES'] === 2, 'Spain set on 2-season cooldown');
+    assert(!State.peekEffect(s, 'nt-callup'), 'declining consumes the pending effect');
 
     // Next season: Spain is on cooldown, South Africa should call up!
     Engine.simulateSeason(s);
-    assert(s.triggerNtCallUpModal === 'ZA', 'South Africa calls up while Spain is on cooldown');
+    assert(State.peekEffect(s, 'nt-callup') && State.peekEffect(s, 'nt-callup').countryCode === 'ZA', 'South Africa calls up while Spain is on cooldown');
 
     // Decline South Africa temporarily
     Engine.declineNtCallUpTemp(s, 'ZA');
@@ -286,7 +397,7 @@ console.log('  peak ovr:', c4.sum.peakOvr, '| stints:', c4.sum.stints.length);
 
     // Next season: Spain off cooldown, Spain calls up again!
     Engine.simulateSeason(s);
-    assert(s.triggerNtCallUpModal === 'ES', 'Spain calls back after cooldown expires');
+    assert(State.peekEffect(s, 'nt-callup') && State.peekEffect(s, 'nt-callup').countryCode === 'ES', 'Spain calls back after cooldown expires');
   }
   console.log('Naturalization & Dual Nationality Call-Up test OK');
 }

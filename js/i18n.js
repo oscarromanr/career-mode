@@ -57,6 +57,7 @@
     'stage.shopTitle': 'Club shop (1 per season)',
     'stage.menuTitle': 'Game menu',
     'menu.export': '💾 Export save',
+    'menu.debugExport': '🔬 Export debug report',
     'menu.retire': '👟 Retire now',
     'menu.restart': '↺ New game',
 
@@ -516,6 +517,7 @@
     'stage.shopTitle': 'Tienda del club (1 por temporada)',
     'stage.menuTitle': 'Menú del juego',
     'menu.export': '💾 Exportar partida',
+    'menu.debugExport': '🔬 Exportar informe de depuración',
     'menu.retire': '👟 Retirarse',
     'menu.restart': '↺ Nuevo juego',
 
@@ -982,9 +984,9 @@
     var esData = root.I18N_ES;
     if (!esData) return nestedGet(item, field);
     var dict = esData[type + 's'];
-    if (!dict || !dict[item.id]) return nestedGet(item, field);
-    var val = nestedGet(dict[item.id], field);
-    return val || nestedGet(item, field);
+    var val = dict && dict[item.id] ? nestedGet(dict[item.id], field) : '';
+    if (val) return val;
+    return nestedGet(item, field);
   }
 
   function TD(category, id, key) {

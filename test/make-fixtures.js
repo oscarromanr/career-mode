@@ -3,34 +3,59 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const DATA = require('../js/data.js');
+global.GAME_DATA = DATA;
+require('../js/data-decisions-canonical.js');
 const Engine = require('../js/engine.js');
+const State = require('../js/state.js');
+const App = require('../js/app.js');
 
 const ri = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
 
 function autoPlay(state, untilAge) {
   while (!state.retired && state.player.age < untilAge) {
-    if (state.stage === 'academy') {
-      const opts = Engine.academyOptions(state);
-      Engine.setAcademy(state, opts[ri(0, 2)].cid);
-      state.stage = 'booster';
+    const phase = State.getPhase(state);
+    if (phase.kind === 'season-summary') {
+      App.dismissSummary(state);
+      continue;
     }
-    if (state.stage === 'decision') {
-      const d = Engine.pickDecision(state);
-      if (d) Engine.applyDecision(state, d, Math.random() < 0.5 ? 'a' : 'b');
-      state.stage = 'booster';
+    if (phase.kind === 'academy') {
+      if (!Array.isArray(State.getPhase(state).options) || !State.getPhase(state).options.length) {
+        State.setPhase(state, State.academy(Engine.academyOptions(state)));
+      }
+      const opts = State.getPhase(state).options;
+      App.chooseAcademy(state, opts[ri(0, 2)].cid);
+      continue;
     }
-    if (state.stage === 'booster') {
-      const bs = Engine.rollBoosters(state);
-      Engine.applyBooster(state, bs[ri(0, 2)]);
-      state.stage = state.history.length === 0 ? 'sim' : 'club';
+    if (State.phaseKind(state) === 'decision') {
+      const d = State.getPhase(state).card;
+      if (d) {
+        const opts = ['a', 'b', 'c'].filter((k) => d[k]);
+        const choice = opts[ri(0, opts.length - 1)];
+        if (d[choice].mini) {
+          App.chooseDecision(state, choice);
+          App.resolveMiniResult(state, d, choice, ['good', 'bad'][ri(0, 1)]);
+        } else {
+          App.chooseDecision(state, choice);
+        }
+      } else {
+        App.enterBooster(state);
+      }
+      continue;
     }
-    if (state.stage === 'club') {
-      const offers = Engine.clubOffers(state);
+    if (State.phaseKind(state) === 'booster') {
+      if (!Array.isArray(State.getPhase(state).options) || !State.getPhase(state).options.length) App.enterBooster(state);
+      const bs = State.getPhase(state).options;
+      App.chooseBooster(state, bs[ri(0, 2)].id);
+      continue;
+    }
+    if (State.phaseKind(state) === 'club') {
+      const offers = State.getPhase(state).offers;
       const stay = offers.find((o) => o.type === 'stay');
       const move = offers[ri(0, offers.length - 1)];
-      Engine.applyClubOffer(state, Math.random() < 0.45 ? move : (stay || move));
+      App.chooseClub(state, offers.indexOf(Math.random() < 0.45 ? move : (stay || move)));
     }
-    if (state.stage === 'sim') Engine.simulateSeason(state);
+    if (State.phaseKind(state) === 'simulating') App.completeSeason(state);
   }
   return state;
 }
@@ -61,8 +86,7 @@ fs.mkdirSync(path.join(__dirname, 'fixtures'), { recursive: true });
   const s = Engine.newCareer({ name: 'Lío Fernández', number: 10, position: 'ST', countryId: 'AR' });
   autoPlay(s, 26);
   juice(s, 88);
-  s.stage = 'club';
-  s.currentOffers = Engine.clubOffers(s);
+  State.setPhase(s, State.club(Engine.clubOffers(s)));
   writeFixture('star.js', s);
 }
 
@@ -72,8 +96,7 @@ fs.mkdirSync(path.join(__dirname, 'fixtures'), { recursive: true });
   autoPlay(s, 34);
   juice(s, 86); // he WAS great
   autoPlay(s, 36); // decline kicked in
-  s.stage = 'club';
-  s.currentOffers = Engine.clubOffers(s);
+  State.setPhase(s, State.club(Engine.clubOffers(s)));
   writeFixture('veteran.js', s);
 }
 
@@ -91,8 +114,7 @@ fs.mkdirSync(path.join(__dirname, 'fixtures'), { recursive: true });
   const s = Engine.newCareer({ name: 'Cat Romano', number: 1, position: 'GK', countryId: 'IT' });
   autoPlay(s, 24);
   juice(s, 78);
-  s.stage = 'decision';
-  s.currentDecision = Engine.pickDecision(s);
+  State.setPhase(s, State.decision(Engine.pickDecision(s)));
   writeFixture('gk.js', s);
 }
 
@@ -101,8 +123,7 @@ fs.mkdirSync(path.join(__dirname, 'fixtures'), { recursive: true });
   const s = Engine.newCareer({ name: 'Speedy Diallo', number: 11, position: 'RW', countryId: 'SN' });
   autoPlay(s, 22);
   juice(s, 84);
-  s.stage = 'club';
-  s.currentOffers = Engine.clubOffers(s);
+  State.setPhase(s, State.club(Engine.clubOffers(s)));
   writeFixture('winger.js', s);
 }
 

@@ -266,7 +266,7 @@
       clubRow.appendChild(badgeEl(club, 22));
       clubRow.appendChild(h('span', 'pcard-club-name', `${esc(club.n)} <em>${esc(club.league)}</em>`));
     } else {
-      const unattachedText = state.stage === 'academy' ? T('card.unattached') : (T('card.freeAgentTitle') || 'Free Agent');
+      const unattachedText = GameState.phaseKind(state) === 'academy' ? T('card.unattached') : (T('card.freeAgentTitle') || 'Free Agent');
       clubRow.appendChild(h('span', 'pcard-club-name', `<em>${unattachedText}</em>`));
     }
     card.appendChild(clubRow);
@@ -647,6 +647,7 @@
       <button class="icon-btn" data-action="menu" title="${T('stage.menuTitle')}">⚙</button>
       <div class="menu-pop hidden" id="game-menu">
         <button data-action="export">${T('menu.export')}</button>
+        <button data-action="debug-export">${T('menu.debugExport')}</button>
         <button data-action="retire">${T('menu.retire')}</button>
         <button data-action="restart" class="menu-danger">${T('menu.restart')}</button>
       </div>`;
@@ -727,10 +728,11 @@
 
   function renderStage(rootEl, state, handlers) {
     rootEl.innerHTML = '';
-    const stage = state.stage;
+    const phase = GameState.getPhase(state);
+    const stage = phase.kind;
 
-    if (state.isViewingSummary) {
-      rootEl.appendChild(stageHeader(state, 'booster', handlers));
+    if (stage === 'season-summary') {
+      rootEl.appendChild(stageHeader(state, 'club', handlers));
       return;
     }
 
@@ -751,7 +753,7 @@
       box.appendChild(customBtn);
 
       const grid = h('div', 'pick-grid');
-      state.currentAcademies.forEach((a) => {
+      (phase.options || []).forEach((a) => {
         const card = clubCard(a.club, {
           role: a.role,
           roleKey: a.roleKey,
@@ -771,7 +773,7 @@
     if (stage === 'decision') {
       rootEl.appendChild(stageHeader(state, 'decision', handlers));
       const box = h('div', 'stage-body');
-      const d = state.currentDecision;
+      const d = phase.card;
       if (!d) {
         box.appendChild(h('div', 'stage-intro', `<h2>${T('decision.quietTitle')}</h2><p>${T('decision.quietDesc')}</p>`));
         const btn = h('button', 'primary-btn', T('btn.continue'));
@@ -824,7 +826,7 @@
       box.appendChild(h('div', 'stage-intro',
         `<h2>${T('booster.title')}</h2><p>${T('booster.desc')}</p>`));
       const grid = h('div', 'pick-grid');
-      state.currentBoosters.forEach((b) => {
+      (phase.options || []).forEach((b) => {
         const fx = E().boosterFx(state, b);
         const chips = Object.entries(fx).map(([k, v]) => `<span class="chip chip-up">+${v} ${T('stat.' + k)}</span>`).join('');
         const card = h('button', `pick-card rarity-${b.rarity}`);
@@ -845,7 +847,7 @@
       box.appendChild(h('div', 'stage-intro',
         `<h2>${T('club.title')}</h2><p>${T('club.desc', { n: state.season })}</p>`));
       const grid = h('div', 'pick-grid');
-      state.currentOffers.forEach((o, idx) => {
+      (phase.offers || []).forEach((o, idx) => {
         const chipKey = 'offer.' + o.type;
         const card = clubCard(o.club, {
           roleKey: o.roleKey, role: o.role, noteKey: o.noteKey, noteParams: o.noteParams, note: o.note, fee: o.type === 'transfer' ? o.fee : null,
@@ -860,7 +862,7 @@
       return;
     }
 
-    if (stage === 'sim') {
+    if (stage === 'simulating') {
       rootEl.appendChild(stageHeader(state, 'booster', handlers));
       const box = h('div', 'stage-body sim-body');
       box.innerHTML = `
@@ -1704,7 +1706,8 @@
   }
 
   function showNtCallUpModal(state, countryCode, onDone) {
-    const targetCountry = (typeof countryCode === 'string' ? countryCode : null) || state.triggerNtCallUpModal || state.player.countryId;
+    const pending = GameState.peekEffect(state, 'nt-callup');
+    const targetCountry = (typeof countryCode === 'string' ? countryCode : null) || (pending && pending.countryCode) || state.player.countryId;
     const p = state.player;
     const nat = E().countryById(targetCountry);
     const countryStr = E().countryName(nat);

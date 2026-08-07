@@ -9,6 +9,8 @@
 
   const $ = (id) => document.getElementById(id);
   const T = (key, params) => I18n ? I18n.T(key, params) : key;
+  const S = GameState;
+  const App = GameApp;
 
   function showScreen(name) {
     ['screen-setup', 'screen-game', 'screen-summary'].forEach((s) => {
@@ -19,7 +21,7 @@
 
   function save() {
     if (!state) return;
-    try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch (e) { /* ignore */ }
+    try { localStorage.setItem(SAVE_KEY, App.serialize(state)); } catch (e) { /* ignore */ }
   }
   function loadSave() {
     try {
@@ -33,48 +35,58 @@
 
   const handlers = {
     onStart(setup) {
-      state = Engine.newCareer(setup);
-      state.currentAcademies = Engine.academyOptions(state);
+      state = App.startCareer(setup);
       save();
       showScreen('game');
       UI.renderGame(state, handlers);
     },
     onContinue() {
-      const s = loadSave();
-      if (!s || !s.player) return;
-      state = Engine.migrate(s);
-      if (state.stage === 'retired') {
+      const raw = loadSave();
+      if (!raw || !raw.player) return;
+      const r = App.loadSave(raw);
+      if (!r.ok) {
+        UI.showOutcome(T('import.failTitle'), T('import.failText'), [], () => {});
+        return;
+      }
+      state = r.state;
+      if (S.phaseKind(state) === 'retired') {
         clearSave();
         showScreen('summary');
         UI.renderSummary($('screen-summary'), state, handlers);
         return;
       }
-      repairStage();
+      repairPhase();
       showScreen('game');
       UI.renderGame(state, handlers);
+      resumePhase();
     },
     onAcademy(cid) {
-      Engine.setAcademy(state, cid);
-      delete state.currentAcademies;
-      enterDecision();
+      App.chooseAcademy(state, cid);
+      save();
+      UI.renderGame(state, handlers);
     },
     onDecision(choice) {
-      const d = state.currentDecision;
-      const opt = d[choice];
-      delete state.currentDecision;
-      state.stage = 'booster';
+      const d = S.getPhase(state).card;
+      const r = App.chooseDecision(state, choice);
       save();
-      const after = (res) => UI.showOutcome(I18n.TData('decision', d, 'title') || d.title, res.out, res.changes, () => enterBooster(), state);
-      if (opt.mini) {
+      const after = (res) => UI.showOutcome(I18n.TData('decision', d, 'title') || d.title, res.out, res.changes, () => {
+        App.enterBooster(state);
+        save();
+        UI.renderGame(state, handlers);
+      }, state);
+      if (r.minigame) {
         // Interactive minigame: penalty zones, gk penalty or timing bar
-        const done = (resultKey) => after(Engine.applyMiniResult(state, d, choice, resultKey));
-        if (opt.mini.type === 'penalty') UI.showPenaltyMini(opt.mini, done);
-        else if (opt.mini.type === 'gk_penalty') UI.showGkPenaltyMini(opt.mini, done);
-        else UI.showTimingMini(opt.mini, done);
+        const done = (resultKey) => {
+          const res = App.resolveMiniResult(state, d, choice, resultKey);
+          after(res);
+        };
+        const mini = r.minigame;
+        if (mini.type === 'penalty') UI.showPenaltyMini(mini, done);
+        else if (mini.type === 'gk_penalty') UI.showGkPenaltyMini(mini, done);
+        else UI.showTimingMini(mini, done);
         return;
       }
-      const res = Engine.applyDecision(state, d, choice);
-      save();
+      const res = r.result;
       if (res.risk) {
         // Suspense bounce before revealing the outcome
         UI.showRiskReveal(res.good, () => after(res));
@@ -83,25 +95,22 @@
       }
     },
     onDecisionSkip() {
-      state.stage = 'booster';
-      enterBooster();
+      App.enterBooster(state);
+      save();
+      UI.renderGame(state, handlers);
     },
     onBooster(boosterId) {
-      const b = state.currentBoosters.find((x) => x.id === boosterId);
-      const res = Engine.applyBooster(state, b);
-      delete state.currentBoosters;
-      state.stage = 'sim';
+      const b = S.getPhase(state).options.find((x) => x.id === boosterId);
+      const changes = App.chooseBooster(state, boosterId);
       save();
-      UI.showOutcome(I18n.TData('booster', b, 'title') || b.title, boosterOutcomeText(b), res.changes, () => {
+      UI.showOutcome(I18n.TData('booster', b, 'title') || b.title, boosterOutcomeText(b), changes, () => {
         runSim();
       }, state);
     },
     onClub(idx) {
-      const offer = state.currentOffers[idx];
-      delete state.currentOffers;
-      Engine.applyClubOffer(state, offer);
+      App.chooseClub(state, idx);
       save();
-      enterDecision();
+      UI.renderGame(state, handlers);
     },
     onRestart() {
       clearSave();
@@ -190,7 +199,7 @@
       }
     },
     onRetireConfirm() {
-      Engine.retire(state);
+      App.retire(state);
       clearSave();
       showScreen('summary');
       UI.renderSummary($('screen-summary'), state, handlers);
@@ -198,34 +207,40 @@
     onImport(file) {
       const reader = new FileReader();
       reader.onload = () => {
-        try {
-          const s = JSON.parse(String(reader.result));
-          if (!s || !s.player || !s.stage || !s.player.stats) throw new Error('bad save');
-          state = Engine.migrate(s);
-          save();
-          if (state.stage === 'retired') {
-            showScreen('summary');
-            UI.renderSummary($('screen-summary'), state, handlers);
-            return;
-          }
-          repairStage();
-          showScreen('game');
-          UI.renderGame(state, handlers);
-        } catch (e) {
+        const r = App.loadSave(String(reader.result));
+        if (!r.ok) {
           UI.showOutcome(T('import.failTitle'), T('import.failText'), [], () => {});
+          return;
         }
+        state = r.state;
+        save();
+        if (S.phaseKind(state) === 'retired') {
+          showScreen('summary');
+          UI.renderSummary($('screen-summary'), state, handlers);
+          return;
+        }
+        repairPhase();
+        showScreen('game');
+        UI.renderGame(state, handlers);
+        resumePhase();
       };
       reader.readAsText(file);
     },
   };
 
-  function repairStage() {
-    if (state.stage === 'sim' && !state.history.length) { runSim(); return; }
-    if (state.stage === 'sim') state.stage = 'club';
-    if (state.stage === 'club' && !state.currentOffers) state.currentOffers = Engine.clubOffers(state);
-    if (state.stage === 'decision' && !state.currentDecision) state.currentDecision = Engine.pickDecision(state);
-    if (state.stage === 'booster' && !state.currentBoosters) state.currentBoosters = Engine.rollBoosters(state);
-    if (state.stage === 'academy' && !state.currentAcademies) state.currentAcademies = Engine.academyOptions(state);
+  function repairPhase() {
+    const phase = S.getPhase(state);
+    if (phase.kind === 'simulating') { runSim(); return; }
+    if (phase.kind === 'club' && (!Array.isArray(phase.offers) || !phase.offers.length)) {
+      phase.offers = Engine.clubOffers(state);
+    }
+    if (phase.kind === 'decision' && !phase.card) phase.card = Engine.pickDecision(state);
+    if (phase.kind === 'booster' && (!Array.isArray(phase.options) || !phase.options.length)) {
+      phase.options = Engine.rollBoosters(state);
+    }
+    if (phase.kind === 'academy' && (!Array.isArray(phase.options) || !phase.options.length)) {
+      phase.options = Engine.academyOptions(state);
+    }
   }
 
   function shopOutcomeText(item) {
@@ -236,11 +251,23 @@
 
   function exportSave() {
     if (!state) return;
-    const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    const blob = new Blob([App.serialize(state)], { type: 'application/json' });
     const a = document.createElement('a');
     const p = state.player;
     a.href = URL.createObjectURL(blob);
     a.download = `career-${p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${state.season}.json`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 300);
+  }
+
+  function exportDebug() {
+    if (!state) return;
+    const blob = new Blob([App.debugExport(state)], { type: 'application/json' });
+    const a = document.createElement('a');
+    const p = state.player;
+    a.href = URL.createObjectURL(blob);
+    a.download = `debug-${p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${state.season}.json`;
     document.body.appendChild(a);
     a.click();
     setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 300);
@@ -268,6 +295,7 @@
     if (menu) menu.classList.add('hidden');
     if (action === 'shop') UI.showShop(state, handlers);
     else if (action === 'export') exportSave();
+    else if (action === 'debug-export') exportDebug();
     else if (action === 'retire') UI.showRetireConfirm(state, handlers);
     else if (action === 'restart') {
       UI.showConfirm({
@@ -285,29 +313,21 @@
     return T('boosterOut.' + b.rarity);
   }
 
-  function enterBooster() {
-    state.stage = 'booster';
-    state.currentBoosters = Engine.rollBoosters(state);
-    save();
-    UI.renderGame(state, handlers);
-  }
-
   function enterClub() {
-    state.stage = 'club';
-    state.currentOffers = Engine.clubOffers(state);
-    save();
-    UI.renderGame(state, handlers);
-  }
-
-  function enterDecision() {
-    state.stage = 'decision';
-    state.currentDecision = Engine.pickDecision(state);
+    if (S.phaseKind(state) === 'season-summary') {
+      App.dismissSummary(state);
+    }
+    if (S.phaseKind(state) !== 'club') {
+      S.setPhase(state, S.club(Engine.clubOffers(state)));
+    } else if (!Array.isArray(S.getPhase(state).offers) || !S.getPhase(state).offers.length) {
+      S.getPhase(state).offers = Engine.clubOffers(state);
+    }
     save();
     UI.renderGame(state, handlers);
   }
 
   function runSim() {
-    state.stage = 'sim';
+    S.setPhase(state, S.simulating());
     UI.renderGame(state, handlers);
     // animated fake progress
     const line = $('sim-line');
@@ -315,53 +335,58 @@
     const lines = I18n.simLines();
     let i = 0;
     const lineTimer = setInterval(() => {
+      if (!line) return;
       line.textContent = lines[i % lines.length];
       line.classList.remove('tick');
       void line.offsetWidth;
       line.classList.add('tick');
       i++;
     }, 320);
-    fill.style.transition = 'width 2.1s cubic-bezier(.2,.7,.3,1)';
-    requestAnimationFrame(() => { fill.style.width = '100%'; });
+    if (fill) {
+      fill.style.transition = 'width 2.1s cubic-bezier(.2,.7,.3,1)';
+      requestAnimationFrame(() => { fill.style.width = '100%'; });
+    }
 
     setTimeout(() => {
       clearInterval(lineTimer);
-      const res = Engine.simulateSeason(state);
+      const { result } = App.completeSeason(state);
       save();
-      state.isViewingSummary = true;
       UI.renderGame(state, handlers); // update card + history behind modal
-
-      const proceedToSummary = () => {
-        UI.showSeasonResult(state, res, () => {
-          state.isViewingSummary = false;
-          if (state.retired) {
-            clearSave();
-            showScreen('summary');
-            UI.renderSummary($('screen-summary'), state, handlers);
-          } else {
-            enterClub();
-          }
-        });
-      };
-
-      const handleNtCheck = () => {
-        if (state.triggerNtCallUpModal) {
-          const cCode = state.triggerNtCallUpModal;
-          state.triggerNtCallUpModal = false;
-          UI.showNtCallUpModal(state, cCode, proceedToSummary);
-        } else {
-          proceedToSummary();
-        }
-      };
-
-      if (state.triggerNaturalizationModal) {
-        const natCid = state.triggerNaturalizationModal;
-        state.triggerNaturalizationModal = false;
-        UI.showNaturalizationModal(state, natCid, handleNtCheck);
-      } else {
-        handleNtCheck();
-      }
+      resumePhase(result);
     }, 2300);
+  }
+
+  function resumePhase(result) {
+    const phase = S.getPhase(state);
+    if (phase.kind !== 'season-summary') return;
+
+    const res = result || phase.result;
+    const proceedToSummary = () => {
+      UI.showSeasonResult(state, res, () => {
+        if (state.retired || S.phaseKind(state) === 'retired') {
+          clearSave();
+          showScreen('summary');
+          UI.renderSummary($('screen-summary'), state, handlers);
+        } else {
+          enterClub();
+        }
+      });
+    };
+
+    // Drain pending season-end effects (naturalization first, then NT call-up)
+    const effect = S.peekEffect(state);
+    if (!effect) {
+      proceedToSummary();
+      return;
+    }
+    S.takeEffect(state, effect.type);
+    if (effect.type === 'naturalization') {
+      UI.showNaturalizationModal(state, effect.countryId, () => resumePhase(result));
+    } else if (effect.type === 'nt-callup') {
+      UI.showNtCallUpModal(state, effect.countryCode, () => resumePhase(result));
+    } else {
+      proceedToSummary();
+    }
   }
 
   function boot() {

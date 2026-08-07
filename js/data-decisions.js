@@ -411,7 +411,10 @@
 
   if (root.GAME_DATA) {
     if (!root.GAME_DATA.DECISIONS) root.GAME_DATA.DECISIONS = [];
-    root.GAME_DATA.DECISIONS = root.GAME_DATA.DECISIONS.concat(POS_DECISIONS);
+    const existingIds = new Set(root.GAME_DATA.DECISIONS.map((d) => d.id));
+    root.GAME_DATA.DECISIONS = root.GAME_DATA.DECISIONS.concat(
+      POS_DECISIONS.filter((d) => !existingIds.has(d.id))
+    );
   } else {
     console.error("GAME_DATA not found. Make sure data.js is loaded before data-decisions.js");
   }

@@ -1,0 +1,25 @@
+{
+  "name": "career-mode-26",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Career Mode '26 — a client-only football career simulator",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node test/sim-test.js && node test/state-test.js && node test/domain-test.js && node test/persistence-test.js && node test/data-validation.js && vitest run",
+    "test:watch": "vitest",
+    "test:legacy": "node test/sim-test.js && node test/state-test.js && node test/domain-test.js && node test/persistence-test.js",
+    "test:browser": "playwright test test/browser/career-loop.spec.mts",
+    "test:visual": "playwright test test/browser/visual.spec.mts",
+    "validate:data": "node test/data-validation.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
+  }
+}
